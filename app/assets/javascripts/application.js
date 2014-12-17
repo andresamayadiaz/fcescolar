@@ -10,8 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require flatty/jquery/jquery.min
+//= require flatty/jquery/jquery.mobile.custom.min
+//= require flatty/jquery/jquery-migrate.min
+//= require flatty/jquery/jquery-ui.min
 //= require jquery_ujs
-//= require turbolinks
-//= require bootstrap-sprockets
-//= require_tree .
+//= require flatty/bootstrap/bootstrap.min
+//= require flatty/plugins/plugins
+//= require flatty/theme

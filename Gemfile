@@ -35,3 +35,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+# aad
+gem "compass-rails", "~> 2.0.alpha.0"
