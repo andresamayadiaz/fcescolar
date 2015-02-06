@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @franchise.name %>
+</p>
+
+<p>
+  <strong>Clave dgp:</strong>
+  <%= @franchise.clave_dgp %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @franchise.address %>
+</p>
+
+<%= link_to 'Edit', edit_franchise_path(@franchise) %> |
+<%= link_to 'Back', franchises_path %>
