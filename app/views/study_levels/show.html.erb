@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @study_level.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @study_level.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @study_level.status %>
+</p>
+
+<%= link_to 'Edit', edit_study_level_path(@study_level) %> |
+<%= link_to 'Back', study_levels_path %>

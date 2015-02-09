@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209062415) do
+ActiveRecord::Schema.define(version: 20150209072647) do
 
   create_table "campuses", force: true do |t|
     t.string   "name"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150209062415) do
   end
 
   add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
+
+  create_table "study_levels", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :studies
+  resources :study_levels
 
   resources :states
 
