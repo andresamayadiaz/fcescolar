@@ -1,0 +1,80 @@
+      
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-list"></i>
+        <span>Catálogo de Estados</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Estados</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+  <div class='box-header blue-background'>
+    <div class='title'>Listado de Estados</div>
+    <div class='actions'>
+      <%= link_to "Nuevo", new_state_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
+    </div>
+  </div>
+  <div class='box-content box-no-padding'>
+    <div class='responsive-table'>
+      <div class='scrollable-area'>
+        <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+          <thead>
+            <tr>
+              <th>
+                Pais
+              </th>
+              <th>
+                Nombre
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+           <% @states.each do |state| %>
+           <tr>
+            <td><%= state.country.try(:name) %></td>
+            <td><%= state.name %></td>
+            <td>
+              <div class="text-right">
+                <%= link_to edit_state_url(state), class: 'btn btn-success btn-xs' do %>
+                <i class='icon-ok'></i>
+                <% end %>
+                <%= link_to state, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class='icon-remove'></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<!-- .// TABLE -->
