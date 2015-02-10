@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :degree_achievements_categories
+
   resources :careers
 
   resources :study_levels

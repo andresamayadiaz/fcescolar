@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @degree_achievements_category.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @degree_achievements_category.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @degree_achievements_category.status %>
+</p>
+
+<%= link_to 'Edit', edit_degree_achievements_category_path(@degree_achievements_category) %> |
+<%= link_to 'Back', degree_achievements_categories_path %>
