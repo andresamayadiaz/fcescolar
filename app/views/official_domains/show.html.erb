@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @official_domain.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @official_domain.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @official_domain.status %>
+</p>
+
+<%= link_to 'Edit', edit_official_domain_path(@official_domain) %> |
+<%= link_to 'Back', official_domains_path %>
