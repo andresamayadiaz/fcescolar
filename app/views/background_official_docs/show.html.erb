@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @background_official_doc.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @background_official_doc.name %>
+</p>
+
+<p>
+  <strong>Responsive letter:</strong>
+  <%= @background_official_doc.responsive_letter %>
+</p>
+
+<p>
+  <strong>Responsive due days:</strong>
+  <%= @background_official_doc.responsive_due_days %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @background_official_doc.status %>
+</p>
+
+<%= link_to 'Edit', edit_background_official_doc_path(@background_official_doc) %> |
+<%= link_to 'Back', background_official_docs_path %>

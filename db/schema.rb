@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209072647) do
+ActiveRecord::Schema.define(version: 20150210170135) do
+
+  create_table "background_official_docs", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.text     "responsive_letter"
+    t.integer  "responsive_due_days"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "background_official_docs", ["franchise_id"], name: "index_background_official_docs_on_franchise_id", using: :btree
 
   create_table "campuses", force: true do |t|
     t.string   "name"
@@ -24,12 +36,58 @@ ActiveRecord::Schema.define(version: 20150209072647) do
 
   add_index "campuses", ["franchise_id"], name: "index_campuses_on_franchise_id", using: :btree
 
+  create_table "careers", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.string   "rvoe"
+    t.integer  "study_level_id"
+    t.string   "serie"
+    t.string   "clave_estadistica"
+    t.string   "clave_dgp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "auth_file_file_name"
+    t.string   "auth_file_content_type"
+    t.integer  "auth_file_file_size"
+    t.datetime "auth_file_updated_at"
+  end
+
+  add_index "careers", ["franchise_id"], name: "index_careers_on_franchise_id", using: :btree
+  add_index "careers", ["study_level_id"], name: "index_careers_on_study_level_id", using: :btree
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
   create_table "countries", force: true do |t|
     t.string   "name"
     t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "degree_achievements_categories", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "degree_achievements_categories", ["franchise_id"], name: "index_degree_achievements_categories_on_franchise_id", using: :btree
 
   create_table "franchises", force: true do |t|
     t.string   "name"
@@ -38,6 +96,16 @@ ActiveRecord::Schema.define(version: 20150209072647) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "official_domains", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "official_domains", ["franchise_id"], name: "index_official_domains_on_franchise_id", using: :btree
 
   create_table "states", force: true do |t|
     t.string   "name"

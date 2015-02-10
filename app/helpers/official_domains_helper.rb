@@ -1,0 +1,2 @@
+module OfficialDomainsHelper
+end
