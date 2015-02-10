@@ -1,0 +1,184 @@
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-edit"></i>
+        <span>Catálogo de Carreras</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Carrera</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+  <div class="box-header blue-background">
+    <div class="title">
+      Carrera
+    </div>
+  </div>
+  <div class="box-content">
+    <%= simple_form_for(@career,:class=>'form',:style=>'margin-bottom:0;') do |f| %>
+    <%= f.error_notification %>
+    <div class='tabbable' style='margin-top: 20px'>
+      <ul class='nav nav-responsive nav-tabs'>
+        <li class='active'>
+          <a data-toggle='tab' href='#retab1'>
+            Información
+          </a>
+        </li>
+        <li class=''>
+          <a data-toggle='tab' href='#retab2'>
+            Materias
+          </a>
+        </li>
+      </ul>
+      <div class='tab-content'>
+
+        <div id="retab1" class="tab-pane active">
+
+          <fieldset>
+            <div class="col-sm-4">
+              <div class="box">
+                <div class="lead">
+                  <i class="icon-edit text-contrast"></i>
+                  Datos Generales
+                </div>
+                <small class="text-muted">Ingrese los datos generales.</small>
+              </div>
+            </div>
+            <div class="col-sm-7 col-sm-offset-1">
+              <div class="form-group">
+                <%= f.association :study_level, :label=>'Nivel de Estudios',:class=>'select2 form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+              </div>
+            </div>
+          </fieldset>
+          <hr class="hr-normal">
+          <fieldset>
+            <div class="col-sm-4">
+              <div class="box">
+                <div class="lead">
+                  <i class="icon-star text-contrast"></i>
+                  Datos Especiales
+                </div>
+                <small class="text-muted">Ingrese los datos especiales.</small>
+              </div>
+            </div>
+            <div class="col-sm-7 col-sm-offset-1">
+              <div class="form-group">
+                <%= f.input :rvoe, :label=>"RVOE", :class=>'form-control' %>
+              </div>
+              <div class="form-group">
+                <%= f.input :auth_file, :label=>'PDF RVOE', :class=>'form-control' %>
+              </div>
+              <div class="form-group">
+               <%= f.input :serie, :label=>'Serie', :class=>'form-control' %>
+             </div>
+             <div class="form-group">
+              <%= f.input :clave_estadistica, :label=>'Clave Carrera Estadistica', :class=>'form-control' %>
+            </div>
+            <div class="form-group">
+              <%= f.input :clave_dgp, :label=> 'Clave Carrera DGP', :class=>'form-control' %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="retab2" class="tab-pane ">
+        <fieldset>
+          <div class="col-sm-4">
+            <div class="box">
+              <div class="lead">
+                <i class="icon-edit text-contrast"></i>
+                Materias Habilitadas
+              </div>
+              <small class="text-muted">Seleccione las Materias Habilitadas para la presente Carrera.</small>
+            </div>
+          </div>
+          <div class="col-sm-7 col-sm-offset-1">
+            <div class="form-group">
+              <label>Buscar Materias</label>
+              <select class='select2 form-control'>
+                <option value='CT'>BUSCAR CON AJAX LAS MATERIAS</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Materias Habilitadas</label>
+              <table class="table table-striped table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>Clave</th>
+                    <th>Materia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AO2</td>
+                    <td>Facilis est esse dolores</td>
+                  </tr>
+                  <tr>
+                    <td>AO9</td>
+                    <td>Labore ut rerum tempora</td>
+                  </tr>
+                  <tr>
+                    <td>AO3</td>
+                    <td>Dignissimos ut assumenda numquam</td>
+                  </tr>
+                  <tr>
+                    <td>AO3</td>
+                    <td>Vel sit a nemo</td>
+                  </tr>
+                  <tr>
+                    <td>AO5</td>
+                    <td>Aspernatur voluptas et ullam</td>
+                  </tr>
+                  <tr>
+                    <td>AO5</td>
+                    <td>Illo quia aliquid consequuntur</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+  <hr class="hr-normal">
+  <div class="form-actions">
+    <div class="row">
+     <div class="col-sm-7 col-sm-offset-5">
+      <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+      <i class="icon-save"></i>
+      Guardar
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+</div>
+</div>
+<!-- .// TABLE -->

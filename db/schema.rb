@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209072647) do
+ActiveRecord::Schema.define(version: 20150209115415) do
 
   create_table "campuses", force: true do |t|
     t.string   "name"
@@ -23,6 +23,26 @@ ActiveRecord::Schema.define(version: 20150209072647) do
   end
 
   add_index "campuses", ["franchise_id"], name: "index_campuses_on_franchise_id", using: :btree
+
+  create_table "careers", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.string   "rvoe"
+    t.integer  "study_level_id"
+    t.string   "serie"
+    t.string   "clave_estadistica"
+    t.string   "clave_dgp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "auth_file_file_name"
+    t.string   "auth_file_content_type"
+    t.integer  "auth_file_file_size"
+    t.datetime "auth_file_updated_at"
+  end
+
+  add_index "careers", ["franchise_id"], name: "index_careers_on_franchise_id", using: :btree
+  add_index "careers", ["study_level_id"], name: "index_careers_on_study_level_id", using: :btree
 
   create_table "countries", force: true do |t|
     t.string   "name"

@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @career.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @career.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @career.status %>
+</p>
+
+<p>
+  <strong>Rvoe:</strong>
+  <%= @career.rvoe %>
+</p>
+
+<p>
+  <strong>Study level:</strong>
+  <%= @career.study_level %>
+</p>
+
+<p>
+  <strong>Serie:</strong>
+  <%= @career.serie %>
+</p>
+
+<p>
+  <strong>Clave estadistica:</strong>
+  <%= @career.clave_estadistica %>
+</p>
+
+<p>
+  <strong>Clave dgp:</strong>
+  <%= @career.clave_dgp %>
+</p>
+
+<p>
+  <strong>Auth file:</strong>
+  <%= @career.auth_file %>
+</p>
+
+<%= link_to 'Edit', edit_career_path(@career) %> |
+<%= link_to 'Back', careers_path %>

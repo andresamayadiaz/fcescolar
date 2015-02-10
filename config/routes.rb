@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :careers
+
   resources :study_levels
 
   resources :states
