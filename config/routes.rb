@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :background_official_docs
+
   mount Ckeditor::Engine => '/ckeditor'
   resources :degree_achievements_categories
 

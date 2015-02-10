@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210170133) do
+ActiveRecord::Schema.define(version: 20150210170134) do
+
+  create_table "background_official_docs", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.text     "responsive_letter"
+    t.integer  "responsive_due_days"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "background_official_docs", ["franchise_id"], name: "index_background_official_docs_on_franchise_id", using: :btree
 
   create_table "campuses", force: true do |t|
     t.string   "name"
