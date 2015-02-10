@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210092656) do
+ActiveRecord::Schema.define(version: 20150210170133) do
 
   create_table "campuses", force: true do |t|
     t.string   "name"
@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20150210092656) do
 
   add_index "careers", ["franchise_id"], name: "index_careers_on_franchise_id", using: :btree
   add_index "careers", ["study_level_id"], name: "index_careers_on_study_level_id", using: :btree
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "countries", force: true do |t|
     t.string   "name"
