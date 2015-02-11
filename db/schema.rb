@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211022101) do
+ActiveRecord::Schema.define(version: 20150211042211) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(version: 20150211022101) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "curricular_lines", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "curricular_lines", ["franchise_id"], name: "index_curricular_lines_on_franchise_id", using: :btree
 
   create_table "degree_achievements_categories", force: true do |t|
     t.integer  "franchise_id"

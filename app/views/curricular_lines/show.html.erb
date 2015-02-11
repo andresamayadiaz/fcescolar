@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @curricular_line.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @curricular_line.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @curricular_line.status %>
+</p>
+
+<%= link_to 'Edit', edit_curricular_line_path(@curricular_line) %> |
+<%= link_to 'Back', curricular_lines_path %>
