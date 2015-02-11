@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210170135) do
+ActiveRecord::Schema.define(version: 20150210170136) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -71,6 +71,20 @@ ActiveRecord::Schema.define(version: 20150210170135) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "contracts_templates", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.text     "content"
+    t.string   "serie"
+    t.integer  "consecutive_init"
+    t.integer  "consecutive_next"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contracts_templates", ["franchise_id"], name: "index_contracts_templates_on_franchise_id", using: :btree
 
   create_table "countries", force: true do |t|
     t.string   "name"

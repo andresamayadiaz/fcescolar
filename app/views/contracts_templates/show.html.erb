@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @contracts_template.franchise %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @contracts_template.name %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @contracts_template.content %>
+</p>
+
+<p>
+  <strong>Serie:</strong>
+  <%= @contracts_template.serie %>
+</p>
+
+<p>
+  <strong>Consecutive init:</strong>
+  <%= @contracts_template.consecutive_init %>
+</p>
+
+<p>
+  <strong>Consecutive next:</strong>
+  <%= @contracts_template.consecutive_next %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @contracts_template.status %>
+</p>
+
+<%= link_to 'Edit', edit_contracts_template_path(@contracts_template) %> |
+<%= link_to 'Back', contracts_templates_path %>
