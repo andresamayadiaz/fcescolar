@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210170136) do
+ActiveRecord::Schema.define(version: 20150211022101) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -120,6 +120,16 @@ ActiveRecord::Schema.define(version: 20150210170136) do
   end
 
   add_index "official_domains", ["franchise_id"], name: "index_official_domains_on_franchise_id", using: :btree
+
+  create_table "relationship_types", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationship_types", ["franchise_id"], name: "index_relationship_types_on_franchise_id", using: :btree
 
   create_table "states", force: true do |t|
     t.string   "name"
