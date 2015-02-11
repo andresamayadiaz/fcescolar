@@ -1,0 +1,2 @@
+module ContractsTemplatesHelper
+end

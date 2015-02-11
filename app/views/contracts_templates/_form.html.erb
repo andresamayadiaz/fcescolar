@@ -1,0 +1,101 @@
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-edit"></i>
+        <span>Catálogo de Formatos de Contrato</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Formatos de Contrato</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+  <div class="box-header blue-background">
+    <div class="title">
+      Formato de Contrato
+    </div>
+  </div>
+  <div class="box-content box-double-padding">
+    <%= simple_form_for(@contracts_template, :class=>'form', :style=>'margin-bottom:0;') do |f| %>
+    <%= f.error_notification %>
+    <fieldset>
+      <div class="col-sm-4">
+        <div class="box">
+          <div class="lead">
+            <i class="icon-edit text-contrast"></i>
+            Datos Generales
+          </div>
+          <small class="text-muted">Ingrese los datos generales.</small>
+        </div>
+      </div>
+      <div class="col-sm-7 col-sm-offset-1">
+        <div class="form-group">
+          <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+        </div>
+      </div>
+    </fieldset>
+    <hr class="hr-normal">
+    <fieldset>
+      <div class="col-sm-4">
+        <div class="box">
+          <div class="lead">
+            <i class="icon-star text-contrast"></i>
+            Formato del Contrato
+          </div>
+          <small class="text-muted">
+            Ingrese la serie y el texto del formato del contrato.<br /><br />
+            Puedes utilizar los siguientes datos dinámicos:
+            <ul>
+              <li><span class="badge badge-default">@@persona.id@@</span> - ID de la Persona</li>
+              <li><span class="badge badge-default">@@persona.nombre_completo@@</span> - Nombre Completo de la Persona</li>
+              <li><span class="badge badge-default">@@persona.xyz@@</span> - Datos XYZ</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+      <div class="col-sm-7 col-sm-offset-1">
+        <div class="form-group">
+          <%= f.input :serie, :label=>'Serie', :class=>'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.cktext_area :content, :label=>'Formato de Contrato', :class=>'form-control ckeditor' %>   
+        </div>
+      </div>
+    </fieldset>
+    <hr class="hr-normal">
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+          <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Guardar
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+  <!-- .// TABLE -->

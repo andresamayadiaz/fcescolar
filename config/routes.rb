@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :relationship_types
+
+  resources :contracts_templates
+
   resources :official_domains
 
   resources :background_official_docs
