@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211042211) do
+ActiveRecord::Schema.define(version: 20150211044556) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -159,6 +159,22 @@ ActiveRecord::Schema.define(version: 20150211042211) do
   end
 
   add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
+
+  create_table "subjects", force: true do |t|
+    t.integer  "franchise_id"
+    t.string   "name"
+    t.integer  "study_level_id"
+    t.integer  "curricular_line_id"
+    t.string   "clave"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subjects", ["curricular_line_id"], name: "index_subjects_on_curricular_line_id", using: :btree
+  add_index "subjects", ["franchise_id"], name: "index_subjects_on_franchise_id", using: :btree
+  add_index "subjects", ["name"], name: "index_subjects_on_name", using: :btree
+  add_index "subjects", ["study_level_id"], name: "index_subjects_on_study_level_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

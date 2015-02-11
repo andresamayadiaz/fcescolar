@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :subjects
+
   resources :curricular_lines
 
   resources :relationship_types

@@ -1,0 +1,87 @@
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-list"></i>
+        <span>Catálogo de Materias</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Líneas Materias</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+  <div class='box-header blue-background'>
+    <div class='title'>Listado de Materias</div>
+    <div class='actions'>
+      <%= link_to 'Nuevo', new_subject_path, :class=>'btn btn-large btn-success' %>
+    </div>
+  </div>
+  <div class='box-content box-no-padding'>
+    <div class='responsive-table'>
+      <div class='scrollable-area'>
+        <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+          <thead>
+            <tr>
+              <th>
+                Nivel
+              </th>
+              <th>
+                Línea Curricular
+              </th>
+              <th>
+                Nombre
+              </th>
+              <th>
+                Clave
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @subjects.each do |subject| %>
+            <tr>
+              <td><%= subject.study_level.try(:name) %></td>
+              <td><%= subject.curricular_line.try(:name) %></td>
+              <td><%= subject.name %></td>
+              <td><%= subject.clave %></td>
+              <td>
+               <div class="text-right">
+               <%= link_to edit_subject_url(subject), class: 'btn btn-success btn-xs' do %>
+                <i class='icon-ok'></i>
+                <% end %>
+                <%= link_to subject, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class='icon-remove'></i>
+                <% end %>
+              </div>
+            </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TABLE -->
