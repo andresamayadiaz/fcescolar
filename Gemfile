@@ -16,7 +16,7 @@ gem 'simple_form'
 gem 'thin'
 gem 'paperclip', '~> 4.2'
 gem 'ckeditor'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
