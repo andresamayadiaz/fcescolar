@@ -35,6 +35,11 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def get_selected_subjects
+    @selected = Subject.get_selected(params[:ids])
+    render :json => @selected 
+  end
+
   def destroy
     @subject.destroy
     respond_with(@subject)

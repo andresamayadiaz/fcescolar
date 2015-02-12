@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :subjects
+  resources :subjects do
+    collection do
+      get 'get_selected_subjects'
+    end
+  end
 
   resources :curricular_lines
 
