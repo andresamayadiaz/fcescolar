@@ -56,6 +56,6 @@ class CareersController < ApplicationController
   end
 
   def career_params
-    params.require(:career).permit(:franchise_id, :name, :status, :rvoe, :study_level_id, :serie, :clave_estadistica, :clave_dgp, :auth_file)
+    params.require(:career).permit(:franchise_id, :name, :status, :rvoe, :study_level_id, :serie, :clave_estadistica, :clave_dgp, :auth_file, :subject_ids => [])
   end
 end

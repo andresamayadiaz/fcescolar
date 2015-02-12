@@ -121,9 +121,7 @@
           <div class="col-sm-7 col-sm-offset-1">
             <div class="form-group">
               <label>Buscar Materias</label>
-              <select class='select2 form-control'>
-                <option value='CT'>BUSCAR CON AJAX LAS MATERIAS</option>
-              </select>
+              <%= collection_select :career, :subject_ids, Subject.all, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
             </div>
             <div class="form-group">
               <label>Materias Habilitadas</label>
