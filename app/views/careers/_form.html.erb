@@ -121,13 +121,12 @@
           <div class="col-sm-7 col-sm-offset-1">
             <div class="form-group">
               <label>Buscar Materias</label>
-              <select class='select2 form-control'>
-                <option value='CT'>BUSCAR CON AJAX LAS MATERIAS</option>
-              </select>
+              <%= collection_select :career, :subject_ids, Subject.all, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
             </div>
             <div class="form-group">
               <label>Materias Habilitadas</label>
-              <table class="table table-striped table-hover table-bordered">
+              <% if @career.subjects %>
+              <table class="table table-striped table-hover table-bordered" id="selected_subjects">
                 <thead>
                   <tr>
                     <th>Clave</th>
@@ -135,32 +134,15 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <% @career.subjects.each do |subject| %>
                   <tr>
-                    <td>AO2</td>
-                    <td>Facilis est esse dolores</td>
+                    <td><%= subject.clave %></td>
+                    <td><%= subject.name %></td>
                   </tr>
-                  <tr>
-                    <td>AO9</td>
-                    <td>Labore ut rerum tempora</td>
-                  </tr>
-                  <tr>
-                    <td>AO3</td>
-                    <td>Dignissimos ut assumenda numquam</td>
-                  </tr>
-                  <tr>
-                    <td>AO3</td>
-                    <td>Vel sit a nemo</td>
-                  </tr>
-                  <tr>
-                    <td>AO5</td>
-                    <td>Aspernatur voluptas et ullam</td>
-                  </tr>
-                  <tr>
-                    <td>AO5</td>
-                    <td>Illo quia aliquid consequuntur</td>
-                  </tr>
+                  <% end %>
                 </tbody>
               </table>
+              <% end %>
             </div>
           </div>
         </fieldset>
@@ -182,3 +164,25 @@
 </div>
 </div>
 <!-- .// TABLE -->
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#career_subject_ids').change(function() {
+      var vals = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/subjects/get_selected_subjects?ids='+vals,
+        success: function(data){
+          if(data){
+            var html_element="";
+            $.each(data,function(index,value){
+              html_element+="<tr><td>"+value.clave+"</td><td>"+value.name+"</td></tr>";
+            })
+            $("#selected_subjects tbody").html(html_element);
+          }
+        }
+      })
+    });
+  })
+</script>
+<% end %>
