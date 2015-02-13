@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @classroom.franchise %>
+</p>
+
+<p>
+  <strong>Campus:</strong>
+  <%= @classroom.campus %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @classroom.name %>
+</p>
+
+<p>
+  <strong>Max capacity:</strong>
+  <%= @classroom.max_capacity %>
+</p>
+
+<p>
+  <strong>Consecutive:</strong>
+  <%= @classroom.consecutive %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @classroom.status %>
+</p>
+
+<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
+<%= link_to 'Back', classrooms_path %>

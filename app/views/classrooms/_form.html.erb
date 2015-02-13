@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Campus</span>
+        <span>Catálogo de Aula</span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -22,7 +22,7 @@
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Campus</li>
+          <li class="active">Aula</li>
         </ul>
       </div>
     </div>
@@ -34,11 +34,11 @@
 <div class="box bordered-box blue-border">
   <div class="box-header blue-background">
     <div class="title">
-      Campus
+      Aula
     </div>
   </div>
   <div class="box-content box-double-padding">
-    <%= simple_form_for(@campus,:class=>'form',:style=>'margin-bottom:0;') do |f| %>
+    <%= simple_form_for(@classroom,:class=>'form',:style=>'margin-bottom:0;') do |f| %>
     <%= f.error_notification %>
     <fieldset>
       <div class="col-sm-4">
@@ -55,13 +55,13 @@
           <%= f.association :franchise, :label=>'Franquicia',:class=>'select2 form-control' %>
         </div>
         <div class="form-group">
+          <%= f.association :campus, :label=>'Campus', :class=>'select2 form-control' %>
+        </div>
+        <div class="form-group">
           <%= f.input :name, :label=>'Nombre',:class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :address, :label=>'Dirección', :class=>'form-control' %>
-        </div>
-        <div class="form-group">
-          <%= f.input :classrooms, :label=>'Aulas', :class=>'form-control' %>
+          <%= f.input :max_capacity, :label=>'Capacidad Max', :class=>'form-control' %>
         </div>
       </div>
     </fieldset>
@@ -76,9 +76,7 @@
         </div>
       </div>
     </div>
-
     <% end %>
   </div>
 </div>
 <!-- .// TABLE -->
-

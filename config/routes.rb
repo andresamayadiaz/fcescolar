@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :classrooms
+
   resources :subjects do
     collection do
       get 'get_selected_subjects'
