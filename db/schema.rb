@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212072607) do
+ActiveRecord::Schema.define(version: 20150213005207) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -79,6 +79,20 @@ ActiveRecord::Schema.define(version: 20150212072607) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "classrooms", force: true do |t|
+    t.integer  "franchise_id"
+    t.integer  "campus_id"
+    t.string   "name"
+    t.integer  "max_capacity"
+    t.integer  "consecutive"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "classrooms", ["campus_id"], name: "index_classrooms_on_campus_id", using: :btree
+  add_index "classrooms", ["franchise_id"], name: "index_classrooms_on_franchise_id", using: :btree
 
   create_table "contracts_templates", force: true do |t|
     t.integer  "franchise_id"
