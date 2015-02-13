@@ -80,3 +80,26 @@
   </div>
 </div>
 <!-- .// TABLE -->
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#classroom_franchise_id').change(function(){
+      var val = $(this).val();
+      $('#classroom_campus_id').select2('val','');
+      $.ajax({
+        type: 'GET',
+        url: '/campuses/get_by_franchise_id?franchise_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            $("#classroom_campus_id").html(html_element);
+          }
+        }
+      })
+    });
+  })
+</script>
+<% end %>

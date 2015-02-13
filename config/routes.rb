@@ -29,7 +29,11 @@ Rails.application.routes.draw do
 
   resources :countries
 
-  resources :campuses
+  resources :campuses do
+    collection do
+      get 'get_by_franchise_id'
+    end
+  end
 
   resources :franchises
 
