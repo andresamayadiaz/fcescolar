@@ -40,6 +40,11 @@ class SubjectsController < ApplicationController
     render :json => @selected 
   end
 
+  def get_subjects_by_study_level
+    @subjects = Subject.by_study_level_id(params[:study_level_id])
+    render :json => @subjects
+  end
+
   def destroy
     @subject.destroy
     respond_with(@subject)

@@ -121,11 +121,11 @@
           <div class="col-sm-7 col-sm-offset-1">
             <div class="form-group">
               <label>Buscar Materias</label>
-              <%= collection_select :career, :subject_ids, Subject.all, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
+              <%= collection_select :career, :subject_ids, @subjects, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
             </div>
             <div class="form-group">
               <label>Materias Habilitadas</label>
-              <% if @career.subjects %>
+              <% if @subjects %>
               <table class="table table-striped table-hover table-bordered" id="selected_subjects">
                 <thead>
                   <tr>
@@ -167,18 +167,37 @@
 <% content_for :specific_js do %>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#career_subject_ids').change(function() {
+    $('#career_subject_ids').live('change',function() {
       var vals = $(this).val();
       $.ajax({
         type: 'GET',
         url: '/subjects/get_selected_subjects?ids='+vals,
         success: function(data){
           if(data){
-            var html_element="";
+            var html_element='';
             $.each(data,function(index,value){
               html_element+="<tr><td>"+value.clave+"</td><td>"+value.name+"</td></tr>";
             })
             $("#selected_subjects tbody").html(html_element);
+          }
+        }
+      })
+    });
+    $('#career_study_level_id').change(function(){
+      var val = $(this).val();
+      $('#career_subject_ids').removeAttr('selected');
+      $('#selected_subjects tbody').html('');
+      $('#career_subject_ids').select2('val','');
+      $.ajax({
+        type: 'GET',
+        url: '/subjects/get_subjects_by_study_level?study_level_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            $("#career_subject_ids").html(html_element);
           }
         }
       })
