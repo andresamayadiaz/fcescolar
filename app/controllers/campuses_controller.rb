@@ -40,6 +40,11 @@ class CampusesController < ApplicationController
     respond_with(@campus)
   end
 
+  def get_by_franchise_id
+    @campuses = Campus.where(:franchise_id=>params[:franchise_id])
+    render :json => @campuses
+  end
+
   private
     def set_campus
       @campus = Campus.find(params[:id])
