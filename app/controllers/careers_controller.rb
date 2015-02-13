@@ -14,10 +14,12 @@ class CareersController < ApplicationController
 
   def new
     @career = Career.new
+    @subjects = []
     respond_with(@career)
   end
 
   def edit
+    @subjects = Subject.by_study_level_id(@career.study_level_id)
   end
 
   def create

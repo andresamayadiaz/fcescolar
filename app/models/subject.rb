@@ -4,6 +4,8 @@ class Subject < ActiveRecord::Base
   belongs_to :curricular_line
   has_and_belongs_to_many :careers
 
+  scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
+
   def self.get_selected(ids)
   	selected_arr = []
   	ids.split(",").each do |i|

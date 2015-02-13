@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :subjects do
     collection do
       get 'get_selected_subjects'
+      get 'get_subjects_by_study_level'
     end
   end
 
