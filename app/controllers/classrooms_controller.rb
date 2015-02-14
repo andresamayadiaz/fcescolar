@@ -24,14 +24,26 @@ class ClassroomsController < ApplicationController
     @classroom = Classroom.new(classroom_params)
     flash[:notice] = 'Classroom was successfully created.' if @classroom.save
     respond_with(@classroom) do |format|
-      format.html { redirect_to classrooms_url }
+      format.html { 
+        if @classroom.save 
+          redirect_to clasrooms_url 
+        else 
+          render 'new'
+        end
+      }
     end
   end
 
   def update
     flash[:notice] = 'Classroom was successfully updated.' if @classroom.update(classroom_params)
     respond_with(@classroom) do |format|
-      format.html { redirect_to classrooms_url }
+      format.html { 
+        if @classroom.save 
+          redirect_to clasrooms_url 
+        else 
+          render 'edit'
+        end
+      }
     end
   end
 
@@ -41,11 +53,11 @@ class ClassroomsController < ApplicationController
   end
 
   private
-    def set_classroom
-      @classroom = Classroom.find(params[:id])
-    end
+  def set_classroom
+    @classroom = Classroom.find(params[:id])
+  end
 
-    def classroom_params
-      params.require(:classroom).permit(:franchise_id, :campus_id, :name, :max_capacity, :consecutive, :status)
-    end
+  def classroom_params
+    params.require(:classroom).permit(:franchise_id, :campus_id, :name, :max_capacity, :consecutive, :status)
+  end
 end
