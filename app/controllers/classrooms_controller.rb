@@ -22,10 +22,10 @@ class ClassroomsController < ApplicationController
 
   def create
     @classroom = Classroom.new(classroom_params)
-    flash[:notice] = 'Classroom was successfully created.' if @classroom.save
     respond_with(@classroom) do |format|
       format.html { 
         if @classroom.save 
+          flash[:notice] = 'Classroom was successfully created.' 
           redirect_to clasrooms_url 
         else 
           render 'new'
@@ -35,10 +35,10 @@ class ClassroomsController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'Classroom was successfully updated.' if @classroom.update(classroom_params)
     respond_with(@classroom) do |format|
       format.html { 
-        if @classroom.save 
+        if @classroom.update(classroom_params)
+          flash[:notice] = 'Classroom was successfully updated.' 
           redirect_to clasrooms_url 
         else 
           render 'edit'

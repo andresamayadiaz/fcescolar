@@ -1,6 +1,7 @@
 class Classroom < ActiveRecord::Base
   belongs_to :franchise
   belongs_to :campus
+  validates :franchise, :presence => true
   validates :campus, :presence => true
 
   before_create :generate_consecutive
