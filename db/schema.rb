@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213005207) do
+ActiveRecord::Schema.define(version: 20150216063140) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -197,6 +197,20 @@ ActiveRecord::Schema.define(version: 20150213005207) do
   add_index "subjects", ["franchise_id"], name: "index_subjects_on_franchise_id", using: :btree
   add_index "subjects", ["name"], name: "index_subjects_on_name", using: :btree
   add_index "subjects", ["study_level_id"], name: "index_subjects_on_study_level_id", using: :btree
+
+  create_table "time_slots", force: true do |t|
+    t.integer  "franchise_id"
+    t.integer  "campus_id"
+    t.string   "name"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "time_slots", ["campus_id"], name: "index_time_slots_on_campus_id", using: :btree
+  add_index "time_slots", ["franchise_id"], name: "index_time_slots_on_franchise_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
