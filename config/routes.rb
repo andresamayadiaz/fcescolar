@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :notifications
+
   resources :time_slots
 
   resources :classrooms
