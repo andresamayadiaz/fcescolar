@@ -26,7 +26,7 @@ class ClassroomsController < ApplicationController
       format.html { 
         if @classroom.save 
           flash[:notice] = 'Classroom was successfully created.' 
-          redirect_to clasrooms_url 
+          redirect_to classrooms_url 
         else 
           render 'new'
         end
@@ -39,7 +39,7 @@ class ClassroomsController < ApplicationController
       format.html { 
         if @classroom.update(classroom_params)
           flash[:notice] = 'Classroom was successfully updated.' 
-          redirect_to clasrooms_url 
+          redirect_to classrooms_url 
         else 
           render 'edit'
         end
