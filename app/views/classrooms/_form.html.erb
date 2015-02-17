@@ -88,7 +88,7 @@
       url: '/campuses/get_by_franchise_id?franchise_id='+val,
       success: function(data){
         if(data){
-          var html_element='';
+          var html_element='<option value=""></option>';
           $.each(data,function(index,value){
             html_element+="<option value="+value.id+">"+value.name+"</option>"
           })
