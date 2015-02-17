@@ -58,8 +58,8 @@
               <td><%= time_slot.franchise.try(:name) %></td>
               <td><%= time_slot.campus.try(:name) %></td>
               <td><%= time_slot.name %></td>
-              <td><%= time_slot.start_time %></td>
-              <td><%= time_slot.end_time %></td>
+              <td><%= "#{time_slot.start_time.strftime('%H')}:#{time_slot.start_time.strftime('%M')}" %></td>
+              <td><%= "#{time_slot.end_time.strftime('%H')}:#{time_slot.end_time.strftime('%M')}" %></td>
               <td>
                <div class='text-right'>
                 <%= link_to edit_time_slot_url(time_slot), class: 'btn btn-success btn-xs' do %>
