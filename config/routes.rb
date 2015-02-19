@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :periods
+
   resources :notifications
 
   resources :time_slots

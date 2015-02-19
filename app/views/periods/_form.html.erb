@@ -1,0 +1,88 @@
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-edit"></i>
+        <span>Catálogo de Períodos</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Períodos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+  <div class="box-header blue-background">
+    <div class="title">
+      Períodos
+    </div>
+  </div>
+  <div class="box-content box-double-padding">
+    <%= simple_form_for(@period, :class=>'form', :style=>'margin-bottom:0;') do |f| %>
+    <%= f.error_notification %>
+    <fieldset>
+      <div class="col-sm-4">
+        <div class="box">
+          <div class="lead">
+            <i class="icon-edit text-contrast"></i>
+            Datos Generales
+          </div>
+          <small class="text-muted">Ingrese los datos generales.</small>
+        </div>
+      </div>
+      <div class="col-sm-7 col-sm-offset-1">
+        <div class="form-group">
+          <%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :initial_month, :label=>'Mes Inicial', :class=>'form-control', as: :date, order: [:month] %>
+        </div>
+        <div class="form-group">
+          <%= f.input :month_length, :label=>'Longitud Mes', :class=>'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :number_of_blocks, :label=>'Número de bloques', :class=>'form-control' %>
+        </div>
+        <div class="form-group">
+        <%= f.input :start_year, :label=>'Año de inicio', :class=>'form-control', as: :date, order: [:year] %>
+        </div>
+        <div class="form-group">
+          <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+        </div>
+      </div>
+    </fieldset>
+    <hr class="hr-normal">
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+          <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Guardar
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<!-- .// TABLE -->

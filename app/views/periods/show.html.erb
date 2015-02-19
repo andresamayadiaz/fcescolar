@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Franchise:</strong>
+  <%= @period.franchise.try(:name) %>
+</p>
+
+<p>
+  <strong>Initial month:</strong>
+  <%= @period.initial_month.strftime('%B') %>
+</p>
+
+<p>
+  <strong>Month length:</strong>
+  <%= @period.month_length %>
+</p>
+
+<p>
+  <strong>Number of blocks:</strong>
+  <%= @period.number_of_blocks %>
+</p>
+
+<p>
+  <strong>Start year:</strong>
+  <%= @period.start_year.strftime('%Y') %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @period.name %>
+</p>
+
+<%= link_to 'Edit', edit_period_path(@period) %> |
+<%= link_to 'Back', periods_path %>
+<h3>Generated period details</h3>
+<table width="100%" border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Initial Month</th>
+      <th>End Month</th>
+      <th>Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @period.period_details.each do |p| %>
+      <tr>
+        <td><%= p.period.name %></td>
+        <td><%= p.initial_month.strftime('%B') %></td>
+        <td><%= p.end_month.strftime('%B') %></td>
+        <td><%= p.initial_month.strftime('%Y') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,83 @@
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-list"></i>
+        <span>Catálogo de Períodos</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Catálogos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Períodos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+  <div class='box-header blue-background'>
+    <div class='title'>Listado de Períodos</div>
+    <div class='actions'>
+      <%= link_to 'Nuevo', new_period_path, :class=>'btn btn-large btn-success' %>
+    </div>
+  </div>
+  <div class='box-content box-no-padding'>
+    <div class='responsive-table'>
+      <div class='scrollable-area'>
+        <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+          <thead>
+            <tr>
+              <th>Franquicia</th>
+              <th>Mes Inicial</th>
+              <th>Longitud Mes</th>
+              <th>Número de bloques</th>
+              <th>Año de inicio</th>
+              <th>Nombre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+           <% @periods.each do |period| %>
+           <tr>
+            <td><%= period.franchise %></td>
+            <td><%= period.initial_month %></td>
+            <td><%= period.month_length %></td>
+            <td><%= period.number_of_blocks %></td>
+            <td><%= period.start_year %></td>
+            <td><%= period.name %></td>
+            <td>
+              <div class='text-right'>
+                <%= link_to edit_period_url(period), class: 'btn btn-success btn-xs' do %>
+                <i class='icon-ok'></i>
+                <% end %>
+                <%= link_to period, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class='icon-remove'></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<!-- .// TABLE -->
