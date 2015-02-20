@@ -1,55 +1,70 @@
 <p id="notice"><%= notice %></p>
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-list"></i>
+        <span>Períodos detalles</span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            Períodos
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active">Períodos detalles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
 
-<p>
-  <strong>Franchise:</strong>
-  <%= @period.franchise.try(:name) %>
-</p>
-
-<p>
-  <strong>Initial month:</strong>
-  <%= @period.initial_month.strftime('%B') %>
-</p>
-
-<p>
-  <strong>Month length:</strong>
-  <%= @period.month_length %>
-</p>
-
-<p>
-  <strong>Number of blocks:</strong>
-  <%= @period.number_of_blocks %>
-</p>
-
-<p>
-  <strong>Start year:</strong>
-  <%= @period.start_year.strftime('%Y') %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @period.name %>
-</p>
-
-<%= link_to 'Edit', edit_period_path(@period) %> |
-<%= link_to 'Back', periods_path %>
-<h3>Generated period details</h3>
-<table width="100%" border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Initial Month</th>
-      <th>End Month</th>
-      <th>Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @period.period_details.each do |p| %>
-      <tr>
-        <td><%= p.period.name %></td>
-        <td><%= p.initial_month.strftime('%B') %></td>
-        <td><%= p.end_month.strftime('%B') %></td>
-        <td><%= p.initial_month.strftime('%Y') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<!-- // TABLE -->
+<div class='box bordered-box blue-border' style='margin-bottom:0;'>
+  <div class='box-header blue-background'>
+  <div class='title'>Nombre: <%= @period.name %></div>
+    <div class='actions'>
+      <%= link_to 'Espalda', periods_path, :class=>'btn btn-large btn-success' %>
+    </div>
+  </div>
+  <div class='box-content box-no-padding'>
+    <div class='responsive-table'>
+      <div class='scrollable-area'>
+        <table class='table table-bordered table-striped' style='margin-bottom:0;'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Initial Month</th>
+              <th>End Month</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @period.period_details.each do |p| %>
+            <tr>
+              <td><%= p.period.name %></td>
+              <td><%= p.initial_month.strftime('%B') %></td>
+              <td><%= p.end_month.strftime('%B') %></td>
+              <td><%= p.initial_month.strftime('%Y') %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<!-- .// TABLE -->

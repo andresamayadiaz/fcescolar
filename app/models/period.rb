@@ -8,9 +8,10 @@ class Period < ActiveRecord::Base
 	def generate_period_details
 		inserts = []
 		j = 0
+		updated_initial_month = initial_month.year!=start_year.year ? initial_month.change(:year=>start_year.year) : initial_month
 		while j < number_of_blocks do
-			new_initial_month = j==0 ? initial_month : initial_month+(j*month_length).months
-			end_month = j==0 ? initial_month+(month_length-1).months : new_initial_month+(month_length-1).months
+			new_initial_month = j==0 ? updated_initial_month : updated_initial_month+(j*month_length).months
+			end_month = j==0 ? updated_initial_month+(month_length-1).months : new_initial_month+(month_length-1).months
 			year = new_initial_month
 			inserts.push "('#{new_initial_month}', '#{end_month}', '#{year}', #{id})"
 			j = j + 1

@@ -52,7 +52,7 @@
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
+          <%= f.association :franchise, :label=>'Franquicia', :class=>'select2 form-control' %>
         </div>
         <div class="form-group">
           <%= f.input :initial_month, :label=>'Mes Inicial', :class=>'form-control', as: :date, order: [:month] %>

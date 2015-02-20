@@ -56,11 +56,11 @@
           <tbody>
            <% @periods.each do |period| %>
            <tr>
-            <td><%= period.franchise %></td>
-            <td><%= period.initial_month %></td>
+            <td><%= period.franchise.try(:name) %></td>
+            <td><%= period.initial_month.strftime('%B') %></td>
             <td><%= period.month_length %></td>
             <td><%= period.number_of_blocks %></td>
-            <td><%= period.start_year %></td>
+            <td><%= period.start_year.strftime('%Y') %></td>
             <td><%= period.name %></td>
             <td>
               <div class='text-right'>
