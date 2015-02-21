@@ -67,7 +67,7 @@
               </td>
               <td></td>
               <td>
-                <%= select_year(@additional_year, {start_year: @additional_year.year, end_year: 2030}, {:class=>'form-control'})%>
+                <%= select_year(@additional_year, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year}, {:class=>'form-control'})%>
               </td>
             </tr>
           </tbody>
