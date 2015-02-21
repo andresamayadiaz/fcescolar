@@ -57,9 +57,19 @@
               <td><%= p.period.name %></td>
               <td><%= p.initial_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%B') %></td>
-              <td><%= p.initial_month.strftime('%Y') %></td>
+              <td><%= p.end_month.strftime('%Y') %></td>
             </tr>
             <% end %>
+            <tr>
+              <td><%= @period.name %></td>
+              <td>
+                <%= select_month(@additional_year, {use_month_names: %w(January February March April May June July August Saptember October November December)}, {:class=>'form-control'}) %>
+              </td>
+              <td></td>
+              <td>
+                <%= select_year(@additional_year, {start_year: @additional_year.year, end_year: 2030}, {:class=>'form-control'})%>
+              </td>
+            </tr>
           </tbody>
         </table>
       </table>

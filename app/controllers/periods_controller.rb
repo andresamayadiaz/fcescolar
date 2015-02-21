@@ -9,6 +9,7 @@ class PeriodsController < ApplicationController
   end
 
   def show
+    @additional_year = @period.period_details.last.end_month+1.month
     respond_with(@period)
   end
 
@@ -18,6 +19,7 @@ class PeriodsController < ApplicationController
   end
 
   def edit
+    @additional_year = @period.period_details.last.end_month+1.month
   end
 
   def create
