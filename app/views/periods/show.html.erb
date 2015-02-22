@@ -34,7 +34,7 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-  <div class='title'>Nombre: <%= @period.name %></div>
+    <div class='title'>Nombre: <%= @period.name %></div>
     <div class='actions'>
       <%= link_to 'Espalda', periods_path, :class=>'btn btn-large btn-success' %>
     </div>
@@ -63,11 +63,11 @@
             <tr>
               <td><%= @period.name %></td>
               <td>
-                <%= select_month(@additional_year, {use_month_names: %w(January February March April May June July August Saptember October November December)}, {:class=>'form-control'}) %>
+                <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control additional_initial_month'}) %>
               </td>
               <td></td>
               <td>
-                <%= select_year(@additional_year, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year}, {:class=>'form-control'})%>
+                <%= select_year(14, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year, prompt: 'Elija Años'}, {:class=>'form-control'})%>
               </td>
             </tr>
           </tbody>
@@ -77,4 +77,26 @@
   </div>
 </div>
 </div>
+<input type="hidden" id="month_length" value="<%= @period.month_length %>"/>
 <!-- .// TABLE -->
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function getMonthName(v) {
+    var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return n[v]
+  }
+
+  $(document).ready(function(){
+
+    var month_length = $("#month_length").val();
+
+    $("#date_month").change(function(){
+      var end_month = parseInt($(this).val())+parseInt(month_length)-2; /*array of month name starts from 0 */
+      var end_month_name = getMonthName(end_month);
+      console.log(end_month_name);
+      $(this).parents('td').next().html(end_month_name);
+    });
+
+  });
+</script>
+<% end %>
