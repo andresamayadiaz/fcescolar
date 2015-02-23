@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :periods
+  resources :periods do
+    collection do
+      get 'add_period_detail'
+      get 'remove_period_detail'
+    end
+  end
 
   resources :notifications
 

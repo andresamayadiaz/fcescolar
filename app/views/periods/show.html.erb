@@ -49,6 +49,7 @@
               <th>Initial Month</th>
               <th>End Month</th>
               <th>Year</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -58,6 +59,13 @@
               <td><%= p.initial_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%Y') %></td>
+              <td>
+                <div class='text-right'>
+                  <%= link_to remove_period_detail_periods_path(:id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
+                  <i class='icon-remove'></i>
+                  <% end %>
+                </div>
+              </td>
             </tr>
             <% end %>
             <tr>
@@ -78,6 +86,7 @@
 </div>
 </div>
 <input type="hidden" id="month_length" value="<%= @period.month_length %>"/>
+<input type="hidden" id="period_id" value="<%= @period.id %>"/>
 <!-- .// TABLE -->
 <% content_for :specific_js do %>
 <script type="text/javascript">
@@ -93,8 +102,12 @@
     $("#date_month").change(function(){
       var end_month = parseInt($(this).val())+parseInt(month_length)-2; /*array of month name starts from 0 */
       var end_month_name = getMonthName(end_month);
-      console.log(end_month_name);
       $(this).parents('td').next().html(end_month_name);
+    });
+
+    $("#date_year").change(function(){
+      var new_year = $(this).val();
+      console.log(new_year);
     });
 
   });

@@ -1,7 +1,25 @@
 class PeriodsController < ApplicationController
-  before_action :set_period, only: [:show, :edit, :update, :destroy]
+  before_action :set_period, only: [:show, :edit, :update, :destroy, :add_period_detail]
 
   respond_to :html
+
+  def add_period_detail
+    byebug
+  end
+
+  def remove_period_detail
+    @period = PeriodDetail.find(params[:id]).period
+    respond_to do |format|
+      format.html { 
+        if PeriodDetail.destroy(params[:id])
+          flash[:notice] = 'Done'
+        else
+          flash[:notice] = 'Failed to delete, something went wrong'
+        end 
+      }
+    end
+    redirect_to @period
+  end
 
   def index
     @periods = Period.all
