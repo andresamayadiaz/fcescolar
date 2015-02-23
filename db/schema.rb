@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216073210) do
+ActiveRecord::Schema.define(version: 20150218100822) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -165,6 +165,30 @@ ActiveRecord::Schema.define(version: 20150216073210) do
   end
 
   add_index "official_domains", ["franchise_id"], name: "index_official_domains_on_franchise_id", using: :btree
+
+  create_table "period_details", force: true do |t|
+    t.integer  "period_id"
+    t.date     "initial_month"
+    t.date     "end_month"
+    t.date     "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "period_details", ["period_id"], name: "index_period_details_on_period_id", using: :btree
+
+  create_table "periods", force: true do |t|
+    t.integer  "franchise_id"
+    t.date     "initial_month"
+    t.integer  "month_length"
+    t.integer  "number_of_blocks"
+    t.date     "start_year"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "periods", ["franchise_id"], name: "index_periods_on_franchise_id", using: :btree
 
   create_table "relationship_types", force: true do |t|
     t.integer  "franchise_id"
