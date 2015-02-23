@@ -3,10 +3,16 @@ class PeriodsController < ApplicationController
 
   respond_to :html
 
+  def calculate_end_month
+    month_to_add = (params[:month_length].to_i-1).to_i
+    end_month = (Date.today.change(:month=>params[:initial_month].to_i)+month_to_add.months).month
+    render :json => end_month
+  end
+
   def add_period_detail
     @period = Period.find(params[:period_id])
-    @new_period_detail = PeriodDetail.create_single_record(params)
-    if @new_period_detail
+    @new_period_detail = PeriodDetail.new(params.except(:controller,:action).permit!)
+    if @new_period_detail.save
       flash[:notice] = 'New period detail has been added'
     else
       flash[:error] = 'Failed to create new period detail, something went wrong'
