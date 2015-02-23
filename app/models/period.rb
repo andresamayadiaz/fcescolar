@@ -19,4 +19,8 @@ class Period < ActiveRecord::Base
 		sql = "INSERT INTO period_details (`initial_month`, `end_month`, `year`, `period_id`) VALUES #{inserts.join(", ")}"
 		ActiveRecord::Base.connection.execute sql
 	end
+
+	def get_additional_years
+		self.period_details.last.end_month.change(:year=>self.period_details.last.year.year)+1.month
+	end
 end

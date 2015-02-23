@@ -1,10 +1,17 @@
 class PeriodsController < ApplicationController
-  before_action :set_period, only: [:show, :edit, :update, :destroy, :add_period_detail]
+  before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def add_period_detail
-    byebug
+    @period = Period.find(params[:period_id])
+    @new_period_detail = PeriodDetail.create_single_record(params)
+    if @new_period_detail
+      flash[:notice] = 'New period detail has been added'
+    else
+      flash[:error] = 'Failed to create new period detail, something went wrong'
+    end 
+    redirect_to @period
   end
 
   def remove_period_detail
@@ -14,7 +21,7 @@ class PeriodsController < ApplicationController
         if PeriodDetail.destroy(params[:id])
           flash[:notice] = 'Done'
         else
-          flash[:notice] = 'Failed to delete, something went wrong'
+          flash[:error] = 'Failed to delete, something went wrong'
         end 
       }
     end
@@ -27,7 +34,7 @@ class PeriodsController < ApplicationController
   end
 
   def show
-    @additional_year = @period.period_details.last.end_month+1.month
+    @additional_year = @period.get_additional_years
     respond_with(@period)
   end
 
@@ -37,7 +44,7 @@ class PeriodsController < ApplicationController
   end
 
   def edit
-    @additional_year = @period.period_details.last.end_month+1.month
+    @additional_year = @period.get_additional_years
   end
 
   def create
@@ -57,11 +64,11 @@ class PeriodsController < ApplicationController
   end
 
   private
-    def set_period
-      @period = Period.find(params[:id])
-    end
+  def set_period
+    @period = Period.find(params[:id])
+  end
 
-    def period_params
-      params.require(:period).permit(:franchise_id, :initial_month, :month_length, :number_of_blocks, :start_year, :name)
-    end
+  def period_params
+    params.require(:period).permit(:franchise_id, :initial_month, :month_length, :number_of_blocks, :start_year, :name)
+  end
 end

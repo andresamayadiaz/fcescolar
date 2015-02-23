@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <!-- // TITULO -->
 <div class="row">
   <div class="col-sm-12">
@@ -58,7 +57,7 @@
               <td><%= p.period.name %></td>
               <td><%= p.initial_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%B') %></td>
-              <td><%= p.end_month.strftime('%Y') %></td>
+              <td><%= p.year.strftime('%Y') %></td>
               <td>
                 <div class='text-right'>
                   <%= link_to remove_period_detail_periods_path(:id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
@@ -102,12 +101,24 @@
     $("#date_month").change(function(){
       var end_month = parseInt($(this).val())+parseInt(month_length)-2; /*array of month name starts from 0 */
       var end_month_name = getMonthName(end_month);
-      $(this).parents('td').next().html(end_month_name);
+      var end_month_number = parseInt(end_month)+1
+      $(this).parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
     });
 
     $("#date_year").change(function(){
-      var new_year = $(this).val();
-      console.log(new_year);
+      var new_year = new Date($(this).val());
+      var new_initial_month = new Date($("#date_month").val());
+      console.log($('#end_month_number').val());
+      var new_end_month = new Date($('#end_month_number').val());
+      var period_id =$("#period_id").val();
+      var add_period_url = '';
+      var this_parent = $(this).parents('tr');
+
+      if (new_year && new_initial_month && new_end_month){
+        add_period_url = '/periods/add_period_detail?year='+new_year+'&initial_month='+new_initial_month+'&end_month='+new_end_month+'&period_id='+period_id;
+        window.location.href = add_period_url;
+      }
+
     });
 
   });
