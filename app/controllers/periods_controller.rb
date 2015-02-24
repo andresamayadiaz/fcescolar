@@ -15,7 +15,7 @@ class PeriodsController < ApplicationController
     if @new_period_detail.save
       flash[:notice] = 'New period detail has been added'
     else
-      flash[:error] = 'Failed to create new period detail, something went wrong'
+      flash[:error] = 'Validation failed to create new period detail'
     end 
     redirect_to @period
   end
@@ -27,7 +27,7 @@ class PeriodsController < ApplicationController
         if PeriodDetail.destroy(params[:id])
           flash[:notice] = 'Done'
         else
-          flash[:error] = 'Failed to delete, something went wrong'
+          flash[:error] = 'Failed to delete.'
         end 
       }
     end
