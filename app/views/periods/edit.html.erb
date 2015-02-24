@@ -99,16 +99,21 @@
     var month_length = $("#month_length").val();
 
     $("#date_month").change(function(){
-      var end_month = parseInt($(this).val())+parseInt(month_length)-2; /*array of month name starts from 0 */
-      var end_month_name = getMonthName(end_month);
-      var end_month_number = parseInt(end_month)+1
-      $(this).parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
+      var _this = $(this);
+      $.ajax({
+        type: 'GET',
+        url: '/periods/calculate_end_month?initial_month='+$(this).val()+'&month_length='+month_length,
+        success:function(data){
+          var end_month_name = getMonthName(parseInt(data)-1);
+          var end_month_number = data;
+          _this.parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
+        }
+      });     
     });
 
     $("#date_year").change(function(){
       var new_year = new Date($(this).val());
       var new_initial_month = new Date($("#date_month").val());
-      console.log($('#end_month_number').val());
       var new_end_month = new Date($('#end_month_number').val());
       var period_id =$("#period_id").val();
       var add_period_url = '';
