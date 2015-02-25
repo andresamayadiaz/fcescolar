@@ -1,5 +1,16 @@
+<div class="paragraphs">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= image_tag '150x150.gif',:class=>'pull-left', :style=>'margin-right:10px;' %>
+      <div class="content-heading">
+        <h3><%= current_user.name %></h3>
+        <p><%= "#{@profile.last_academic_degree} Location: #{@profile.country.name}, #{@profile.state.name}" %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
 <div role="tabpanel">
-
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
@@ -22,7 +33,7 @@
               <i class="icon-save"></i>Change General Information
               <% end %>
             </div>
-            </div>
+          </div>
         </fieldset>
         <% end %>
       </div>

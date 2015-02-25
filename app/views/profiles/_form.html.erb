@@ -1,28 +1,38 @@
 <%= simple_form_for(@profile) do |f| %>
 <%= f.error_notification %>
 <fieldset>
-  <legend>Contact Information:</legend>
-  <div class="form-inputs">
-    <%= f.association :user %>
-    <%= f.input :last_academic_degree %>
-    <%= f.association :country %>
-    <%= f.association :state %>
-    <%= f.input :street %>
-    <%= f.input :external %>
-    <%= f.input :internal %>
-    <%= f.input :colonia %>
-    <%= f.input :cp %>
-    <%= f.input :city %>
-    <%= f.input :emergency_phone %>
-    <%= f.input :additional_email_1 %>
-    <%= f.input :additional_email_2 %>
-    <%= f.input :phones_1 %>
-    <%= f.input :phone_type_1 %>
-    <%= f.input :phones_2 %>
-    <%= f.input :phone_type_2 %>
+    <legend>Contact Information:</legend>
+    <div class="col-sm-4">
+        <%= f.input :street %>
+        <%= f.input :external %>
+        <%= f.input :internal %>
+        <%= f.input :colonia %>
+        <%= f.input :cp %>
+        <%= f.input :city %>
+        <%= f.association :country %>
+        <%= f.association :state %>
+        <%= f.input :emergency_phone %>
     </div>
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="col-sm-4">
+        <%= f.input :additional_email_1 %>
+        <%= f.input :additional_email_2 %>
+    </div>
+    <div class="col-sm-4">
+        <%= f.input :phones_1 %>
+        <%= f.input :phone_type_1 %>
+        <%= f.input :phones_2 %>
+        <%= f.input :phone_type_2 %>
+    </div>
 </fieldset>
+<hr class="hr-normal">
+<div class="form-actions">
+    <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+            <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+            <i class="icon-save"></i>
+            Save Contact Information
+            <% end %>
+        </div>
+    </div>
+</div>
 <% end %>

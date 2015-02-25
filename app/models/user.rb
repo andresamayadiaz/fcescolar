@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
   resourcify
   rolify
-  enum role: [:user, :vip, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  #enum role: [:user, :vip, :admin]
+  #after_initialize :set_default_role, :if => :new_record?
   has_one :profile
 
-  def set_default_role
-    self.role ||= :user
-  end
+  #def set_default_role
+  #  self.role ||= :user
+  #end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
