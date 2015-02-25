@@ -1,4 +1,5 @@
 class Classroom < ActiveRecord::Base
+  resourcify
   belongs_to :franchise
   belongs_to :campus
   validates :franchise, :presence => true

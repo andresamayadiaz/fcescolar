@@ -1,4 +1,5 @@
 class TimeSlot < ActiveRecord::Base
+  resourcify
   belongs_to :franchise
   belongs_to :campus
 

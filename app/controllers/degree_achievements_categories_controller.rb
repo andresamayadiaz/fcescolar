@@ -1,4 +1,5 @@
 class DegreeAchievementsCategoriesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_degree_achievements_category, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

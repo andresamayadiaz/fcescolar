@@ -7,3 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
+
+[:super_administrator, :franchise_director, :academic_coordinator, :finance, :head_of_school_control, :support_executive, :salesman, :teacher, :student, :system_daemon].each do |role|
+  Role.where(name: role).first_or_create
+end

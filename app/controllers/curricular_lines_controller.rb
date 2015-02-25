@@ -1,4 +1,5 @@
 class CurricularLinesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_curricular_line, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

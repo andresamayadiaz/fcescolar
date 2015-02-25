@@ -1,4 +1,5 @@
 class BackgroundOfficialDocsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_background_official_doc, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
