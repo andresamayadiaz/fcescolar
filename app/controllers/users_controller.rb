@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   load_and_authorize_resource :except => [:set_active_role]
-  before_filter :admin_only, :except => :show
 
   def set_active_role
     @user = current_user
@@ -60,12 +59,6 @@ class UsersController < ApplicationController
 
   def active_role_params
     params.required(:user).permit(:active_role)
-  end
-
-  def admin_only
-    unless current_user.admin?
-      redirect_to :back, :alert => "Access denied."
-    end
   end
 
   def secure_params
