@@ -1,0 +1,40 @@
+<div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
+    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab">Assigned Roles</a></li>
+    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab">My Personal Record File</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="general_info">
+      <div class="box-content box-double-padding">
+        <%= simple_form_for(current_user, :url =>update_password_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
+        <fieldset>
+          <div class="col-sm-7">
+            <%= f.input :password, :autocomplete => "off", :label=>'Password', :class=>'form-control'  %>
+            <%= f.input :password_confirmation, :label=>'Password confirmation', :class=>'form-control' %>
+            <%= f.input :email, :label=>'Change email', :class=>'form-control' %>
+            <div class="form-actions">
+              <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+              <i class="icon-save"></i>Change General Information
+              <% end %>
+            </div>
+            </div>
+        </fieldset>
+        <% end %>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="assigned_roles">
+      <h3>My Roles List:</h3>
+      <ul>
+        <% @profile.user.roles.each do |r|%>
+        <li><%= r.name.gsub!(/_/, ' ').capitalize %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="rec_file">...</div>
+  </div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223090854) do
+ActiveRecord::Schema.define(version: 20150224152317) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -189,6 +189,32 @@ ActiveRecord::Schema.define(version: 20150223090854) do
   end
 
   add_index "periods", ["franchise_id"], name: "index_periods_on_franchise_id", using: :btree
+
+  create_table "profiles", force: true do |t|
+    t.integer  "user_id"
+    t.string   "last_academic_degree"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.string   "street"
+    t.string   "external"
+    t.string   "internal"
+    t.string   "colonia"
+    t.string   "cp"
+    t.string   "city"
+    t.string   "emergency_phone"
+    t.string   "additional_email_1"
+    t.string   "additional_email_2"
+    t.string   "phones_1"
+    t.string   "phone_type_1"
+    t.string   "phones_2"
+    t.string   "phone_type_2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["country_id"], name: "index_profiles_on_country_id", using: :btree
+  add_index "profiles", ["state_id"], name: "index_profiles_on_state_id", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "relationship_types", force: true do |t|
     t.integer  "franchise_id"

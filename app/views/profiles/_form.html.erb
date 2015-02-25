@@ -1,0 +1,27 @@
+<%= simple_form_for(@profile) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.input :last_academic_degree %>
+    <%= f.association :country %>
+    <%= f.association :state %>
+    <%= f.input :street %>
+    <%= f.input :external %>
+    <%= f.input :internal %>
+    <%= f.input :colonia %>
+    <%= f.input :cp %>
+    <%= f.input :city %>
+    <%= f.input :emergency_phone %>
+    <%= f.input :additional_email_1 %>
+    <%= f.input :additional_email_2 %>
+    <%= f.input :phones_1 %>
+    <%= f.input :phone_type_1 %>
+    <%= f.input :phones_2 %>
+    <%= f.input :phone_type_2 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
