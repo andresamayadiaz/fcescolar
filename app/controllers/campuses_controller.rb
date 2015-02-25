@@ -1,4 +1,5 @@
 class CampusesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_campus, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

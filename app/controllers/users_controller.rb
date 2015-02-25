@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  load_and_authorize_resource :except => [:set_active_role]
   before_filter :admin_only, :except => :show
+
+  def set_active_role
+    @user = current_user
+    if @user.update_attributes(active_role_params)
+      redirect_to root_path, :notice => "Done"
+    else
+      redirect_to root_path, :alert => "Unable to set active role."
+    end
+  end
 
   def index
     @users = User.all
@@ -35,10 +44,11 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       # Sign in the user by passing validation in case their password changed
       sign_in @user, :bypass => true
-      redirect_to root_path
+      flash[:notice] = 'General information is updated'
     else
-      render "edit"
+      flash[:error] = 'Failed to change general information'
     end
+    redirect_to profile_path(:id=>@user.profile.id)
   end
 
   private
@@ -46,6 +56,10 @@ class UsersController < ApplicationController
   def user_params
     # NOTE: Using `strong_parameters` gem
     params.required(:user).permit(:password, :password_confirmation, :email)
+  end
+
+  def active_role_params
+    params.required(:user).permit(:active_role)
   end
 
   def admin_only

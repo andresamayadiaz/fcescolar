@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   resources :users  do
     collection do
       patch 'update_password'
+      patch 'set_active_role'
     end
   end
 end

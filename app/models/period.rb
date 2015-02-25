@@ -1,4 +1,5 @@
 class Period < ActiveRecord::Base
+	resourcify
 	belongs_to :franchise
 	has_many :period_details
 	validates :franchise, :initial_month, :month_length, :number_of_blocks, :start_year, :name , :presence => true
