@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226042443) do
+ActiveRecord::Schema.define(version: 20150226114653) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20150226042443) do
     t.string   "destination_role"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role_id"
   end
 
   add_index "notifications", ["franchise_id"], name: "index_notifications_on_franchise_id", using: :btree
