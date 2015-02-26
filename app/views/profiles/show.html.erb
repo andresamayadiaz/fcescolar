@@ -1,7 +1,11 @@
+<%= simple_form_for(@profile, {:url=>upload_avatar_profiles_url, :html=>{:multipart=>true, :style=>'display:none;'}} ) do |f| %>
+<%= f.input :avatar %>
+<% end %>
+
 <div class="paragraphs">
   <div class="row">
     <div class="col-sm-12">
-      <%= image_tag '150x150.gif',:class=>'pull-left', :style=>'margin-right:10px;' %>
+      <%= image_tag @profile.avatar.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
       <div class="content-heading">
         <h3><%= current_user.name %></h3>
         <p><%= "#{@profile.last_academic_degree} Location: #{@profile.country.name}, #{@profile.state.name}" %></p>
@@ -10,6 +14,7 @@
   </div>
 </div>
 <br/>
+<div class="line line-dashed line-lg pull-in"></div>
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -53,3 +58,46 @@
     <div role="tabpanel" class="tab-pane" id="rec_file">...</div>
   </div>
 </div>
+<% content_for :specific_js do %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+
+    $('#upload_avatar').on('click',function(){
+      $('#profile_avatar').trigger('click');
+    });
+
+    var profile_avatar = document.getElementById("profile_avatar");
+    console.log(profile_avatar);
+
+    upload_avatar = function(evt){
+      evt.stopPropagation();
+      evt.preventDefault();
+      
+      for (a = 0; a < evt.target.files.length; ++a){
+        
+        var file = evt.target.files[a];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('PATCH', '<%= upload_avatar_profiles_url %>');
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            window.location.reload();
+            if(!alert('Upload picture is success!')){window.location.reload();}
+          } else {
+            alert('Failed');
+          }
+        }
+
+        xhr.send(formData);
+
+      }
+    }
+
+    profile_avatar.addEventListener("change", upload_avatar, false);
+  });
+</script>
+<% end %>
