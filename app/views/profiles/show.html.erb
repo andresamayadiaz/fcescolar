@@ -83,12 +83,16 @@
         xhr.open('PATCH', '<%= upload_avatar_profiles_url %>');
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
 
+        xhr.onloadstart = function() {
+          $("#upload_avatar").attr('src','/assets/flatty/ajax-loaders/4.gif');
+        }
+
         xhr.onload = function () {
           if (xhr.status === 200) {
-            window.location.reload();
-            if(!alert('Upload picture is success!')){window.location.reload();}
+            $("#upload_avatar").attr('src',xhr.responseText);
+            //alert('Upload picture is success!');
           } else {
-            alert('Failed');
+            alert('Failed to upload picture');
           }
         }
 
