@@ -1,4 +1,5 @@
 class TimeSlotsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_time_slot, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :profiles
+  
   resources :periods do
     collection do
       get 'add_period_detail'
@@ -51,5 +53,10 @@ Rails.application.routes.draw do
 
   root to: 'visitors#index'
   devise_for :users
-  resources :users
+  resources :users  do
+    collection do
+      patch 'update_password'
+      patch 'set_active_role'
+    end
+  end
 end
