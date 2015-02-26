@@ -48,6 +48,6 @@ class NotificationsController < ApplicationController
 
     def notification_params
       params[:notification][:user_id]=current_user.id
-      params.require(:notification).permit(:franchise_id, :user_id, :title, :message, :destination_role)
+      params.require(:notification).permit(:franchise_id, :user_id, :title, :message, :role_id)
     end
 end

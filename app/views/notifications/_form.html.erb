@@ -54,7 +54,7 @@
           <%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
           <%= f.input :title, :label=>'Titulo', :class=>'form-control' %>
           <%= f.input :message, :label=>'Mensaje', :class=>'form-control' %>
-          <%= f.input :destination_role, :label=>'Papel destino', :class=>'form-control' %>
+          <%= f.input :role_id, collection: Role.all.map { |r| [r.name.humanize, r.id] }, label:'Papel destino', class: 'form-control' %>
       </div>
     </fieldset>
     <hr class="hr-normal">
