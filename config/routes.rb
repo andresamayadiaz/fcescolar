@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :profiles
+  resources :profiles do
+    collection do
+      patch 'upload_avatar'
+    end
+  end
   
   resources :periods do
     collection do
