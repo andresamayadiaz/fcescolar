@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Notificación</span>
+        <span>Usuarios</span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            Home
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Notificación</li>
+          <li class="active">Usuarios</li>
         </ul>
       </div>
     </div>
@@ -34,11 +34,11 @@
 <div class="box bordered-box blue-border">
   <div class="box-header blue-background">
     <div class="title">
-      Notificación
+      Aula
     </div>
   </div>
   <div class="box-content box-double-padding">
-    <%= simple_form_for(@notification, :class=>'form', :style=>'margin-bottom:0;') do |f| %>
+    <%= simple_form_for(@user,:class=>'form',:style=>'margin-bottom:0;') do |f| %>
     <%= f.error_notification %>
     <fieldset>
       <div class="col-sm-4">
@@ -47,18 +47,16 @@
             <i class="icon-edit text-contrast"></i>
             Datos Generales
           </div>
-          <small class="text-muted">Ingrese los datos generales.</small>
+          <small class="text-muted">Ingrese los datos generales. El campo aulas debe ser número haciendo referencia a la cantidad de aulas disponibles para grupos en el Campus.</small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
-      	  <% if current_user.active_role=='super_administrator' %>
-          	<%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
-          <% else %>
-          	<%= f.input :franchise_id, :as => :hidden, :input_html => { :value => current_user.franchise.id } %>
-          <% end %>
-          <%= f.input :title, :label=>'Titulo', :class=>'form-control' %>
-          <%= f.input :message, :label=>'Mensaje', :class=>'form-control' %>
-          <%= f.input :role_id, collection: Role.all.map { |r| [r.name.humanize, r.id] }, label:'Papel destino', class: 'form-control' %>
+        <div class="form-group">
+          <%= f.association :franchise, :label=>'Franquicia',:class=>'select2 form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.input :email, :label=>'Email', :class=>'form-control' %>
+        </div>
       </div>
     </fieldset>
     <hr class="hr-normal">
