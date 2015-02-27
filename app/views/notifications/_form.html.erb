@@ -51,7 +51,11 @@
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
-          <%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
+      	  <% if current_user.active_role=='super_administrator' %>
+          	<%= f.association :franchise, :label=>'Franquicia', :class=>'form-control' %>
+          <% else %>
+          	<%= f.input :franchise_id, :as => :hidden, :input_html => { :value => current_user.franchise.id } %>
+          <% end %>
           <%= f.input :title, :label=>'Titulo', :class=>'form-control' %>
           <%= f.input :message, :label=>'Mensaje', :class=>'form-control' %>
           <%= f.input :role_id, collection: Role.all.map { |r| [r.name.humanize, r.id] }, label:'Papel destino', class: 'form-control' %>
