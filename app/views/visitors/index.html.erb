@@ -26,14 +26,18 @@
 					<thead>
 						<tr>
 							<th>Desde</th>
+							<th>Titulo</th>
 							<th>Mensaje</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<% @notifications.each do |n| %>
 						<tr>
 							<td><%= n.user.try(:name) %></td>
+							<td><%= n.title %></td>
 							<td><%= n.message %></td>
+							<td><%= "#{time_ago_in_words(n.created_at)} ago" %></td>
 						</tr>
 						<% end %>
 					</tbody>
