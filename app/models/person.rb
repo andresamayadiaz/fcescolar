@@ -1,8 +1,12 @@
 class Person < ActiveRecord::Base
   belongs_to :country
   belongs_to :state
+  belongs_to :contact_state, :class_name => 'State', :foreign_key => 'contact_state_id'
+  belongs_to :contact_country, :class_name => 'Country', :foreign_key => 'contact_country_id'
 
   has_one :user
+  has_many :related_people
+
 
   after_create :create_user
 

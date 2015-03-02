@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302062850) do
+ActiveRecord::Schema.define(version: 20150302143507) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -179,6 +179,15 @@ ActiveRecord::Schema.define(version: 20150302062850) do
     t.date     "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "contact_street"
+    t.string   "contact_num_ext"
+    t.string   "contact_num_int"
+    t.string   "contact_colonia"
+    t.string   "contact_cp"
+    t.string   "contact_municipio"
+    t.integer  "contact_state_id"
+    t.integer  "contact_country_id"
+    t.string   "contact_phone_emergency"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
@@ -237,6 +246,15 @@ ActiveRecord::Schema.define(version: 20150302062850) do
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id", using: :btree
   add_index "profiles", ["state_id"], name: "index_profiles_on_state_id", using: :btree
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "related_people", force: true do |t|
+    t.integer  "person_id"
+    t.string   "full_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "related_people", ["person_id"], name: "index_related_people_on_person_id", using: :btree
 
   create_table "relationship_types", force: true do |t|
     t.integer  "franchise_id"
