@@ -32,12 +32,12 @@
 
 <p>
   <strong>Country:</strong>
-  <%= @person.country %>
+  <%= @person.country.try(:name) %>
 </p>
 
 <p>
   <strong>State:</strong>
-  <%= @person.state %>
+  <%= @person.state.try(:name) %>
 </p>
 
 <p>
