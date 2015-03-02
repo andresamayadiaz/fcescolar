@@ -1,0 +1,19 @@
+<%= simple_form_for(@person,:html => { :class => 'form-inline' }) do |f| %>
+<%= f.error_notification %>
+<fieldset>
+  <legend>General Information</legend>
+  <%= f.input :curp, :label=>'CURP' %>
+  <%= f.input :rfc, :label=>'RFC' %>
+  <%= f.input :email, :label=>'Email' %>
+  <div class='clear'></div>
+  <%= f.input :name, :label=>'Name(s)' %>
+  <%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' %>
+  <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
+  <%= f.association :country, :label=>'Birth Country' %>
+  <%= f.input :birthday, :label=>'Birthday' %><div class='clear'></div>
+  <%= f.association :state, :label=>'Birth State' %>
+</fieldset>
+<div class="form-actions">
+  <%= f.button :submit %>
+</div>
+<% end %>

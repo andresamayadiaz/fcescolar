@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227040345) do
+ActiveRecord::Schema.define(version: 20150302062850) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -167,6 +167,23 @@ ActiveRecord::Schema.define(version: 20150227040345) do
 
   add_index "official_domains", ["franchise_id"], name: "index_official_domains_on_franchise_id", using: :btree
 
+  create_table "people", force: true do |t|
+    t.string   "curp"
+    t.string   "rfc"
+    t.string   "email"
+    t.string   "name"
+    t.string   "fathers_maiden_name"
+    t.string   "mothers_maiden_name"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.date     "birthday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
+  add_index "people", ["state_id"], name: "index_people_on_state_id", using: :btree
+
   create_table "period_details", force: true do |t|
     t.integer  "period_id"
     t.date     "initial_month"
@@ -312,6 +329,7 @@ ActiveRecord::Schema.define(version: 20150227040345) do
     t.integer  "role"
     t.string   "active_role"
     t.integer  "franchise_id"
+    t.integer  "person_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
