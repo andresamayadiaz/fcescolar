@@ -33,6 +33,16 @@
 
 <fieldset>
   <legend>Work Place Information</legend>
+  <%= f.input :empresa, :label=>'Empresa' %>
+  <%= f.input :puesto, :label=>'Puesto' %><div class="clear"></div>
+  <%= f.input :calle, :label=>'Calle' %>
+  <%= f.input :municipio, :label=>'Municipio' %><div class="clear"></div>
+  <%= f.input :work_num_ext, :label=>'Num Ext' %>
+  <%= f.input :work_num_int, :label=>'Num Int' %>
+  <%= f.association :work_country, :label=>'Pais' %><div class="clear"></div>
+  <%= f.input :work_colonia, :label=>'Colonia' %>
+  <%= f.input :work_cp, :label=>'CP.' %>
+  <%= f.association :work_state, :label=>'Estado' %>
 </fieldset>
 
 <div class="form-actions">

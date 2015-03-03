@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302143507) do
+ActiveRecord::Schema.define(version: 20150303082450) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -188,6 +188,16 @@ ActiveRecord::Schema.define(version: 20150302143507) do
     t.integer  "contact_state_id"
     t.integer  "contact_country_id"
     t.string   "contact_phone_emergency"
+    t.string   "empresa"
+    t.string   "puesto"
+    t.string   "calle"
+    t.string   "municipio"
+    t.string   "work_num_ext"
+    t.string   "work_num_int"
+    t.integer  "work_colonia"
+    t.integer  "work_cp"
+    t.integer  "work_state_id"
+    t.integer  "work_country_id"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
