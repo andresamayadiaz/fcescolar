@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303082450) do
+ActiveRecord::Schema.define(version: 20150303144920) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150303082450) do
     t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "relation_name"
   end
 
   add_index "related_people", ["person_id"], name: "index_related_people_on_person_id", using: :btree

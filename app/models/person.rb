@@ -8,7 +8,7 @@ class Person < ActiveRecord::Base
 
   has_one :user
   has_many :related_people
-
+  accepts_nested_attributes_for :related_people, :reject_if => :all_blank, :allow_destroy => true
 
   after_create :create_user
 

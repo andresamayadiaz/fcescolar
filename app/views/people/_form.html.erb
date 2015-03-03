@@ -13,7 +13,7 @@
   <%= f.input :birthday, :label=>'Birthday' %><div class='clear'></div>
   <%= f.association :state, :label=>'Birth State' %>
 </fieldset>
-
+<%# , as: :string, input_html: { class: "datepicker" } %>
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
   <%= f.input :contact_street, :label=>'Street' %><div class='clear'></div>
@@ -29,6 +29,12 @@
 
 <fieldset>
   <legend>Related People (Relationships)</legend>
+  <%= f.simple_fields_for :related_people do |related_person| %>
+      <%= render 'related_person_fields', :f => related_person %>
+  <% end %>
+  <div class='links'>
+      <%= link_to_add_association 'Add Relationships', f, :related_people %>
+  </div>
 </fieldset>
 
 <fieldset>
