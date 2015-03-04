@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   #after_initialize :set_default_role, :if => :new_record?
   has_one :profile
   belongs_to :franchise
+  belongs_to :person
 
   #def set_default_role
   #  self.role ||= :user

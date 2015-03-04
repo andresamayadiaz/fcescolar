@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Curp:</strong>
+  <%= @person.curp %>
+</p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @person.rfc %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @person.name %>
+</p>
+
+<p>
+  <strong>Fathers maiden name:</strong>
+  <%= @person.fathers_maiden_name %>
+</p>
+
+<p>
+  <strong>Mothers maiden name:</strong>
+  <%= @person.mothers_maiden_name %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @person.country.try(:name) %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @person.state.try(:name) %>
+</p>
+
+<p>
+  <strong>Birthday:</strong>
+  <%= @person.birthday %>
+</p>
+
+<%= link_to 'Edit', edit_person_path(@person) %> | <%= link_to 'Back', people_path %>
