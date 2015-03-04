@@ -11,7 +11,11 @@
   <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
   <%= f.association :country, :label=>'Birth Country' %>
   <%= f.input :birthday, :label=>'Birthday' %>
-  <%= f.input :profile_picture, :label=>'Profile Picture' %><div class='clear'></div>
+  <%= f.input :profile_picture, :label=>'Profile Picture' %>
+  <% if @person.profile_picture.exists? %>
+  <%= image_tag @person.profile_picture.url(:thumb) %><br/>
+  <% end %>
+  <div class='clear'></div>
   <%= f.association :state, :label=>'Birth State' %>
 </fieldset>
 <%# , as: :string, input_html: { class: "datepicker" } %>

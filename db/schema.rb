@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304005015) do
+ActiveRecord::Schema.define(version: 20150304040915) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -213,8 +213,8 @@ ActiveRecord::Schema.define(version: 20150304005015) do
     t.string   "municipio"
     t.string   "work_num_ext"
     t.string   "work_num_int"
-    t.integer  "work_colonia"
-    t.integer  "work_cp"
+    t.string   "work_colonia"
+    t.string   "work_cp"
     t.integer  "work_state_id"
     t.integer  "work_country_id"
     t.string   "profile_picture_file_name"

@@ -73,6 +73,9 @@ class PeopleController < ApplicationController
         :work_cp,
         :work_state,
         :contact_state_id, :contact_country_id, :work_country_id, :work_state_id,
+        :profile_picture,
+        contact_emails_attributes: [:id, :email, :_destroy],
+        contact_telephones_attributes: [:id, :phone_number, :phone_type, :_destroy],
         related_people_attributes: [:id, :full_name, :relation_name, :_destroy]
       )
     end
