@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227040345) do
+ActiveRecord::Schema.define(version: 20150304040915) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -94,6 +94,25 @@ ActiveRecord::Schema.define(version: 20150227040345) do
   add_index "classrooms", ["campus_id"], name: "index_classrooms_on_campus_id", using: :btree
   add_index "classrooms", ["franchise_id"], name: "index_classrooms_on_franchise_id", using: :btree
 
+  create_table "contact_emails", force: true do |t|
+    t.integer  "person_id"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_emails", ["person_id"], name: "index_contact_emails_on_person_id", using: :btree
+
+  create_table "contact_telephones", force: true do |t|
+    t.integer  "person_id"
+    t.string   "phone_number"
+    t.string   "phone_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contact_telephones", ["person_id"], name: "index_contact_telephones_on_person_id", using: :btree
+
   create_table "contracts_templates", force: true do |t|
     t.integer  "franchise_id"
     t.string   "name"
@@ -167,6 +186,46 @@ ActiveRecord::Schema.define(version: 20150227040345) do
 
   add_index "official_domains", ["franchise_id"], name: "index_official_domains_on_franchise_id", using: :btree
 
+  create_table "people", force: true do |t|
+    t.string   "curp"
+    t.string   "rfc"
+    t.string   "email"
+    t.string   "name"
+    t.string   "fathers_maiden_name"
+    t.string   "mothers_maiden_name"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.date     "birthday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "contact_street"
+    t.string   "contact_num_ext"
+    t.string   "contact_num_int"
+    t.string   "contact_colonia"
+    t.string   "contact_cp"
+    t.string   "contact_municipio"
+    t.integer  "contact_state_id"
+    t.integer  "contact_country_id"
+    t.string   "contact_phone_emergency"
+    t.string   "empresa"
+    t.string   "puesto"
+    t.string   "calle"
+    t.string   "municipio"
+    t.string   "work_num_ext"
+    t.string   "work_num_int"
+    t.string   "work_colonia"
+    t.string   "work_cp"
+    t.integer  "work_state_id"
+    t.integer  "work_country_id"
+    t.string   "profile_picture_file_name"
+    t.string   "profile_picture_content_type"
+    t.integer  "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
+  end
+
+  add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
+  add_index "people", ["state_id"], name: "index_people_on_state_id", using: :btree
+
   create_table "period_details", force: true do |t|
     t.integer  "period_id"
     t.date     "initial_month"
@@ -220,6 +279,16 @@ ActiveRecord::Schema.define(version: 20150227040345) do
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id", using: :btree
   add_index "profiles", ["state_id"], name: "index_profiles_on_state_id", using: :btree
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "related_people", force: true do |t|
+    t.integer  "person_id"
+    t.string   "full_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "relation_name"
+  end
+
+  add_index "related_people", ["person_id"], name: "index_related_people_on_person_id", using: :btree
 
   create_table "relationship_types", force: true do |t|
     t.integer  "franchise_id"
@@ -312,6 +381,7 @@ ActiveRecord::Schema.define(version: 20150227040345) do
     t.integer  "role"
     t.string   "active_role"
     t.integer  "franchise_id"
+    t.integer  "person_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
