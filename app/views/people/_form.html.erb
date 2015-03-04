@@ -68,7 +68,15 @@
   <%= f.association :work_state, :label=>'Estado' %>
 </fieldset>
 <br/>
-<div class="form-actions">
-  <%= f.button :submit %>
-</div>
+<hr class="hr-normal">
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+          <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Save
+          <% end %>
+        </div>
+      </div>
+    </div>
 <% end %>
