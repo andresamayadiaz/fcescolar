@@ -8,7 +8,11 @@ class Person < ActiveRecord::Base
 
   has_one :user
   has_many :related_people
+  has_many :contact_emails
+  has_many :contact_telephones
   accepts_nested_attributes_for :related_people, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :contact_emails, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :contact_telephones, :reject_if => :all_blank, :allow_destroy => true
 
   has_attached_file :profile_picture, 
     :styles => { :medium => "300x300>", :thumb => "150x150>" }, 

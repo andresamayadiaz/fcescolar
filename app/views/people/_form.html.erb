@@ -26,15 +26,27 @@
   <%= f.association :contact_state, :label=>'Estado' %><div class='clear'></div>
   <%= f.association :contact_country, :label=>'Pais' %><div class='clear'></div>
   <%= f.input :contact_phone_emergency, :label=>'Telefono Emergencias' %><div class='clear'></div>
+  <%= f.simple_fields_for :contact_emails do |contact_email| %>
+    <%= render 'contact_email_fields', :f => contact_email %>
+  <% end %>
+  <div class='links'>
+    <%= link_to_add_association 'Add Email', f, :contact_emails %>
+  </div>
+  <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+    <%= render 'contact_telephone_fields', :f => contact_telephone %>
+  <% end %>
+  <div class='links'>
+    <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+  </div>
 </fieldset>
 
 <fieldset>
   <legend>Related People (Relationships)</legend>
   <%= f.simple_fields_for :related_people do |related_person| %>
-      <%= render 'related_person_fields', :f => related_person %>
+  <%= render 'related_person_fields', :f => related_person %>
   <% end %>
   <div class='links'>
-      <%= link_to_add_association 'Add Relationships', f, :related_people %>
+    <%= link_to_add_association 'Add Relationships', f, :related_people %>
   </div>
 </fieldset>
 
