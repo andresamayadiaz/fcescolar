@@ -10,7 +10,7 @@
   <%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' %>
   <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
   <%= f.association :country, :label=>'Birth Country' %>
-  <%= f.input :birthday, :label=>'Birthday' %>
+  <%= f.input :birthday, :label=>'Birthday', as: :string, input_html: { class: "datepicker" } %>
   <%= f.input :profile_picture, :label=>'Profile Picture' %>
   <% if @person.profile_picture.exists? %>
   <%= image_tag @person.profile_picture.url(:thumb) %><br/>
@@ -18,7 +18,7 @@
   <div class='clear'></div>
   <%= f.association :state, :label=>'Birth State' %>
 </fieldset>
-<%# , as: :string, input_html: { class: "datepicker" } %>
+<br/>
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
   <%= f.input :contact_street, :label=>'Street' %><div class='clear'></div>
@@ -31,19 +31,19 @@
   <%= f.association :contact_country, :label=>'Pais' %><div class='clear'></div>
   <%= f.input :contact_phone_emergency, :label=>'Telefono Emergencias' %><div class='clear'></div>
   <%= f.simple_fields_for :contact_emails do |contact_email| %>
-    <%= render 'contact_email_fields', :f => contact_email %>
+  <%= render 'contact_email_fields', :f => contact_email %>
   <% end %>
   <div class='links'>
     <%= link_to_add_association 'Add Email', f, :contact_emails %>
   </div>
   <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
-    <%= render 'contact_telephone_fields', :f => contact_telephone %>
+  <%= render 'contact_telephone_fields', :f => contact_telephone %>
   <% end %>
   <div class='links'>
     <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
   </div>
 </fieldset>
-
+<br/>
 <fieldset>
   <legend>Related People (Relationships)</legend>
   <%= f.simple_fields_for :related_people do |related_person| %>
@@ -53,7 +53,7 @@
     <%= link_to_add_association 'Add Relationships', f, :related_people %>
   </div>
 </fieldset>
-
+<br/>
 <fieldset>
   <legend>Work Place Information</legend>
   <%= f.input :empresa, :label=>'Empresa' %>
@@ -67,7 +67,7 @@
   <%= f.input :work_cp, :label=>'CP.' %>
   <%= f.association :work_state, :label=>'Estado' %>
 </fieldset>
-
+<br/>
 <div class="form-actions">
   <%= f.button :submit %>
 </div>
