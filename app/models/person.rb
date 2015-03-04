@@ -10,6 +10,12 @@ class Person < ActiveRecord::Base
   has_many :related_people
   accepts_nested_attributes_for :related_people, :reject_if => :all_blank, :allow_destroy => true
 
+  has_attached_file :profile_picture, 
+    :styles => { :medium => "300x300>", :thumb => "150x150>" }, 
+    :default_url => "150x150.gif"
+    
+    validates_attachment_content_type :profile_picture, :content_type => /\Aimage\/.*\Z/
+
   after_create :create_user
 
   def create_user

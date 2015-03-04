@@ -1,4 +1,4 @@
-<%= simple_form_for(@person,:html => { :class => 'form-inline' }) do |f| %>
+<%= simple_form_for(@person,:html => { :class => 'form-inline', :multipart=>true }) do |f| %>
 <%= f.error_notification %>
 <fieldset>
   <legend>General Information</legend>
@@ -10,7 +10,8 @@
   <%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' %>
   <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
   <%= f.association :country, :label=>'Birth Country' %>
-  <%= f.input :birthday, :label=>'Birthday' %><div class='clear'></div>
+  <%= f.input :birthday, :label=>'Birthday' %>
+  <%= f.input :profile_picture, :label=>'Profile Picture' %><div class='clear'></div>
   <%= f.association :state, :label=>'Birth State' %>
 </fieldset>
 <%# , as: :string, input_html: { class: "datepicker" } %>

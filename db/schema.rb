@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303144920) do
+ActiveRecord::Schema.define(version: 20150304004109) do
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -198,6 +198,10 @@ ActiveRecord::Schema.define(version: 20150303144920) do
     t.integer  "work_cp"
     t.integer  "work_state_id"
     t.integer  "work_country_id"
+    t.string   "profile_picture_file_name"
+    t.string   "profile_picture_content_type"
+    t.integer  "profile_picture_file_size"
+    t.datetime "profile_picture_updated_at"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
