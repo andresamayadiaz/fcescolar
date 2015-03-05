@@ -1,17 +1,18 @@
 class Person < ActiveRecord::Base
   belongs_to :country
   belongs_to :state
-  belongs_to :contact_state, :class_name => 'State', :foreign_key => 'contact_state_id'
-  belongs_to :contact_country, :class_name => 'Country', :foreign_key => 'contact_country_id'
-  belongs_to :work_state, :class_name => 'State', :foreign_key => 'work_state_id'
-  belongs_to :work_country, :class_name => 'Country', :foreign_key => 'work_country_id'
 
+  has_one :person_living_address
+  has_one :person_work_place
   has_one :user
   has_many :related_people
-  has_many :contact_emails
+  has_many :person_emails
   has_many :contact_telephones
+  
+  accepts_nested_attributes_for :person_living_address, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :person_work_place, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :related_people, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :contact_emails, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :person_emails, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :contact_telephones, :reject_if => :all_blank, :allow_destroy => true
 
   has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }
