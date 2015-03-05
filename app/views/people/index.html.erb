@@ -45,10 +45,8 @@
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Curp</th>
-              <th>Rfc</th>
               <th>Email</th>
-              <th>Name</th>
+              <th>Nombre</th>
               <th>Fathers maiden name</th>
               <th>Mothers maiden name</th>
               <th>Country</th>
@@ -59,8 +57,6 @@
           </thead>
           <tbody>
             <% @people.each do |person| %>
-            <td><%= person.curp %></td>
-            <td><%= person.rfc %></td>
             <td><%= person.email %></td>
             <td><%= person.name %></td>
             <td><%= person.fathers_maiden_name %></td>

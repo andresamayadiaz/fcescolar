@@ -27,13 +27,29 @@ class PeopleController < ApplicationController
 
   def create
     @person = Person.new(person_params)
-    flash[:notice] = 'Person was successfully created.' if @person.save
-    respond_with(@person)
+    respond_with(@person) do |format|
+      format.html { 
+        if @person.save 
+          flash[:notice] = 'Person was successfully created.' 
+          redirect_to people_url 
+        else 
+          render 'new'
+        end
+      }
+    end
   end
 
   def update
-    flash[:notice] = 'Person was successfully updated.' if @person.update(person_params)
-    respond_with(@person)
+    respond_with(@person) do |format|
+      format.html { 
+        if @person.update(person_params)
+          flash[:notice] = 'Person was successfully updated.' 
+          redirect_to people_url 
+        else 
+          render 'edit'
+        end
+      }
+    end
   end
 
   def destroy
