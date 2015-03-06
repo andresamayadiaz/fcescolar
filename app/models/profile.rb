@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+	audited
 	resourcify
 
 	belongs_to :user

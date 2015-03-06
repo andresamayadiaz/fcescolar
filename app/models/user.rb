@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  audited
   resourcify
   rolify
   #enum role: [:user, :vip, :admin]
