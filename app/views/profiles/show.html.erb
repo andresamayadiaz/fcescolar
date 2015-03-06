@@ -51,7 +51,7 @@
       <h3>My Roles List:</h3>
       <ul>
         <% @profile.user.roles.each do |r|%>
-        <li><%= r.name.gsub!(/_/, ' ').capitalize %></li>
+        <li><%= r.name.humanize %></li>
         <% end %>
       </ul>
     </div>

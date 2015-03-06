@@ -1,0 +1,86 @@
+<%= simple_form_for(@person,:html => { :class => 'form-inline', :multipart=>true }) do |f| %>
+<%= f.error_notification %>
+<fieldset>
+  <legend>General Information</legend>
+  <%= f.input :curp, :label=>'CURP' %>
+  <%= f.input :rfc, :label=>'RFC' %>
+  <%= f.input :email, :label=>'Email' %>
+  <div class='clear'></div>
+  <%= f.input :name, :label=>'Name(s)' %>
+  <%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' %>
+  <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
+  <%= f.association :country, :label=>'Birth Country' %>
+  <%= f.input :birthday, :label=>'Birthday', as: :string, input_html: { class: "datepicker" } %>
+  <%= f.input :profile_picture, :label=>'Profile Picture' %>
+  <% if @person.profile_picture.exists? %>
+  <%= image_tag @person.profile_picture.url(:thumb) %><br/>
+  <% end %>
+  <div class='clear'></div>
+  <%= f.association :state, :label=>'Birth State' %>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Contact Information (Living Addresses)</legend>
+  <%= f.simple_fields_for :person_living_address do |p| %>
+    <%= p.input :street %><div class="clear"></div>
+    <%= p.input :num_ext %><div class="clear"></div>
+    <%= p.input :num_int %><div class="clear"></div>
+    <%= p.input :colonia %><div class="clear"></div>
+    <%= p.input :cp %><div class="clear"></div>
+    <%= p.input :municipio %><div class="clear"></div>
+    <%= p.association :state %><div class="clear"></div>
+    <%= p.association :country %><div class="clear"></div>
+    <%= p.input :phone_emergency %><div class="clear"></div>
+  <% end %>
+  <%= f.simple_fields_for :person_emails do |person_email| %>
+  <%= render 'person_email_fields', :f => person_email %>
+  <% end %>
+  <div class='links'>
+    <%= link_to_add_association 'Add Email', f, :person_emails %>
+  </div>
+  <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+  <%= render 'contact_telephone_fields', :f => contact_telephone %>
+  <% end %>
+  <div class='links'>
+    <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+  </div>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Related People (Relationships)</legend>
+  <%= f.simple_fields_for :related_people do |related_person| %>
+  <%= render 'related_person_fields', :f => related_person %>
+  <% end %>
+  <div class='links'>
+    <%= link_to_add_association 'Add Relationships', f, :related_people %>
+  </div>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Work Place Information</legend>
+  <%= f.simple_fields_for :person_work_place do |w| %>
+    <%= w.input :empresa, :label=>'Empresa' %>
+    <%= w.input :puesto, :label=>'Puesto' %><div class="clear"></div>
+    <%= w.input :calle, :label=>'Calle' %>
+    <%= w.input :municipio, :label=>'Municipio' %><div class="clear"></div>
+    <%= w.input :num_ext, :label=>'Num Ext' %>
+    <%= w.input :num_int, :label=>'Num Int' %>
+    <%= w.association :country, :label=>'Pais' %><div class="clear"></div>
+    <%= w.input :colonia, :label=>'Colonia' %>
+    <%= w.input :cp, :label=>'CP.' %>
+    <%= w.association :state, :label=>'Estado' %>
+  <% end %>
+</fieldset>
+<br/>
+<hr class="hr-normal">
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+          <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Save
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

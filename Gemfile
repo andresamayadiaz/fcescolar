@@ -19,6 +19,8 @@ gem 'ckeditor'
 gem 'aws-sdk', '< 2.0'
 gem 'rolify'
 gem 'cancan'
+gem 'cocoon'
+gem "audited-activerecord", "~> 4.0"
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

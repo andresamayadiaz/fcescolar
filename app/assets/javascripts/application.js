@@ -19,3 +19,4 @@
 //= require flatty/plugins/plugins
 //= require flatty/theme
 //= require ckeditor/init
+//= require cocoon
