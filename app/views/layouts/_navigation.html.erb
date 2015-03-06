@@ -96,7 +96,7 @@
         </a>
         <ul class='dropdown-menu'>
           <li>
-			  <%= link_to raw("<i class='icon-user'></i> Perfil"), profile_path(current_user.profile) %>
+			  <%= link_to raw("<i class='icon-user'></i> Perfil"), "/profile/#{current_user.person.id}" %>
 		  </li>
           <li>
             <a href='user_profile.html'>

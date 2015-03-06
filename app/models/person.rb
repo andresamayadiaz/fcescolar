@@ -15,11 +15,11 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :person_emails, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :contact_telephones, :reject_if => :all_blank, :allow_destroy => true
 
-  has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }
+  has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }, :default_url => "100x100.png"
     
-  validates_attachment :profile_picture, :presence => true, :content_type => { :content_type => "image/jpeg" }
+  validates_attachment :profile_picture, :content_type => { :content_type => "image/jpeg" }
 
-  after_create :create_user
+  after_create :create_user if User.all.length>0
 
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')

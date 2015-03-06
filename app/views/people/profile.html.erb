@@ -1,14 +1,14 @@
-<%= simple_form_for(@profile, {:url=>upload_avatar_profiles_url, :html=>{:multipart=>true, :style=>'display:none;'}} ) do |f| %>
-<%= f.input :avatar %>
+<%= simple_form_for(@profile, {:url=>upload_profile_picture_people_url, :html=>{:multipart=>true, :style=>'display:none;'}} ) do |f| %>
+<%= f.input :profile_picture %>
 <% end %>
 
 <div class="paragraphs">
   <div class="row">
     <div class="col-sm-12">
-      <%= image_tag @profile.avatar.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
+      <%= image_tag @profile.profile_picture.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
       <div class="content-heading">
         <h3><%= current_user.name %></h3>
-        <p><%= "#{@profile.last_academic_degree} Location: #{@profile.country.name}, #{@profile.state.name}" %></p>
+        <p><%= "#{@profile.last_academic_degree} Location: #{@profile.country.try(:name)}, #{@profile.state.try(:name)}" %></p>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
       </div>
       <br/>
       <div class="box-content box-double-padding">
-        <%= render 'form' %>
+        <%= render 'profile_form' %>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="assigned_roles">
@@ -63,10 +63,10 @@
   $(document).ready(function(){
 
     $('#upload_avatar').on('click',function(){
-      $('#profile_avatar').trigger('click');
+      $('#person_profile_picture').trigger('click');
     });
 
-    var profile_avatar = document.getElementById("profile_avatar");
+    var profile_avatar = document.getElementById("person_profile_picture");
     console.log(profile_avatar);
 
     upload_avatar = function(evt){
@@ -80,7 +80,7 @@
         formData.append('file', file);
 
         var xhr = new XMLHttpRequest();
-        xhr.open('PATCH', '<%= upload_avatar_profiles_url %>');
+        xhr.open('PATCH', '<%= upload_profile_picture_people_url %>');
         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
 
         xhr.onloadstart = function() {
