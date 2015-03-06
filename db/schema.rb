@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305123551) do
+ActiveRecord::Schema.define(version: 20150306081154) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 20150305123551) do
     t.string   "profile_picture_content_type"
     t.integer  "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
+    t.string   "last_academic_degree"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
@@ -292,36 +293,6 @@ ActiveRecord::Schema.define(version: 20150305123551) do
   add_index "person_work_places", ["country_id"], name: "index_person_work_places_on_country_id", using: :btree
   add_index "person_work_places", ["person_id"], name: "index_person_work_places_on_person_id", using: :btree
   add_index "person_work_places", ["state_id"], name: "index_person_work_places_on_state_id", using: :btree
-
-  create_table "profiles", force: true do |t|
-    t.integer  "user_id"
-    t.string   "last_academic_degree"
-    t.integer  "country_id"
-    t.integer  "state_id"
-    t.string   "street"
-    t.string   "external"
-    t.string   "internal"
-    t.string   "colonia"
-    t.string   "cp"
-    t.string   "city"
-    t.string   "emergency_phone"
-    t.string   "additional_email_1"
-    t.string   "additional_email_2"
-    t.string   "phones_1"
-    t.string   "phone_type_1"
-    t.string   "phones_2"
-    t.string   "phone_type_2"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
-  end
-
-  add_index "profiles", ["country_id"], name: "index_profiles_on_country_id", using: :btree
-  add_index "profiles", ["state_id"], name: "index_profiles_on_state_id", using: :btree
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "related_people", force: true do |t|
     t.integer  "person_id"

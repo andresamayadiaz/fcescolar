@@ -1,0 +1,46 @@
+<%= simple_form_for(@profile,:html => { :class => 'form-inline' }) do |f| %>
+<%= f.error_notification %>
+<fieldset>
+    <legend>Contact Information:</legend>
+    <div class="col-sm-6">
+        <%= f.simple_fields_for :person_living_address do |p| %>
+            <%= p.input :street %><div class="clear"></div>
+            <%= p.input :num_ext %>
+            <%= p.input :num_int %><div class="clear"></div>
+            <%= p.input :colonia %>
+            <%= p.input :cp %><div class="clear"></div>
+            <%= p.input :municipio %><div class="clear"></div>
+            <%= p.association :country %><div class="clear"></div>
+            <%= p.association :state %><div class="clear"></div>
+            <%= p.input :phone_emergency %>
+        <% end %>
+    </div>
+    <div class="col-sm-3">
+        <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+        <%= render 'contact_telephone_fields', :f => contact_telephone %>
+        <% end %>
+        <div class='links'>
+            <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <%= f.simple_fields_for :person_emails do |person_email| %>
+        <%= render 'person_email_fields', :f => person_email %>
+        <% end %>
+        <div class='links'>
+            <%= link_to_add_association 'Add Email', f, :person_emails %>
+        </div>
+    </div>
+</fieldset>
+<hr class="hr-normal">
+<div class="form-actions">
+    <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+            <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+            <i class="icon-save"></i>
+            Save Contact Information
+            <% end %>
+        </div>
+    </div>
+</div>
+<% end %>

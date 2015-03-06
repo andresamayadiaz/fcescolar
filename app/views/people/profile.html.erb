@@ -1,0 +1,107 @@
+<%= simple_form_for(@profile, {:url=>upload_profile_picture_people_url, :html=>{:multipart=>true, :style=>'display:none;'}} ) do |f| %>
+<%= f.input :profile_picture %>
+<% end %>
+
+<div class="paragraphs">
+  <div class="row">
+    <div class="col-sm-12">
+      <%= image_tag @profile.profile_picture.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
+      <div class="content-heading">
+        <h3><%= current_user.name %></h3>
+        <p><%= "#{@profile.last_academic_degree} Location: #{@profile.country.try(:name)}, #{@profile.state.try(:name)}" %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="line line-dashed line-lg pull-in"></div>
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
+    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab">Assigned Roles</a></li>
+    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab">My Personal Record File</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="general_info">
+      <div class="box-content box-double-padding">
+        <%= simple_form_for(current_user, :url =>update_password_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
+        <fieldset>
+          <div class="col-sm-7">
+            <%= f.input :password, :autocomplete => "off", :label=>'Password', :class=>'form-control'  %>
+            <%= f.input :password_confirmation, :label=>'Password confirmation', :class=>'form-control' %>
+            <%= f.input :email, :label=>'Change email', :class=>'form-control' %>
+            <div class="form-actions">
+              <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+              <i class="icon-save"></i>Change General Information
+              <% end %>
+            </div>
+          </div>
+        </fieldset>
+        <% end %>
+      </div>
+      <br/>
+      <div class="box-content box-double-padding">
+        <%= render 'profile_form' %>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="assigned_roles">
+      <h3>My Roles List:</h3>
+      <ul>
+        <% @profile.user.roles.each do |r|%>
+        <li><%= r.name.humanize %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="rec_file">...</div>
+  </div>
+</div>
+<% content_for :specific_js do %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+
+    $('#upload_avatar').on('click',function(){
+      $('#person_profile_picture').trigger('click');
+    });
+
+    var profile_avatar = document.getElementById("person_profile_picture");
+    console.log(profile_avatar);
+
+    upload_avatar = function(evt){
+      evt.stopPropagation();
+      evt.preventDefault();
+      
+      for (a = 0; a < evt.target.files.length; ++a){
+        
+        var file = evt.target.files[a];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('PATCH', '<%= upload_profile_picture_people_url %>');
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+
+        xhr.onloadstart = function() {
+          $("#upload_avatar").attr('src','/assets/flatty/ajax-loaders/4.gif');
+        }
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            $("#upload_avatar").attr('src',xhr.responseText);
+            //alert('Upload picture is success!');
+          } else {
+            alert('Failed to upload picture');
+          }
+        }
+
+        xhr.send(formData);
+
+      }
+    }
+
+    profile_avatar.addEventListener("change", upload_avatar, false);
+  });
+</script>
+<% end %>

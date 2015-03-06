@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    @user = User.find(current_user.id)
+    @user = current_user
     if @user.update(user_params)
       # Sign in the user by passing validation in case their password changed
       sign_in @user, :bypass => true
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = 'Failed to change general information'
     end
-    redirect_to profile_path(:id=>@user.profile.id)
+    redirect_to "/profile/#{@user.person.id}"
   end
 
   private

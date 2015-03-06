@@ -9,7 +9,6 @@ class Ability
     when 'super_administrator'
         can :manage, :all
     when 'head_of_school_control'
-        can [:create, :read, :update], Profile, :user_id => user.id
         can [:create, :read, :update], Notification, :user_id=>user.id
         can [:create, :read, :update], Person
     when 'finance'

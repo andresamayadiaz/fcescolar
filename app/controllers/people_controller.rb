@@ -1,8 +1,14 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile]
 
   respond_to :html
+
+  def upload_profile_picture
+    @person.profile_picture = params[:file]
+    @person.save
+    render :json => @person.profile_picture.url(:thumb)
+  end
 
   def index
     @people = Person.all
@@ -55,6 +61,12 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
     respond_with(@person)
+  end
+
+  def profile
+    @profile = @person
+    @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
+    @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
   end
 
   private
