@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def upload_profile_picture
+    @person = current_user.person
     @person.profile_picture = params[:file]
     @person.save
     render :json => @person.profile_picture.url(:thumb)
