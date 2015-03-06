@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305040805) do
+ActiveRecord::Schema.define(version: 20150305123551) do
+
+  create_table "audits", force: true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes"
+    t.integer  "version",         default: 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.string   "request_uuid"
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["associated_id", "associated_type"], name: "associated_index", using: :btree
+  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
+  add_index "audits", ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
+  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
 
   create_table "background_official_docs", force: true do |t|
     t.integer  "franchise_id"
@@ -189,25 +212,6 @@ ActiveRecord::Schema.define(version: 20150305040805) do
     t.date     "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "contact_street"
-    t.string   "contact_num_ext"
-    t.string   "contact_num_int"
-    t.string   "contact_colonia"
-    t.string   "contact_cp"
-    t.string   "contact_municipio"
-    t.integer  "contact_state_id"
-    t.integer  "contact_country_id"
-    t.string   "contact_phone_emergency"
-    t.string   "empresa"
-    t.string   "puesto"
-    t.string   "calle"
-    t.string   "municipio"
-    t.string   "work_num_ext"
-    t.string   "work_num_int"
-    t.string   "work_colonia"
-    t.string   "work_cp"
-    t.integer  "work_state_id"
-    t.integer  "work_country_id"
     t.string   "profile_picture_file_name"
     t.string   "profile_picture_content_type"
     t.integer  "profile_picture_file_size"
@@ -249,6 +253,45 @@ ActiveRecord::Schema.define(version: 20150305040805) do
   end
 
   add_index "person_emails", ["person_id"], name: "index_person_emails_on_person_id", using: :btree
+
+  create_table "person_living_addresses", force: true do |t|
+    t.string   "street"
+    t.string   "num_ext"
+    t.string   "num_int"
+    t.string   "colonia"
+    t.string   "cp"
+    t.string   "municipio"
+    t.integer  "state_id"
+    t.integer  "country_id"
+    t.string   "phone_emergency"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "person_living_addresses", ["country_id"], name: "index_person_living_addresses_on_country_id", using: :btree
+  add_index "person_living_addresses", ["person_id"], name: "index_person_living_addresses_on_person_id", using: :btree
+  add_index "person_living_addresses", ["state_id"], name: "index_person_living_addresses_on_state_id", using: :btree
+
+  create_table "person_work_places", force: true do |t|
+    t.string   "empresa"
+    t.string   "puesto"
+    t.string   "calle"
+    t.string   "municipio"
+    t.string   "num_ext"
+    t.string   "num_int"
+    t.string   "colonia"
+    t.integer  "cp"
+    t.integer  "state_id"
+    t.integer  "country_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "person_work_places", ["country_id"], name: "index_person_work_places_on_country_id", using: :btree
+  add_index "person_work_places", ["person_id"], name: "index_person_work_places_on_person_id", using: :btree
+  add_index "person_work_places", ["state_id"], name: "index_person_work_places_on_state_id", using: :btree
 
   create_table "profiles", force: true do |t|
     t.integer  "user_id"

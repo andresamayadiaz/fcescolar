@@ -21,20 +21,22 @@
 <br/>
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
-  <%= f.input :contact_street, :label=>'Street' %><div class='clear'></div>
-  <%= f.input :contact_num_ext, :label=>'Num Ext.' %><div class='clear'></div>
-  <%= f.input :contact_num_int, :label=>'Num Int.' %><div class='clear'></div>
-  <%= f.input :contact_colonia, :label=>'Colonia' %><div class='clear'></div>
-  <%= f.input :contact_cp, :label=>'CP.' %><div class='clear'></div>
-  <%= f.input :contact_municipio, :label=>'Municipio' %><div class='clear'></div>
-  <%= f.association :contact_state, :label=>'Estado' %><div class='clear'></div>
-  <%= f.association :contact_country, :label=>'Pais' %><div class='clear'></div>
-  <%= f.input :contact_phone_emergency, :label=>'Telefono Emergencias' %><div class='clear'></div>
-  <%= f.simple_fields_for :contact_emails do |contact_email| %>
-  <%= render 'contact_email_fields', :f => contact_email %>
+  <%= f.simple_fields_for :person_living_address do |p| %>
+    <%= p.input :street %><div class="clear"></div>
+    <%= p.input :num_ext %><div class="clear"></div>
+    <%= p.input :num_int %><div class="clear"></div>
+    <%= p.input :colonia %><div class="clear"></div>
+    <%= p.input :cp %><div class="clear"></div>
+    <%= p.input :municipio %><div class="clear"></div>
+    <%= p.association :state %><div class="clear"></div>
+    <%= p.association :country %><div class="clear"></div>
+    <%= p.input :phone_emergency %><div class="clear"></div>
+  <% end %>
+  <%= f.simple_fields_for :person_emails do |person_email| %>
+  <%= render 'person_email_fields', :f => person_email %>
   <% end %>
   <div class='links'>
-    <%= link_to_add_association 'Add Email', f, :contact_emails %>
+    <%= link_to_add_association 'Add Email', f, :person_emails %>
   </div>
   <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
   <%= render 'contact_telephone_fields', :f => contact_telephone %>
@@ -56,16 +58,18 @@
 <br/>
 <fieldset>
   <legend>Work Place Information</legend>
-  <%= f.input :empresa, :label=>'Empresa' %>
-  <%= f.input :puesto, :label=>'Puesto' %><div class="clear"></div>
-  <%= f.input :calle, :label=>'Calle' %>
-  <%= f.input :municipio, :label=>'Municipio' %><div class="clear"></div>
-  <%= f.input :work_num_ext, :label=>'Num Ext' %>
-  <%= f.input :work_num_int, :label=>'Num Int' %>
-  <%= f.association :work_country, :label=>'Pais' %><div class="clear"></div>
-  <%= f.input :work_colonia, :label=>'Colonia' %>
-  <%= f.input :work_cp, :label=>'CP.' %>
-  <%= f.association :work_state, :label=>'Estado' %>
+  <%= f.simple_fields_for :person_work_place do |w| %>
+    <%= w.input :empresa, :label=>'Empresa' %>
+    <%= w.input :puesto, :label=>'Puesto' %><div class="clear"></div>
+    <%= w.input :calle, :label=>'Calle' %>
+    <%= w.input :municipio, :label=>'Municipio' %><div class="clear"></div>
+    <%= w.input :num_ext, :label=>'Num Ext' %>
+    <%= w.input :num_int, :label=>'Num Int' %>
+    <%= w.association :country, :label=>'Pais' %><div class="clear"></div>
+    <%= w.input :colonia, :label=>'Colonia' %>
+    <%= w.input :cp, :label=>'CP.' %>
+    <%= w.association :state, :label=>'Estado' %>
+  <% end %>
 </fieldset>
 <br/>
 <hr class="hr-normal">
