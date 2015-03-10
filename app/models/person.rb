@@ -18,6 +18,7 @@ class Person < ActiveRecord::Base
   has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }, :default_url => "100x100.png"
     
   validates_attachment :profile_picture, :content_type => { :content_type => "image/jpeg" }
+  validates :person_living_address, :presence => true
 
   after_create :create_user if User.all.length>0
 
