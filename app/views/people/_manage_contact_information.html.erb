@@ -46,19 +46,19 @@
         <% end %>
       </div>
       <div role="tabpanel" class="tab-pane" id="new_contact">
-        <%= simple_form_for(p) do |f| %>
+        <%= simple_form_for(p,:html => {:class => 'new_contact_form' }) do |f| %>
         <fieldset>
           <legend>Contact Information (Living Addresses)</legend>
           <%= f.simple_fields_for :person_living_address do |c| %>
-          <%= c.input :street, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.input :num_ext, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.input :num_int, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.input :colonia, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.input :cp, input_html: {value: ''} %><div class="clear"></div>
-          <%= c.input :municipio, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.association :state, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.association :country, input_html: {value: '', placeholder:''} %><div class="clear"></div>
-          <%= c.input :phone_emergency, input_html: {value: '', placeholder:''} %><div class="clear"></div>
+          <%= c.input :street, input_html: {value: ''} %>
+          <%= c.input :num_ext, input_html: {value: ''} %>
+          <%= c.input :num_int, input_html: {value: ''} %>
+          <%= c.input :colonia, input_html: {value: ''} %>
+          <%= c.input :cp, input_html: {value: ''} %>
+          <%= c.input :municipio, input_html: {value: ''} %>
+          <%= c.association :state, input_html: {value: ''} %>
+          <%= c.association :country, input_html: {value: ''} %>
+          <%= c.input :phone_emergency, input_html: {value: ''} %>
           <% end %>
           <%= f.simple_fields_for :person_emails do |person_email| %>
           <%= render 'person_email_fields', :f => person_email %>
@@ -88,3 +88,8 @@
     </div>
   </div>
 </div>
+<style>
+  .new_contact_form .form-group, .new_contact_form .form-group label, .new_contact_form .form-group input{
+    display: block;
+  }
+</style>
