@@ -50,8 +50,14 @@ class PeopleController < ApplicationController
     respond_with(@person) do |format|
       format.html { 
         if @person.update(person_params)
-          flash[:notice] = 'Person was successfully updated.' 
-          redirect_to people_url 
+          previous_url = URI(request.referer).path rescue nil
+          if (previous_url.present? and previous_url.include? 'profile') 
+            flash[:notice] = 'Profile was successfully updated.'
+            redirect_to previous_url
+          else
+            flash[:notice] = 'Person was successfully updated.'
+            redirect_to people_url
+          end 
         else 
           render 'edit'
         end
