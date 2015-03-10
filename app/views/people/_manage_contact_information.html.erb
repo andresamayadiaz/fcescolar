@@ -1,0 +1,95 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h4 class="modal-title">Manage Person Contacts</h4>
+</div>
+<div class="modal-body">
+  <div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#contact_history" aria-controls="contact_history" role="tab" data-toggle="tab">Contact History</a></li>
+      <li role="presentation"><a href="#new_contact" aria-controls="new_contact" role="tab" data-toggle="tab">Add New Contact</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="contact_history">
+        <% if p.person_living_address.audits.count > 0 %>
+        <table>
+          <thead>
+            <tr>
+              <th>Street</th>
+              <th>Num Ext</th>
+              <th>Num Int</th>
+              <th>Colonia</th>
+              <th>CP</th>
+              <th>Municipio</th>
+              <th>Estados</th>
+              <th>Pais</th>
+              <th>Teléfono de emergencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% p.person_living_address.audits.each do |a| %>
+            <tr>
+              <td><%= display_contact_history(a.audited_changes["street"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["num_ext"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["num_int"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["colonia"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["cp"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["municipio"]) %></td>
+              <td><%= display_contact_history_state(a.audited_changes["state_id"]) %></td>
+              <td><%= display_contact_history_country(a.audited_changes["country_id"]) %></td>
+              <td><%= display_contact_history(a.audited_changes["phone_emergency"]) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="new_contact">
+        <%= simple_form_for(p,:html => {:class => 'new_contact_form' }) do |f| %>
+        <fieldset>
+          <legend>Contact Information (Living Addresses)</legend>
+          <%= f.simple_fields_for :person_living_address do |c| %>
+          <%= c.input :street, input_html: {value: ''} %>
+          <%= c.input :num_ext, input_html: {value: ''} %>
+          <%= c.input :num_int, input_html: {value: ''} %>
+          <%= c.input :colonia, input_html: {value: ''} %>
+          <%= c.input :cp, input_html: {value: ''} %>
+          <%= c.input :municipio, input_html: {value: ''} %>
+          <%= c.association :state, input_html: {value: ''} %>
+          <%= c.association :country, input_html: {value: ''} %>
+          <%= c.input :phone_emergency, input_html: {value: ''} %>
+          <% end %>
+          <%= f.simple_fields_for :person_emails do |person_email| %>
+          <%= render 'person_email_fields', :f => person_email %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association 'Add Email', f, :person_emails %>
+          </div>
+          <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+          <%= render 'contact_telephone_fields', :f => contact_telephone %>
+          <% end %>
+          <div class='links'>
+            <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+          </div>
+        </fieldset>
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-sm-7 col-sm-offset-5">
+              <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+              <i class="icon-save"></i>
+              Save
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .new_contact_form .form-group, .new_contact_form .form-group label, .new_contact_form .form-group input{
+    display: block;
+  }
+</style>

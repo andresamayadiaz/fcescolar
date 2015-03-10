@@ -65,7 +65,17 @@
             <td><%= person.state.try(:name) %></td>
             <td><%= person.birthday %></td>
             <td>
+              <div class="modal fade">
+                <div class="modal-dialog" style="width:70%;">
+                  <div class="modal-content">
+                    <%= render 'manage_contact_information', :p=>person %>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
               <div class='text-right'>
+                <%= link_to 'javascript:void(0);', title:'Manage Person Contacts', class: 'manage_contacts btn btn-info btn-xs' do %>
+                <i class='icon-info'></i>
+                <% end %>
                 <%= link_to edit_person_url(person), class: 'btn btn-success btn-xs' do %>
                 <i class='icon-ok'></i>
                 <% end %>
@@ -83,3 +93,14 @@
 </div>
 </div>
 <!-- .// TABLE -->
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.manage_contacts').click(function(){
+      $(this).parent().prev().modal()
+    });
+    $('.new_contact_form input').attr('placeholder', '');
+  });
+</script>
+<% end %>

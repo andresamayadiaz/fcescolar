@@ -22,14 +22,14 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
-    @person.person_living_address = PersonLivingAddress.new
-    @person.person_work_place = PersonWorkPlace.new
+    @person.build_person_living_address if @person.person_living_address.blank?
+    @person.build_person_work_place if @person.person_work_place.blank?
     respond_with(@person)
   end
 
   def edit
-    @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
-    @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
+    @person.build_person_living_address if @person.person_living_address.blank?
+    @person.build_person_work_place if @person.person_work_place.blank?
   end
 
   def create
