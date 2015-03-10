@@ -10,7 +10,7 @@ class Ability
         can :manage, :all
     when 'head_of_school_control'
         can [:create, :read, :update], Notification, :user_id=>user.id
-        can [:create, :read, :update], Person
+        can [:create, :read], Person
     when 'finance'
         can [:create, :read, :update], Person
     when 'franchise_director'
