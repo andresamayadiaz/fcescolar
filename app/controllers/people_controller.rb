@@ -4,6 +4,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def get_state_by_country_id
+    @states = State.where(:country_id=>params[:country_id])
+    render :json => @states
+  end
+
   def upload_profile_picture
     @person = current_user.person
     @person.profile_picture = params[:file]

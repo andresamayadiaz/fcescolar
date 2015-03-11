@@ -22,15 +22,15 @@
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
   <%= f.simple_fields_for :person_living_address do |p| %>
-    <%= p.input :street %><div class="clear"></div>
-    <%= p.input :num_ext %><div class="clear"></div>
-    <%= p.input :num_int %><div class="clear"></div>
-    <%= p.input :colonia %><div class="clear"></div>
-    <%= p.input :cp %><div class="clear"></div>
-    <%= p.input :municipio %><div class="clear"></div>
-    <%= p.association :state %><div class="clear"></div>
-    <%= p.association :country %><div class="clear"></div>
-    <%= p.input :phone_emergency %><div class="clear"></div>
+  <%= p.input :street %><div class="clear"></div>
+  <%= p.input :num_ext %><div class="clear"></div>
+  <%= p.input :num_int %><div class="clear"></div>
+  <%= p.input :colonia %><div class="clear"></div>
+  <%= p.input :cp %><div class="clear"></div>
+  <%= p.input :municipio %><div class="clear"></div>
+  <%= p.association :country %><div class="clear"></div>
+  <%= p.association :state %><div class="clear"></div>
+  <%= p.input :phone_emergency %><div class="clear"></div>
   <% end %>
   <%= f.simple_fields_for :person_emails do |person_email| %>
   <%= render 'person_email_fields', :f => person_email %>
@@ -59,35 +59,57 @@
 <fieldset>
   <legend>Work Place Information</legend>
   <%= f.simple_fields_for :person_work_place do |w| %>
-    <%= w.input :empresa, :label=>'Empresa' %>
-    <%= w.input :puesto, :label=>'Puesto' %><div class="clear"></div>
-    <%= w.input :calle, :label=>'Calle' %>
-    <%= w.input :municipio, :label=>'Municipio' %><div class="clear"></div>
-    <%= w.input :num_ext, :label=>'Num Ext' %>
-    <%= w.input :num_int, :label=>'Num Int' %>
-    <%= w.association :country, :label=>'Pais' %><div class="clear"></div>
-    <%= w.input :colonia, :label=>'Colonia' %>
-    <%= w.input :cp, :label=>'CP.' %>
-    <%= w.association :state, :label=>'Estado' %>
+  <%= w.input :empresa, :label=>'Empresa' %>
+  <%= w.input :puesto, :label=>'Puesto' %><div class="clear"></div>
+  <%= w.input :calle, :label=>'Calle' %>
+  <%= w.input :municipio, :label=>'Municipio' %><div class="clear"></div>
+  <%= w.input :num_ext, :label=>'Num Ext' %>
+  <%= w.input :num_int, :label=>'Num Int' %>
+  <%= w.association :country, :label=>'Pais' %><div class="clear"></div>
+  <%= w.input :colonia, :label=>'Colonia' %>
+  <%= w.input :cp, :label=>'CP.' %>
+  <%= w.association :state, :label=>'Estado' %>
   <% end %>
 </fieldset>
 <br/>
 <hr class="hr-normal">
-    <div class="form-actions">
-      <div class="row">
-        <div class="col-sm-7 col-sm-offset-5">
-          <%= button_tag( :class => "btn btn-primary btn-lg") do %>
-          <i class="icon-save"></i>
-          Save
-          <% end %>
-        </div>
-      </div>
+<div class="form-actions">
+  <div class="row">
+    <div class="col-sm-7 col-sm-offset-5">
+      <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+      <i class="icon-save"></i>
+      Save
+      <% end %>
     </div>
+  </div>
+</div>
 <% end %>
 <% content_for :specific_js do %>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('.datepicker').datepicker();
-    })
-  </script>
+<script type="text/javascript">
+  function get_state_by_country_id(country_select, state_select) {
+    $('#'+country_select).change(function(){
+      var val = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/get_state_by_country_id?country_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            $('#'+state_select).html(html_element);
+          }
+        }
+      })
+    });
+  }
+
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+    get_state_by_country_id('person_country_id', 'person_state_id');
+    get_state_by_country_id('person_person_living_address_attributes_country_id','person_person_living_address_attributes_state_id');
+    get_state_by_country_id('person_person_work_place_attributes_country_id', 'person_person_work_place_attributes_state_id');
+  })
+</script>
 <% end %>
