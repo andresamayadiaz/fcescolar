@@ -84,3 +84,10 @@
       </div>
     </div>
 <% end %>
+<% content_for :specific_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.datepicker').datepicker();
+    })
+  </script>
+<% end %>

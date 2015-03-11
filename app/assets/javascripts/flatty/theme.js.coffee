@@ -165,8 +165,8 @@ $(document).ready ->
   if jQuery().datetimepicker
     $(".datetimepicker").datetimepicker()
 
-    $(".datepicker").datetimepicker
-      pickTime: false
+    #$(".datepicker").datetimepicker
+    #  pickTime: false
 
     $(".timepicker").datetimepicker
       pickDate: false
