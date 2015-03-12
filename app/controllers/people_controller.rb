@@ -4,6 +4,9 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def search
+  end
+
   def get_state_by_country_id
     @states = State.where(:country_id=>params[:country_id])
     render :json => @states

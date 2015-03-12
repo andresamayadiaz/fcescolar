@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       patch 'upload_profile_picture'
       get 'get_state_by_country_id'
+      post 'search'
     end
   end
   

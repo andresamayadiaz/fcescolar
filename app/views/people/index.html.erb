@@ -37,6 +37,9 @@
     <div class='title'>Listado de personass</div>
     <div class='actions'>
       <%= link_to 'Nuevo', new_person_path, :class=>'btn btn-large btn-success' %>
+      <button type="button" class="btn btn-large btn-default" data-toggle="modal" data-target="#searchModal">
+      Search Person
+      </button>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -68,7 +71,7 @@
               <div class="modal fade">
                 <div class="modal-dialog" style="width:70%;">
                   <div class="modal-content">
-                    <%= render 'manage_contact_information', :p=>person, :i=>index %>
+                    <div class="modal-body"><%= render 'manage_contact_information', :p=>person, :i=>index %></div>
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
               </div><!-- /.modal -->
@@ -93,6 +96,8 @@
 </div>
 </div>
 <!-- .// TABLE -->
+
+<%= render 'search_modal' %>
 
 <% content_for :specific_js do %>
 <script type="text/javascript">
