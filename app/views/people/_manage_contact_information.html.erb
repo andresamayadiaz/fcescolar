@@ -56,8 +56,8 @@
           <%= c.input :colonia, input_html: {value: ''} %>
           <%= c.input :cp, input_html: {value: ''} %>
           <%= c.input :municipio, input_html: {value: ''} %>
+          <%= c.association :country, input_html: {value: '', class:'country_living'} %>
           <%= c.association :state, input_html: {value: ''} %>
-          <%= c.association :country, input_html: {value: ''} %>
           <%= c.input :phone_emergency, input_html: {value: ''} %>
           <% end %>
           <%= f.simple_fields_for :person_emails do |person_email| %>

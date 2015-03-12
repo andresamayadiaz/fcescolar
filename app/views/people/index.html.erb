@@ -96,11 +96,31 @@
 
 <% content_for :specific_js do %>
 <script type="text/javascript">
+  function get_state_by_country_id() {
+    $('.country_living').change(function(){
+      var _this = $(this);
+      var val = _this.val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/get_state_by_country_id?country_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            _this.parent().next().find('select').html(html_element);
+          }
+        }
+      })
+    });
+  }
   $(document).ready(function(){
     $('.manage_contacts').click(function(){
       $(this).parent().prev().modal()
     });
     $('.new_contact_form input').attr('placeholder', '');
+    get_state_by_country_id();
   });
 </script>
 <% end %>
