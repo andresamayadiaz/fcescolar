@@ -28,4 +28,23 @@ class Person < ActiveRecord::Base
   	new_user.save!
   	self.update_attribute(:user,new_user)
   end
+
+  def self.search(params)
+    if params[:fathers_maiden_name].present?
+      fathers_maiden_name = '%' + params[:fathers_maiden_name] + '%'
+    else
+      fathers_maiden_name = nil
+    end
+    if params[:mothers_maiden_name].present?
+      mothers_maiden_name = '%' + params[:mothers_maiden_name] + '%'
+    else
+      mothers_maiden_name = nil
+    end
+    if params[:name].present?
+      name = '%' + params[:name] + '%'
+    else
+      name = nil
+    end
+    Person.where('fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?',fathers_maiden_name,mothers_maiden_name,name)
+  end
 end

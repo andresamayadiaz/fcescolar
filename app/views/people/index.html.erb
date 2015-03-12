@@ -38,7 +38,7 @@
     <div class='actions'>
       <%= link_to 'Nuevo', new_person_path, :class=>'btn btn-large btn-success' %>
       <button type="button" class="btn btn-large btn-default" data-toggle="modal" data-target="#searchModal">
-      Search Person
+        Search Person
       </button>
     </div>
   </div>
@@ -126,6 +126,31 @@
     });
     $('.new_contact_form input').attr('placeholder', '');
     get_state_by_country_id();
+    $("#search-person-form").submit(function(e)
+    {
+      e.preventDefault(); //STOP default action
+      var _this = $(this)
+      _this.find(':button[type="submit"]').prop('disabled', true); 
+      var postData = _this.serializeArray();
+      var formURL = _this.attr("action");
+      $.ajax(
+      {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        success:function(data){
+          if (data){
+            var html_data;
+            data.map(function(d){
+                html_data = html_data + '<tr><td>'+d.fathers_maiden_name+'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
+            })
+            $('#search_person_result tbody').html(html_data); 
+            $('#search_person_result').slideDown(); 
+          }
+          _this.find(':button[type="submit"]').prop('disabled', false);
+        }
+      });
+    });
   });
-</script>
-<% end %>
+    </script>
+    <% end %>

@@ -5,6 +5,8 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def search
+    @search_result = Person.search(params)
+    render :json => @search_result
   end
 
   def get_state_by_country_id
