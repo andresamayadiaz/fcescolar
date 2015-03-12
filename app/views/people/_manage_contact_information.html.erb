@@ -6,12 +6,12 @@
   <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#contact_history" aria-controls="contact_history" role="tab" data-toggle="tab">Contact History</a></li>
-      <li role="presentation"><a href="#new_contact" aria-controls="new_contact" role="tab" data-toggle="tab">Add New Contact</a></li>
+      <li role="presentation" class="active"><a href='#<%= "contact_history_#{i}" %>' aria-controls='<%= "contact_history_#{i}" %>' role="tab" data-toggle="tab">Contact History</a></li>
+      <li role="presentation"><a href='#<%= "new_contact_#{i}" %>' aria-controls="<%= "new_contact_#{i}" %>" role="tab" data-toggle="tab">Add New Contact</a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="contact_history">
+      <div role="tabpanel" class="tab-pane active" id='<%= "contact_history_#{i}" %>'>
         <% if p.person_living_address.audits.count > 0 %>
         <table>
           <thead>
@@ -45,7 +45,7 @@
         </table>
         <% end %>
       </div>
-      <div role="tabpanel" class="tab-pane" id="new_contact">
+      <div role="tabpanel" class="tab-pane" id='<%= "new_contact_#{i}" %>'>
         <%= simple_form_for(p,:html => {:class => 'new_contact_form' }) do |f| %>
         <fieldset>
           <legend>Contact Information (Living Addresses)</legend>

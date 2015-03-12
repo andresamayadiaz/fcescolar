@@ -56,7 +56,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @people.each do |person| %>
+            <% @people.each_with_index do |person,index| %>
             <td><%= person.email %></td>
             <td><%= person.name %></td>
             <td><%= person.fathers_maiden_name %></td>
@@ -68,7 +68,7 @@
               <div class="modal fade">
                 <div class="modal-dialog" style="width:70%;">
                   <div class="modal-content">
-                    <%= render 'manage_contact_information', :p=>person %>
+                    <%= render 'manage_contact_information', :p=>person, :i=>index %>
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
               </div><!-- /.modal -->
