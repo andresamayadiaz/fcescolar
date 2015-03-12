@@ -4,21 +4,48 @@
 			<div class="modal-body">
 				<%= form_tag(search_people_url, :method => "post", id: "search-person-form") do %>
 					<div class="form-group">
-						<label for="fathers_maiden_name">Father's Maiden Name:</label>
-						<%= text_field_tag :fathers_maiden_name, nil, :class=>'form-control' %>
+					    <label for="fathers_maiden_name" class="col-xs-3 control-label">Father's Maiden Name:</label>
+					    <div class="col-xs-9">
+					        <div class="form-inline">
+					            <div class="form-group">
+					                <%= text_field_tag :fathers_maiden_name, nil, :class=>'form-control' %>
+					            </div>
+					        </div>
+					    </div>
 					</div>
+					<br/>
 					<div class="form-group">
-						<label for="mothers_maiden_name">Mother's Maiden Name:</label>
-						<%= text_field_tag :mothers_maiden_name, nil, :class=>'form-control' %>
+						<label for="mothers_maiden_name" class="col-xs-3 control-label">Mother's Maiden Name:</label>
+						<div class="col-xs-9">
+					        <div class="form-inline">
+					            <div class="form-group">
+					                <%= text_field_tag :mothers_maiden_name, nil, :class=>'form-control' %>
+					            </div>
+					        </div>
+					    </div>
 					</div>
+					<br/>
 					<div class="form-group">
-						<label for="name">Name(s):</label>
-						<%= text_field_tag :name, nil, :class=>'form-control' %>
+						<label for="name" class="col-xs-3 control-label">Name(s):</label>
+						<div class="col-xs-9">
+					        <div class="form-inline">
+					            <div class="form-group">
+					                <%= text_field_tag :name, nil, :class=>'form-control' %>
+					            </div>
+					        </div>
+					    </div>
 					</div>
 					<% if current_user.active_role=='super_administrator' or current_user.active_role=='franchise_director' %>
+					<br/>
 					<div class="form-group">
-						<label for="campus">Campus:</label>
-						<%= select_tag "campus", options_from_collection_for_select(@all_campus, "name", "name"), {include_blank: true, :class=>'form-control'} %>
+						<label for="campus" class="col-xs-3 control-label">Campus:</label>
+						<div class="col-xs-9">
+					        <div class="form-inline">
+					            <div class="form-group">
+					                <%= select_tag "campus", options_from_collection_for_select(@all_campus, "name", "name"), {include_blank: true, :class=>'form-control'} %>
+					            </div>
+					        </div>
+					    </div>
 					</div>
 					<% end %>
 					<button type="submit" class="btn btn-default">Search</button>
