@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def search
-    @search_result = Person.search(params)
+    @search_result = Person.search(params,current_user)
     render :json => @search_result
   end
 

@@ -32,7 +32,7 @@ class Person < ActiveRecord::Base
   	self.update_attribute(:user,new_user)
   end
 
-  def self.search(params)
+  def self.search(params, user)
     if params[:fathers_maiden_name].present?
       fathers_maiden_name = '%' + params[:fathers_maiden_name] + '%'
     else
@@ -48,6 +48,13 @@ class Person < ActiveRecord::Base
     else
       name = nil
     end
-    Person.where('fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?',fathers_maiden_name,mothers_maiden_name,name)
+    if params[:campus].present?
+      campus_id = params[:campus].to_i
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) AND campus_id = ?',fathers_maiden_name,mothers_maiden_name,name, campus_id)
+    else
+      selected_campus_id = user.person.franchise.campuses.map(&:id)
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) AND campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
+    end
+    
   end
 end
