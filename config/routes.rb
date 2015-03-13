@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       patch 'upload_profile_picture'
       get 'get_state_by_country_id'
       post 'search'
+      get 'get_campus_by_franchise_id'
     end
   end
   

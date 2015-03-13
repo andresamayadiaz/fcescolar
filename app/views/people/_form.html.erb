@@ -4,6 +4,7 @@
   <legend>General Information</legend>
   <% if current_user.active_role=='super_administrator' %>
     <%= f.association :franchise, :label=>'Franquicia' %><div class="clear"></div>
+    <%= f.association :campus, :label=>'Campus' %><div class="clear"></div>
   <% end %>
   <%= f.input :curp, :label=>'CURP' %>
   <%= f.input :rfc, :label=>'RFC' %>
@@ -108,11 +109,31 @@
     });
   }
 
+  function get_campus_by_franchise_id(franchise_select, campus_select) {
+    $('#'+franchise_select).change(function(){
+      var val = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/get_campus_by_franchise_id?franchise_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            $('#'+campus_select).html(html_element);
+          }
+        }
+      })
+    });
+  }
+
   $(document).ready(function(){
     $('.datepicker').datepicker({
       format: "yyyy-mm-dd"
     });
     get_state_by_country_id('person_country_id', 'person_state_id');
+    get_campus_by_franchise_id('person_franchise_id', 'person_campus_id')
     get_state_by_country_id('person_person_living_address_attributes_country_id','person_person_living_address_attributes_state_id');
     get_state_by_country_id('person_person_work_place_attributes_country_id', 'person_person_work_place_attributes_state_id');
   })

@@ -2,6 +2,7 @@ class Person < ActiveRecord::Base
   belongs_to :country
   belongs_to :state
   belongs_to :franchise
+  belongs_to :campus
 
   has_one :person_living_address
   has_one :person_work_place

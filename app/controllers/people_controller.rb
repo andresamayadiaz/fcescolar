@@ -14,6 +14,11 @@ class PeopleController < ApplicationController
     render :json => @states
   end
 
+  def get_campus_by_franchise_id
+    @campus = Campus.where(:franchise_id=>params[:franchise_id])
+    render :json => @campus
+  end
+
   def upload_profile_picture
     @person = current_user.person
     @person.profile_picture = params[:file]
@@ -94,6 +99,7 @@ class PeopleController < ApplicationController
     def person_params
       params.require(:person).permit(
         :franchise_id,
+        :campus_id,
         :curp, 
         :rfc, 
         :email, 

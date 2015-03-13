@@ -42,7 +42,7 @@
 						<div class="col-xs-9">
 					        <div class="form-inline">
 					            <div class="form-group">
-					                <%= select_tag "campus", options_from_collection_for_select(@all_campus, "name", "name"), {include_blank: true, :class=>'form-control'} %>
+					                <%= select_tag "campus", options_from_collection_for_select(@all_campus, "id", "name"), {include_blank: true, :class=>'form-control'} %>
 					            </div>
 					        </div>
 					    </div>

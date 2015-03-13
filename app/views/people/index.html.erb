@@ -53,6 +53,7 @@
               <th>Fathers maiden name</th>
               <th>Mothers maiden name</th>
               <th>Franquicia</th>
+              <th>Campus</th>
               <th></th>
             </tr>
           </thead>
@@ -63,6 +64,7 @@
             <td><%= person.fathers_maiden_name %></td>
             <td><%= person.mothers_maiden_name %></td>
             <td><%= person.franchise.try(:name) %></td>
+            <td><%= person.campus.try(:name) %></td>
             <td>
               <div class="modal fade">
                 <div class="modal-dialog" style="width:70%;">
