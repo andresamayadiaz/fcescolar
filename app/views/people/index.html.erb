@@ -52,9 +52,7 @@
               <th>Nombre</th>
               <th>Fathers maiden name</th>
               <th>Mothers maiden name</th>
-              <th>Country</th>
-              <th>State</th>
-              <th>Birthday</th>
+              <th>Franquicia</th>
               <th></th>
             </tr>
           </thead>
@@ -64,9 +62,7 @@
             <td><%= person.name %></td>
             <td><%= person.fathers_maiden_name %></td>
             <td><%= person.mothers_maiden_name %></td>
-            <td><%= person.country.try(:name) %></td>
-            <td><%= person.state.try(:name) %></td>
-            <td><%= person.birthday %></td>
+            <td><%= person.franchise.try(:name) %></td>
             <td>
               <div class="modal fade">
                 <div class="modal-dialog" style="width:70%;">

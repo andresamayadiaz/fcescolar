@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_all_campus
-  	@all_campus = Campus.all if current_user.active_role=='super_administrator' or current_user.active_role=='franchise_director'
+    if signed_in? and current_user.present?
+  	 @all_campus = Campus.all if current_user.active_role=='super_administrator' or current_user.active_role=='franchise_director'
+    end 
   end
 end

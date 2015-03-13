@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
   rolify
   #enum role: [:user, :vip, :admin]
   #after_initialize :set_default_role, :if => :new_record?
-  has_one :profile
-  belongs_to :franchise
   belongs_to :person
 
   #def set_default_role

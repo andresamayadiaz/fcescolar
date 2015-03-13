@@ -2,6 +2,9 @@
 <%= f.error_notification %>
 <fieldset>
   <legend>General Information</legend>
+  <% if current_user.active_role=='super_administrator' %>
+    <%= f.association :franchise, :label=>'Franquicia' %><div class="clear"></div>
+  <% end %>
   <%= f.input :curp, :label=>'CURP' %>
   <%= f.input :rfc, :label=>'RFC' %>
   <%= f.input :email, :label=>'Email' %>

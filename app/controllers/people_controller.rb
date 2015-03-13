@@ -93,6 +93,7 @@ class PeopleController < ApplicationController
 
     def person_params
       params.require(:person).permit(
+        :franchise_id,
         :curp, 
         :rfc, 
         :email, 
