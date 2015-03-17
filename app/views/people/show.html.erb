@@ -1,48 +1,184 @@
-<p id="notice"><%= notice %></p>
+<div role="tabpanel">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
+    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contacts</a></li>
+    <li role="presentation"><a href="#relationship" aria-controls="relationship" role="tab" data-toggle="tab">Relationship</a></li>
+    <li role="presentation"><a href="#work_info" aria-controls="work_info" role="tab" data-toggle="tab">Work Info</a></li>
+  </ul>
 
-<p>
-  <strong>Curp:</strong>
-  <%= @person.curp %>
-</p>
-
-<p>
-  <strong>Rfc:</strong>
-  <%= @person.rfc %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @person.email %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @person.name %>
-</p>
-
-<p>
-  <strong>Fathers maiden name:</strong>
-  <%= @person.fathers_maiden_name %>
-</p>
-
-<p>
-  <strong>Mothers maiden name:</strong>
-  <%= @person.mothers_maiden_name %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @person.country.try(:name) %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @person.state.try(:name) %>
-</p>
-
-<p>
-  <strong>Birthday:</strong>
-  <%= @person.birthday %>
-</p>
-
-<%= link_to 'Edit', edit_person_path(@person) %> | <%= link_to 'Back', people_path %>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="general_info">
+      <fieldset>
+        <legend>General Information</legend>
+        <div class="col-sm-8">
+          <table class="table table-condensed">
+            <tr><td>CURP</td><td><%= @person.curp %></td></tr>
+            <tr><td>RFC</td><td><%= @person.rfc %></td></tr>
+            <tr><td>E-mail</td><td><%= @person.email %></td></tr>
+            <tr><td>Name</td><td><%= @person.name %></td></tr>
+            <tr><td>Father's Maiden Name</td><td><%= @person.fathers_maiden_name %></td></tr>
+            <tr><td>Mother's Maiden Name</td><td><%= @person.mothers_maiden_name %></td></tr>
+            <tr><td>Birth Country</td><td><%= @person.country.try(:name) %></td></tr>
+            <tr><td>Birth State</td><td><%= @person.state.try(:name) %></td></tr>
+          </table>
+        </div>
+        <div class="col-sm-4">
+          <% if @person.profile_picture.exists? %>
+            <%= image_tag @person.profile_picture.url(:thumb) %><br/>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="contact">
+      <fieldset>
+        <legend>Contact Information:</legend>
+        <div class="col-sm-6">
+          <%  p = @person.person_living_address %>
+          <table class='table table-condensed'>
+            <tr>
+              <td>Street</td>
+              <td><%= p.street %></td>
+            </tr>
+            <tr>
+              <td>Num Ext</td>
+              <td><%= p.num_ext %></td>
+            </tr>
+            <tr>
+              <td>Num Int</td>
+              <td><%= p.num_int %></td>
+            </tr>
+            <tr>
+              <td>Colonia</td>
+              <td><%= p.colonia %></td>
+            </tr>
+            <tr>
+              <td>CP</td>
+              <td><%= p.cp %></td>
+            </tr>
+            <tr>
+              <td>Municipio</td>
+              <td><%= p.municipio %></td>
+            </tr>
+            <tr>
+              <td>Pais</td>
+              <td><%= p.country.try(:name) %></td>
+            </tr>
+            <tr>
+              <td>Estado</td>
+              <td><%= p.state.try(:name) %></td>
+            </tr>
+            <tr>
+              <td>Phone Emergency</td>
+              <td><%= p.phone_emergency %></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-3">
+          <h5>Contact Telephones</h5>
+          <% @person.contact_telephones.each do |contact_telephone| %>
+          <table class='table table-condensed'>
+            <thead>
+              <tr>
+                <th>Phone Number</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= contact_telephone.phone_number %></td>
+                <td><%= contact_telephone.phone_type %></td>
+              </tr>
+            </tbody>
+          </table>
+          <% end if @person.contact_telephones.present? %>
+        </div>
+        <div class="col-sm-3">
+          <h5>Person Emails</h5>
+          <% @person.person_emails.each do |person_email| %>
+          <table class='table table-condensed'>
+            <thead>
+              <tr>
+                <th>Email Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><%= person_email.email %></td></tr>
+            </tbody>
+          </table>
+          <% end if @person.person_emails.present? %>
+        </div>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="relationship">
+      <fieldset>
+        <legend>Relationship</legend>
+        <% @person.related_people.each do |related_person| %>
+        <thead>
+          <tr>
+            <th>Relationship</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= related_person.relation_name %></td>
+            <td><%= related_person.full_name %></td>
+          </tr>
+        </tbody>
+        <% end if @person.related_people.present? %>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="work_info">
+      <fieldset>
+        <legend>Work Place Information</legend>
+        <% w = @person.person_work_place %>
+        <% if w.present? %>
+        <table class='table table-condensed'>
+          <tr>
+            <td>Empresa</td>
+            <td><%= w.empresa %></td>
+          </tr>
+          <tr>
+            <td>Puesto</td>
+            <td><%= w.puesto %></td>
+          </tr>
+          <tr>
+            <td>Calle</td>
+            <td><%= w.calle %></td>
+          </tr>
+          <tr>
+            <td>Municipio</td>
+            <td><%= w.municipio %></td>
+          </tr>
+          <tr>
+            <td>Num Ext</td>
+            <td><%= w.num_ext %></td>
+          </tr>
+          <tr>
+            <td>Num Int</td>
+            <td><%= w.num_int %></td>
+          </tr>
+          <tr>
+            <td>Pais</td>
+            <td><%= w.country.try(:name) %></td>
+          </tr>
+          <tr>
+            <td>Colonia</td>
+            <td><%= w.colonia %></td>
+          </tr>
+          <tr>
+            <td>CP</td>
+            <td><%= w.cp %></td>
+          </tr>
+          <tr>
+            <td>Estado</td>
+            <td><%= w.state.try(:name) %></td>
+          </tr>
+        </table>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+</div>
