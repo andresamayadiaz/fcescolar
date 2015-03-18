@@ -1,6 +1,8 @@
 class Person < ActiveRecord::Base
   belongs_to :country
   belongs_to :state
+  belongs_to :franchise
+  belongs_to :campus
 
   has_one :person_living_address
   has_one :person_work_place
@@ -19,6 +21,7 @@ class Person < ActiveRecord::Base
     
   validates_attachment :profile_picture, :content_type => { :content_type => "image/jpeg" }
   validates :person_living_address, :presence => true
+  #validates :franchise, :presence => true, :if => lambda { self.user.active_role!='super_administrator' }
 
   after_create :create_user if User.all.length>0
 
@@ -27,5 +30,31 @@ class Person < ActiveRecord::Base
   	new_user.skip_confirmation!
   	new_user.save!
   	self.update_attribute(:user,new_user)
+  end
+
+  def self.search(params, user)
+    if params[:fathers_maiden_name].present?
+      fathers_maiden_name = '%' + params[:fathers_maiden_name] + '%'
+    else
+      fathers_maiden_name = nil
+    end
+    if params[:mothers_maiden_name].present?
+      mothers_maiden_name = '%' + params[:mothers_maiden_name] + '%'
+    else
+      mothers_maiden_name = nil
+    end
+    if params[:name].present?
+      name = '%' + params[:name] + '%'
+    else
+      name = nil
+    end
+    if params[:campus].present?
+      campus_id = params[:campus].to_i
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) OR campus_id = ?',fathers_maiden_name,mothers_maiden_name,name, campus_id)
+    else
+      selected_campus_id = user.person.franchise.campuses.map(&:id)
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) OR campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
+    end
+    
   end
 end

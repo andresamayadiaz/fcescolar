@@ -1,4 +1,5 @@
 class Franchise < ActiveRecord::Base
 	resourcify
-	has_many :users
+	has_many :people
+	has_many :campuses
 end

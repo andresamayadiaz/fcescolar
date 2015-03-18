@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306081154) do
+ActiveRecord::Schema.define(version: 20150313074756) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -217,6 +217,8 @@ ActiveRecord::Schema.define(version: 20150306081154) do
     t.integer  "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
     t.string   "last_academic_degree"
+    t.integer  "franchise_id"
+    t.integer  "campus_id"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
@@ -394,7 +396,6 @@ ActiveRecord::Schema.define(version: 20150306081154) do
     t.string   "unconfirmed_email"
     t.integer  "role"
     t.string   "active_role"
-    t.integer  "franchise_id"
     t.integer  "person_id"
   end
 

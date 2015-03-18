@@ -4,9 +4,19 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def search
+    @search_result = Person.search(params,current_user)
+    render :json => @search_result
+  end
+
   def get_state_by_country_id
     @states = State.where(:country_id=>params[:country_id])
     render :json => @states
+  end
+
+  def get_campus_by_franchise_id
+    @campus = Campus.where(:franchise_id=>params[:franchise_id])
+    render :json => @campus
   end
 
   def upload_profile_picture
@@ -88,6 +98,8 @@ class PeopleController < ApplicationController
 
     def person_params
       params.require(:person).permit(
+        :franchise_id,
+        :campus_id,
         :curp, 
         :rfc, 
         :email, 

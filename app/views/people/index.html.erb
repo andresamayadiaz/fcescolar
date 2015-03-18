@@ -1,3 +1,6 @@
+<style type="text/css">
+  tr.clickable-person { cursor: pointer;}
+</style>
       
 <!-- // TITULO -->
 <div class="row">
@@ -37,6 +40,9 @@
     <div class='title'>Listado de personass</div>
     <div class='actions'>
       <%= link_to 'Nuevo', new_person_path, :class=>'btn btn-large btn-success' %>
+      <button type="button" class="btn btn-large btn-default" data-toggle="modal" data-target="#searchModal">
+        Search Person
+      </button>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -49,9 +55,8 @@
               <th>Nombre</th>
               <th>Fathers maiden name</th>
               <th>Mothers maiden name</th>
-              <th>Country</th>
-              <th>State</th>
-              <th>Birthday</th>
+              <th>Franquicia</th>
+              <th>Campus</th>
               <th></th>
             </tr>
           </thead>
@@ -61,14 +66,13 @@
             <td><%= person.name %></td>
             <td><%= person.fathers_maiden_name %></td>
             <td><%= person.mothers_maiden_name %></td>
-            <td><%= person.country.try(:name) %></td>
-            <td><%= person.state.try(:name) %></td>
-            <td><%= person.birthday %></td>
+            <td><%= person.franchise.try(:name) %></td>
+            <td><%= person.campus.try(:name) %></td>
             <td>
               <div class="modal fade">
                 <div class="modal-dialog" style="width:70%;">
                   <div class="modal-content">
-                    <%= render 'manage_contact_information', :p=>person, :i=>index %>
+                    <div class="modal-body"><%= render 'manage_contact_information', :p=>person, :i=>index %></div>
                   </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
               </div><!-- /.modal -->
@@ -93,6 +97,8 @@
 </div>
 </div>
 <!-- .// TABLE -->
+
+<%= render 'search_modal' %>
 
 <% content_for :specific_js do %>
 <script type="text/javascript">
@@ -121,6 +127,35 @@
     });
     $('.new_contact_form input').attr('placeholder', '');
     get_state_by_country_id();
+
+    $("#search-person-form").submit(function(e)
+    {
+      e.preventDefault(); //STOP default action
+      var _this = $(this)
+      _this.find(':button[type="submit"]').prop('disabled', true); 
+      var postData = _this.serializeArray();
+      var formURL = _this.attr("action");
+      $.ajax(
+      {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        success:function(data){
+          if (data){
+            var html_data;
+            data.map(function(d){
+                html_data = html_data + '<tr class="clickable-person" data-href="/people/'+d.id+'"><td>'+d.fathers_maiden_name+'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
+            })
+            $('#search_person_result tbody').html(html_data); 
+            $('#search_person_result').slideDown(); 
+          }
+          _this.find(':button[type="submit"]').prop('disabled', false);
+          $('.clickable-person').on('click', function(){
+            window.location.href = $(this).attr('data-href');
+          });
+        }
+      });
+    });
   });
-</script>
-<% end %>
+    </script>
+    <% end %>
