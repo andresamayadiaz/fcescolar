@@ -50,10 +50,10 @@ class Person < ActiveRecord::Base
     end
     if params[:campus].present?
       campus_id = params[:campus].to_i
-      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) OR campus_id = ?',fathers_maiden_name,mothers_maiden_name,name, campus_id)
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) AND campus_id = ?',fathers_maiden_name,mothers_maiden_name,name, campus_id)
     else
       selected_campus_id = user.person.franchise.campuses.map(&:id)
-      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) OR campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
+      Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) AND campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
     end
     
   end
