@@ -7,4 +7,10 @@ class Role < ActiveRecord::Base
             :allow_nil => true
 
   scopify
+
+  def self.get_unassigned(user)
+  	all_roles = Role.all
+  	assigned_roles = user.roles
+  	all_roles - assigned_roles
+  end
 end

@@ -4,10 +4,14 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
-  def assign_roles
+  def assign_roles #a page to assign new role
+    @unassigned_roles = Role.get_unassigned(current_user)
   end
 
   def search_by_name
+  end
+
+  def add_new_role
   end
 
   def search

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get 'get_campus_by_franchise_id'
       get 'assign_roles'
       get 'search_by_name'
+      post 'add_new_role'
     end
   end
   

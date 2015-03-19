@@ -1,7 +1,7 @@
 <div class="paragraphs">
 	<div class="row">
 		<div class="col-sm-12">
-			<%= simple_form_for(@person, {:url=>upload_profile_picture_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
+			<%= simple_form_for(@person, {:url=>search_by_name_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
 			<%= f.input :name, :label=>'Person' %>
 			<div class="form-actions">
 				<%= button_tag( :class => "btn btn-primary btn-small") do %>
@@ -31,5 +31,17 @@
 			</table>
 		</div>
 		<% end %>
+		<div class="col-sm-12">
+			<br/>
+			<fieldset>
+				<legend>Add Role</legend>
+				<%= simple_form_for(@person.user, {:url=>add_new_role_people_url} )  do |f| %>
+					<%= f.input :roles, collection: @unassigned_roles.map { |r| [r.name.humanize, r.name] }, label:'Roles', class: 'form-control' %>
+					<%= button_tag( :class => "btn btn-primary btn-small") do %>
+						<i class="icon-save"></i>Search
+					<% end %>
+				<% end %>
+			</fieldset>
+		</div>
 	</div>
 </div>
