@@ -12,6 +12,15 @@ class PeopleController < ApplicationController
   end
 
   def add_new_role
+    if params[:user].present? and params[:user][:roles].present?
+      if current_user.add_role params[:user][:roles] 
+        redirect_to :back, :notice=>'Role is assigned'
+      else
+        redirect_to :back, :alert=>'Failed to assign new role.'
+      end
+    else      
+      redirect_to :back, :alert=>'No new role is selected to assign'
+    end
   end
 
   def search

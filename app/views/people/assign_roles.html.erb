@@ -35,10 +35,10 @@
 			<br/>
 			<fieldset>
 				<legend>Add Role</legend>
-				<%= simple_form_for(@person.user, {:url=>add_new_role_people_url} )  do |f| %>
+				<%= simple_form_for(@person.user, {:url=>add_new_role_people_url, :html=>{:method=>'POST'} } )  do |f| %>
 					<%= f.input :roles, collection: @unassigned_roles.map { |r| [r.name.humanize, r.name] }, label:'Roles', class: 'form-control' %>
 					<%= button_tag( :class => "btn btn-primary btn-small") do %>
-						<i class="icon-save"></i>Search
+						<i class="icon-save"></i>Save
 					<% end %>
 				<% end %>
 			</fieldset>
