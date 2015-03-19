@@ -17,7 +17,7 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :person_emails, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :contact_telephones, :reject_if => :all_blank, :allow_destroy => true
 
-  has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }, :default_url => "100x100.png"
+  has_attached_file :profile_picture, :styles => {:thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
     
   validates_attachment :profile_picture, :content_type => { :content_type => "image/jpeg" }
   validates :person_living_address, :presence => true
