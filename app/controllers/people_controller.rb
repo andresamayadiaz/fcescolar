@@ -1,8 +1,14 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :assign_roles]
 
   respond_to :html
+
+  def assign_roles
+  end
+
+  def search_by_name
+  end
 
   def search
     @search_result = Person.search(params,current_user)

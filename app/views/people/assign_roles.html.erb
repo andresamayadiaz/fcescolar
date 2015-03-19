@@ -1,0 +1,35 @@
+<div class="paragraphs">
+	<div class="row">
+		<div class="col-sm-12">
+			<%= simple_form_for(@person, {:url=>upload_profile_picture_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
+			<%= f.input :name, :label=>'Person' %>
+			<div class="form-actions">
+				<%= button_tag( :class => "btn btn-primary btn-small") do %>
+				<i class="icon-save"></i>Search
+				<% end %>
+			</div>
+			<% end %>
+		</div>
+		<% if @person.user.roles.present? and @person.user.roles.length>0 %>
+		<div class="col-sm-12">
+			<br/>
+			<table class='table table-bordered table-striped'>
+				<thead>
+					<tr>
+						<th>Role</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @person.user.roles.each do |r| %>
+					<tr>
+						<td><%= r.name.humanize %></td>
+						<td></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<% end %>
+	</div>
+</div>

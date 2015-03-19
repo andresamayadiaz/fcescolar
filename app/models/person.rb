@@ -57,4 +57,13 @@ class Person < ActiveRecord::Base
     end
     
   end
+
+  def self.search_by_name(params)
+    if params[:name].present? 
+      name = '%' + params[:name] + '%'
+    else
+      name = nil
+    end
+    Person.where('name LIKE ?', name)
+  end
 end
