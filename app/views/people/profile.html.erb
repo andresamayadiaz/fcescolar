@@ -90,9 +90,8 @@
         xhr.onload = function () {
           if (xhr.status === 200) {
             $("#upload_avatar").attr('src',xhr.responseText);
-            //alert('Upload picture is success!');
           } else {
-            alert('Failed to upload picture');
+            if(!alert(xhr.responseText)){window.location.reload();}
           }
         }
 
