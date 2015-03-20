@@ -24,6 +24,7 @@ class PeopleController < ApplicationController
   def add_new_role
     if params[:user].present? and params[:user][:roles].present?
       user = User.find(params[:user][:id])
+      user.send_confirmation_instructions if user.roles.blank? and user.confirmation_token.present? and user.confirmed_at.blank?
       if user.add_role params[:user][:roles] 
         redirect_to :back, :notice=>'Role is assigned'
       else

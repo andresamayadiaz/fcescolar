@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
 
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')
-  	new_user.skip_confirmation!
+  	new_user.skip_confirmation_notification!
   	new_user.save!
   	self.update_attribute(:user,new_user)
   end
