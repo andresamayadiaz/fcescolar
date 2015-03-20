@@ -21,13 +21,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% @person.user.roles.each do |r| %>
+					<% @person.user.users_roles.each do |user_role| %>
 					<tr>
-						<td><%= r.name.humanize %></td>
+						<td><%= user_role.role.name.humanize %></td>
 						<td>
-							<%= simple_form_for r do |f| %>
-							  <%= f.input :id, :as => :hidden %>
-							  <%= f.collection_radio_buttons :status, [[true, 'Active'] ,[false, 'Inactive']], :first, :last %>
+							<%= simple_form_for(user_role, {url: change_role_status_people_path}) do |f| %>
+							<%= f.input :user_id, :as => :hidden %>
+							<%= f.input :role_id, :as => :hidden %>
+							<%= f.collection_radio_buttons :status, [[true, 'Active'] ,[false, 'Inactive']], :first, :last %>
 							<% end %>
 						</td>
 					</tr>
@@ -41,11 +42,11 @@
 			<fieldset>
 				<legend>Add Role</legend>
 				<%= simple_form_for(@person.user, {:url=>add_new_role_people_url, :html=>{:method=>'POST'} } )  do |f| %>
-					<%= f.input :id, :as => :hidden %>
-					<%= f.input :roles, collection: @unassigned_roles.map { |r| [r.name.humanize, r.name] }, label:'Roles', class: 'form-control' %>
-					<%= button_tag( :class => "btn btn-primary btn-small") do %>
-						<i class="icon-save"></i>Save
-					<% end %>
+				<%= f.input :id, :as => :hidden %>
+				<%= f.input :roles, collection: @unassigned_roles.map { |r| [r.name.humanize, r.name] }, label:'Roles', class: 'form-control' %>
+				<%= button_tag( :class => "btn btn-primary btn-small") do %>
+				<i class="icon-save"></i>Save
+				<% end %>
 				<% end %>
 			</fieldset>
 		</div>
@@ -53,7 +54,38 @@
 </div>
 
 <style>
-	.edit_role span {
+	.edit_users_role span {
 		margin-right:27px;
 	}
 </style>
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.edit_users_role').submit(function(e){
+			e.preventDefault(); //STOP default action
+			var _this = $(this);
+			var postData = _this.serializeArray();
+      		var formURL = _this.attr("action");
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					alert('Role status is updated')
+				},
+				error: function(data){
+					alert('Failed to update role status')
+				}
+			});
+		});
+
+		$(".edit_users_role").each(function(){
+			$(this).find("[type=radio]").change(function(){
+				$(this).parents("form").submit();
+			})
+		})
+	});
+</script>
+<% end %>

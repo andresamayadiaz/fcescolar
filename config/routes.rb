@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   get '/profile/:id'=>"people#profile"
 
-  resources :roles
-
   resources :people do
     collection do
       patch 'upload_profile_picture'
@@ -13,6 +11,7 @@ Rails.application.routes.draw do
       get 'assign_roles'
       get 'search_by_name'
       post 'add_new_role'
+      patch 'change_role_status'
     end
   end
   

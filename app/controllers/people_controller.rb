@@ -8,6 +8,16 @@ class PeopleController < ApplicationController
     @unassigned_roles = Role.get_unassigned(@person.user)
   end
 
+  def change_role_status
+    users_role = UsersRole.where(:user_id=>params[:users_role][:user_id],:role_id=>params[:users_role][:role_id]).first
+    users_role.status = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? (params[:users_role][:status])
+    if users_role.save!
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
+
   def search_by_name
   end
 
