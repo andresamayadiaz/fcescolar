@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def assign_roles #a page to assign new role
-    @unassigned_roles = Role.get_unassigned(@person.user)
+    @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
   end
 
   def change_role_status

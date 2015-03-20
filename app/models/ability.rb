@@ -10,15 +10,15 @@ class Ability
         can :manage, :all
     when 'head_of_school_control'
         can [:create, :read, :update], Notification, :user_id=>user.id
-        can [:create, :read, :search], Person
+        can [:create, :read, :search, :assign_roles], Person
     when 'finance'
-        can [:create, :read, :update], Person
+        can [:create, :read, :update, :assign_roles], Person
     when 'franchise_director'
-        can [:create, :read, :update, :search], Person
+        can [:create, :read, :update, :search, :assign_roles], Person
     when 'salesman'
-        can [:search], Person
+        can [:search, :assign_roles], Person
     when 'academic_coordinator'
-        can [:search], Person
+        can [:search, :assign_roles], Person
     when 'teacher'
         can [:search], Person
     when 'support_executive'
