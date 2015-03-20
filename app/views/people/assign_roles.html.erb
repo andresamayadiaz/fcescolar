@@ -26,6 +26,7 @@
 						<td><%= r.name.humanize %></td>
 						<td>
 							<%= simple_form_for r do |f| %>
+							  <%= f.input :id, :as => :hidden %>
 							  <%= f.collection_radio_buttons :status, [[true, 'Active'] ,[false, 'Inactive']], :first, :last %>
 							<% end %>
 						</td>
@@ -40,6 +41,7 @@
 			<fieldset>
 				<legend>Add Role</legend>
 				<%= simple_form_for(@person.user, {:url=>add_new_role_people_url, :html=>{:method=>'POST'} } )  do |f| %>
+					<%= f.input :id, :as => :hidden %>
 					<%= f.input :roles, collection: @unassigned_roles.map { |r| [r.name.humanize, r.name] }, label:'Roles', class: 'form-control' %>
 					<%= button_tag( :class => "btn btn-primary btn-small") do %>
 						<i class="icon-save"></i>Save

@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def assign_roles #a page to assign new role
-    @unassigned_roles = Role.get_unassigned(current_user)
+    @unassigned_roles = Role.get_unassigned(@person.user)
   end
 
   def search_by_name
@@ -13,7 +13,8 @@ class PeopleController < ApplicationController
 
   def add_new_role
     if params[:user].present? and params[:user][:roles].present?
-      if current_user.add_role params[:user][:roles] 
+      user = User.find(params[:user][:id])
+      if user.add_role params[:user][:roles] 
         redirect_to :back, :notice=>'Role is assigned'
       else
         redirect_to :back, :alert=>'Failed to assign new role.'
