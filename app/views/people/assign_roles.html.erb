@@ -24,7 +24,11 @@
 					<% @person.user.roles.each do |r| %>
 					<tr>
 						<td><%= r.name.humanize %></td>
-						<td></td>
+						<td>
+							<%= simple_form_for r do |f| %>
+							  <%= f.collection_radio_buttons :status, [[true, 'Active'] ,[false, 'Inactive']], :first, :last %>
+							<% end %>
+						</td>
 					</tr>
 					<% end %>
 				</tbody>
@@ -45,3 +49,9 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	.edit_role span {
+		margin-right:27px;
+	}
+</style>

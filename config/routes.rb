@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   get '/profile/:id'=>"people#profile"
 
+  resources :roles
+
   resources :people do
     collection do
       patch 'upload_profile_picture'
