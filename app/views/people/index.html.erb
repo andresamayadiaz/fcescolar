@@ -70,7 +70,7 @@
             <td><%= person.campus.try(:name) %></td>
             <td>
               <div class="modal fade">
-                <div class="modal-dialog" style="width:70%;">
+                <div class="modal-dialog" style="width:auto;">
                   <div class="modal-content">
                     <div class="modal-body"><%= render 'manage_contact_information', :p=>person, :i=>index %></div>
                   </div><!-- /.modal-content -->
@@ -146,7 +146,7 @@
           if (data){
             var html_data = null;
             data.map(function(d){
-                html_data = html_data + '<tr class="clickable-person" data-href="/people/'+d.id+'"><td>'+d.fathers_maiden_name+'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
+                html_data = html_data + '<tr class="clickable-person" data-href="/people/assign_roles?id='+d.id+'"><td>'+d.fathers_maiden_name+'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
             })
             if (html_data==null){
               html_data = '<tr><td colspan="3">No se encontró persona</td></tr>'
