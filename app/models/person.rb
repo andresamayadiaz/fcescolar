@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
 
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')
-  	new_user.skip_confirmation!
+  	new_user.skip_confirmation_notification!
   	new_user.save!
   	self.update_attribute(:user,new_user)
   end
@@ -56,5 +56,14 @@ class Person < ActiveRecord::Base
       Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR name LIKE ?) AND campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
     end
     
+  end
+
+  def self.search_by_name(params)
+    if params[:name].present? 
+      name = '%' + params[:name] + '%'
+    else
+      name = nil
+    end
+    Person.where('name LIKE ?', name)
   end
 end

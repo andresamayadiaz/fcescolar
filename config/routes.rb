@@ -8,6 +8,10 @@ Rails.application.routes.draw do
       get 'get_state_by_country_id'
       post 'search'
       get 'get_campus_by_franchise_id'
+      get 'assign_roles'
+      get 'search_by_name'
+      post 'add_new_role'
+      patch 'change_role_status'
     end
   end
   

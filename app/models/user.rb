@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   #after_initialize :set_default_role, :if => :new_record?
   belongs_to :person
 
+  has_many :users_roles
+  has_many :roles, through: :users_roles
+
   #def set_default_role
   #  self.role ||= :user
   #end

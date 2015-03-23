@@ -1,8 +1,37 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :assign_roles]
 
   respond_to :html
+
+  def assign_roles #a page to assign new role
+    @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
+    @new_user_role = UsersRole.new(:user_id=>@person.user.id)
+  end
+
+  def change_role_status
+    users_role = UsersRole.where(:user_id=>params[:users_role][:user_id],:role_id=>params[:users_role][:role_id]).first
+    users_role.status = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? (params[:users_role][:status])
+    if users_role.save!(validate: false)
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
+
+  def search_by_name
+  end
+
+  def add_new_role
+    @new_user_role = UsersRole.new(params[:users_role])
+    if @new_user_role.save
+      user = @new_user_role.user
+      user.send_confirmation_instructions if user.roles.blank? and user.confirmation_token.present? and user.confirmed_at.blank?
+      redirect_to :back, :notice=>'New role is assigned successfully'
+    else      
+      redirect_to :back, :alert=>'No new role is selected to assign or validation failed'
+    end
+  end
 
   def search
     @search_result = Person.search(params,current_user)

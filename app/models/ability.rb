@@ -8,20 +8,20 @@ class Ability
     case user.active_role
     when 'super_administrator'
         can :manage, :all
+    when 'franchise_director'
+        can [:create, :read, :update, :search, :assign_roles, :add_new_role], Person
+    when 'finance'
+        can [:create, :read, :update, :assign_roles, :add_new_role], Person
+    when 'academic_coordinator'
+        can [:read, :assign_roles, :search, :add_new_role], Person
     when 'head_of_school_control'
         can [:create, :read, :update], Notification, :user_id=>user.id
-        can [:create, :read, :search], Person
-    when 'finance'
-        can [:create, :read, :update], Person
-    when 'franchise_director'
-        can [:create, :read, :update, :search], Person
-    when 'salesman'
-        can [:search], Person
-    when 'academic_coordinator'
-        can [:search], Person
+        can [:create, :read, :search, :assign_roles, :add_new_role], Person
     when 'teacher'
         can [:search], Person
     when 'support_executive'
+        can [:search], Person
+    when 'salesman'
         can [:search], Person
     end
     #inni
