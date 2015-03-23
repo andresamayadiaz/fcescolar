@@ -8,21 +8,21 @@ class Ability
     case user.active_role
     when 'super_administrator'
         can :manage, :all
+    when 'franchise_director'
+        can [:create, :read, :update, :search, :assign_roles], Person
+    when 'finance'
+        can [:create, :read, :update, :assign_roles], Person
+    when 'academic_coordinator'
+        can [:read, :assign_roles, :search], Person
     when 'head_of_school_control'
         can [:create, :read, :update], Notification, :user_id=>user.id
         can [:create, :read, :search, :assign_roles], Person
-    when 'finance'
-        can [:create, :read, :update, :assign_roles], Person
-    when 'franchise_director'
-        can [:create, :read, :update, :search, :assign_roles], Person
-    when 'salesman'
-        can [:search, :assign_roles], Person
-    when 'academic_coordinator'
-        can [:search, :assign_roles], Person
     when 'teacher'
         can [:search], Person
     when 'support_executive'
         can [:search], Person
+    when 'salesman'
+        can [:search, :assign_roles], Person
     end
     #inni
     # The first argument to `can` is the action you are giving the user 
