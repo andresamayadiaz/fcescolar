@@ -1,6 +1,6 @@
 class VisitorsController < ApplicationController
 	def index
-		if current_user.users_roles.active.present?
+		if current_user.users_roles.active.present? and current_user.person.status
 			current_user.update_attribute(:active_role, current_user.users_roles.active.first.role.name) if current_user.users_roles.active.present? and current_user.users_roles.active.length==1
 			if current_user.active_role.present?
 				role_id = Role.where(:name=>current_user.active_role).try(:first).id
