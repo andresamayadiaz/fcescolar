@@ -10,7 +10,7 @@
 			</div>
 			<% end %>
 		</div>
-		<% if @unassigned_roles.present? %>
+		<% if @unassigned_roles.present? and @person.status %>
 		<div class="col-sm-12">
 			<br/>
 			<fieldset>
