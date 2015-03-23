@@ -1,12 +1,22 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :assign_roles]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :assign_roles, :block_or_unblock]
 
   respond_to :html
 
   def assign_roles #a page to assign new role
     @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
     @new_user_role = UsersRole.new(:user_id=>@person.user.id)
+  end
+
+  def block_or_unblock
+    if @person.status
+      @person.update_attribute(:status, false)
+      redirect_to :back, :alert=>'User is blocked'
+    else
+      @person.update_attribute(:status, true)
+      redirect_to :back, :notice=>'User is unblocked'
+    end
   end
 
   def change_role_status

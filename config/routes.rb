@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'search_by_name'
       post 'add_new_role'
       patch 'change_role_status'
+      put 'block_or_unblock'
     end
   end
   

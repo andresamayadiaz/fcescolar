@@ -1,3 +1,10 @@
+<br/>
+<% if @person.status %>
+  <%= link_to 'Block', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-danger btn-xs', method: :put, data: { confirm: 'Are you sure?' } %>
+<% else %>
+  <%= link_to 'UnBlock', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-primary btn-xs', method: :put, data: { confirm: 'Are you sure?' } %>
+<% end %>
+<br/><br/>
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
