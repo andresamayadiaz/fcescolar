@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  root to: 'visitors#index'
+  devise_for :users
+  resources :users  do
+    collection do
+      patch 'update_password'
+      patch 'set_active_role'
+    end
+  end
 
   get '/profile/:id'=>"people#profile"
 
@@ -64,13 +72,4 @@ Rails.application.routes.draw do
   end
 
   resources :franchises
-
-  root to: 'visitors#index'
-  devise_for :users
-  resources :users  do
-    collection do
-      patch 'update_password'
-      patch 'set_active_role'
-    end
-  end
 end
