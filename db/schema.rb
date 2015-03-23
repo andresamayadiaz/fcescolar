@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323024732) do
+ActiveRecord::Schema.define(version: 20150323111936) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 20150323024732) do
     t.string   "last_academic_degree"
     t.integer  "franchise_id"
     t.integer  "campus_id"
+    t.boolean  "status",                       default: true
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
