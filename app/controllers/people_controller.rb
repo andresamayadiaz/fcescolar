@@ -6,12 +6,13 @@ class PeopleController < ApplicationController
 
   def assign_roles #a page to assign new role
     @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
+    @new_user_role = UsersRole.new(:user_id=>@person.user.id)
   end
 
   def change_role_status
     users_role = UsersRole.where(:user_id=>params[:users_role][:user_id],:role_id=>params[:users_role][:role_id]).first
     users_role.status = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? (params[:users_role][:status])
-    if users_role.save!
+    if users_role.save!(validate: false)
       render :nothing=>true, :status => 200
     else
       render :nothing=>true, :status => 503
@@ -22,16 +23,13 @@ class PeopleController < ApplicationController
   end
 
   def add_new_role
-    if params[:user].present? and params[:user][:roles].present?
-      user = User.find(params[:user][:id])
+    @new_user_role = UsersRole.new(params[:users_role])
+    if @new_user_role.save
+      user = @new_user_role.user
       user.send_confirmation_instructions if user.roles.blank? and user.confirmation_token.present? and user.confirmed_at.blank?
-      if user.add_role params[:user][:roles] 
-        redirect_to :back, :notice=>'Role is assigned'
-      else
-        redirect_to :back, :alert=>'Failed to assign new role.'
-      end
+      redirect_to :back, :notice=>'New role is assigned successfully'
     else      
-      redirect_to :back, :alert=>'No new role is selected to assign'
+      redirect_to :back, :alert=>'No new role is selected to assign or validation failed'
     end
   end
 
