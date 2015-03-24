@@ -1,12 +1,18 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :assign_roles, :block_or_unblock]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :block_or_unblock]
 
   respond_to :html
 
   def assign_roles #a page to assign new role
-    @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
-    @new_user_role = UsersRole.new(:user_id=>@person.user.id)
+    @person = Person.find(params[:id]) rescue nil
+    if @person.present?
+      @unassigned_roles = Role.get_unassigned(@person.user, current_user.active_role)
+      @new_user_role = UsersRole.new(:user_id=>@person.user.id)
+    else
+      @person = Person.new
+      render 'new_assign_roles'
+    end
   end
 
   def block_or_unblock
@@ -30,6 +36,7 @@ class PeopleController < ApplicationController
   end
 
   def search_by_name
+    byebug
   end
 
   def add_new_role
