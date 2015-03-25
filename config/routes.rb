@@ -17,10 +17,12 @@ Rails.application.routes.draw do
       post 'search'
       get 'get_campus_by_franchise_id'
       get 'assign_roles'
+      get 'manage_personal_record_file'
       get 'search_by_name'
       post 'add_new_role'
       patch 'change_role_status'
       put 'block_or_unblock'
+      post 'upload_document'
     end
   end
   

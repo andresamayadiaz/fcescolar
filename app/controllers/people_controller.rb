@@ -15,6 +15,26 @@ class PeopleController < ApplicationController
     end
   end
 
+  def upload_document
+    @new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+    if @new_personal_record_file.save
+      redirect_to :back, notice: 'New document is attached'
+    else
+      redirect_to :back,  alert: 'Validation failed'
+    end
+  end
+
+  def manage_personal_record_file
+    @person = Person.find(params[:id]) rescue nil
+    @doc_types = [['Birth Certificate','Birth Certificate'],['Academic Degree Certificate','Academic Degree Certificate']]
+    if @person.present?
+      @countries = Country.all
+      @states = State.all
+      @new_personal_record_file = PersonalRecordFile.new
+      @attached_docs = @person.personal_record_files
+    end
+  end
+
   def block_or_unblock
     if @person.status
       @person.update_attribute(:status, false)
