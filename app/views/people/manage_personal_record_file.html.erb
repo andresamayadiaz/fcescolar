@@ -28,6 +28,7 @@
 					<%= simple_form_for(@new_personal_record_file, { :url=>upload_document_people_url, :html=>{:multipart=>true} } ) do |f| %>
 						<%= f.input :document_type,:collection => @doc_types,:label => "Type" ,:include_blank => 'Document Category' %>
 						<%= f.input :document, :label=>'Attach New Document' %>
+						<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 						<%= f.submit 'Load', :class => 'button right' %>
 					<% end %>
 				</fieldset>
