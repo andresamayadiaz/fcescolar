@@ -4,6 +4,15 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def update_country_and_state
+    @person = Person.find(params[:person][:id])
+    if @person.update(params[:person])
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
+
   def assign_roles #a page to assign new role
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
@@ -28,8 +37,6 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id]) rescue nil
     @doc_types = [['Birth Certificate','Birth Certificate'],['Academic Degree Certificate','Academic Degree Certificate']]
     if @person.present?
-      @countries = Country.all
-      @states = State.all
       @new_personal_record_file = PersonalRecordFile.new
       @attached_docs = @person.personal_record_files
     end

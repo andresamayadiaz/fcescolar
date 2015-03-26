@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       patch 'change_role_status'
       put 'block_or_unblock'
       post 'upload_document'
+      patch 'update_country_and_state'
     end
   end
   
