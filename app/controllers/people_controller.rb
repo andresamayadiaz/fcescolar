@@ -35,7 +35,6 @@ class PeopleController < ApplicationController
 
   def manage_personal_record_file
     @person = Person.find(params[:id]) rescue nil
-    @doc_types = [['Birth Certificate','Birth Certificate'],['Academic Degree Certificate','Academic Degree Certificate']]
     if @person.present?
       @new_personal_record_file = PersonalRecordFile.new
       @attached_docs = @person.personal_record_files
