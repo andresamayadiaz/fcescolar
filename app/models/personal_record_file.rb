@@ -13,6 +13,6 @@ class PersonalRecordFile < ActiveRecord::Base
 
   def rename_document_and_set_due_date
   	self.document_file_name = "#{self.background_official_doc.name} #{self.person_id}"
-    self.due_date = Date.today + self.background_official_doc.responsive_due_days.to_i.day
+    self.due_date = Date.today + self.background_official_doc.responsive_due_days.to_i.day if self.is_responsive_letter
   end
 end

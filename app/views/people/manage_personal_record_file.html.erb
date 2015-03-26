@@ -31,6 +31,7 @@
 					<%= simple_form_for(@new_personal_record_file, { :url=>upload_document_people_url, :html=>{:multipart=>true} } ) do |f| %>
 					<%= f.association :background_official_doc,:label => "Type" ,:include_blank => 'Document Category' %>
 					<%= f.input :document, :label=>'Attach New Document' %>
+					<%= f.input :is_responsive_letter, :label=>'Is Responsive Letter ?' %>
 					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 					<%= f.input :attach_user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
 					<%= f.submit 'Load', :class => 'button right' %>
@@ -79,7 +80,7 @@
 						<% @attached_docs.each do |d| %>
 						<tr>
 							<td><%= link_to d.document_file_name, d.document.url %></td>
-							<td><%= d.due_date.to_date.strftime("%m/%d/%Y") %></td>
+							<td><%= d.due_date.to_date.strftime("%m/%d/%Y") rescue nil %></td>
 							<td><%= d.created_at.to_date.strftime("%m/%d/%Y") %></td>
 							<td><%= d.attach_user.name || d.attach_user.email %></td>
 							<td></td>

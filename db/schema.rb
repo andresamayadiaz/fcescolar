@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326024858) do
+ActiveRecord::Schema.define(version: 20150326030312) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(version: 20150326024858) do
     t.integer  "background_official_doc_id"
     t.integer  "attach_user_id"
     t.date     "due_date"
+    t.boolean  "is_responsive_letter"
   end
 
   add_index "personal_record_files", ["person_id"], name: "index_personal_record_files_on_person_id", using: :btree
