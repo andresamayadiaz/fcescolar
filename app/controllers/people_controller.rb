@@ -4,6 +4,29 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def auth_to_sign_responsive_letter
+    user = User.where(:email=>params[:user][:email]).try(:first)
+    if user.present? and user.valid_password?(params[:user][:password])
+      new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+      if new_personal_record_file.save
+        pdf_content = "#{new_personal_record_file.background_official_doc.responsive_letter}#{new_personal_record_file.motive}"
+        footer_pdf_datetime = new_personal_record_file.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        render  :pdf => new_personal_record_file.document_file_name,
+                :margin => {:top=> 20},
+                :header => {
+                  :content => pdf_content
+                },
+                :footer => {
+                  :content => "This has been digitally signed on #{footer_pdf_datetime}"
+                }
+      else
+        redirect_to :back, :alert=>'Something went wrong...'
+      end
+    else
+      redirect_to :back, :alert=>'E-mail and password not match to sign'
+    end
+  end
+
   def generate_responsive_letter
     new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
     if new_personal_record_file.save

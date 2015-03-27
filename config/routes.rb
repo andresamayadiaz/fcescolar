@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post 'upload_document'
       patch 'update_country_and_state'
       post 'generate_responsive_letter'
+      post 'auth_to_sign_responsive_letter'
     end
   end
   

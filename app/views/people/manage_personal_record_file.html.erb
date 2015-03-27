@@ -42,13 +42,13 @@
 				<fieldset>
 					<legend>Generate Responsive Letter</legend>
 					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url} ) do |f| %>
-						<%= f.association :background_official_doc, :as => :collection_select, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Responsive Template" %>
+						<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Responsive Template" %>
 						<%= f.input :motive %>
 						<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 						<%= f.input :is_responsive_letter, :as => :hidden, :input_html => { :value => true } %>
 						<div class='form-action'>
 							<%= f.submit 'Preview', :class => 'button' %>
-							<button>Sign Responsive Letter</button>
+							<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton'>Sign Responsive Letter</button>
 						</div>
 					<% end %>
 				</fieldset>
@@ -88,6 +88,9 @@
 		<% end %>
 	</div>
 </div>
+
+<%= render 'sign_letter_modal' %>
+
 <% content_for :specific_js do %>
 <script type="text/javascript">
 	function get_state_by_country_id(country_select, state_select) {
@@ -132,6 +135,17 @@
 
 		$('#person_state_id').change(function(){
 			$(this).parents('form').submit();
+		})
+
+		$('#responsive_letter_template_menu').change(function(){
+			var _this_text = $("#responsive_letter_template_menu option:selected").text();
+			$('#responsive-letter-template-name').html(_this_text);
+		})
+
+
+		$('#signLetterButton').click(function(){
+			$('#sign_background_official_doc').val($('#responsive_letter_template_menu').val())
+			$('#sign_motive').val($('#personal_record_file_motive').val());
 		})
 
 	});
