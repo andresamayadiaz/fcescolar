@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
   before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :block_or_unblock]
+  autocomplete :person, :name, :full => true
 
   respond_to :html
 
@@ -96,10 +97,6 @@ class PeopleController < ApplicationController
     else
       render :nothing=>true, :status => 503
     end
-  end
-
-  def search_by_name
-    byebug
   end
 
   def add_new_role

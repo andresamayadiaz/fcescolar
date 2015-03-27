@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       patch 'update_country_and_state'
       post 'generate_responsive_letter'
       post 'auth_to_sign_responsive_letter'
+      get 'autocomplete_person_name'
     end
   end
   
