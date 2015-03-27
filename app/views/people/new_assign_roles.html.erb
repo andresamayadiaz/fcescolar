@@ -1,14 +1,79 @@
 <div class="paragraphs">
 	<div class="row">
 		<div class="col-sm-12">
-			<%= simple_form_for(@person, {:url=>search_by_name_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
-			<%= f.input :name, :label=>'Person' %>
-			<div class="form-actions">
-				<%= button_tag( :class => "btn btn-primary btn-small") do %>
-				<i class="icon-save"></i>Search
-				<% end %>
+			<div class='form-group'>
+				<label>Person</label>
+				<%= autocomplete_field_tag 'search_person_name', @person.try(:name), autocomplete_person_name_people_path, {:class=>'form-control'} %>
 			</div>
-			<% end %>
+			<div class='form-group'>
+				<%= link_to 'Search', 'javascript:void(0);', :id=>'search_person_by_name', :class=>'btn btn-info btn-sm' %>
+			</div>
 		</div>
 	</div>
 </div>
+
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#search_person_name').bind('railsAutocomplete.select', function(event, data){
+		  $('#search_person_by_name').attr('href','/people/assign_roles?id='+data.item.id)
+		});
+	});
+</script>
+<% end %>
+
+<style type="text/css">
+	.ui-autocomplete {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1000;
+		float: left;
+		display: none;
+		min-width: 160px;   
+		padding: 4px 0;
+		margin: 0 0 10px 25px;
+		list-style: none;
+		background-color: #ffffff;
+		border-color: #ccc;
+		border-color: rgba(0, 0, 0, 0.2);
+		border-style: solid;
+		border-width: 1px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+		-webkit-background-clip: padding-box;
+		-moz-background-clip: padding;
+		background-clip: padding-box;
+		*border-right-width: 2px;
+		*border-bottom-width: 2px;
+		cursor:pointer;
+	}
+
+	.ui-menu-item > a.ui-corner-all {
+		display: block;
+		padding: 3px 15px;
+		clear: both;
+		font-weight: normal;
+		line-height: 18px;
+		color: #555555;
+		white-space: nowrap;
+		text-decoration: none;
+		cursor:pointer;
+	}
+
+	.ui-state-hover, .ui-state-active {
+		color: #ffffff;
+		text-decoration: none;
+		background-color: #0088cc;
+		border-radius: 0px;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		background-image: none;
+		cursor: pointer;
+	}
+</style>
