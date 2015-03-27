@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       put 'block_or_unblock'
       post 'upload_document'
       patch 'update_country_and_state'
-      patch 'generate_responsive_letter'
+      post 'generate_responsive_letter'
     end
   end
   

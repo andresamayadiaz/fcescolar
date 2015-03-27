@@ -41,11 +41,13 @@
 			<div class="col-sm-6">
 				<fieldset>
 					<legend>Generate Responsive Letter</legend>
-					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url, :html=>{:multipart=>true} } ) do |f| %>
+					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url} ) do |f| %>
 						<%= f.association :background_official_doc, :as => :collection_select, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Responsive Template" %>
 						<%= f.input :motive %>
+						<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
+						<%= f.input :is_responsive_letter, :as => :hidden, :input_html => { :value => true } %>
 						<div class='form-action'>
-							<button>Preview</button>
+							<%= f.submit 'Preview', :class => 'button' %>
 							<button>Sign Responsive Letter</button>
 						</div>
 					<% end %>

@@ -6,10 +6,12 @@ class PersonalRecordFile < ActiveRecord::Base
 
   has_attached_file :document
   validates_attachment_content_type :document, content_type: ['application/pdf']
-  validates :document, :attachment_presence => true
+  #validates :document, :attachment_presence => true
   validates :background_official_doc, :presence => true
 
   before_create :rename_document_and_set_due_date
+
+  scope :with_attach_user, -> { where('attach_user_id IS NOT NULL') }
 
   def rename_document_and_set_due_date
   	self.document_file_name = "#{self.background_official_doc.name} #{self.person_id}"

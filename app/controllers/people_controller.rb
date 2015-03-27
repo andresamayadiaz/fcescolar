@@ -4,6 +4,20 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def generate_responsive_letter
+    new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+    if new_personal_record_file.save
+      pdf_content = "#{new_personal_record_file.background_official_doc.responsive_letter}#{new_personal_record_file.motive}"
+      render  :pdf => new_personal_record_file.document_file_name,
+              :margin => {:top=> 20},
+              :header => {
+                :content => pdf_content
+              }
+    else
+      redirect_to :back, :alert=>'Something went wrong...'
+    end
+  end
+
   def update_country_and_state
     @person = Person.find(params[:person][:id])
     if @person.update(params[:person])
@@ -37,7 +51,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
       @new_personal_record_file = PersonalRecordFile.new
-      @attached_docs = @person.personal_record_files
+      @attached_docs = @person.personal_record_files.with_attach_user
     end
   end
 
