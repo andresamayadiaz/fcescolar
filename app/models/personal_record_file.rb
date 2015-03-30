@@ -14,7 +14,7 @@ class PersonalRecordFile < ActiveRecord::Base
   scope :with_attach_user, -> { where('attach_user_id IS NOT NULL') }
 
   def rename_document_and_set_due_date
-  	self.document_file_name = "#{self.background_official_doc.name} #{self.person_id}"
+  	self.document_file_name = "#{self.background_official_doc.name} #{self.person_id}.pdf"
     self.due_date = Date.today + self.background_official_doc.responsive_due_days.to_i.day if self.is_responsive_letter
   end
 end
