@@ -9,20 +9,27 @@ class Ability
     when 'super_administrator'
         can :manage, :all
     when 'franchise_director'
-        can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter], Person
+        can [:update_password], User, :id=>user.id
+        can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
     when 'finance'
-        can [:create, :read, :update, :assign_roles, :add_new_role], Person
+        can [:update_password], User, :id=>user.id
+        can [:create, :read, :update, :assign_roles, :add_new_role, :profile], Person
     when 'academic_coordinator'
-        can [:read, :assign_roles, :search, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter], Person
+        can [:update_password], User, :id=>user.id
+        can [:read, :assign_roles, :search, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
     when 'head_of_school_control'
+        can [:update_password], User, :id=>user.id
         can [:create, :read, :update], Notification, :user_id=>user.id
-        can [:create, :read, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter], Person
+        can [:create, :read, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
     when 'teacher'
-        can [:search], Person
+        can [:update_password], User, :id=>user.id
+        can [:search, :profile], Person
     when 'support_executive'
-        can [:search, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter], Person
+        can [:update_password], User, :id=>user.id
+        can [:search, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
     when 'salesman'
-        can [:search], Person
+        can [:update_password], User, :id=>user.id
+        can [:search, :profile], Person
     end
     #inni
     # The first argument to `can` is the action you are giving the user 
