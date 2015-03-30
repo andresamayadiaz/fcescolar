@@ -20,3 +20,4 @@
 //= require flatty/theme
 //= require ckeditor/init
 //= require cocoon
+//= require autocomplete-rails

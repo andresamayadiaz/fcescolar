@@ -1,0 +1,194 @@
+<div class="paragraphs">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class='form-group'>
+				<label>Person</label>
+				<%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %>
+			</div>
+			<div class='form-group'>
+				<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal">
+					Search
+				</button>
+			</div>
+		</div>
+		<% if @person.present? %>
+		<div class="col-sm-12">
+			<br/><br/>
+			<div class="col-sm-6">Study location for the last academic degree:</div>
+			<%= simple_form_for(@person, {:url=>update_country_and_state_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
+			<%= f.input :id, as: :hidden %>
+			<div class="col-sm-3">
+				<%= f.association :country, label: false %>
+			</div>
+			<div class="col-sm-3">
+				<%= f.association :state, label: false %>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-sm-12" style="overflow:hidden;">
+			<br/><br/>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>Attach New Document</legend>
+					<%= simple_form_for(@new_personal_record_file, { :url=>upload_document_people_url, :html=>{:multipart=>true} } ) do |f| %>
+					<%= f.association :background_official_doc,:label => "Type" ,:include_blank => 'Document Category' %>
+					<%= f.input :document, :label=>'Attach New Document' %>
+					<%= f.input :is_responsive_letter, :label=>'Is Responsive Letter ?' %>
+					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
+					<%= f.input :attach_user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+					<%= f.submit 'Load', :class => 'button right' %>
+					<% end %>
+				</fieldset>
+			</div>
+			<div class="col-sm-6">
+				<fieldset>
+					<legend>Generate Responsive Letter</legend>
+					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url} ) do |f| %>
+					<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Responsive Template" %>
+					<%= f.input :motive %>
+					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
+					<%= f.input :is_responsive_letter, :as => :hidden, :input_html => { :value => true } %>
+					<div class='form-action'>
+						<%= f.submit 'Preview', :class => 'button' %>
+						<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton'>Sign Responsive Letter</button>
+					</div>
+					<% end %>
+				</fieldset>
+			</div>
+		</div>
+		<% if @attached_docs.present? %>
+		<div class="col-sm-12">
+			<br/><br/>
+			<fieldset>
+				<legend>Attached Documents</legend>
+				<table class='table table-striped table-bordered'>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Due Date</th>
+							<th>Attach Date</th>
+							<th>Attach User</th>
+							<th>Matching Date</th>
+							<th>Matching User</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @attached_docs.each do |d| %>
+						<tr>
+							<td><%= link_to d.document_file_name, d.document.url %></td>
+							<td><%= d.due_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
+							<td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
+							<td><%= d.attach_user.name || d.attach_user.email %></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</fieldset>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>
+
+<%= render 'sign_letter_modal' if @person.present? %>
+
+<%= render 'search_modal' %>
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+	function get_state_by_country_id(country_select, state_select) {
+		$('#'+country_select).change(function(){
+			var val = $(this).val();
+			$.ajax({
+				type: 'GET',
+				url: '/people/get_state_by_country_id?country_id='+val,
+				success: function(data){
+					if(data){
+						var html_element='';
+						$.each(data,function(index,value){
+							html_element+="<option value="+value.id+">"+value.name+"</option>"
+						})
+						$('#'+state_select).html(html_element);
+					}
+				}
+			})
+		});
+	}
+
+	$(document).ready(function(){
+		get_state_by_country_id('person_country_id', 'person_state_id');
+		$('#person_state_id').parents('form').submit(function(e){
+			e.preventDefault(); //STOP default action
+			var _this = $(this);
+			var postData = _this.serializeArray();
+			var formURL = _this.attr("action");
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					alert('Country and state is updated')
+				},
+				error: function(data){
+					alert('Failed to update country and state')
+				}
+			});
+		});
+
+		$('#person_state_id').change(function(){
+			$(this).parents('form').submit();
+		})
+
+		$('#responsive_letter_template_menu').change(function(){
+			var _this_text = $("#responsive_letter_template_menu option:selected").text();
+			$('#responsive-letter-template-name').html(_this_text);
+		})
+
+
+		$('#signLetterButton').click(function(){
+			$('#sign_background_official_doc').val($('#responsive_letter_template_menu').val())
+			$('#sign_motive').val($('#personal_record_file_motive').val());
+		})
+
+		$("#search-person-form").submit(function(e){
+			e.preventDefault();
+			var _this = $(this)
+			_this.find(':button[type="submit"]').prop('disabled', true); 
+			var postData = _this.serializeArray();
+			var formURL = _this.attr("action");
+			$('#search_person_result tbody').html('');
+			$('#search_person_result').slideUp();
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					if (data){
+						var html_data = null;
+						data.map(function(d){
+							html_data = html_data + '<tr class="clickable-person" data-href="/people/manage_personal_record_file?id='+d.id+'"><td>'+d.fathers_maiden_name+
+							'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
+						})
+						if (html_data==null){
+							html_data = '<tr><td colspan="3">No se encontró persona</td></tr>'
+						}
+						$('#search_person_result tbody').html(html_data); 
+						$('#search_person_result').slideDown(); 
+					}
+					_this.find(':button[type="submit"]').prop('disabled', false);
+					$('.clickable-person').click(function(){
+						window.location.href=$(this).attr('data-href')
+					})
+				}
+			});
+		})
+  	});
+</script>
+<% end %>
+<style type="text/css">
+  tr.clickable-person { cursor: pointer;}
+</style>

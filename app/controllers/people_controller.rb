@@ -1,8 +1,55 @@
 class PeopleController < ApplicationController
   load_and_authorize_resource
   before_action :set_person, only: [:show, :edit, :update, :destroy, :profile, :block_or_unblock]
+  autocomplete :person, :name, :full => true
 
   respond_to :html
+
+  def auth_to_sign_responsive_letter
+    user = User.where(:email=>params[:user][:email]).try(:first)
+    if user.present? and user.valid_password?(params[:user][:password])
+      new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+      if new_personal_record_file.save
+        pdf_content = "#{new_personal_record_file.background_official_doc.responsive_letter}#{new_personal_record_file.motive}"
+        footer_pdf_datetime = new_personal_record_file.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        render  :pdf => new_personal_record_file.document_file_name,
+                :margin => {:top=> 20},
+                :header => {
+                  :content => pdf_content
+                },
+                :footer => {
+                  :content => "This has been digitally signed on #{footer_pdf_datetime}"
+                }
+      else
+        redirect_to :back, :alert=>'Something went wrong...'
+      end
+    else
+      redirect_to :back, :alert=>'E-mail and password not match to sign'
+    end
+  end
+
+  def generate_responsive_letter
+    new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+    if new_personal_record_file.save
+      pdf_content = "#{new_personal_record_file.background_official_doc.responsive_letter}#{new_personal_record_file.motive}"
+      render  :pdf => new_personal_record_file.document_file_name,
+              :margin => {:top=> 20},
+              :header => {
+                :content => pdf_content
+              }
+    else
+      redirect_to :back, :alert=>'Something went wrong...'
+    end
+  end
+
+  def update_country_and_state
+    @person = Person.find(params[:person][:id])
+    if @person.update(params[:person])
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
 
   def assign_roles #a page to assign new role
     @person = Person.find(params[:id]) rescue nil
@@ -12,6 +59,23 @@ class PeopleController < ApplicationController
     else
       @person = Person.new
       render 'new_assign_roles'
+    end
+  end
+
+  def upload_document
+    @new_personal_record_file = PersonalRecordFile.new(params[:personal_record_file])
+    if @new_personal_record_file.save
+      redirect_to :back, notice: 'New document is attached'
+    else
+      redirect_to :back,  alert: 'Validation failed'
+    end
+  end
+
+  def manage_personal_record_file
+    @person = Person.find(params[:id]) rescue nil
+    if @person.present?
+      @new_personal_record_file = PersonalRecordFile.new
+      @attached_docs = @person.personal_record_files.with_attach_user
     end
   end
 
@@ -33,10 +97,6 @@ class PeopleController < ApplicationController
     else
       render :nothing=>true, :status => 503
     end
-  end
-
-  def search_by_name
-    byebug
   end
 
   def add_new_role

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323111936) do
+ActiveRecord::Schema.define(version: 20150326103424) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -296,6 +296,24 @@ ActiveRecord::Schema.define(version: 20150323111936) do
   add_index "person_work_places", ["country_id"], name: "index_person_work_places_on_country_id", using: :btree
   add_index "person_work_places", ["person_id"], name: "index_person_work_places_on_person_id", using: :btree
   add_index "person_work_places", ["state_id"], name: "index_person_work_places_on_state_id", using: :btree
+
+  create_table "personal_record_files", force: true do |t|
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.string   "document_type"
+    t.integer  "background_official_doc_id"
+    t.integer  "attach_user_id"
+    t.date     "due_date"
+    t.boolean  "is_responsive_letter"
+    t.text     "motive"
+  end
+
+  add_index "personal_record_files", ["person_id"], name: "index_personal_record_files_on_person_id", using: :btree
 
   create_table "related_people", force: true do |t|
     t.integer  "person_id"

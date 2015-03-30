@@ -10,6 +10,7 @@ class Person < ActiveRecord::Base
   has_many :related_people
   has_many :person_emails
   has_many :contact_telephones
+  has_many :personal_record_files
   
   accepts_nested_attributes_for :person_living_address, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :person_work_place, :reject_if => :all_blank, :allow_destroy => true
@@ -21,6 +22,7 @@ class Person < ActiveRecord::Base
     
   validates_attachment :profile_picture, :content_type => { :content_type => "image/jpeg" }
   validates :person_living_address, :presence => true
+  validates :name, :presence => true
   #validates :franchise, :presence => true, :if => lambda { self.user.active_role!='super_administrator' }
 
   after_create :create_user if User.all.length>0

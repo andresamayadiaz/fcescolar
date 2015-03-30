@@ -21,6 +21,10 @@ gem 'rolify'
 gem 'cancan'
 gem 'cocoon'
 gem "audited-activerecord", "~> 4.0"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'rails4-autocomplete'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -29,14 +33,17 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'byebug'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
 end
+
 group :production do
   gem 'rails_12factor'
 end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
