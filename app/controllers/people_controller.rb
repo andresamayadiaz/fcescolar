@@ -199,6 +199,7 @@ class PeopleController < ApplicationController
     @profile = @person
     @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
     @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
+    @attached_docs = @person.personal_record_files.with_attach_user
   end
 
   private

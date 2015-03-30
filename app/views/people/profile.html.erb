@@ -55,7 +55,40 @@
         <% end %>
       </ul>
     </div>
-    <div role="tabpanel" class="tab-pane" id="rec_file">...</div>
+    <div role="tabpanel" class="tab-pane" id="rec_file">
+      <% if @attached_docs.present? %>
+      <div class="col-sm-12">
+        <br/><br/>
+        <fieldset>
+        <legend>Attached Files in My Personal File</legend>
+          <table class='table table-striped table-bordered'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Due Date</th>
+                <th>Attach Date</th>
+                <th>Attach User</th>
+                <th>Matching Date</th>
+                <th>Matching User</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @attached_docs.each do |d| %>
+              <tr>
+                <td><%= link_to d.document_file_name, d.document.url %></td>
+                <td><%= d.due_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
+                <td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
+                <td><%= d.attach_user.name || d.attach_user.email %></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </fieldset>
+      </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <% content_for :specific_js do %>
