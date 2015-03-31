@@ -131,6 +131,8 @@
   $(document).ready(function(){
     $('.datepicker').datepicker({
       format: "yyyy-mm-dd"
+    }).on('changeDate', function(e){
+        $(this).datepicker('hide');
     });
     get_state_by_country_id('person_country_id', 'person_state_id');
     get_campus_by_franchise_id('person_franchise_id', 'person_campus_id')
