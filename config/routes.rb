@@ -64,7 +64,11 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :degree_achievements_categories
 
-  resources :careers
+  resources :careers do
+    collection do
+      get 'new_study_plan'
+    end
+  end
 
   resources :study_levels
 

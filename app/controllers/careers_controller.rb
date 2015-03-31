@@ -4,6 +4,9 @@ class CareersController < ApplicationController
 
   respond_to :html
 
+  def new_study_plan
+  end
+
   def index
     @careers = Career.all
     respond_with(@careers)
