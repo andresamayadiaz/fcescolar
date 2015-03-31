@@ -75,7 +75,9 @@
 	$(document).ready(function(){
 		$('.datepicker').datepicker({
 	      format: "yyyy-mm-dd"
-	    });
+	    }).on('changeDate', function(e){
+		    $(this).datepicker('hide');
+		});
 		$('.edit_users_role').submit(function(e){
 			e.preventDefault(); //STOP default action
 			var _this = $(this);
