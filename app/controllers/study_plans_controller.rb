@@ -24,7 +24,6 @@ class StudyPlansController < ApplicationController
   # POST /study_plans
   # POST /study_plans.json
   def create
-    byebug
     @study_plan = StudyPlan.new(study_plan_params)
 
     respond_to do |format|
