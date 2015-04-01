@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326103424) do
+ActiveRecord::Schema.define(version: 20150401031540) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150326103424) do
   create_table "careers", force: true do |t|
     t.integer  "franchise_id"
     t.string   "name"
-    t.boolean  "status"
+    t.boolean  "status",                 default: true
     t.string   "rvoe"
     t.integer  "study_level_id"
     t.string   "serie"

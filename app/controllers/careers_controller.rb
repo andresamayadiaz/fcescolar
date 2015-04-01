@@ -8,7 +8,7 @@ class CareersController < ApplicationController
   end
 
   def index
-    @careers = Career.all
+    @careers = Career.where(:status=>true)
     respond_with(@careers)
   end
 
@@ -52,8 +52,8 @@ class CareersController < ApplicationController
   end
 
   def destroy
-    @career.destroy
-    respond_with(@career)
+    @career.update_attribute(:status,false)
+    redirect_to careers_url, notice: 'Career is deleted successfully'
   end
 
   private
