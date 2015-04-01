@@ -1,0 +1,44 @@
+<div class="paragraphs">
+	<div class="row">
+		<div class="col-sm-12">
+      <br/>
+      <%= simple_form_for @study_plan do |f| %>
+        <%= f.error_notification %>
+        <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>'Select Career:' %>
+        <button class='btn btn-sm btn-info' id='validate_study_plan_btn'>Select</button>
+        <div id='detail_study_plan'>
+          <%= f.input :number_of_periods %>
+          <%= f.association :period %>
+          <%= f.input :attendance_rate %> %
+          <%= f.input :extra_opportunities %>
+          <%= f.input :name, readonly: true %>
+          <%= f.submit 'Save', class:'btn btn-primary' %>
+        </div>
+      <% end %>
+		</div>
+	</div>
+</div>
+
+<% content_for :specific_js do %>
+
+<script type="text/javascript">
+  function fill_study_plan_name(career,period){
+    var _this_year = new Date().getFullYear();
+    $('#study_plan_name').val(career+' '+period+' '+_this_year);
+  }
+
+	$(document).ready(function(){
+    $('#validate_study_plan_btn').click(function(e){
+      e.preventDefault();
+      $('#detail_study_plan').slideDown();
+    });
+    $("#study_plan_period_id").change(function(){
+      fill_study_plan_name($('#study_plan_career_id option:selected').text(),$('#study_plan_period_id option:selected').text());
+    })
+	});
+</script>
+
+<% end %>
+<style>
+#detail_study_plan{display:none;}
+</style>

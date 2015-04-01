@@ -4,9 +4,6 @@ class CareersController < ApplicationController
 
   respond_to :html
 
-  def new_study_plan
-  end
-
   def index
     @careers = Career.where(:status=>true)
     respond_with(@careers)
