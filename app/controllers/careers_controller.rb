@@ -1,8 +1,13 @@
 class CareersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_career, only: [:show, :edit, :update, :destroy]
+  before_action :set_career, only: [:show, :edit, :update, :destroy, :check_for_study_plan]
 
   respond_to :html
+
+  def check_for_study_plan
+    @existing_study_plan = @career.study_plans
+    render :json => @existing_study_plan
+  end
 
   def index
     @careers = Career.where(:status=>true)

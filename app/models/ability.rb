@@ -10,6 +10,7 @@ class Ability
         can :manage, :all
     when 'franchise_director'
         can :manage, StudyPlan
+        can [:check_for_study_plan], Career
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
     when 'finance'

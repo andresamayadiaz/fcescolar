@@ -30,6 +30,19 @@
 	$(document).ready(function(){
     $('#validate_study_plan_btn').click(function(e){
       e.preventDefault();
+      $.ajax({
+        url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
+        success: function(data){
+          if(data){
+            var d = data.slice(-1)[0]
+            $("#study_plan_number_of_periods").val(d.number_of_periods);
+            $("#study_plan_period_id").val(d.period_id);
+            $("#study_plan_attendance_rate").val(d.attendance_rate);
+            $("#study_plan_name").val(d.name);
+            $("#study_plan_extra_opportunities").val(d.extra_opportunities);
+          }
+        }
+      })
       $('#detail_study_plan').slideDown();
     });
     $("#study_plan_period_id").change(function(){
