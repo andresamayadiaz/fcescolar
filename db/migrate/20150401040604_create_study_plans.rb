@@ -7,7 +7,7 @@ class CreateStudyPlans < ActiveRecord::Migration
       t.string :name
       t.integer :attendance_rate
       t.integer :extra_opportunities
-
+      t.boolean :status, default: true
       t.timestamps
     end
   end

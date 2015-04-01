@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(version: 20150401040604) do
     t.string   "name"
     t.integer  "attendance_rate"
     t.integer  "extra_opportunities"
+    t.boolean  "status",              default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

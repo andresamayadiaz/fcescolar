@@ -5,7 +5,7 @@ class CareersController < ApplicationController
   respond_to :html
 
   def check_for_study_plan
-    @existing_study_plan = @career.study_plans
+    @existing_study_plan = @career.study_plans.active
     render :json => @existing_study_plan
   end
 
