@@ -36,6 +36,7 @@
 							</div>
 						</form>
 					</div>
+					<% if current_user.active_role.present? %>
 					<ul class='nav nav-stacked'>
 						<li class=''>
 							<a href='index.html'>
@@ -431,6 +432,7 @@
 							</ul>
 						</li>-->
 					</ul>
+					<% end %>
 				</div>
 			</nav>
 			<section id='content'>
