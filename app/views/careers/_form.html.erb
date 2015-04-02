@@ -94,6 +94,11 @@
               <div class="form-group">
                 <%= f.input :auth_file, :label=>'PDF RVOE', :class=>'form-control' %>
               </div>
+              <% if @career.auth_file.exists? %>
+                <div class="form-group">
+                  <u><%= link_to 'Download actual RVOE PDF', @career.auth_file.url %></u>
+                </div>
+              <% end %>
               <div class="form-group">
                <%= f.input :serie, :label=>'Serie', :class=>'form-control' %>
              </div>
