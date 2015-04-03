@@ -207,6 +207,34 @@
         }
       })
     });
+    $('#s2id_career_subject_ids ul').live('click',function() {
+      var arr_values = [];
+      $('#career_subject_ids option').each(function(){
+        arr_values.push($(this).text());
+      })
+      $.ajax({
+        type: 'GET',
+        url: '/subjects/get_subjects_by_study_level?study_level_id='+$('#career_study_level_id').val(),
+        success: function(data){
+          if(data){
+            var html_element='';
+            var html_element_li='';
+            $.each(data,function(index,value){
+              if ($.inArray(value.name,arr_values)==-1)
+              {
+                //$("#career_subject_ids").select2('data', {id: value.id, text: value.name}); 
+                html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
+                //html_element_li = html_element_li.concat('<li class="select2-search-choice"><div>'+value.name+'</div><a href="#" onclick="return false;" class="select2-search-choice-close" tabindex="-1"></a></li>');
+              }
+            });
+            if(html_element!='')
+            {$('#career_subject_ids').append(html_element).select2();}
+            //$('#career_subject_ids').select2()
+            //$("ul.select2-results li").last().before(html_element_li);
+          }
+        }
+      })
+    });
   })
 </script>
 <% end %>
