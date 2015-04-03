@@ -5,6 +5,13 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def download_personal_record_file
+    @personal_record_file = PersonalRecordFile.find(params[:rec_file_id])
+    doc_url = URI.unescape(@personal_record_file.document.url(:original, timestamp: false))
+    file = open("#{Rails.root}/public#{doc_url}")
+    send_file file
+  end
+
   def auth_to_sign_responsive_letter
     user = User.where(:email=>params[:user][:email]).try(:first)
     if user.present? and user.valid_password?(params[:user][:password])

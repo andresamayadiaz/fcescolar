@@ -10,26 +10,26 @@ class Ability
         can :manage, :all
     when 'franchise_director'
         can [:update_password], User, :id=>user.id
-        can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
+        can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file], Person
     when 'finance'
         can [:update_password], User, :id=>user.id
-        can [:create, :read, :update, :assign_roles, :add_new_role, :profile], Person
+        can [:create, :read, :update, :assign_roles, :add_new_role, :profile, :download_personal_record_file], Person
     when 'academic_coordinator'
         can [:update_password], User, :id=>user.id
-        can [:read, :assign_roles, :search, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
+        can [:read, :assign_roles, :search, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file], Person
     when 'head_of_school_control'
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update], Notification, :user_id=>user.id
-        can [:create, :read, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
+        can [:create, :read, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file], Person
     when 'teacher'
         can [:update_password], User, :id=>user.id
-        can [:search, :profile], Person
+        can [:search, :profile, :download_personal_record_file], Person
     when 'support_executive'
         can [:update_password], User, :id=>user.id
-        can [:search, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile], Person
+        can [:search, :manage_personal_record_file, :update_country_and_state, :profile, :download_personal_record_file], Person
     when 'salesman'
         can [:update_password], User, :id=>user.id
-        can [:search, :profile], Person
+        can [:search, :profile, :download_personal_record_file], Person
     end
     #inni
     # The first argument to `can` is the action you are giving the user 

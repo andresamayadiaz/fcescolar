@@ -1,8 +1,13 @@
 class CareersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_career, only: [:show, :edit, :update, :destroy]
+  before_action :set_career, only: [:show, :edit, :update, :destroy, :download]
 
   respond_to :html
+
+  def download
+    file = open("#{Rails.root}/public#{@career.auth_file.url(:original, timestamp: false)}")
+    send_file file
+  end
 
   def index
     @careers = Career.all
