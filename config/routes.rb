@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :people do
     collection do
+      get 'download_personal_record_file'
       patch 'upload_profile_picture'
       get 'get_state_by_country_id'
       post 'search'
