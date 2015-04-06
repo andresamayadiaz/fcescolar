@@ -19,6 +19,7 @@ class PeopleController < ApplicationController
     if params[:match]=="true"
       @personal_rec_file.update_attribute(:has_been_matched,true)
     else
+      NotificationMailer.match_notification_email(@personal_rec_file.person.user,current_user,@personal_rec_file).deliver
       @personal_rec_file.update_attribute(:has_been_matched,false)
     end
     render :json => @personal_rec_file.match_date
