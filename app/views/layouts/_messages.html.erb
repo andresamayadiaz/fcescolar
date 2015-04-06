@@ -1,5 +1,5 @@
 <%# Rails flash messages styled for Bootstrap 3.0 %>
-<% if RAILS_ENV=='development' %>
+<% if ENV['RAILS_ENV']=='development' %>
 <div class='alert alert-info'>You are using <%= ENV['RAILS_ENV'] %> environment</div>
 <% end %>
 <% flash.each do |name, msg| %>
