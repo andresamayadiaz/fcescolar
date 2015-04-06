@@ -5,7 +5,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Doctos. Oficiales de Antecedentes</span>
+        <span><%= t('background_docs.plural') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -18,12 +18,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Doctos. Oficiales Antecedentes</li>
+          <li class="active"><%= t('background_docs.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,9 +34,9 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-    <div class='title'>Listado de Doctos. Oficiales de Antecedentes</div>
+    <div class='title'><%= t('background_docs.plural') %></div>
     <div class='actions'>
-      <%= link_to 'Nuevo', new_background_official_doc_path, :class=>'btn btn-large btn-success' %>
+      <%= link_to t('background_docs.new'), new_background_official_doc_path, :class=>'btn btn-large btn-success' %>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -46,7 +46,7 @@
           <thead>
             <tr>
               <th>
-                Nombre
+                <%= t('general.name') %>
               </th>
               <th>
                 Días de Vigencia Carta Resp.
@@ -64,7 +64,7 @@
                   <%= link_to edit_background_official_doc_url(background_official_doc), class: 'btn btn-success btn-xs' do %>
                   <i class='icon-ok'></i>
                   <% end %>
-                  <%= link_to background_official_doc, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <%= link_to background_official_doc, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                   <i class='icon-remove'></i>
                   <% end %>
                 </div>

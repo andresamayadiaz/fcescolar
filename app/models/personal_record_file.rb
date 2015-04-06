@@ -2,7 +2,7 @@ class PersonalRecordFile < ActiveRecord::Base
   belongs_to :person
   belongs_to :background_official_doc
   belongs_to :attach_user, :class_name => "User", :foreign_key => "attach_user_id"
-
+  belongs_to :match_user, :class_name => "User", :foreign_key => "match_user_id"
 
   has_attached_file :document
   validates_attachment_content_type :document, content_type: ['application/pdf']

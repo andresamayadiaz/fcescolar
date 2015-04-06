@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Carreras</span>
+        <span><%= t('career.singular') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Carrera</li>
+          <li class="active"><%= t('career.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,7 +34,7 @@
 <div class="box bordered-box blue-border">
   <div class="box-header blue-background">
     <div class="title">
-      Carrera
+      <%= t('career.singular') %>
     </div>
   </div>
   <div class="box-content">
@@ -49,7 +49,7 @@
         </li>
         <li class=''>
           <a data-toggle='tab' href='#retab2'>
-            Materias
+            <%= t('subject.plural') %>
           </a>
         </li>
       </ul>
@@ -69,10 +69,10 @@
             </div>
             <div class="col-sm-7 col-sm-offset-1">
               <div class="form-group">
-                <%= f.association :study_level, :label=>'Nivel de Estudios',:class=>'select2 form-control' %>
+                <%= f.association :study_level, :label=>t('study_level.singular'),:class=>'select2 form-control' %>
               </div>
               <div class="form-group">
-                <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+                <%= f.input :name, :label=>t('general.name'), :class=>'form-control' %>
               </div>
             </div>
           </fieldset>
@@ -96,7 +96,7 @@
               </div>
               <% if @career.auth_file.exists? %>
                 <div class="form-group">
-                  <u><%= link_to 'Download actual RVOE PDF', download_career_url(@career) %></u>
+                  <u><%= link_to t('general.download_link'), download_career_url(@career) %></u>
                 </div>
               <% end %>
               <div class="form-group">
@@ -118,14 +118,14 @@
             <div class="box">
               <div class="lead">
                 <i class="icon-edit text-contrast"></i>
-                Materias Habilitadas
+                <%= t('subject.plural') %> Habilitadas
               </div>
               <small class="text-muted">Seleccione las Materias Habilitadas para la presente Carrera.</small>
             </div>
           </div>
           <div class="col-sm-7 col-sm-offset-1">
             <div class="form-group">
-              <label>Buscar Materias</label>
+              <label><%= t('general.search') %> <%= t('subject.plural') %></label>
               <%= collection_select :career, :subject_ids, @subjects, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
             </div>
             <div class="form-group">
@@ -135,7 +135,7 @@
                 <thead>
                   <tr>
                     <th>Clave</th>
-                    <th>Materia</th>
+                    <th><%= t('subject.singular') %></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -160,7 +160,7 @@
      <div class="col-sm-7 col-sm-offset-5">
       <%= button_tag( :class => "btn btn-primary btn-lg") do %>
       <i class="icon-save"></i>
-      Guardar
+      <%= t('general.save') %>
       <% end %>
     </div>
   </div>

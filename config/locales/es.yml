@@ -1,0 +1,142 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+es:
+  activerecord:
+    errors:
+      messages:
+        blank: "No puede estar vacio: %{attribute}."
+        invalid: "Invalido: %{attribute}."
+  general:
+    name: "Nombre"
+    address: "Dirección"
+    search: "Buscar"
+    previous: "Anterior"
+    next: "Siguiente"
+    logout: "Salir"
+    profile: "Perfil"
+    email: "Email"
+    change: "Cambiar"
+    country: "País"
+    state: "Estado"
+    role: "Rol"
+    street: "Calle"
+    telephone: "Teléfono"
+    add: "Agregar"
+    emergency: "Emergencia"
+    save: "Guardar"
+    cancel: "Cancelar"
+    back: "Regresar"
+    change: "Cambiar"
+    assigned_roles: "Roles Asignados"
+    catalogue: "Catálogo"
+    catalogues: "Catálogos"
+    new: "Nuevo"
+    edit: "Editar"
+    are_you_sure: "¿Estas Seguro?"
+    general_info: "Información General"
+    insert_general_info: "Ingrese los datos generales"
+    download_link: "Descargar Documento"
+  franchise:
+    singular: "Franquicia"
+    plural: "Franquicias"
+    new: "Nueva Franquicia"
+    menu: "Franquicias"
+  campus:
+    singular: "Campus"
+    plural: "Campus"
+    new: "Nuevo Campus"
+    menu: "Campus"
+  country:
+    singular: "Pais"
+    plural: "Paises"
+    new: "Nuevo Pais"
+    menu: "Paises"
+  state:
+    singular: "Estado"
+    plural: "Estados"
+    new: "Nuevo Estado"
+    menu: "Estados"
+  study_level:
+    singular: "Nivel de Estudio"
+    plural: "Niveles de Estudio"
+    new: "Nuevo Nivel de Estudio"
+    menu: "Niveles de Estudio"
+  degree_achivements:
+    singular: "Forma de Titulación"
+    plural: "Formas de Titulación"
+    new: "Nueva Forma de Titulación"
+    menu: "Formas de Titulación"
+  background_docs:
+    singular: "Docto Oficial de Antecedentes"
+    plural: "Doctos. Oficiales de Antecedentes"
+    new: "Nuevo Docto Oficial de Antecedentes"
+    menu: "Doctos Oficiales de Antecedentes"
+  contract_template:
+    singular: "Formato de Contrato"
+    plural: "Formatos de Contratos"
+    new: "Nuevo Formato de Contrato"
+    menu: "Formatos de Contratos"
+  official_domain:
+    singular: "Dominio Oficial"
+    plural: "Dominios Oficiales"
+    new: "Nuevo Dominio Oficial"
+    menu: "Dominios Oficiales"
+  relationship:
+    singular: "Parentezco"
+    plural: "Parentezcos"
+    new: "Nuevo Parentezco"
+    menu: "Parentezcos"
+  subject:
+    singular: "Materia"
+    plural: "Materias"
+    new: "Nueva Materia"
+    menu: "Materias"
+  curricular_line:
+    singular: "Línea Curricular"
+    plural: "Líneas Curriculares"
+    new: "Nueva Línea Curricular"
+    menu: "Líneas Curriculares"
+  classroom:
+    singular: "Aula"
+    plural: "Aulas"
+    new: "Nueva Aula"
+    menu: "Aulas"
+  time_slot:
+    singular: "Franja Horaria"
+    plural: "Franjas Horarias"
+    new: "Nueva Franja Horaria"
+    menu: "Franjas Horarias"
+  career:
+    singular: "Carrera"
+    plural: "Carreras"
+    new: "Nueva Carrera"
+    menu: "Carreras y sus Materias"
+  notification:
+    singular: "Notificación"
+    plural: "Notificaciones"
+    new: "Nueva Notificación"
+    menu: "Administrar Notificaciones"
+  period:
+    singular: "Periodo"
+    plural: "Periodos"
+    new: "Nuevo Periodo"
+    menu: "Administrar Periodos"

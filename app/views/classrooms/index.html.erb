@@ -5,7 +5,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-list"></i>
-        <span>Catálogo de Aula</span>
+        <span><%= t('classroom.plural') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -18,12 +18,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Aula</li>
+          <li class="active"><%= t('classroom.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,9 +34,9 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-    <div class='title'>Listado de Aula</div>
+    <div class='title'><%= t('classroom.plural') %></div>
     <div class='actions'>
-      <%= link_to 'Nuevo', new_classroom_path, :class=>'btn btn-large btn-success' %>
+      <%= link_to t('classroom.new'), new_classroom_path, :class=>'btn btn-large btn-success' %>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -45,9 +45,9 @@
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Franquicia</th>
-              <th>Campus</th> 
-              <th>Nombre</th>
+              <th><%= t('franchise.singular') %></th>
+              <th><%= t('campus.singular') %></th> 
+              <th><%= t('general.name') %></th>
               <th>Capacidad Max</th>
               <th>Consecutivo</th>
               <th></th>
@@ -66,7 +66,7 @@
                  <%= link_to edit_classroom_url(classroom), class: 'btn btn-success btn-xs' do %>
                  <i class='icon-ok'></i>
                  <% end %>
-                 <%= link_to classroom, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                 <%= link_to classroom, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                  <i class='icon-remove'></i>
                  <% end %>
                </div>

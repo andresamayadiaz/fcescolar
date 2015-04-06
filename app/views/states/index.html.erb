@@ -5,7 +5,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-list"></i>
-        <span>Catálogo de Estados</span>
+        <span><%= t('state.plural') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -18,12 +18,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogue') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Estados</li>
+          <li class="active"><%= t('state.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,9 +34,9 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-    <div class='title'>Listado de Estados</div>
+    <div class='title'><%= t('state.plural') %></div>
     <div class='actions'>
-      <%= link_to "Nuevo", new_state_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
+      <%= link_to t('state.new'), new_state_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -46,10 +46,10 @@
           <thead>
             <tr>
               <th>
-                Pais
+                <%= t('country.singular') %>
               </th>
               <th>
-                Nombre
+                <%= t('general.name') %>
               </th>
               <th></th>
             </tr>
@@ -64,7 +64,7 @@
                 <%= link_to edit_state_url(state), class: 'btn btn-success btn-xs' do %>
                 <i class='icon-ok'></i>
                 <% end %>
-                <%= link_to state, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= link_to state, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                 <i class='icon-remove'></i>
                 <% end %>
               </div>

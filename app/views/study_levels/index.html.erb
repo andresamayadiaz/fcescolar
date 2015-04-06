@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-list"></i>
-        <span>Catálogo de Niveles de Estudio</span>
+       	<%= t('study_level.plural') %>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogue') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Niveles de Estudio</li>
+          <li class="active"><%= t('study_level.plural') %></li>
         </ul>
       </div>
     </div>
@@ -33,9 +33,9 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-    <div class='title'>Listado de Niveles de Estudio</div>
+    <div class='title'><%= t('study_level.plural') %></div>
     <div class='actions'>
-      <%= link_to "Nuevo", new_study_level_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
+      <%= link_to t('study_level.new'), new_study_level_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
     </div>
   </div>
   <div class='box-content box-no-padding'>
@@ -45,7 +45,7 @@
           <thead>
             <tr>
               <th>
-                Nombre
+                <%= t('general.name') %>
               </th>
               <th></th>
             </tr>
@@ -59,7 +59,7 @@
                <%= link_to edit_study_level_url(study_level), class: 'btn btn-success btn-xs' do %>
                 <i class='icon-ok'></i>
                 <% end %>
-                <%= link_to study_level, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= link_to study_level, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                 <i class='icon-remove'></i>
                 <% end %>
               </div>

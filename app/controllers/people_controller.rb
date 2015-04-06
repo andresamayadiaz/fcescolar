@@ -12,6 +12,19 @@ class PeopleController < ApplicationController
     send_file file
   end
 
+  def matching_date_and_user
+    @personal_rec_file = PersonalRecordFile.find(params[:rec_file_id])
+    if params[:match]=="true"
+      @personal_rec_file.update_attribute(:match_user_id,current_user.id)
+      @personal_rec_file.update_attribute(:match_date,Date.today)
+      @personal_rec_file.update_attribute(:has_been_matched,true)
+      render :json => @personal_rec_file.match_date
+    else
+      @personal_rec_file.update_attribute(:has_been_matched,false)
+      render :json => false
+    end
+  end
+
   def auth_to_sign_responsive_letter
     user = User.where(:email=>params[:user][:email]).try(:first)
     if user.present? and user.valid_password?(params[:user][:password])

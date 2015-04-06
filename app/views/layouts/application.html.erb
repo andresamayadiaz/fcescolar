@@ -39,14 +39,14 @@
 					<% if current_user.active_role.present? %>
 					<ul class='nav nav-stacked'>
 						<li class=''>
-							<a href='index.html'>
+							<a href='/'>
 								<i class='icon-dashboard'></i>
 								<span>Dashboard</span>
 							</a>
 						</li>
 						<li class=''>
 							<a class="dropdown-collapse" href="#"><i class='icon-edit'></i>
-								<span>Catálogo</span>
+								<span><%= t('general.catalogues') %></span>
 								<i class='icon-angle-down angle-down'></i>
 							</a>
 
@@ -54,37 +54,37 @@
 								<li class=''>
 									<a href='/subjects'>
 										<i class='icon-caret-right'></i>
-										<span>Materias</span>
+										<span><%= t('subject.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/curricular_lines'>
 										<i class='icon-caret-right'></i>
-										<span>Líneas Curriculares</span>
+										<span><%= t('curricular_line.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/classrooms'>
 										<i class='icon-caret-right'></i>
-										<span>Aulas</span>
+										<span><%= t('clasroom.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/time_slots'>
 										<i class='icon-caret-right'></i>
-										<span>Ranura de tiempo</span>
+										<span><%= t('time_slot.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/careers'>
 										<i class='icon-caret-right'></i>
-										<span>Carreras</span>
+										<span><%= t('career.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/notifications'>
 										<i class='icon-caret-right'></i>
-										<span>Notificaciones</span>
+										<span><%= t('notification.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
@@ -97,61 +97,67 @@
 										<li>
 											<a href='/franchises'>
 												<i class='icon-caret-right'></i>
-												<span>Franquicias</span>
+												<span><%= t('franchise.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/campuses'>
 												<i class='icon-caret-right'></i>
-												<span>Campus</span>
+												<span><%= t('campus.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/countries'>
 												<i class='icon-caret-right'></i>
-												<span>Paises</span>
+												<span><%= t('country.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/states'>
 												<i class='icon-caret-right'></i>
-												<span>Estados</span>
+												<span><%= t('state.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/study_levels'>
 												<i class='icon-caret-right'></i>
-												<span>Niveles de Estudio</span>
+												<span><%= t('study_level.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/degree_achievements_categories'>
 												<i class='icon-caret-right'></i>
-												<span>Formas de Titulación</span>
+												<span><%= t('degree_achivements.menu') %></span>
+											</a>
+										</li>
+										<li>
+											<a href='/periods'>
+												<i class='icon-caret-right'></i>
+												<span><%= t('period.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/background_official_docs'>
 												<i class='icon-caret-right'></i>
-												<span>Doctos. Oficiales de Ant.</span>
+												<span><%= t('background_docs.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/contracts_templates'>
 												<i class='icon-caret-right'></i>
-												<span>Formatos de Contrato</span>
+												<span><%= t('contract.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/official_domains'>
 												<i class='icon-caret-right'></i>
-												<span>Dominios Oficiales</span>
+												<span><%= t('official_domain.menu') %></span>
 											</a>
 										</li>
 										<li>
 											<a href='/relationship_types'>
 												<i class='icon-caret-right'></i>
-												<span>Parentezcos</span>
+												<span><%= t('relationship.menu') %></span>
 											</a>
 										</li>
 									</ul>
