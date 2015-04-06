@@ -25,7 +25,7 @@ class Person < ActiveRecord::Base
   validates :name, :presence => true
   #validates :franchise, :presence => true, :if => lambda { self.user.active_role!='super_administrator' }
 
-  after_create :create_user if User.all.length>0
+  after_create :create_user
 
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')
