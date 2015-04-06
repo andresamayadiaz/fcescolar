@@ -35,6 +35,7 @@ class CareersController < ApplicationController
         if @career.save 
           redirect_to careers_url 
         else 
+          @subjects = @career.subjects
           render 'new'
         end
       }
