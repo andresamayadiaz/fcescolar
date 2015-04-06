@@ -75,7 +75,7 @@
             <tbody>
               <% @attached_docs.each do |d| %>
               <tr>
-                <td><%= link_to d.document_file_name, d.document.url %></td>
+                <td><%= link_to d.document_file_name, download_personal_record_file_people_url(:rec_file_id=>d.id) %></td>
                 <td><%= d.due_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
                 <td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
                 <td><%= d.attach_user.name || d.attach_user.email %></td>

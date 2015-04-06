@@ -1,8 +1,13 @@
 class CareersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_career, only: [:show, :edit, :update, :destroy, :check_for_study_plan]
+  before_action :set_career, only: [:show, :edit, :update, :destroy, :check_for_study_plan, :download]
 
   respond_to :html
+
+  def download
+    file = open("#{Rails.root}/public#{@career.auth_file.url(:original, timestamp: false)}")
+    send_file file
+  end
 
   def check_for_study_plan
     @existing_study_plan = @career.study_plans.active
@@ -35,6 +40,7 @@ class CareersController < ApplicationController
         if @career.save 
           redirect_to careers_url 
         else 
+          @subjects = @career.subjects
           render 'new'
         end
       }
