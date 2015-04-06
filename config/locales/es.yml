@@ -24,7 +24,7 @@ es:
     errors:
       messages:
         blank: "No puede estar vacio: %{attribute}."
-				invalid: "Invalido: %{attribute}."
+        invalid: "Invalido: %{attribute}."
   general:
     name: "Nombre"
     address: "Dirección"
