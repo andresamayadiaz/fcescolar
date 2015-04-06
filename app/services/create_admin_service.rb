@@ -4,6 +4,7 @@ class CreateAdminService
     state = State.create!(:name=>'Mexico')
     person = Person.new(
       email: Rails.application.secrets.admin_email,
+      name: 'Andres Amaya Diaz',
       country: country,
       state: state,
       last_academic_degree: 'Phd'
@@ -20,13 +21,6 @@ class CreateAdminService
       phone_emergency: '911-911-911'
     )
     person.save!
-    user = User.find_or_create_by!(email: Rails.application.secrets.admin_email) do |user|
-        user.name = 'Andres Amaya Diaz'
-        user.password = Rails.application.secrets.admin_password
-        user.password_confirmation = Rails.application.secrets.admin_password
-        user.confirm!
-        user.add_role :super_administrator
-      end
-    person.user = user
+    return person
   end
 end
