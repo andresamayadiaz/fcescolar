@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Materias</span>
+        <span><%= t('subject.singular') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Materias</li>
+          <li class="active"><%= t('subject.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,7 +34,7 @@
 <div class="box bordered-box blue-border">
   <div class="box-header blue-background">
     <div class="title">
-      Materia
+      <%= t('subject.singular') %>
     </div>
   </div>
   <div class="box-content box-double-padding">
@@ -61,7 +61,7 @@
           <%= f.input :clave, :label=>'Clave', :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+          <%= f.input :name, :label=>t('general.name'), :class=>'form-control' %>
         </div>
       </div>
     </fieldset>
@@ -71,7 +71,7 @@
         <div class="col-sm-7 col-sm-offset-5">
           <%= button_tag( :class => "btn btn-primary btn-lg") do %>
           <i class="icon-save"></i>
-          Guardar
+          <%= t('general.save') %>
           <% end %>
         </div>
       </div>

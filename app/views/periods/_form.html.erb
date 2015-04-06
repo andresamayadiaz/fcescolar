@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-edit"></i>
-        <span>Catálogo de Períodos</span>
+        <span><%= t('period.singular') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Períodos</li>
+          <li class="active"><%= t('period.plural') %></li>
         </ul>
       </div>
     </div>
@@ -34,7 +34,7 @@
 <div class="box bordered-box blue-border">
   <div class="box-header blue-background">
     <div class="title">
-      Períodos
+      <%= t('period.singular') %>
     </div>
   </div>
   <div class="box-content box-double-padding">
@@ -52,7 +52,7 @@
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.association :franchise, :label=>'Franquicia', :class=>'select2 form-control' %>
+          <%= f.association :franchise, :label=>t('franchise.singular'), :class=>'select2 form-control' %>
         </div>
         <div class="form-group">
           <%= f.input :initial_month, :label=>'Mes Inicial', :class=>'form-control', as: :date, order: [:month] %>
@@ -67,7 +67,7 @@
         <%= f.input :start_year, :label=>'Año de inicio', :class=>'form-control', as: :date, order: [:year] %>
         </div>
         <div class="form-group">
-          <%= f.input :name, :label=>'Nombre', :class=>'form-control' %>
+          <%= f.input :name, :label=>t('general.name'), :class=>'form-control' %>
         </div>
       </div>
     </fieldset>
@@ -77,7 +77,7 @@
         <div class="col-sm-7 col-sm-offset-5">
           <%= button_tag( :class => "btn btn-primary btn-lg") do %>
           <i class="icon-save"></i>
-          Guardar
+          <%= t('general.save') %>
           <% end %>
         </div>
       </div>

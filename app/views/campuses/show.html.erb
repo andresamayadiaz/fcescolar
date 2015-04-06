@@ -1,22 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= t('general.name') %>:</strong>
   <%= @campus.name %>
 </p>
 
 <p>
-  <strong>Address:</strong>
+  <strong><%= t('general.address') %>:</strong>
   <%= @campus.address %>
 </p>
 
 <p>
-  <strong>Classrooms:</strong>
+  <strong>Aulas:</strong>
   <%= @campus.classrooms %>
 </p>
 
 <p>
-  <strong>Franchise:</strong>
+  <strong><%= t('franchise.singular') %>:</strong>
   <%= @campus.franchise.name %>
 </p>
 

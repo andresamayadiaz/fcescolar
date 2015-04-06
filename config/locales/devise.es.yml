@@ -1,0 +1,60 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+es:
+  devise:
+    confirmations:
+      confirmed: "Su email ha sido confirmado con éxito."
+      send_instructions: "En breve recibirá un correo con instrucciones para validar su cuenta de email."
+      send_paranoid_instructions: "Si su cuenta de emial existe, en breve recibirá un correo con instrucciones para validar su cuenta de email."
+    failure:
+      already_authenticated: "Ya estas dentro del sistema."
+      inactive: "Su cuenta no ha sido activada."
+      invalid: "Incorrecto: %{authentication_keys} o password."
+      locked: "Su cuenta esta bloqueada."
+      last_attempt: "Tiene solamente un intento adicional antes de bloquear su cuenta."
+      not_found_in_database: "Incorrecto: %{authentication_keys} o password."
+      timeout: "Su sesión ha expirado. Favor de entrar de nuevo."
+      unauthenticated: "Primero debe ingresar antes de poder continuar."
+      unconfirmed: "Usted debe primero confirmar su cuenta de email antes de poder continuar."
+    mailer:
+      confirmation_instructions:
+        subject: "Instrucciones de Confirmación"
+      reset_password_instructions:
+        subject: "Instrucciones para Cambair Password"
+      unlock_instructions:
+        subject: "Instrucciones para Desbloquear"
+    omniauth_callbacks:
+      failure: "Nose pudo autenticar desde %{kind} por \"%{reason}\"."
+      success: "Autenticada con éxito desde %{kind}."
+    passwords:
+      no_token: "No se puede acceder a esta página sin proveenir de un link de cambio de password. Si usted lo ha hecho a partir del link de cambio de contraseña favor de verificar que ha copiado el link compelto."
+      send_instructions: "Usted recibirá un correo electrónico con instrucciones sobre como reestablecer su password en pocos minutos."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "Su password ha cambiado con éxito."
+      updated_not_active: "Su password ha cambiado con éxito."
+    registrations:
+      destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
+      signed_up: "Welcome! You have signed up successfully."
+      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
+      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
+      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirm link to confirm your new email address."
+      updated: "Your account has been updated successfully."
+    sessions:
+      signed_in: "Acceso Correcto. Bienvenido!"
+      signed_out: "Sesión terminada con éxito."
+      already_signed_out: "Sesión terminada con éxito."
+    unlocks:
+      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+  errors:
+    messages:
+      already_confirmed: "ya ha sido confirmada, favor de intentar ingresar al sistema."
+      confirmation_period_expired: "necesita ser confirmada en %{period}, favor de solicitar una nueva"
+      expired: "ha expirado, favor de solicitar una nueva"
+      not_found: "no encontrado"
+      not_locked: "no estaba bloqueda"
+      not_saved:
+        one: "1 error prohibe guardar %{resource} :"
+        other: "%{count} errores prohiben guardar %{resource} :"
