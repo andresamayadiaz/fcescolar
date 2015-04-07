@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401040604) do
-
+ActiveRecord::Schema.define(version: 20150406113015) do
+  
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
     t.string   "auditable_type"
@@ -311,6 +311,9 @@ ActiveRecord::Schema.define(version: 20150401040604) do
     t.date     "due_date"
     t.boolean  "is_responsive_letter"
     t.text     "motive"
+    t.date     "match_date"
+    t.integer  "match_user_id"
+    t.boolean  "has_been_matched"
   end
 
   add_index "personal_record_files", ["person_id"], name: "index_personal_record_files_on_person_id", using: :btree

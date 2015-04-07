@@ -70,6 +70,7 @@
 							<th>Attach User</th>
 							<th>Matching Date</th>
 							<th>Matching User</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -79,8 +80,20 @@
 							<td><%= d.due_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
 							<td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
 							<td><%= d.attach_user.name || d.attach_user.email %></td>
-							<td></td>
-							<td></td>
+							<td><%= d.match_date %></td>
+							<td><%= (d.match_user.name || d.match_user.email) if d.match_user.present? %></td>
+							<% if d.match_user.blank? and d.match_date.blank? and d.has_been_matched.nil? %>
+								<td>
+									<a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>true) %>' class='btn-sm btn-success match_date'>Match OK</a>&nbsp;
+									<a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>false) %>' class='btn-sm btn-danger match_user'>Match Not OK</a>
+									</td>
+							<% else %>
+								<% if d.has_been_matched %>
+									<td><span class="alert-success">OK</span></td>
+								<% else %>
+									<td><span class="alert-danger">Not OK</span></td>
+								<% end %>
+							<% end %>
 						</tr>
 						<% end %>
 					</tbody>
@@ -117,8 +130,35 @@
 		});
 	}
 
+	function match_date_and_user(element){
+		element.click(function(e){
+			e.preventDefault();
+			var _this = $(this)
+			var element_url = _this.attr('href')
+			$.ajax({
+				type: 'GET',
+				url: element_url,
+				success: function(data){
+					console.log(data);
+					_this.parent().prev().prev().html(data)
+					_this.parent().prev().html('<%= current_user.name || current_user.email %>')
+					if(_this.hasClass('btn-success')){
+						_this.parent().html('<span class="alert-success">OK</span>')
+					} else {
+						_this.parent().html('<span class="alert-danger">Not OK</span>')
+						alert('A notification has been sent.');
+					}
+				}
+			})
+		})
+	}
+
 	$(document).ready(function(){
 		get_state_by_country_id('person_country_id', 'person_state_id');
+
+		match_date_and_user($('a.match_date'));
+		match_date_and_user($('a.match_user'));
+
 		$('#person_state_id').parents('form').submit(function(e){
 			e.preventDefault(); //STOP default action
 			var _this = $(this);

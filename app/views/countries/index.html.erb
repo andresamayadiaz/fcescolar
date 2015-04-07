@@ -4,7 +4,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-list"></i>
-        <span>Catálogo de Paises</span>
+        <span><%= t('country.plural') %></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogue') %>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Paises</li>
+          <li class="active"><%= t('country.plural') %></li>
         </ul>
       </div>
     </div>
@@ -33,7 +33,7 @@
 <!-- // TABLE -->
 <div class="box bordered-box blue-border" style="margin-bottom:0;">
   <div class="box-header blue-background">
-    <div class="title">Listado de Paises</div>
+    <div class="title"><%= t('country.plural') %></div>
   </div>
   <div class="box-content box-no-padding">
     <div class="responsive-table">
@@ -43,7 +43,7 @@
             <div class="col-sm-6">
               <div id="DataTables_Table_0_length" class="dataTables_length">
                 <label>
-                  <%= link_to "Nuevo", new_country_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
+                  <%= link_to t('country.new'), new_country_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
                 </label>
               </div>
             </div>
@@ -51,7 +51,7 @@
           <table class="data-table table table-bordered table-striped dataTable" style="margin-bottom:0;" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
             <thead>
               <tr role="row"><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 326px;">
-                Nombre
+                <%= t('general.name') %>
               </th><th class="" role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label=": activate to sort column ascending" style="width: 149px;"></th>
             </tr>
           </thead>
@@ -64,7 +64,7 @@
                   <%= link_to edit_country_url(country), class: 'btn btn-success btn-xs' do %>
                   <i class='icon-ok'></i>
                   <% end %>
-                  <%= link_to country, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <%= link_to country, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                   <i class='icon-remove'></i>
                   <% end %>
                 </div>
