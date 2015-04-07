@@ -20,6 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 es:
+  datetime:
+    distance_in_words:
+      x_days:
+        one: "hace 1 día"
+        other: "hace %{count} días"
   activerecord:
     errors:
       messages:
