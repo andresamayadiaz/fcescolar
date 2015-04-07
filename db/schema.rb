@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406113015) do
-  
+ActiveRecord::Schema.define(version: 20150407120358) do
+
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
     t.string   "auditable_type"
@@ -367,6 +367,17 @@ ActiveRecord::Schema.define(version: 20150406113015) do
   end
 
   add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
+
+  create_table "study_plan_periods", force: true do |t|
+    t.string   "period_name"
+    t.integer  "curricular_line_id"
+    t.integer  "study_plan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_plan_periods", ["curricular_line_id"], name: "index_study_plan_periods_on_curricular_line_id", using: :btree
+  add_index "study_plan_periods", ["study_plan_id"], name: "index_study_plan_periods_on_study_plan_id", using: :btree
 
   create_table "study_plans", force: true do |t|
     t.integer  "career_id"

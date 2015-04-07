@@ -34,12 +34,19 @@
         url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
         success: function(data){
           if(data&&data.length>0){
+            console.log(data);
             var d = data.slice(-1)[0]
             $("#study_plan_number_of_periods").val(d.number_of_periods);
             $("#study_plan_period_id").val(d.period_id);
             $("#study_plan_attendance_rate").val(d.attendance_rate);
             $("#study_plan_name").val(d.name);
             $("#study_plan_extra_opportunities").val(d.extra_opportunities);
+          } else {
+            $("#study_plan_number_of_periods").val('');
+            $("#study_plan_period_id").val('');
+            $("#study_plan_attendance_rate").val('');
+            $("#study_plan_name").val('');
+            $("#study_plan_extra_opportunities").val('');
           }
         }
       })
