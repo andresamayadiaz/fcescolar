@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407120358) do
+ActiveRecord::Schema.define(version: 20150408064344) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -378,6 +378,21 @@ ActiveRecord::Schema.define(version: 20150407120358) do
 
   add_index "study_plan_periods", ["curricular_line_id"], name: "index_study_plan_periods_on_curricular_line_id", using: :btree
   add_index "study_plan_periods", ["study_plan_id"], name: "index_study_plan_periods_on_study_plan_id", using: :btree
+
+  create_table "study_plan_subjects", force: true do |t|
+    t.integer  "study_plan_period_id"
+    t.integer  "curricular_line_id"
+    t.integer  "subject_id"
+    t.string   "name"
+    t.integer  "weekly_frequency"
+    t.integer  "credits"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_plan_subjects", ["curricular_line_id"], name: "index_study_plan_subjects_on_curricular_line_id", using: :btree
+  add_index "study_plan_subjects", ["study_plan_period_id"], name: "index_study_plan_subjects_on_study_plan_period_id", using: :btree
+  add_index "study_plan_subjects", ["subject_id"], name: "index_study_plan_subjects_on_subject_id", using: :btree
 
   create_table "study_plans", force: true do |t|
     t.integer  "career_id"
