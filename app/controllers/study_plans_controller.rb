@@ -3,6 +3,11 @@ class StudyPlansController < ApplicationController
 
   # GET /study_plans
   # GET /study_plans.json
+  def get_subject_by_curricular_line
+    @subjects = Subject.where(:curricular_line_id=>params[:cl_id])
+    render :json => @subjects
+  end
+  
   def index
     @study_plans = StudyPlan.all
   end
@@ -28,7 +33,7 @@ class StudyPlansController < ApplicationController
 
     respond_to do |format|
       if @study_plan.save
-        format.html { redirect_to @study_plan, notice: 'Study plan was successfully created.' }
+        format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully created.' }
         format.json { render :show, status: :created, location: @study_plan }
       else
         format.html { render :new }

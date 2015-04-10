@@ -75,7 +75,11 @@ Rails.application.routes.draw do
 
   resources :study_levels
 
-  resources :study_plans
+  resources :study_plans do
+    collection do
+      get 'get_subject_by_curricular_line'
+    end
+  end
 
   resources :states
 

@@ -35,6 +35,26 @@
     $('#study_plan_name').val(career+' '+period+' '+_this_year);
   }
 
+  function get_subjects_by_curricular_line() {
+    $('.study_plan_subject_cl').change(function(){
+      var _this = $(this);
+      var val = _this.val();
+      console.log('--------');
+      $.ajax({
+        type: 'GET',
+        url: '/study_plans/get_subject_by_curricular_line?cl_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            _this.parent().next().find('select').html(html_element);
+          }
+        }
+      })
+    });
+  }
 	$(document).ready(function(){
     $('#validate_study_plan_btn').click(function(e){
       e.preventDefault();
@@ -73,7 +93,9 @@
       $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
       $('#study_plan_periods_wrapper').slideDown();
     })
+
 	});
+
 </script>
 
 <% end %>
