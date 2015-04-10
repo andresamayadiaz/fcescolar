@@ -13,7 +13,7 @@
           <%= f.input :extra_opportunities %>
           <%= f.input :name, readonly: true %>
           <div id="study_plan_periods_wrapper" style="display:none;">
-            <%= f.fields_for :study_plan_periods do |study_plan_period| %>
+            <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
             <% end %>
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
@@ -65,10 +65,9 @@
     })
 
     $('#study_plan_number_of_periods').change(function(){
-      var i = $(this).val() - 1;
+      var i = $(this).val();
       for (j = 0; j < i; j++) {
-          console.log(j+1);
-          $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j+1);
+          $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);
           $('#link_to_add_study_plan_periods').find('a').trigger('click');
       }
       $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());

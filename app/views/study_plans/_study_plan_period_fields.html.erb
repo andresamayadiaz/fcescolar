@@ -2,11 +2,11 @@
 	<legend>Period #<span class='period_counter'></span></legend>
 	<div class='nested-fields'>
 		<%= f.input :period_name, :label=>'Period Name' %>
-		<%#= f.simple_fields_for :study_plan_subjects do |study_plan_subject| %>
-			<%#= render 'study_plan_subject_fields', :f => study_plan_subject %>
-		<%# end %>
+		<%= f.simple_fields_for :study_plan_subjects do |study_plan_subject| %>
+			<%= render 'study_plan_subject_fields', :f => study_plan_subject %>
+		<% end %>
 		<div class='links'>
-			<%#= link_to_add_association 'Add', f, :study_plan_subjects %>
+			<%= link_to_add_association 'Add', f, :study_plan_subjects %>
 		</div>
 	</div>
 </fieldset>
