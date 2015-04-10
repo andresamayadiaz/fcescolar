@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-sm-12">
       <br/>
-      <%= simple_form_for @study_plan do |f| %>
+      <%= simple_form_for @study_plan, :html=>{:class=>'form-inline'} do |f| %>
         <%= f.error_notification %>
         <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>'Select Career:' %>
         <button class='btn btn-sm btn-info' id='validate_study_plan_btn'>Select</button>
@@ -10,8 +10,8 @@
           <%= f.input :number_of_periods %>
           <%= f.association :period %>
           <%= f.input :attendance_rate %> %
-          <%= f.input :extra_opportunities %>
-          <%= f.input :name, readonly: true %>
+          <%= f.input :extra_opportunities %><div class='clear'></div>
+          <%= f.input :name, readonly: true, label:'Study Plan Name' %>
           <div id="study_plan_periods_wrapper" style="display:none;">
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
