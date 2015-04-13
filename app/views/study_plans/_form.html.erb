@@ -39,7 +39,6 @@
     $('.study_plan_subject_cl').change(function(){
       var _this = $(this);
       var val = _this.val();
-      console.log('--------');
       $.ajax({
         type: 'GET',
         url: '/study_plans/get_subject_by_curricular_line?cl_id='+val,
@@ -85,6 +84,7 @@
     })
 
     $('#study_plan_number_of_periods').change(function(){
+      $(".remove_sp_period_link").trigger('click');
       var i = $(this).val();
       for (j = 0; j < i; j++) {
           $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);

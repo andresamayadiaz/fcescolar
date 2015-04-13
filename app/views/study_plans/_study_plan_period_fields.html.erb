@@ -1,13 +1,14 @@
 <fieldset>
-	<legend>Period #<span class='period_counter'></span></legend>
-	<%= f.input :period_name, :label=>'Period Name' %>
   <div class='nested-fields'>
+    <legend>Period #<span class='period_counter'></span></legend>
+    <%= f.input :period_name, :label=>'Period Name' %>
     <%= f.simple_fields_for :study_plan_subjects do |study_plan_subject| %>
-			<%= render 'study_plan_subject_fields', :f => study_plan_subject %>
-		<% end %>
-	</div>
-	<div class='links'>
-		<%= link_to_add_association 'Add', f, :study_plan_subjects %>
-	</div>
-  <br/><br/>
+      <%= render 'study_plan_subject_fields', :f => study_plan_subject %>
+    <% end %>
+    <%= link_to_remove_association 'x', f, :class=>'remove_sp_period_link' %>
+    <div class='links'>
+      <%= link_to_add_association 'Add', f, :study_plan_subjects %>
+    </div>
+    <br/><br/>
+  </div>
 </fieldset>
