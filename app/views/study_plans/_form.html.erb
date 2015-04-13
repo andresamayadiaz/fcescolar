@@ -1,3 +1,4 @@
+<style>.remove_sp_period_link{display:none}</style>
 <div class="paragraphs">
 	<div class="row">
 		<div class="col-sm-12">
@@ -12,7 +13,7 @@
           <%= f.input :attendance_rate %> %
           <%= f.input :extra_opportunities %><div class='clear'></div>
           <%= f.input :name, readonly: true, label:'Study Plan Name' %>
-          <div id="study_plan_periods_wrapper" style="display:none;">
+          <div id="study_plan_periods_wrapper">
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
             <% end %>
@@ -61,23 +62,13 @@
         url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
         success: function(data){
           if(data&&data.length>0){
-            console.log(data);
             var d = data.slice(-1)[0]
-            $("#study_plan_number_of_periods").val(d.number_of_periods);
-            $("#study_plan_period_id").val(d.period_id);
-            $("#study_plan_attendance_rate").val(d.attendance_rate);
-            $("#study_plan_name").val(d.name);
-            $("#study_plan_extra_opportunities").val(d.extra_opportunities);
+            window.location.href = '/study_plans/'+d.id+'/edit';
           } else {
-            $("#study_plan_number_of_periods").val('');
-            $("#study_plan_period_id").val('');
-            $("#study_plan_attendance_rate").val('');
-            $("#study_plan_name").val('');
-            $("#study_plan_extra_opportunities").val('');
+            $('#detail_study_plan').slideDown();
           }
         }
       })
-      $('#detail_study_plan').slideDown();
     });
     $("#study_plan_period_id").change(function(){
       fill_study_plan_name($('#study_plan_career_id option:selected').text(),$('#study_plan_period_id option:selected').text());
@@ -99,6 +90,8 @@
 </script>
 
 <% end %>
+<% if params[:action]=='new'%>
 <style>
-#detail_study_plan{display:none;}
+#detail_study_plan,#study_plan_periods_wrapper{display:none;}
 </style>
+<% end %>
