@@ -110,6 +110,7 @@ $(document).ready(function() {
             url: '/careers/check_for_study_plan?id=' + $('#study_plan_career_id').val(),
             success: function(data) {
                 if (data && data.length > 0) {
+                    console.log(data);
                     var d = data.slice(-1)[0]
                     $('#study_plan_number_of_periods').val(d.number_of_periods);
                     $('#study_plan_period_id').val(d.period_id);
@@ -123,6 +124,7 @@ $(document).ready(function() {
                     $('#study_plan_extra_opportunities').val('');
                     $('#study_plan_name').val('');
                 }                 
+                $('#study_plan_number_of_periods').trigger('change');
                 $('#detail_study_plan').slideDown();
             }
         })

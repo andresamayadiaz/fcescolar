@@ -11,7 +11,7 @@ class CareersController < ApplicationController
 
   def check_for_study_plan
     @existing_study_plan = @career.study_plans.active
-    render :json => @existing_study_plan
+    render :json => @existing_study_plan.to_json(:include=> [:study_plan_periods => {:include=>[:study_plan_subjects]}])
   end
 
   def index
