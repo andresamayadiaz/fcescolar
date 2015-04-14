@@ -1,10 +1,50 @@
 <style>.remove_sp_period_link{display:none}</style>
-<div class="paragraphs">
-	<div class="row">
-		<div class="col-sm-12">
-      <br/>
-      <%= simple_form_for @study_plan, :html=>{:class=>'form-inline'} do |f| %>
-        <%= f.error_notification %>
+
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-edit"></i>
+        <span><%= t('study_plan.singular') %></span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+          <a href="index.html">
+            <i class="icon-home"></i>
+          </a>
+          </li>
+          <li class="separator">
+          <i class="icon-angle-right"></i>
+          </li>
+          <li>
+          <%= t('general.catalogue') %>
+          </li>
+          <li class="separator">
+          <i class="icon-angle-right"></i>
+          </li>
+          <li class="active"><%= t('study_plan.plural') %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+  <div class="box-header blue-background">
+    <div class="title">
+      <%= t('study_plan.singular') %>
+    </div>
+  </div>
+  <div class="paragraphs">
+    <div class="row">
+      <div class="col-sm-12">
+        <br/>
+        <%= simple_form_for @study_plan, :html=>{:class=>'form-inline'} do |f| %>
+          <%= f.error_notification %>
         <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>false, :include_blank=>'Select Career' %>
         <button class='btn btn-info' id='validate_study_plan_btn'>Select</button>
         <br/><br/>
@@ -16,9 +56,11 @@
           <%= f.input :extra_opportunities %>
           <%= f.input :name, readonly: true, label:'Study Plan Name' %>
           <div id="study_plan_periods_wrapper">
+            <% @period_counter = 1 %>
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
-            <% end %>
+              <% @period_counter = @period_counter + 1 %>
+          <% end %>
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
               <%= link_to_add_association 'Add Study Plan Period', f, :study_plan_periods %>
             </div>
@@ -27,74 +69,77 @@
           <div class="form-action"><button type="submit" class="btn btn-success">Save</button></div>
         </div>
       <% end %>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>
+<!-- .// TABLE -->
+
 
 <% content_for :specific_js do %>
 
-<script type="text/javascript">
-  function fill_study_plan_name(career,period){
-    var _this_year = new Date().getFullYear();
-    $('#study_plan_name').val(career+' '+period+' '+_this_year);
-  }
+  <script type="text/javascript">
+function fill_study_plan_name(career,period){
+  var _this_year = new Date().getFullYear();
+  $('#study_plan_name').val(career+' '+period+' '+_this_year);
+}
 
-  function get_subjects_by_curricular_line() {
-    $('.study_plan_subject_cl').change(function(){
+function get_subjects_by_curricular_line() {
+  $('.study_plan_subject_cl').change(function(){
       var _this = $(this);
       var val = _this.val();
       $.ajax({
-        type: 'GET',
-        url: '/study_plans/get_subject_by_curricular_line?cl_id='+val,
-        success: function(data){
-          if(data){
-            var html_element='';
-            $.each(data,function(index,value){
-              html_element+="<option value="+value.id+">"+value.name+"</option>"
-            })
-            _this.parent().next().find('select').html(html_element);
-          }
-        }
-      })
-    });
-  }
-	$(document).ready(function(){
+type: 'GET',
+url: '/study_plans/get_subject_by_curricular_line?cl_id='+val,
+success: function(data){
+if(data){
+var html_element='';
+$.each(data,function(index,value){
+  html_element+="<option value="+value.id+">"+value.name+"</option>"
+  })
+_this.parent().next().find('select').html(html_element);
+}
+}
+})
+      });
+}
+$(document).ready(function(){
     $('#validate_study_plan_btn').click(function(e){
       e.preventDefault();
       $.ajax({
-        url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
-        success: function(data){
-          if(data&&data.length>0){
-            var d = data.slice(-1)[0]
-            window.location.href = '/study_plans/'+d.id+'/edit';
-          } else {
-            $('#detail_study_plan').slideDown();
-          }
-        }
-      })
-    });
+url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
+success: function(data){
+if(data&&data.length>0){
+var d = data.slice(-1)[0]
+window.location.href = '/study_plans/'+d.id+'/edit';
+} else {
+$('#detail_study_plan').slideDown();
+}
+}
+})
+      });
     $("#study_plan_period_id").change(function(){
       fill_study_plan_name($('#study_plan_career_id option:selected').text(),$('#study_plan_period_id option:selected').text());
-    })
+      })
 
     $('#study_plan_number_of_periods').change(function(){
       $(".remove_sp_period_link").trigger('click');
       var i = $(this).val();
       for (j = 0; j < i; j++) {
-          $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);
-          $('#link_to_add_study_plan_periods').find('a').trigger('click');
+      $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);
+      $('#link_to_add_study_plan_periods').find('a').trigger('click');
       }
       $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
       $('#study_plan_periods_wrapper').slideDown();
-    })
+      })
 
-	});
+});
 
 </script>
 
 <% end %>
 <% if params[:action]=='new'%>
-<style>
+  <style>
 #detail_study_plan,#study_plan_periods_wrapper{display:none;}
 </style>
 <% end %>

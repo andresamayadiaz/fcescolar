@@ -1,12 +1,11 @@
 <div class='nested-fields'>
-<%= f.input :curricular_line_id, collection: CurricularLine.all, input_html: { class: 'study_plan_subject_cl'} %>
-<%= f.input :subject_id, collection: Subject.all %>
-<div class="clear"></div>
-<%= f.input :weekly_frequency %>
-<%= f.input :credits %>
-<div class="links">
-  <%= link_to_remove_association "x", f %>
-</div>
+<%= f.input :curricular_line_id, collection: CurricularLine.all, input_html: { class: 'study_plan_subject_cl input-sm'} %>
+<%= f.input :subject_id, collection: Subject.all , input_html: { class: 'input-sm'} %>
+<%= f.input :weekly_frequency  , input_html: { class: 'input-sm'} %>
+<%= f.input :credits  , input_html: { class: 'input-sm'} %>
+<span class="links">
+  <%= link_to_remove_association "x", f, class: 'btn btn-sm btn-danger' %>
+</span>
 </div>
 <script>
   $(document).ready(function(){
