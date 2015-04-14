@@ -59,14 +59,14 @@
             <% @period_counter = 1 %>
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
-              <% @period_counter = @period_counter + 1 %>
+            <% @period_counter = @period_counter + 1 %>
           <% end %>
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
               <%= link_to_add_association 'Add Study Plan Period', f, :study_plan_periods %>
             </div>
           </div>
           <br/><br/>
-          <div class="form-action"><button type="submit" class="btn btn-success">Save</button></div>
+          <div class="form-action"><button type="submit" class="btn btn-lg btn-primary"><%= t('general.save') %></button></div>
         </div>
       <% end %>
       </div>
@@ -78,68 +78,68 @@
 
 <% content_for :specific_js do %>
 
-  <script type="text/javascript">
-function fill_study_plan_name(career,period){
-  var _this_year = new Date().getFullYear();
-  $('#study_plan_name').val(career+' '+period+' '+_this_year);
+<script type="text/javascript">
+function fill_study_plan_name(career, period) {
+    var _this_year = new Date().getFullYear();
+    $('#study_plan_name').val(career + ' ' + period + ' ' + _this_year);
 }
 
 function get_subjects_by_curricular_line() {
-  $('.study_plan_subject_cl').change(function(){
-      var _this = $(this);
-      var val = _this.val();
-      $.ajax({
-type: 'GET',
-url: '/study_plans/get_subject_by_curricular_line?cl_id='+val,
-success: function(data){
-if(data){
-var html_element='';
-$.each(data,function(index,value){
-  html_element+="<option value="+value.id+">"+value.name+"</option>"
-  })
-_this.parent().next().find('select').html(html_element);
+    $('.study_plan_subject_cl').change(function() {
+        var _this = $(this);
+        var val = _this.val();
+        $.ajax({
+            type: 'GET',
+            url: '/study_plans/get_subject_by_curricular_line?cl_id=' + val,
+            success: function(data) {
+                if (data) {
+                    var html_element = '';
+                    $.each(data, function(index, value) {
+                        html_element += "<option value=" + value.id + ">" + value.name + "</option>"
+                    })
+                    _this.parent().next().find('select').html(html_element);
+                }
+            }
+        })
+    });
 }
-}
-})
-      });
-}
-$(document).ready(function(){
-    $('#validate_study_plan_btn').click(function(e){
-      e.preventDefault();
-      $.ajax({
-url: '/careers/check_for_study_plan?id='+$('#study_plan_career_id').val(),
-success: function(data){
-if(data&&data.length>0){
-var d = data.slice(-1)[0]
-window.location.href = '/study_plans/'+d.id+'/edit';
-} else {
-$('#detail_study_plan').slideDown();
-}
-}
-})
-      });
-    $("#study_plan_period_id").change(function(){
-      fill_study_plan_name($('#study_plan_career_id option:selected').text(),$('#study_plan_period_id option:selected').text());
-      })
+$(document).ready(function() {
+    $('#validate_study_plan_btn').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/careers/check_for_study_plan?id=' + $('#study_plan_career_id').val(),
+            success: function(data) {
+                if (data && data.length > 0) {
+                    var d = data.slice(-1)[0]
+                    window.location.href = '/study_plans/' + d.id + '/edit';
+                } else {
+                    $('#detail_study_plan').slideDown();
+                }
+            }
+        })
+    });
+    $("#study_plan_period_id").change(function() {
+        fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_period_id option:selected').text());
+    })
 
-    $('#study_plan_number_of_periods').change(function(){
-      $(".remove_sp_period_link").trigger('click');
-      var i = $(this).val();
-      for (j = 0; j < i; j++) {
-      $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);
-      $('#link_to_add_study_plan_periods').find('a').trigger('click');
-      }
-      $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
-      $('#study_plan_periods_wrapper').slideDown();
-      })
+    $('#study_plan_number_of_periods').change(function() {
+        $(".remove_sp_period_link").trigger('click');
+        var i = $(this).val();
+        for (j = 0; j < i; j++) {
+            $('#link_to_add_study_plan_periods').prev().find('.period_counter').html(j);
+            $('#link_to_add_study_plan_periods').find('a').trigger('click');
+        }
+        $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
+        $('#study_plan_periods_wrapper').slideDown();
+    })
 
 });
-
 </script>
 
 <% end %>
+
 <% if params[:action]=='new'%>
   <style>
-#detail_study_plan,#study_plan_periods_wrapper{display:none;}
-</style>
+    #detail_study_plan,#study_plan_periods_wrapper{display:none;}
+  </style>
 <% end %>
