@@ -75,6 +75,11 @@ es:
     plural: "Estados"
     new: "Nuevo Estado"
     menu: "Estados"
+  study_plan:
+    singular: "Plan de Estudio"
+    plural: "Planes de Estudio"
+    new: "Nuevo Plan de Estudio"
+    menu: "Planes de Estudio"
   study_level:
     singular: "Nivel de Estudio"
     plural: "Niveles de Estudio"
