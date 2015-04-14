@@ -111,10 +111,19 @@ $(document).ready(function() {
             success: function(data) {
                 if (data && data.length > 0) {
                     var d = data.slice(-1)[0]
-                    window.location.href = '/study_plans/' + d.id + '/edit';
+                    $('#study_plan_number_of_periods').val(d.number_of_periods);
+                    $('#study_plan_period_id').val(d.period_id);
+                    $('#study_plan_attendance_rate').val(d.attendance_rate);
+                    $('#study_plan_extra_opportunities').val(d.extra_opportunities);
+                    $('#study_plan_name').val(d.name);
                 } else {
-                    $('#detail_study_plan').slideDown();
-                }
+                    $('#study_plan_number_of_periods').val('');
+                    $('#study_plan_period_id').val('');
+                    $('#study_plan_attendance_rate').val('');
+                    $('#study_plan_extra_opportunities').val('');
+                    $('#study_plan_name').val('');
+                }                 
+                $('#detail_study_plan').slideDown();
             }
         })
     });
