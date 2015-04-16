@@ -9,6 +9,8 @@ class Ability
     when 'super_administrator'
         can :manage, :all
     when 'franchise_director'
+        can :manage, StudyPlan
+        can [:check_for_study_plan], Career
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file, :matching_date_and_user], Person
     when 'finance'
@@ -31,7 +33,6 @@ class Ability
         can [:update_password], User, :id=>user.id
         can [:search, :profile, :download_personal_record_file, :matching_date_and_user], Person
     end
-    #inni
     # The first argument to `can` is the action you are giving the user 
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
