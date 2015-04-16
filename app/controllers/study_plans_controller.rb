@@ -33,7 +33,7 @@ class StudyPlansController < ApplicationController
 
     respond_to do |format|
       if @study_plan.save
-        format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully created.' }
+        format.html { redirect_to study_plans_url, notice: 'Study plan was successfully created.' }
         format.json { render :show, status: :created, location: @study_plan }
       else
         format.html { render :new }

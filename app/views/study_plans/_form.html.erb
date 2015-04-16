@@ -148,6 +148,10 @@ $(document).ready(function() {
                       _this.val(study_plan_period.period_name);
                       study_plan_period.study_plan_subjects.forEach(function(item){
                         add_subject_btn.trigger('click');
+                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(item.curricular_line_id) 
+                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_id').val(item.subject_id) 
+                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_weekly_freq').val(item.weekly_frequency) 
+                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_credits').val(item.credits) 
                       })
                     }
                 });
