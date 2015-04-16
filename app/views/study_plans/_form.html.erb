@@ -104,38 +104,6 @@ function get_subjects_by_curricular_line() {
     });
 }
 $(document).ready(function() {
-    $('#validate_study_plan_btn').click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            url: '/careers/check_for_study_plan?id=' + $('#study_plan_career_id').val(),
-            success: function(data) {
-                if (data && data.length > 0) {
-                    var d = data.slice(-1)[0]
-                    $('#study_plan_number_of_periods').val(d.number_of_periods);
-                    $('#study_plan_period_id').val(d.period_id);
-                    $('#study_plan_attendance_rate').val(d.attendance_rate);
-                    $('#study_plan_extra_opportunities').val(d.extra_opportunities);
-                    $('#study_plan_name').val(d.name);
-                } else {
-                    $('#study_plan_number_of_periods').val('');
-                    $('#study_plan_period_id').val('');
-                    $('#study_plan_attendance_rate').val('');
-                    $('#study_plan_extra_opportunities').val('');
-                    $('#study_plan_name').val('');
-                }                 
-                $('#study_plan_number_of_periods').trigger('change');
-                $('.sp_period_name').each(function(i){
-                  $(this).val(d.study_plan_periods[i].period_name);
-                  var add_subject_btn = $(".sp_period_name").parent().nextUntil('links','div').find('a');
-                  d.study_plan_periods[i].study_plan_subjects.forEach(function(item){
-                    console.log(add_subject_btn);
-                    add_subject_btn.trigger('click');
-                  })
-                });
-                $('#detail_study_plan').slideDown();
-            }
-        })
-    });
     $("#study_plan_period_id").change(function() {
         fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_period_id option:selected').text());
     })
@@ -150,6 +118,44 @@ $(document).ready(function() {
         $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
         $('#study_plan_periods_wrapper').slideDown();
     })
+    $('#validate_study_plan_btn').click(function(e) {
+        e.preventDefault();
+        $('#study_plan_number_of_periods').val('').change();
+        $.ajax({
+            url: '/careers/check_for_study_plan?id=' + $('#study_plan_career_id').val(),
+            success: function(data) {
+                if (data && data.length > 0) {
+                    var d = data.slice(-1)[0]
+                    $('#study_plan_number_of_periods').val(d.number_of_periods).change();
+                    $('#study_plan_period_id').val(d.period_id);
+                    $('#study_plan_attendance_rate').val(d.attendance_rate);
+                    $('#study_plan_extra_opportunities').val(d.extra_opportunities);
+                    $('#study_plan_name').val(d.name);
+                } else {
+                    $('#study_plan_number_of_periods').val('');
+                    $('#study_plan_period_id').val('');
+                    $('#study_plan_attendance_rate').val('');
+                    $('#study_plan_extra_opportunities').val('');
+                    $('#study_plan_name').val('');
+                }                 
+                
+                
+                $('.sp_period_name').each(function(i){
+                    if (d && d.study_plan_periods[i]) {
+                      var study_plan_period = d.study_plan_periods[i];
+                      var _this = $(this);
+                      var add_subject_btn = _this.parents('.study_plan_period_fields').find('a.add_subject_btn');
+                      _this.val(study_plan_period.period_name);
+                      study_plan_period.study_plan_subjects.forEach(function(item){
+                        add_subject_btn.trigger('click');
+                      })
+                    }
+                });
+                
+                $('#detail_study_plan').slideDown();
+            }
+        })
+    });
 
 });
 </script>
