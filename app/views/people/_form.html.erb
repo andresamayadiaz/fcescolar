@@ -25,7 +25,7 @@
     <td><%= f.association :state, :label=>'Birth State' , :input_html=>{class:'input-sm'}%></td>
   </tr>
   <tr>
-    <td colspan="2"><%= f.input :profile_picture, :label=>'Profile Picture' %></td>
+    <td><%= f.input :profile_picture, :label=>'Profile Picture' %></td>
     <% if @person.profile_picture.exists? %>
       <td><%= image_tag @person.profile_picture.url(:thumb) %></td>
     <% end %>
@@ -35,8 +35,8 @@
 <br/><br/>
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
-  <%= f.simple_fields_for :person_living_address do |p| %>
   <table width="100%" border="0">
+  <%= f.simple_fields_for :person_living_address do |p| %>
     <tr>
       <td colspan="3"><%= p.input :street , :input_html=>{class:'input-sm'}%></td>
     </tr>
@@ -54,20 +54,28 @@
       <td><%= p.association :state , :input_html=>{class:'input-sm'}%></td>
       <td><%= p.input :phone_emergency , :input_html=>{class:'input-sm'}%></td>
     </tr>
+  <% end %>
+    <tr>
+      <td>
+        <%= f.simple_fields_for :person_emails do |person_email| %>
+        <%= render 'person_email_fields', :f => person_email %>
+        <% end %>
+        <div class='links'>
+          <br/>
+          <%= link_to_add_association 'Add Email', f, :person_emails, class:'btn btn-sm btn-info' %>
+        </div>
+      </td>
+      <td colspan="2">
+        <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+          <%= render 'contact_telephone_fields', :f => contact_telephone %>
+        <% end %>
+        <div class='links'>
+          <br/>
+          <%= link_to_add_association 'Add Telephone', f, :contact_telephones, class: 'btn btn-sm btn-info' %>
+        </div>
+      </td>
+    </tr>
   </table>
-  <% end %>
-  <%= f.simple_fields_for :person_emails do |person_email| %>
-  <%= render 'person_email_fields', :f => person_email %>
-  <% end %>
-  <div class='links'>
-    <%= link_to_add_association 'Add Email', f, :person_emails %>
-  </div>
-  <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
-  <%= render 'contact_telephone_fields', :f => contact_telephone %>
-  <% end %>
-  <div class='links'>
-    <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
-  </div>
 </fieldset>
 <br/><br/>
 <fieldset>
@@ -85,34 +93,31 @@
   <%= f.simple_fields_for :person_work_place do |w| %>
   <table width="100%" border="0">
     <tr>
-      <td><%= w.input :empresa, :label=>'Empresa' %></td>
-      <td><%= w.input :puesto, :label=>'Puesto' %></td>
-      <td><%= w.input :calle, :label=>'Calle' %></td>
-      <td><%= w.input :municipio, :label=>'Municipio' %></td>
+      <td><%= w.input :empresa, :label=>'Empresa' , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.input :puesto, :label=>'Puesto'  , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.input :calle, :label=>'Calle'  , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.input :municipio, :label=>'Municipio'  , :input_html=>{class:'input-sm'}%></td>
     </tr>
     <tr>
-      <td><%= w.input :num_ext, :label=>'Num Ext' %></td>
-      <td colspan="2"><%= w.input :num_int, :label=>'Num Int' %></td>
+      <td><%= w.input :num_ext, :label=>'Num Ext'  , :input_html=>{class:'input-sm'}%></td>
+      <td colspan="2"><%= w.input :num_int, :label=>'Num Int'  , :input_html=>{class:'input-sm'}%></td>
     </tr>
     <tr>
-      <td><%= w.association :country, :label=>'Pais' %></td>
-      <td><%= w.input :colonia, :label=>'Colonia' %></td>
-      <td><%= w.input :cp, :label=>'CP.' %></td>
-      <td><%= w.association :state, :label=>'Estado' %></td>
+      <td><%= w.association :country, :label=>'Pais'  , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.input :colonia, :label=>'Colonia'  , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.input :cp, :label=>'CP.'  , :input_html=>{class:'input-sm'}%></td>
+      <td><%= w.association :state, :label=>'Estado'  , :input_html=>{class:'input-sm'}%></td>
     </tr>
   <% end %>
   </table>
 </fieldset>
-<br/>
-<hr class="hr-normal">
-<div class="form-actions">
-  <div class="row">
-    <div class="col-sm-7 col-sm-offset-5">
-      <%= button_tag( :class => "btn btn-primary btn-lg") do %>
-      <i class="icon-save"></i>
-      Save
-      <% end %>
-    </div>
+<br/><br/>
+<div class="row">
+  <div class="col-sm-12">
+    <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+    <i class="icon-save"></i>
+    Save
+    <% end %>
   </div>
 </div>
 <% end %>

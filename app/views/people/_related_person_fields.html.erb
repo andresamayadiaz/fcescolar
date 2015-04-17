@@ -1,9 +1,9 @@
 <div class="nested-fields">
   <table width="100%" border="0">
     <tr>
-      <td><%= f.input :full_name, :label=>'Name' %></td>
-      <td><%= f.input :relation_name, :label=>'Relationship' %></td>
-      <td><%= link_to_remove_association "Remove Relationship", f, class: 'btn btn-sm btn-danger', style: 'margin-top:23px;'  %></td>
+      <td><%= f.input :full_name, :label=>'Name' , input_html: {class: 'input-sm'}%></td>
+      <td><%= f.input :relation_name, :label=>'Relationship', input_html: {class: 'input-sm'} %></td>
+      <td><%= link_to_remove_association "Remove Relationship", f, class: 'btn btn-sm btn-danger', style: 'margin-top:25px;'  %></td>
     </tr>
   </table>
   <br/>
