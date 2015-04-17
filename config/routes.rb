@@ -68,10 +68,18 @@ Rails.application.routes.draw do
 
   resources :careers do
     member { get :download }
+    collection do
+      get 'check_for_study_plan'
+    end
   end
 
-
   resources :study_levels
+
+  resources :study_plans do
+    collection do
+      get 'get_subject_by_curricular_line'
+    end
+  end
 
   resources :states
 

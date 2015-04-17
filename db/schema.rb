@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406113015) do
+ActiveRecord::Schema.define(version: 20150408064344) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150406113015) do
   create_table "careers", force: true do |t|
     t.integer  "franchise_id"
     t.string   "name"
-    t.boolean  "status"
+    t.boolean  "status",                 default: true
     t.string   "rvoe"
     t.integer  "study_level_id"
     t.string   "serie"
@@ -367,6 +367,47 @@ ActiveRecord::Schema.define(version: 20150406113015) do
   end
 
   add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
+
+  create_table "study_plan_periods", force: true do |t|
+    t.string   "period_name"
+    t.integer  "curricular_line_id"
+    t.integer  "study_plan_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_plan_periods", ["curricular_line_id"], name: "index_study_plan_periods_on_curricular_line_id", using: :btree
+  add_index "study_plan_periods", ["study_plan_id"], name: "index_study_plan_periods_on_study_plan_id", using: :btree
+
+  create_table "study_plan_subjects", force: true do |t|
+    t.integer  "study_plan_period_id"
+    t.integer  "curricular_line_id"
+    t.integer  "subject_id"
+    t.string   "name"
+    t.integer  "weekly_frequency"
+    t.integer  "credits"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_plan_subjects", ["curricular_line_id"], name: "index_study_plan_subjects_on_curricular_line_id", using: :btree
+  add_index "study_plan_subjects", ["study_plan_period_id"], name: "index_study_plan_subjects_on_study_plan_period_id", using: :btree
+  add_index "study_plan_subjects", ["subject_id"], name: "index_study_plan_subjects_on_subject_id", using: :btree
+
+  create_table "study_plans", force: true do |t|
+    t.integer  "career_id"
+    t.integer  "period_id"
+    t.integer  "number_of_periods"
+    t.string   "name"
+    t.integer  "attendance_rate"
+    t.integer  "extra_opportunities"
+    t.boolean  "status",              default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "study_plans", ["career_id"], name: "index_study_plans_on_career_id", using: :btree
+  add_index "study_plans", ["period_id"], name: "index_study_plans_on_period_id", using: :btree
 
   create_table "subjects", force: true do |t|
     t.integer  "franchise_id"

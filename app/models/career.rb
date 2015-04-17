@@ -2,6 +2,7 @@ class Career < ActiveRecord::Base
   resourcify
   belongs_to :franchise
   belongs_to :study_level
+  has_many :study_plans
   has_and_belongs_to_many :subjects
 
   has_attached_file :auth_file

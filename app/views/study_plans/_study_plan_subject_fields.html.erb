@@ -1,0 +1,14 @@
+<div class='study_plan_subject_fields nested-fields'>
+<%= f.input :curricular_line_id, collection: CurricularLine.all, input_html: { class: 'study_plan_subject_cl input-sm'} %>
+<%= f.input :subject_id, collection: Subject.all , input_html: { class: 'input-sm study_plan_subject_id'} %>
+<%= f.input :weekly_frequency  , input_html: { class: 'input-sm study_plan_subject_weekly_freq'} %>
+<%= f.input :credits  , input_html: { class: 'input-sm study_plan_subject_credits'} %>
+<span class="links">
+  <%= link_to_remove_association "x", f, class: 'btn btn-sm btn-danger', style: 'margin-top:23px;' %>
+</span>
+</div>
+<script>
+  $(document).ready(function(){
+    get_subjects_by_curricular_line() 
+  });
+</script>
