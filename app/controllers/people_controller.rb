@@ -105,7 +105,7 @@ class PeopleController < ApplicationController
     users_role = UsersRole.where(:user_id=>params[:users_role][:user_id],:role_id=>params[:users_role][:role_id]).first
     users_role.status = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include? (params[:users_role][:status])
     if users_role.save!(validate: false)
-      render :nothing=>true, :status => 200
+      render :json=>users_role.status, :status => 200
     else
       render :nothing=>true, :status => 503
     end
