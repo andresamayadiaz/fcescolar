@@ -2,39 +2,59 @@
 <%= f.error_notification %>
 <fieldset>
   <legend>General Information</legend>
+  <table border="0" width="100%">
   <% if current_user.active_role=='super_administrator' %>
-    <%= f.association :franchise, :label=>'Franquicia' %><div class="clear"></div>
-    <%= f.association :campus, :label=>'Campus' %><div class="clear"></div>
+    <tr>
+      <td><%= f.association :franchise, :label=>'Franquicia', :input_html=>{class:'input-sm'}%></td>
+      <td colspan="2"><%= f.association :campus, :label=>'Campus', :input_html=>{class:'input-sm'} %></td>
+    </tr>
   <% end %>
-  <%= f.input :curp, :label=>'CURP' %>
-  <%= f.input :rfc, :label=>'RFC' %>
-  <%= f.input :email, :label=>'Email' %>
-  <div class='clear'></div>
-  <%= f.input :name, :label=>'Name(s)' %>
-  <%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' %>
-  <%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' %><div class='clear'></div>
-  <%= f.association :country, :label=>'Birth Country' %>
-  <%= f.input :birthday, :label=>'Birthday', as: :string, input_html: { class: "datepicker" } %>
-  <%= f.input :profile_picture, :label=>'Profile Picture' %>
-  <% if @person.profile_picture.exists? %>
-  <%= image_tag @person.profile_picture.url(:thumb) %><br/>
-  <% end %>
-  <div class='clear'></div>
-  <%= f.association :state, :label=>'Birth State' %>
+  <tr>
+    <td><%= f.input :curp, :label=>'CURP' , :input_html=>{class:'input-sm'}%></td>
+    <td><%= f.input :rfc, :label=>'RFC' , :input_html=>{class:'input-sm'}%></td>
+    <td><%= f.input :email, :label=>'Email' , :input_html=>{class:'input-sm'}%></td>
+  </tr>
+  <tr>
+    <td><%= f.input :name, :label=>'Name(s)' , :input_html=>{class:'input-sm'}%></td>
+    <td><%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' , :input_html=>{class:'input-sm'}%></td>
+    <td><%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' , :input_html=>{class:'input-sm'}%></td>
+  </tr>
+  <tr>
+    <td><%= f.association :country, :label=>'Birth Country' , :input_html=>{class:'input-sm'}%></td>
+    <td><%= f.input :birthday, :label=>'Birthday', as: :string, input_html: { class: "datepicker input-sm" } %></td>
+    <td><%= f.association :state, :label=>'Birth State' , :input_html=>{class:'input-sm'}%></td>
+  </tr>
+  <tr>
+    <td colspan="2"><%= f.input :profile_picture, :label=>'Profile Picture' %></td>
+    <% if @person.profile_picture.exists? %>
+      <td><%= image_tag @person.profile_picture.url(:thumb) %></td>
+    <% end %>
+  </tr>
+  </table>
 </fieldset>
-<br/>
+<br/><br/>
 <fieldset>
   <legend>Contact Information (Living Addresses)</legend>
   <%= f.simple_fields_for :person_living_address do |p| %>
-  <%= p.input :street %><div class="clear"></div>
-  <%= p.input :num_ext %><div class="clear"></div>
-  <%= p.input :num_int %><div class="clear"></div>
-  <%= p.input :colonia %><div class="clear"></div>
-  <%= p.input :cp %><div class="clear"></div>
-  <%= p.input :municipio %><div class="clear"></div>
-  <%= p.association :country %><div class="clear"></div>
-  <%= p.association :state %><div class="clear"></div>
-  <%= p.input :phone_emergency %><div class="clear"></div>
+  <table width="100%" border="0">
+    <tr>
+      <td colspan="3"><%= p.input :street , :input_html=>{class:'input-sm'}%></td>
+    </tr>
+    <tr>
+      <td><%= p.input :num_ext , :input_html=>{class:'input-sm'}%></td>
+      <td colspan="2"><%= p.input :num_int , :input_html=>{class:'input-sm'}%></td>
+    </tr>
+    <tr>
+      <td><%= p.input :colonia , :input_html=>{class:'input-sm'}%></td>
+      <td><%= p.input :cp , :input_html=>{class:'input-sm'}%></td>
+      <td><%= p.input :municipio , :input_html=>{class:'input-sm'}%></td>
+    </tr>
+    <tr>
+      <td><%= p.association :country, :input_html=>{class:'input-sm'} %></td>
+      <td><%= p.association :state , :input_html=>{class:'input-sm'}%></td>
+      <td><%= p.input :phone_emergency , :input_html=>{class:'input-sm'}%></td>
+    </tr>
+  </table>
   <% end %>
   <%= f.simple_fields_for :person_emails do |person_email| %>
   <%= render 'person_email_fields', :f => person_email %>
@@ -49,31 +69,39 @@
     <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
   </div>
 </fieldset>
-<br/>
+<br/><br/>
 <fieldset>
   <legend>Related People (Relationships)</legend>
   <%= f.simple_fields_for :related_people do |related_person| %>
   <%= render 'related_person_fields', :f => related_person %>
   <% end %>
   <div class='links'>
-    <%= link_to_add_association 'Add Relationships', f, :related_people %>
+    <%= link_to_add_association 'Add Relationships', f, :related_people, class: 'btn btn-sm btn-info' %>
   </div>
 </fieldset>
-<br/>
+<br/><br/>
 <fieldset>
   <legend>Work Place Information</legend>
   <%= f.simple_fields_for :person_work_place do |w| %>
-  <%= w.input :empresa, :label=>'Empresa' %>
-  <%= w.input :puesto, :label=>'Puesto' %><div class="clear"></div>
-  <%= w.input :calle, :label=>'Calle' %>
-  <%= w.input :municipio, :label=>'Municipio' %><div class="clear"></div>
-  <%= w.input :num_ext, :label=>'Num Ext' %>
-  <%= w.input :num_int, :label=>'Num Int' %>
-  <%= w.association :country, :label=>'Pais' %><div class="clear"></div>
-  <%= w.input :colonia, :label=>'Colonia' %>
-  <%= w.input :cp, :label=>'CP.' %>
-  <%= w.association :state, :label=>'Estado' %>
+  <table width="100%" border="0">
+    <tr>
+      <td><%= w.input :empresa, :label=>'Empresa' %></td>
+      <td><%= w.input :puesto, :label=>'Puesto' %></td>
+      <td><%= w.input :calle, :label=>'Calle' %></td>
+      <td><%= w.input :municipio, :label=>'Municipio' %></td>
+    </tr>
+    <tr>
+      <td><%= w.input :num_ext, :label=>'Num Ext' %></td>
+      <td colspan="2"><%= w.input :num_int, :label=>'Num Int' %></td>
+    </tr>
+    <tr>
+      <td><%= w.association :country, :label=>'Pais' %></td>
+      <td><%= w.input :colonia, :label=>'Colonia' %></td>
+      <td><%= w.input :cp, :label=>'CP.' %></td>
+      <td><%= w.association :state, :label=>'Estado' %></td>
+    </tr>
   <% end %>
+  </table>
 </fieldset>
 <br/>
 <hr class="hr-normal">
