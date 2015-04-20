@@ -1,125 +1,213 @@
-<%= simple_form_for(@person,:html => { :class => 'form-inline', :multipart=>true }) do |f| %>
+<style>
+.form-horizontal .control-label{font-size:13px;}
+</style>
+<%= simple_form_for(@person,:html => { :class => 'form form-horizontal', :multipart=>true }) do |f| %>
 <%= f.error_notification %>
-<fieldset>
-  <legend>General Information</legend>
-  <table border="0" width="100%">
-  <% if current_user.active_role=='super_administrator' %>
-    <tr>
-      <td><%= f.association :franchise, :label=>'Franquicia', :input_html=>{class:'input-sm'}%></td>
-      <td colspan="2"><%= f.association :campus, :label=>'Campus', :input_html=>{class:'input-sm'} %></td>
-    </tr>
-  <% end %>
-  <tr>
-    <td><%= f.input :curp, :label=>'CURP' , :input_html=>{class:'input-sm'}%></td>
-    <td><%= f.input :rfc, :label=>'RFC' , :input_html=>{class:'input-sm'}%></td>
-    <td><%= f.input :email, :label=>'Email' , :input_html=>{class:'input-sm'}%></td>
-  </tr>
-  <tr>
-    <td><%= f.input :name, :label=>'Name(s)' , :input_html=>{class:'input-sm'}%></td>
-    <td><%= f.input :fathers_maiden_name, :label=>'Fathers Maiden Name' , :input_html=>{class:'input-sm'}%></td>
-    <td><%= f.input :mothers_maiden_name, :label=>'Mothers Maiden Name' , :input_html=>{class:'input-sm'}%></td>
-  </tr>
-  <tr>
-    <td><%= f.association :country, :label=>'Birth Country' , :input_html=>{class:'input-sm'}%></td>
-    <td><%= f.input :birthday, :label=>'Birthday', as: :string, input_html: { class: "datepicker input-sm" } %></td>
-    <td><%= f.association :state, :label=>'Birth State' , :input_html=>{class:'input-sm'}%></td>
-  </tr>
-  <tr>
-    <td><%= f.input :profile_picture, :label=>'Profile Picture' %></td>
-    <% if @person.profile_picture.exists? %>
-      <td><%= image_tag @person.profile_picture.url(:thumb) %></td>
-    <% end %>
-  </tr>
-  </table>
-</fieldset>
-<br/><br/>
-<fieldset>
-  <legend>Contact Information (Living Addresses)</legend>
-  <table width="100%" border="0">
-  <%= f.simple_fields_for :person_living_address do |p| %>
-    <tr>
-      <td colspan="3"><%= p.input :street , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-    <tr>
-      <td><%= p.input :num_ext , :input_html=>{class:'input-sm'}%></td>
-      <td colspan="2"><%= p.input :num_int , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-    <tr>
-      <td><%= p.input :colonia , :input_html=>{class:'input-sm'}%></td>
-      <td><%= p.input :cp , :input_html=>{class:'input-sm'}%></td>
-      <td><%= p.input :municipio , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-    <tr>
-      <td><%= p.association :country, :input_html=>{class:'input-sm'} %></td>
-      <td><%= p.association :state , :input_html=>{class:'input-sm'}%></td>
-      <td><%= p.input :phone_emergency , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-  <% end %>
-    <tr>
-      <td>
+ 
+  <fieldset>
+    <legend>General Information</legend>
+      <% if current_user.active_role=='super_administrator' %>
+        <div class="form-group">
+          <label class="col-md-1 control-label">Franquicia</label>
+          <div class="col-md-2">
+            <%= f.association :franchise, :label=>false, :input_html=>{class:'input-sm'}%>
+          </div>
+          <label class="col-md-1 control-label">Campus</label>
+          <div class="col-md-2">
+            <%= f.association :campus, :label=>false, :input_html=>{class:'input-sm'} %>
+          </div>
+        </div>
+      <% end %>
+      <div class="form-group">
+        <label class="col-md-1 control-label">CURP</label>
+        <div class="col-md-2">
+          <%= f.input :curp, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-1 control-label">RFC</label>
+        <div class="col-md-2">
+          <%= f.input :rfc, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-1 control-label">E-mail</label>
+        <div class="col-md-2">
+          <%= f.input :email, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Name(s)</label>
+        <div class="col-md-2">
+          <%= f.input :name, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Father's Maiden Name</label>
+        <div class="col-md-2">
+          <%= f.input :fathers_maiden_name, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Mother's Maiden Name</label>
+        <div class="col-md-2">
+          <%= f.input :mothers_maiden_name, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Country</label>
+        <div class="col-md-2">
+          <%= f.association :country, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-1 control-label">Birthday</label>
+        <div class="col-md-2">
+          <%= f.input :birthday, :label=>false, as: :string, input_html: { class: "datepicker input-sm" } %>
+        </div>
+        <label class="col-md-2 control-label">Seleccionar Archivo</label>
+        <div class="col-md-2">
+          <%= f.input :profile_picture, :label=>false %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">State</label>
+        <div class="col-md-2">
+          <%= f.association :state, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <% if @person.profile_picture.exists? %>
+          <label class="col-md-5 control-label">Existing Picture</label>
+          <div class="col-md-4"><%= image_tag @person.profile_picture.url(:thumb) %></div>
+        <% end %>
+      </div>
+  </fieldset>
+  <hr class="hr-normal">
+  <fieldset>
+    <legend>Contact Information (Living Addresses)</legend>
+      <div class="col-lg-4">
+        <%= f.simple_fields_for :person_living_address do |p| %> 
+          <div class="form-group">
+            <label class="col-md-3 control-label">Street</label>
+            <div class="col-md-9">
+              <%= p.input :street , :label=>false, :input_html=>{class:'input-sm'}%>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Num Ext</label>
+            <div class="col-md-3">
+              <%= p.input :num_ext , :label=>false, :input_html=>{class:'input-sm'}%>
+            </div>
+            <label class="col-md-3 control-label">Num Int</label>
+            <div class="col-md-3">
+              <%= p.input :num_int , :label=>false, :input_html=>{class:'input-sm'}%>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Colonia</label>
+            <div class="col-md-3">
+              <%= p.input :colonia , :label=>false, :input_html=>{class:'input-sm'}%>
+            </div>
+            <label class="col-md-3 control-label">CP.</label>
+            <div class="col-md-3">
+              <%= p.input :cp , :label=>false, :input_html=>{class:'input-sm'}%>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Colonia</label>
+            <div class="col-md-9"><%= p.input :colonia , :label=>false, :input_html=>{class:'input-sm'}%></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Pais</label>
+            <div class="col-md-9"><%= p.association :country,:label=>false, :input_html=>{class:'input-sm'} %></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Estados</label>
+            <div class="col-md-9"><%= p.association :state ,:label=>false, :input_html=>{class:'input-sm'}%></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-6 control-label">Telefono Emergencias</label>
+            <div class="col-md-6"><%= p.input :phone_emergency ,:label=>false, :input_html=>{class:'input-sm'}%></div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-3">
         <%= f.simple_fields_for :person_emails do |person_email| %>
-        <%= render 'person_email_fields', :f => person_email %>
+          <%= render 'person_email_fields', :f => person_email %>
         <% end %>
         <div class='links'>
-          <br/>
           <%= link_to_add_association 'Add Email', f, :person_emails, class:'btn btn-sm btn-info' %>
         </div>
-      </td>
-      <td colspan="2">
+      </div>
+      <div class="col-md-5">
         <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
           <%= render 'contact_telephone_fields', :f => contact_telephone %>
         <% end %>
         <div class='links'>
-          <br/>
           <%= link_to_add_association 'Add Telephone', f, :contact_telephones, class: 'btn btn-sm btn-info' %>
         </div>
-      </td>
-    </tr>
-  </table>
-</fieldset>
-<br/><br/>
-<fieldset>
-  <legend>Related People (Relationships)</legend>
-  <%= f.simple_fields_for :related_people do |related_person| %>
-  <%= render 'related_person_fields', :f => related_person %>
-  <% end %>
-  <div class='links'>
-    <%= link_to_add_association 'Add Relationships', f, :related_people, class: 'btn btn-sm btn-info' %>
-  </div>
-</fieldset>
-<br/><br/>
-<fieldset>
+      </div>
+  </fieldset>
+  <hr class="hr-normal">
+  <fieldset>
+    <legend>Related People (Relationships)</legend>
+      <%= f.simple_fields_for :related_people do |related_person| %>
+        <%= render 'related_person_fields', :f => related_person %>
+      <% end %>
+      <div class='links'>
+        <%= link_to_add_association 'Add Relationships', f, :related_people, class: 'btn btn-sm btn-info' %>
+    </div>
+  </fieldset>
+  <hr class="hr-normal">
+  <fieldset>
   <legend>Work Place Information</legend>
-  <%= f.simple_fields_for :person_work_place do |w| %>
-  <table width="100%" border="0">
-    <tr>
-      <td><%= w.input :empresa, :label=>'Empresa' , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.input :puesto, :label=>'Puesto'  , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.input :calle, :label=>'Calle'  , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.input :municipio, :label=>'Municipio'  , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-    <tr>
-      <td><%= w.input :num_ext, :label=>'Num Ext'  , :input_html=>{class:'input-sm'}%></td>
-      <td colspan="2"><%= w.input :num_int, :label=>'Num Int'  , :input_html=>{class:'input-sm'}%></td>
-    </tr>
-    <tr>
-      <td><%= w.association :country, :label=>'Pais'  , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.input :colonia, :label=>'Colonia'  , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.input :cp, :label=>'CP.'  , :input_html=>{class:'input-sm'}%></td>
-      <td><%= w.association :state, :label=>'Estado'  , :input_html=>{class:'input-sm'}%></td>
-    </tr>
+  <%= f.simple_fields_for :person_work_place do |w| %> 
+     <div class="form-group">
+        <label class="col-md-1 control-label">Empresa</label>
+        <div class="col-md-3">
+          <%= w.input :empresa, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Puesto</label>
+        <div class="col-md-3">
+          <%= w.input :puesto, :label=>false, :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Calle</label>
+        <div class="col-md-3">
+          <%= w.input :calle, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Municipio</label>
+        <div class="col-md-3">
+          <%= w.input :municipio, :label=>false, :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Num Ext</label>
+        <div class="col-md-1">
+          <%= w.input :num_ext, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-1 control-label">Num Int</label>
+        <div class="col-md-1">
+          <%= w.input :num_int, :label=>false, :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Pais</label>
+        <div class="col-md-3">
+          <%= w.association :country, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Colonia</label>
+        <div class="col-md-1">
+          <%= w.input :colonia, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-1 control-label">CP</label>
+        <div class="col-md-1">
+          <%= w.input :cp, :label=>false, :input_html=>{class:'input-sm'}%>
+        </div>
+        <label class="col-md-2 control-label">Estado</label>
+        <div class="col-md-3">
+          <%= w.association :state, :label=>false , :input_html=>{class:'input-sm'}%>
+        </div>
+      </div>
   <% end %>
-  </table>
-</fieldset>
-<br/><br/>
-<div class="row">
+  </fieldset>
+  <hr class="hr-normal">
   <div class="col-sm-12">
     <%= button_tag( :class => "btn btn-primary btn-lg") do %>
     <i class="icon-save"></i>
     Save
     <% end %>
   </div>
-</div>
 <% end %>
 <% content_for :specific_js do %>
 <script type="text/javascript">

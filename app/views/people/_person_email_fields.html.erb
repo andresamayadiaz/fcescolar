@@ -1,4 +1,9 @@
-<div class='nested-fields'>
-  <%= f.input :email, :label=>'Email', :input_html=>{class:'input-sm'} %>
-  <%= link_to_remove_association "x", f, class:'btn btn-sm btn-danger', style: 'margin-top:25px;' %>
+<div class='nested-fields form-group'> 
+    <label class="col-md-3 control-label">Email</label>
+    <div class="col-md-7">
+      <%= f.input :email, :label=>false, :input_html=>{class:'input-sm'} %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to_remove_association "x", f, class:'btn btn-sm btn-danger' %>
+    </div>
 </div>
