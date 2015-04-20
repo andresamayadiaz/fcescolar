@@ -1,6 +1,20 @@
 class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
+  def enable
+    @schedule = Schedule.new
+  end
+
+  def create_schedule
+    @schedule = Schedule.new(params[:schedule])
+    if @schedule.save
+      flash[:notice]='Study plan is enabled'
+    else
+      flash[:alert]='Failed to enable study plan'
+    end
+    redirect_to :back
+  end
+
   # GET /study_plans
   # GET /study_plans.json
   def get_subject_by_curricular_line
