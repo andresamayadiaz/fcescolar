@@ -2,6 +2,8 @@ class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
   def enable
+    @active_study_plans = StudyPlan.active
+    @campuses = current_user.person.franchise.try(:campuses)
     @schedule = Schedule.new
   end
 

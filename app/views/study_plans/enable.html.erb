@@ -1,12 +1,12 @@
 <%= simple_form_for @schedule, :url => '/study_plans/create_schedule', :method=>'post'  do |f| %>
     <div class="form-group">
       <label class="col-md-5 control-label">Study Plan</label>
-      <div class="col-md-7"><%= f.association :study_plan, :label=>false%></div>
+      <div class="col-md-7"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
       <label class="col-md-5 control-label">Campus</label>
-      <div class="col-md-7"><%= f.association :campus, :label=>false%></div>
+      <div class="col-md-7"><%= f.association :campus, :collection=>@campuses, :label=>false%></div>
     </div>
     <div class="form-group">
       <button class="btn btn-primary">Enable Study Plan</button>
