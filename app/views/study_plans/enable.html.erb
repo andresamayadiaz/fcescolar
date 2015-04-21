@@ -8,6 +8,11 @@
       <label class="col-md-5 control-label">Campus</label>
       <div class="col-md-7"><%= f.association :campus, :collection=>@campuses, :label=>false%></div>
     </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <label class="col-md-12 control-label">Official Required Background Documents:</label>
+      <div class="col-md-12"><%= f.association :background_official_docs, collection: @active_docs, as: :check_boxes, label: false %></div>
+    </div>
     <div class="form-group">
       <button class="btn btn-primary">Enable Study Plan</button>
     </div>

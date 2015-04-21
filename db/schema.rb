@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420050933) do
+ActiveRecord::Schema.define(version: 20150421071210) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20150420050933) do
   end
 
   add_index "background_official_docs", ["franchise_id"], name: "index_background_official_docs_on_franchise_id", using: :btree
+
+  create_table "background_official_docs_schedules", force: true do |t|
+    t.integer "background_official_doc_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "background_official_docs_schedules", ["background_official_doc_id"], name: "official_doc_id", using: :btree
+  add_index "background_official_docs_schedules", ["schedule_id"], name: "index_background_official_docs_schedules_on_schedule_id", using: :btree
 
   create_table "campuses", force: true do |t|
     t.string   "name"

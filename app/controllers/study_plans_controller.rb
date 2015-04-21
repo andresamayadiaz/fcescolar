@@ -4,6 +4,7 @@ class StudyPlansController < ApplicationController
   def enable
     @active_study_plans = StudyPlan.active
     @campuses = current_user.person.franchise.try(:campuses)
+    @active_docs = BackgroundOfficialDoc.active
     @schedule = Schedule.new
   end
 
