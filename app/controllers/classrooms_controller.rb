@@ -5,7 +5,7 @@ class ClassroomsController < ApplicationController
   respond_to :html
 
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.active
     respond_with(@classrooms)
   end
 
@@ -49,8 +49,10 @@ class ClassroomsController < ApplicationController
   end
 
   def destroy
-    @classroom.destroy
-    respond_with(@classroom)
+    @classroom.update(:status=>false)
+    respond_with(@classroom) do |format|
+      format.html { redirect_to classrooms_url, notice: 'Deleted successfully' }
+    end
   end
 
   private

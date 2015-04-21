@@ -1,6 +1,11 @@
 class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
+  def get_active_classrooms_by_campus_id
+    @active_classrooms = Classroom.where(:campus_id=>params[:campus_id]).active
+    render :json => @active_classrooms
+  end
+
   def enable
     @active_study_plans = StudyPlan.active
     @campuses = current_user.person.franchise.try(:campuses)

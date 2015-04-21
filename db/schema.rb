@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421071210) do
+ActiveRecord::Schema.define(version: 20150421083319) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -124,6 +124,14 @@ ActiveRecord::Schema.define(version: 20150421071210) do
 
   add_index "classrooms", ["campus_id"], name: "index_classrooms_on_campus_id", using: :btree
   add_index "classrooms", ["franchise_id"], name: "index_classrooms_on_franchise_id", using: :btree
+
+  create_table "classrooms_schedules", force: true do |t|
+    t.integer "classroom_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "classrooms_schedules", ["classroom_id"], name: "index_classrooms_schedules_on_classroom_id", using: :btree
+  add_index "classrooms_schedules", ["schedule_id"], name: "index_classrooms_schedules_on_schedule_id", using: :btree
 
   create_table "contact_telephones", force: true do |t|
     t.integer  "person_id"

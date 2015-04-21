@@ -80,6 +80,7 @@ Rails.application.routes.draw do
       get 'enable'
       post 'create_schedule'
       get 'get_subject_by_curricular_line'
+      get 'get_active_classrooms_by_campus_id'
     end
   end
 
