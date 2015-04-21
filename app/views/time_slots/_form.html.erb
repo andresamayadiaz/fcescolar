@@ -40,6 +40,7 @@
   <div class="box-content box-double-padding">
     <%= simple_form_for(@time_slot,:class=>'form',:style=>'margin-bottom:0;') do |f| %>
     <%= f.error_notification %>
+    <%= f.input :status, :as=>:hidden, :input_html=>{:value=>true} %>
     <fieldset>
       <div class="col-sm-4">
         <div class="box">

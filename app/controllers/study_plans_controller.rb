@@ -6,6 +6,11 @@ class StudyPlansController < ApplicationController
     render :json => @active_classrooms
   end
 
+  def get_active_time_slots_by_campus_id
+    @active_time_slots = TimeSlot.where(:campus_id=>params[:campus_id]).active
+    render :json => @active_time_slots
+  end
+  
   def enable
     @active_study_plans = StudyPlan.active
     @campuses = current_user.person.franchise.try(:campuses)

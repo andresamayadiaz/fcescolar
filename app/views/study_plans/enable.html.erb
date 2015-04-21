@@ -24,6 +24,8 @@
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="active_timeslot_wrapper">
+      <label class="col-md-12 control-label">Active Time Slots</label>
+      <div class="col-md-12"></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="degree_achievements_category_wrapper">
@@ -54,10 +56,30 @@
     })
   }
 
+  function get_active_time_slots_by_campus_id(val){
+    $("#active_timeslot_wrapper").hide();
+    $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_active_time_slots_by_campus_id?campus_id='+val,
+      success: function(data){
+        if(data){
+          var html_element=''
+          $.each(data,function(index,value){
+            html_element+="<span class='checkbox'><label for='schedule_time_slot_ids_"+value.id+"'><input class='check_boxes optional' id='schedule_time_slot_ids_"+value.id+"' name='schedule[time_slot_ids][]' type='checkbox' value='"+value.id+"' checked=true>"+value.name+"</label></span>"
+          })
+          html_element+='<input name="schedule[time_slot_ids][]" type="hidden" value=""/>'
+          $("#active_timeslot_wrapper").find('div').html(html_element)
+          $("#active_timeslot_wrapper").slideDown();
+        }
+      }
+    })
+  }
+
   $(document).ready(function(){
     $('#schedule_campus_id').change(function(){
       var val = $(this).val();
       get_active_classrooms_by_campus_id(val);
+      get_active_time_slots_by_campus_id(val);
     });
   
   })

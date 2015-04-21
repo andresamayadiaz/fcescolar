@@ -81,6 +81,7 @@ Rails.application.routes.draw do
       post 'create_schedule'
       get 'get_subject_by_curricular_line'
       get 'get_active_classrooms_by_campus_id'
+      get 'get_active_time_slots_by_campus_id'
     end
   end
 

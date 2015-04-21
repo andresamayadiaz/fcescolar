@@ -17,7 +17,7 @@ class Ability
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update, :assign_roles, :add_new_role, :profile, :download_personal_record_file, :matching_date_and_user], Person
     when 'academic_coordinator'
-        can [:enable, :create_schedule, :get_active_classrooms_by_campus_id], StudyPlan
+        can [:enable, :create_schedule, :get_active_classrooms_by_campus_id, :get_active_time_slots_by_campus_id], StudyPlan
         can [:update_password], User, :id=>user.id
         can [:read, :assign_roles, :search, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file, :matching_date_and_user], Person
     when 'head_of_school_control'

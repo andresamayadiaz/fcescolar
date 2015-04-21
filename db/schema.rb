@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421083319) do
+ActiveRecord::Schema.define(version: 20150421105642) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -374,6 +374,14 @@ ActiveRecord::Schema.define(version: 20150421083319) do
 
   add_index "schedules", ["campus_id"], name: "index_schedules_on_campus_id", using: :btree
   add_index "schedules", ["study_plan_id"], name: "index_schedules_on_study_plan_id", using: :btree
+
+  create_table "schedules_time_slots", force: true do |t|
+    t.integer "time_slot_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "schedules_time_slots", ["schedule_id"], name: "index_schedules_time_slots_on_schedule_id", using: :btree
+  add_index "schedules_time_slots", ["time_slot_id"], name: "index_schedules_time_slots_on_time_slot_id", using: :btree
 
   create_table "states", force: true do |t|
     t.string   "name"
