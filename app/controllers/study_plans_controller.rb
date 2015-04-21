@@ -15,6 +15,7 @@ class StudyPlansController < ApplicationController
     @active_study_plans = StudyPlan.active
     @campuses = current_user.person.franchise.try(:campuses)
     @active_docs = BackgroundOfficialDoc.active
+    @active_deg_categories = current_user.person.franchise.try(:degree_achievements_categories).active
     @schedule = Schedule.new
   end
 

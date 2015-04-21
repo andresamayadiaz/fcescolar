@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421105642) do
+ActiveRecord::Schema.define(version: 20150421113411) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -183,6 +183,14 @@ ActiveRecord::Schema.define(version: 20150421105642) do
   end
 
   add_index "degree_achievements_categories", ["franchise_id"], name: "index_degree_achievements_categories_on_franchise_id", using: :btree
+
+  create_table "degree_achievements_categories_schedules", force: true do |t|
+    t.integer "degree_achievements_category_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "degree_achievements_categories_schedules", ["degree_achievements_category_id"], name: "degree_category_id", using: :btree
+  add_index "degree_achievements_categories_schedules", ["schedule_id"], name: "index_degree_achievements_categories_schedules_on_schedule_id", using: :btree
 
   create_table "franchises", force: true do |t|
     t.string   "name"

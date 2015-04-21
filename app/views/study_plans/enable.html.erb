@@ -29,6 +29,10 @@
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="degree_achievements_category_wrapper">
+      <label class="col-md-12 control-label">Degree Achievements Categories</label>
+      <div class="col-md-12">
+        <%= f.association :degree_achievements_categories, collection: @active_deg_categories, as: :check_boxes, label: false %>
+      </div>
     </div>
     <div class="form-group">
       <button class="btn btn-primary">Enable Study Plan</button>
@@ -80,6 +84,7 @@
       var val = $(this).val();
       get_active_classrooms_by_campus_id(val);
       get_active_time_slots_by_campus_id(val);
+      $("#degree_achievements_category_wrapper").slideDown();
     });
   
   })

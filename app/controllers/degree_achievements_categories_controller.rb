@@ -5,7 +5,7 @@ class DegreeAchievementsCategoriesController < ApplicationController
   respond_to :html
 
   def index
-    @degree_achievements_categories = DegreeAchievementsCategory.all
+    @degree_achievements_categories = DegreeAchievementsCategory.active
     respond_with(@degree_achievements_categories)
   end
 
@@ -37,8 +37,10 @@ class DegreeAchievementsCategoriesController < ApplicationController
   end
 
   def destroy
-    @degree_achievements_category.destroy
-    respond_with(@degree_achievements_category)
+    @degree_achievements_category.update(:status=>false)
+    respond_with(@degree_achievements_category) do |format|
+      format.html { redirect_to degree_achievements_categories_url, notice: 'Deleted successfully' }
+    end
   end
 
   private
