@@ -1,5 +1,13 @@
-<div class='nested-fields'>
-  <%= f.input :phone_number, :label=>'Telefonos', :input_html=>{class: 'input-sm'} %>
-  <%= f.input :phone_type, :label=>'Tipo', :input_html=>{class: 'input_sm'} %>
-  <%= link_to_remove_association "x", f, class: 'btn btn-sm btn-danger', style: 'margin-top:25px;' %>
+<div class='nested-fields form-group'>
+  <label class="col-md-3 control-label">Telefonos</label>
+  <div class="col-md-3">
+    <%= f.input :phone_number, :label=>false, :input_html=>{class: 'input-sm'} %>
+  </div>
+  <label class="col-md-2 control-label">Tipo</label>
+  <div class="col-md-2">
+    <%= f.input :phone_type, :label=>false, :input_html=>{class: 'input_sm'} %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to_remove_association "x", f, class: 'btn btn-sm btn-danger' %>
+  </div>
 </div>
