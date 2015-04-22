@@ -22,7 +22,7 @@ class PeopleController < ApplicationController
       else
         template.update(:consecutive_next=>template.consecutive_next+1)
       end
-      @pdf_content = "#{template.content}".html_safe
+      @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
       prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
       render  :pdf => template.name,
               :header => {
