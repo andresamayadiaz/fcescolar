@@ -16,9 +16,15 @@ class PeopleController < ApplicationController
   def generate_contract
     new_contract = Contract.new(params[:contract])
     if new_contract.save
-      @pdf_content = "#{new_contract.contracts_template.content}".html_safe
-      prefix_content = "#{new_contract.contracts_template.serie} - #{new_contract.contracts_template.consecutive_next}".html_safe
-      render  :pdf => new_contract.contracts_template.name,
+      template = new_contract.contracts_template
+      if template.consecutive_next.nil?
+        template.update(:consecutive_next=>template.consecutive_init)
+      else
+        template.update(:consecutive_next=>template.consecutive_next+1)
+      end
+      @pdf_content = "#{template.content}".html_safe
+      prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
+      render  :pdf => template.name,
               :header => {
                 :content => prefix_content
               },
