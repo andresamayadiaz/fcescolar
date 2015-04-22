@@ -16,6 +16,14 @@
     <div class="col-sm-12">
       <fieldset>
         <legend>Generate Contract</legend>
+        <%= simple_form_for(@new_contract,:url=>'/people/create_contract',:html => { :class => 'form form-horizontal', :method=>'POST'}) do |f| %>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Contract Template</label>
+          <div class="col-md-5">
+            <%= f.association :contracts_template, collection: @active_contracts_templates, label: false, include_blank: 'Active Contracts Templates List' %>
+          </div>
+        </div>
+        <% end %>
       </fieldset>
     </div>
   </div>

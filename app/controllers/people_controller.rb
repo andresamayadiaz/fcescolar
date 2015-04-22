@@ -8,6 +8,8 @@ class PeopleController < ApplicationController
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
+      @new_contract = Contract.new(:person_id=>@person.id)
+      @active_contracts_templates = ContractsTemplate.active
     end
   end
 
