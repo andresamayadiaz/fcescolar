@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       post 'auth_to_sign_responsive_letter'
       get 'autocomplete_person_name'
       get 'new_contract'
+      post 'generate_contract'
     end
   end
   

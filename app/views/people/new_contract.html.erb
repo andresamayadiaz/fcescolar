@@ -16,12 +16,17 @@
     <div class="col-sm-12">
       <fieldset>
         <legend>Generate Contract</legend>
-        <%= simple_form_for(@new_contract,:url=>'/people/create_contract',:html => { :class => 'form form-horizontal', :method=>'POST'}) do |f| %>
+        <%= simple_form_for(@new_contract,:url=>'/people/generate_contract',:html => { :class => 'form form-horizontal', :method=>'POST'}) do |f| %>
+        <%= f.input :person_id, :as=>:hidden %>
         <div class="form-group">
           <label class="col-md-2 control-label">Contract Template</label>
           <div class="col-md-5">
             <%= f.association :contracts_template, collection: @active_contracts_templates, label: false, include_blank: 'Active Contracts Templates List' %>
           </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3"><button class='btn btn-info btn-sm' id='preview-contract'>Preview</button></div>
+          <div class="col-md-9"><button class='btn btn-primary btn-sm'>Generate Contract</div>
         </div>
         <% end %>
       </fieldset>
@@ -33,6 +38,9 @@
 <% content_for :specific_js do %>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $("button#preview-contract").click(function(e){
+      e.preventDefault();
+    })
 		$("#search-person-form").submit(function(e){
 			e.preventDefault();
 			var _this = $(this)

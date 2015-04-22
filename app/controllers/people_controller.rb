@@ -13,6 +13,23 @@ class PeopleController < ApplicationController
     end
   end
 
+  def generate_contract
+    new_contract = Contract.new(params[:contract])
+    if new_contract.save
+      @pdf_content = "#{new_contract.contracts_template.content}".html_safe
+      prefix_content = "#{new_contract.contracts_template.serie} - #{new_contract.contracts_template.consecutive_next}".html_safe
+      render  :pdf => new_contract.contracts_template.name,
+              :header => {
+                :content => prefix_content
+              },
+              :footer => {
+                :content => prefix_content
+              }
+    else
+      redirect_to :back, :alert=>'Something went wrong...'
+    end
+  end
+
   def download_personal_record_file
     @personal_record_file = PersonalRecordFile.find(params[:rec_file_id])
     doc_url = URI.unescape(@personal_record_file.document.url(:original, timestamp: false))
