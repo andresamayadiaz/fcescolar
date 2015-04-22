@@ -2,6 +2,7 @@ class TimeSlot < ActiveRecord::Base
   resourcify
   belongs_to :franchise
   belongs_to :campus
+  has_and_belongs_to_many :schedules
 
   validates :franchise, :presence => true
   validates :campus, :presence => true
@@ -11,6 +12,8 @@ class TimeSlot < ActiveRecord::Base
 
   before_save :generate_name
 
+  scope :active, -> { where(status: true) }
+  
   def generate_name
   	self.name = "#{self.start_time.strftime('%H')}:#{self.start_time.strftime('%M')} – #{self.end_time.strftime('%H')}:#{self.end_time.strftime('%M')}"
   end

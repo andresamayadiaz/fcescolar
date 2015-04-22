@@ -5,7 +5,7 @@ class BackgroundOfficialDocsController < ApplicationController
   respond_to :html
 
   def index
-    @background_official_docs = BackgroundOfficialDoc.all
+    @background_official_docs = BackgroundOfficialDoc.active
     respond_with(@background_official_docs)
   end
 
@@ -37,8 +37,10 @@ class BackgroundOfficialDocsController < ApplicationController
   end
 
   def destroy
-    @background_official_doc.destroy
-    respond_with(@background_official_doc)
+    @background_official_doc.update(:status=>false)
+    respond_with(@background_official_doc) do |format|
+      format.html { redirect_to background_official_docs_url, notice: 'Deleted successfully' }
+    end
   end
 
   private

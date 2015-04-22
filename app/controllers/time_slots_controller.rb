@@ -5,7 +5,7 @@ class TimeSlotsController < ApplicationController
   respond_to :html
 
   def index
-    @time_slots = TimeSlot.all
+    @time_slots = TimeSlot.active
     respond_with(@time_slots)
   end
 
@@ -49,8 +49,12 @@ class TimeSlotsController < ApplicationController
   end
 
   def destroy
-    @time_slot.destroy
-    respond_with(@time_slot)
+    @time_slot.update(:status=>false)
+    respond_with(@time_slot) do |format|
+      format.html {
+        redirect_to time_slots_url, notice: 'Deleted successfully'
+      }
+    end
   end
 
   private

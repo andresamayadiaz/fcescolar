@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408064344) do
+ActiveRecord::Schema.define(version: 20150421113411) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20150408064344) do
   end
 
   add_index "background_official_docs", ["franchise_id"], name: "index_background_official_docs_on_franchise_id", using: :btree
+
+  create_table "background_official_docs_schedules", force: true do |t|
+    t.integer "background_official_doc_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "background_official_docs_schedules", ["background_official_doc_id"], name: "official_doc_id", using: :btree
+  add_index "background_official_docs_schedules", ["schedule_id"], name: "index_background_official_docs_schedules_on_schedule_id", using: :btree
 
   create_table "campuses", force: true do |t|
     t.string   "name"
@@ -117,6 +125,14 @@ ActiveRecord::Schema.define(version: 20150408064344) do
   add_index "classrooms", ["campus_id"], name: "index_classrooms_on_campus_id", using: :btree
   add_index "classrooms", ["franchise_id"], name: "index_classrooms_on_franchise_id", using: :btree
 
+  create_table "classrooms_schedules", force: true do |t|
+    t.integer "classroom_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "classrooms_schedules", ["classroom_id"], name: "index_classrooms_schedules_on_classroom_id", using: :btree
+  add_index "classrooms_schedules", ["schedule_id"], name: "index_classrooms_schedules_on_schedule_id", using: :btree
+
   create_table "contact_telephones", force: true do |t|
     t.integer  "person_id"
     t.string   "phone_number"
@@ -167,6 +183,14 @@ ActiveRecord::Schema.define(version: 20150408064344) do
   end
 
   add_index "degree_achievements_categories", ["franchise_id"], name: "index_degree_achievements_categories_on_franchise_id", using: :btree
+
+  create_table "degree_achievements_categories_schedules", force: true do |t|
+    t.integer "degree_achievements_category_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "degree_achievements_categories_schedules", ["degree_achievements_category_id"], name: "degree_category_id", using: :btree
+  add_index "degree_achievements_categories_schedules", ["schedule_id"], name: "index_degree_achievements_categories_schedules_on_schedule_id", using: :btree
 
   create_table "franchises", force: true do |t|
     t.string   "name"
@@ -348,6 +372,24 @@ ActiveRecord::Schema.define(version: 20150408064344) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "schedules", force: true do |t|
+    t.integer  "study_plan_id"
+    t.integer  "campus_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "schedules", ["campus_id"], name: "index_schedules_on_campus_id", using: :btree
+  add_index "schedules", ["study_plan_id"], name: "index_schedules_on_study_plan_id", using: :btree
+
+  create_table "schedules_time_slots", force: true do |t|
+    t.integer "time_slot_id"
+    t.integer "schedule_id"
+  end
+
+  add_index "schedules_time_slots", ["schedule_id"], name: "index_schedules_time_slots_on_schedule_id", using: :btree
+  add_index "schedules_time_slots", ["time_slot_id"], name: "index_schedules_time_slots_on_time_slot_id", using: :btree
 
   create_table "states", force: true do |t|
     t.string   "name"
