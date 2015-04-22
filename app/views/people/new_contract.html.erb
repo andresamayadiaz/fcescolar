@@ -1,0 +1,66 @@
+<div class="paragraphs">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class='form-group'>
+				<label class="col-md-1">Person</label>
+        <div class="col-md-2"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
+			  <div class='col-md-9'>
+				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal">Search</button>
+			  </div>
+			</div>
+		</div>
+  </div>
+	<% if @person.present? %>
+  <br/>
+	<div class="row">
+    <div class="col-sm-12">
+      <fieldset>
+        <legend>Generate Contract</legend>
+      </fieldset>
+    </div>
+  </div>
+  <% end %>
+</div>
+<%= render 'search_modal' %>
+<% content_for :specific_js do %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#search-person-form").submit(function(e){
+			e.preventDefault();
+			var _this = $(this)
+			_this.find(':button[type="submit"]').prop('disabled', true); 
+			var postData = _this.serializeArray();
+			var formURL = _this.attr("action");
+			$('#search_person_result tbody').html('');
+			$('#search_person_result').slideUp();
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					if (data){
+						var html_data = null;
+						data.map(function(d){
+							html_data = html_data + '<tr class="clickable-person" data-href="/people/new_contract?id='+d.id+'"><td>'+d.fathers_maiden_name+
+							'</td><td>'+d.mothers_maiden_name+'</td><td>'+d.name+'</td></tr>';
+						})
+						if (html_data==null){
+							html_data = '<tr><td colspan="3">No se encontró persona</td></tr>'
+						}
+						$('#search_person_result tbody').html(html_data); 
+						$('#search_person_result').slideDown(); 
+					}
+					_this.find(':button[type="submit"]').prop('disabled', false);
+					$('.clickable-person').click(function(){
+						window.location.href=$(this).attr('data-href')
+					})
+				}
+			});
+		})
+  });
+</script>
+<% end %>
+<style type="text/css">
+  tr.clickable-person { cursor: pointer;}
+</style>

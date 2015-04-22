@@ -5,6 +5,12 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def new_contract
+    @person = Person.find(params[:id]) rescue nil
+    if @person.present?
+    end
+  end
+
   def download_personal_record_file
     @personal_record_file = PersonalRecordFile.find(params[:rec_file_id])
     doc_url = URI.unescape(@personal_record_file.document.url(:original, timestamp: false))
