@@ -150,3 +150,8 @@ es:
     plural: "Periodos"
     new: "Nuevo Periodo"
     menu: "Administrar Periodos"
+  study_plan:
+    singular: "Plan de Estudio"
+    plural: "Planes de Estudio"
+    new: "Nuevo Plan de Estudio"
+    menu: "Planes de Estudio"
