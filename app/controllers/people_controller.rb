@@ -11,6 +11,16 @@ class PeopleController < ApplicationController
     @active_study_plans = StudyPlan.active
   end
 
+  def create_teacher_dictamination
+    teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
+    if teacher_dictamination.save
+      flash[:notice]='Teacher dictamination is created'
+    else
+      flash[:error]='Failed to create teacher dictamination'
+    end
+    redirect_to :back
+  end
+
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
