@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421113411) do
+ActiveRecord::Schema.define(version: 20150422085354) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -142,6 +142,16 @@ ActiveRecord::Schema.define(version: 20150421113411) do
   end
 
   add_index "contact_telephones", ["person_id"], name: "index_contact_telephones_on_person_id", using: :btree
+
+  create_table "contracts", force: true do |t|
+    t.integer  "contracts_template_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contracts", ["contracts_template_id"], name: "index_contracts_on_contracts_template_id", using: :btree
+  add_index "contracts", ["person_id"], name: "index_contracts_on_person_id", using: :btree
 
   create_table "contracts_templates", force: true do |t|
     t.integer  "franchise_id"

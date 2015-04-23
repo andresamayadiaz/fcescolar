@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       post 'generate_responsive_letter'
       post 'auth_to_sign_responsive_letter'
       get 'autocomplete_person_name'
+      get 'new_contract'
+      post 'generate_contract'
+      post 'preview_contract'
     end
   end
   
