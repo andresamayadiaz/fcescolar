@@ -5,7 +5,7 @@ class ContractsTemplatesController < ApplicationController
   respond_to :html
 
   def index
-    @contracts_templates = ContractsTemplate.all
+    @contracts_templates = ContractsTemplate.active
     respond_with(@contracts_templates)
   end
 
@@ -37,8 +37,10 @@ class ContractsTemplatesController < ApplicationController
   end
 
   def destroy
-    @contracts_template.destroy
-    respond_with(@contracts_template)
+    @contracts_template.update(:status=>false)
+    respond_with(@contracts_template) do |format|
+      format.html { redirect_to contracts_templates_url, notice: 'Deleted successfully'}
+    end
   end
 
   private

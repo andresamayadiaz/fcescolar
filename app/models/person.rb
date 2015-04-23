@@ -68,4 +68,11 @@ class Person < ActiveRecord::Base
     end
     Person.where('name LIKE ?', name)
   end
+  
+  def full_name
+    
+  end
+
+  def full_name2
+  end
 end

@@ -5,6 +5,51 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def new_contract
+    @person = Person.find(params[:id]) rescue nil
+    if @person.present?
+      @new_contract = Contract.new(:person_id=>@person.id)
+      @active_contracts_templates = ContractsTemplate.active
+    end
+  end
+
+  def preview_contract
+    new_contract = Contract.new(params[:contract])
+    template = new_contract.contracts_template
+    @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+    prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
+    render  :pdf => template.name,
+            :header => {
+              :content => prefix_content
+            },
+            :footer => {
+              :content => prefix_content
+            }
+  end
+
+  def generate_contract
+    new_contract = Contract.new(params[:contract])
+    if new_contract.save
+      template = new_contract.contracts_template
+      if template.consecutive_next.nil?
+        template.update(:consecutive_next=>template.consecutive_init)
+      else
+        template.update(:consecutive_next=>template.consecutive_next+1)
+      end
+      @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+      prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
+      render  :pdf => template.name,
+              :header => {
+                :content => prefix_content
+              },
+              :footer => {
+                :content => prefix_content
+              }
+    else
+      redirect_to :back, :alert=>'Something went wrong...'
+    end
+  end
+
   def download_personal_record_file
     @personal_record_file = PersonalRecordFile.find(params[:rec_file_id])
     doc_url = URI.unescape(@personal_record_file.document.url(:original, timestamp: false))
