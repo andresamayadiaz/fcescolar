@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       get 'autocomplete_person_name'
       get 'new_contract'
       post 'generate_contract'
+      post 'preview_contract'
     end
   end
   
