@@ -5,6 +5,12 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def new_teacher_dictamination
+    @teacher_dictamination = TeacherDictamination.new
+    @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
+    @active_study_plans = StudyPlan.active
+  end
+
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?

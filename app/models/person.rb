@@ -26,7 +26,9 @@ class Person < ActiveRecord::Base
   #validates :franchise, :presence => true, :if => lambda { self.user.active_role!='super_administrator' }
 
   after_create :create_user
-
+  
+  scope :active, -> { where(status: true) }
+  
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')
   	new_user.skip_confirmation_notification!

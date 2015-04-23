@@ -1,0 +1,26 @@
+<style>#active_subjects_wrapper{display:none;}</style>
+<%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post'  do |f| %>
+    <div class="form-group">
+      <label class="col-md-5 control-label">Teacher</label>
+      <div class="col-md-7"><%= f.association :person, :collection=>@active_teachers, :label=>false%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <label class="col-md-5 control-label">Study Plan</label>
+      <div class="col-md-7"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group" id="active_subjects_wrapper">
+      <label class="col-md-12 control-label"></label>
+      <div class="col-md-12"></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <label class="col-md-12 control-label">Name of Witnesses</label>
+      <div class="col-md-12"> 
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">Save and Print PDF</button>
+    </div>
+<% end %>
