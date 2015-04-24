@@ -38,28 +38,26 @@
     $("#active_subjects_wrapper").hide();
     $.ajax({
       type: 'GET',
-      url: '/study_plans/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
           var html_element=''
           $.each(data,function(index,value){
-            html_element+="<span class='checkbox'><label for='teacher_dictamination_classroom_ids_"+value.id+"'><input class='check_boxes optional' id='schedule_classroom_ids_"+value.id+"' name='schedule[classroom_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
+            html_element+="<span class='checkbox'><label for='teacher_dictamination_subject_ids_"+value.id+"'><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[subject_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
           })
-          html_element+='<input name="schedule[classroom_ids][]" type="hidden" value=""/>'
-          $("#active_classroom_wrapper").find('label').text($('#schedule_campus_id option:selected').text()+" Active Classrooms")
-          $("#active_classroom_wrapper").find('div').html(html_element)
-          $("#active_classroom_wrapper").slideDown();
+          html_element+='<input name="teacher_dictamination[subject_ids][]" type="hidden" value=""/>'
+          $("#active_subjects_wrapper").find('label').text("Active subjects in "+$('#schedule_campus_id option:selected').text())
+          $("#active_subjects_wrapper").find('div').html(html_element)
+          $("#active_subjects_wrapper").slideDown();
         }
       }
     })
   }
 
   $(document).ready(function(){
-    $('#schedule_campus_id').change(function(){
+    $('#teacher_dictamination_study_plan_id').change(function(){
       var val = $(this).val();
-      get_active_classrooms_by_campus_id(val);
-      get_active_time_slots_by_campus_id(val);
-      $("#degree_achievements_category_wrapper").slideDown();
+      get_active_subjects_by_study_plan_id(val);
     });
   
   })

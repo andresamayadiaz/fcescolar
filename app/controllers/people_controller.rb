@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def get_active_subjects_by_study_plan_id
+    @active_subjects = Subject.where(:study_plan_id=>params[:study_plan_id]).active
+    render :json => @active_subjects
+  end
+
   def new_teacher_dictamination
     @teacher_dictamination = TeacherDictamination.new
     @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }

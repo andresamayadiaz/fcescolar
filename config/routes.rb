@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       post 'preview_contract'
       get 'new_teacher_dictamination'
       post 'create_teacher_dictamination'
+      get 'get_active_subjects_by_study_plan_id'
     end
   end
   
