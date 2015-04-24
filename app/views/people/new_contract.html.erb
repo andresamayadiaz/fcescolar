@@ -38,6 +38,10 @@
 <% content_for :specific_js do %>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#fathers_maiden_name').focus();
+    })
+
     $("a#preview-contract").click(function(e){
       $("#new_contract").attr('action', "/people/preview_contract").submit();
       $("#new_contract").attr('action', "/people/generate_contract");
