@@ -152,6 +152,10 @@
 	}
 
 	$(document).ready(function(){
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#fathers_maiden_name').focus();
+    })
+
 		get_state_by_country_id('person_country_id', 'person_state_id');
 
 		match_date_and_user($('a.match_date'));

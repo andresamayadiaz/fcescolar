@@ -17,6 +17,10 @@
 <% content_for :specific_js do %>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#fathers_maiden_name').focus();
+    })
+
 		$('#search_person_name').bind('railsAutocomplete.select', function(event, data){
 		  $('#search_person_by_name').attr('href','/people/assign_roles?id='+data.item.id)
 		});

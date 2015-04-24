@@ -122,6 +122,10 @@
     });
   }
   $(document).ready(function(){
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#fathers_maiden_name').focus();
+    })
+
     $('.manage_contacts').click(function(){
       $(this).parent().prev().modal()
     });
