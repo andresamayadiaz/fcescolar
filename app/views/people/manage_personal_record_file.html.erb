@@ -2,13 +2,11 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class='form-group'>
-				<label>Person</label>
-				<%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %>
-			</div>
-			<div class='form-group'>
-				<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal">
-					Search
-				</button>
+				<label class="col-md-1">Person</label>
+        <div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
+			  <div class='col-md-8'>
+				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal">Search</button>
+			  </div>
 			</div>
 		</div>
 		<% if @person.present? %>
@@ -154,6 +152,10 @@
 	}
 
 	$(document).ready(function(){
+    $('#searchModal').on('shown.bs.modal', function () {
+      $('#fathers_maiden_name').focus();
+    })
+
 		get_state_by_country_id('person_country_id', 'person_state_id');
 
 		match_date_and_user($('a.match_date'));
