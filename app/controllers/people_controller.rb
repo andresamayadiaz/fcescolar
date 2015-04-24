@@ -6,7 +6,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def get_active_subjects_by_study_plan_id
-    @active_subjects = Subject.where(:study_plan_id=>params[:study_plan_id]).active
+    @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
     render :json => @active_subjects
   end
 
