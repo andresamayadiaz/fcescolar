@@ -41,7 +41,7 @@
     <div class='actions'>
       <%= link_to 'Nuevo', new_person_path, :class=>'btn btn-large btn-success' %>
       <button type="button" class="btn btn-large btn-default" data-toggle="modal" data-target="#searchModal">
-        Search Person
+        <%= t('general.search') %> <%= t('people.singular') %>
       </button>
     </div>
   </div>
@@ -51,12 +51,12 @@
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Email</th>
-              <th>Nombre</th>
-              <th>Fathers maiden name</th>
-              <th>Mothers maiden name</th>
-              <th>Franquicia</th>
-              <th>Campus</th>
+              <th><%= t('general.email') %></th>
+              <th><%= t('general.name') %></th>
+              <th><%= t('general.fathers_maiden') %></th>
+              <th><%= t('general.mothers_maiden') %></th>
+              <th><%= t('franchise.singular') %></th>
+              <th><%= t('campus.singular') %></th>
               <th></th>
             </tr>
           </thead>

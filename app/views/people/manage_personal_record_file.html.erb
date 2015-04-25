@@ -2,17 +2,17 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<div class='form-group'>
-				<label class="col-md-1">Person</label>
+				<label class="col-md-1"><%= t('people.singular') %></label>
         <div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
 			  <div class='col-md-8'>
-				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal">Search</button>
+				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal"><%= t('general.search') %></button>
 			  </div>
 			</div>
 		</div>
 		<% if @person.present? %>
 		<div class="col-sm-12">
 			<br/><br/>
-			<div class="col-sm-6">Study location for the last academic degree:</div>
+			<div class="col-sm-6">Ubicación de ultimos estudios:</div>
 			<%= simple_form_for(@person, {:url=>update_country_and_state_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
 			<%= f.input :id, as: :hidden %>
 			<div class="col-sm-3">
@@ -27,28 +27,28 @@
 			<br/><br/>
 			<div class="col-sm-6">
 				<fieldset>
-					<legend>Attach New Document</legend>
+					<legend>Adjuntar Documento Nuevo</legend>
 					<%= simple_form_for(@new_personal_record_file, { :url=>upload_document_people_url, :html=>{:multipart=>true} } ) do |f| %>
 					<%= f.association :background_official_doc,:label => "Type" ,:include_blank => 'Document Category' %>
-					<%= f.input :document, :label=>'Attach New Document' %>
-					<%= f.input :is_responsive_letter, :label=>'Is Responsive Letter ?' %>
+					<%= f.input :document, :label=>'Documento' %>
+					<%= f.input :is_responsive_letter, :label=>'¿Es Carta Responsiva?' %>
 					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 					<%= f.input :attach_user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
-          <button class='btn btn-sm btn-primary button right'>Load</button>
+          <button class='btn btn-sm btn-primary button right'>Adjuntar</button>
 					<% end %>
 				</fieldset>
 			</div>
 			<div class="col-sm-6">
 				<fieldset>
-					<legend>Generate Responsive Letter</legend>
+					<legend>Generar Carta Responsiva</legend>
 					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url} ) do |f| %>
-					<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Responsive Template" %>
-					<%= f.input :motive %>
+					<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Carta Responsiva" %>
+					<%= f.input :motive, :label => "Comentarios" %>
 					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 					<%= f.input :is_responsive_letter, :as => :hidden, :input_html => { :value => true } %>
 					<div class='form-action'>
-            <button class='btn btn-sm btn-info'>Preview</button>
-						<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton' class='btn btn-sm btn-success'>Sign Responsive Letter</button>
+            <button class='btn btn-sm btn-info'><%= t('general.preview') %></button>
+						<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton' class='btn btn-sm btn-success'>Firmar Carta Responsiva</button>
 					</div>
 					<% end %>
 				</fieldset>
@@ -58,17 +58,17 @@
 		<div class="col-sm-12">
 			<br/><br/>
 			<fieldset>
-				<legend>Attached Documents</legend>
+				<legend>Documentos Adjuntos</legend>
 				<table class='table table-striped'>
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Due Date</th>
-							<th>Attach Date</th>
-							<th>Attach User</th>
-							<th>Matching Date</th>
-							<th>Matching User</th>
-							<th>Actions</th>
+							<th><%= t('general.name') %></th>
+							<th>Fecha Vencimiento</th>
+							<th>Fecha de adjunto</th>
+							<th>Usuario que adjunto</th>
+							<th>Fecha de Verificación</th>
+							<th>Usuario que verificó</th>
+							<th>Estado</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -87,9 +87,9 @@
 									</td>
 							<% else %>
 								<% if d.has_been_matched %>
-									<td><span class="alert-success">OK</span></td>
+									<td><span class="alert-success">Correcto</span></td>
 								<% else %>
-									<td><span class="alert-danger">Not OK</span></td>
+									<td><span class="alert-danger">Incorrecto</span></td>
 								<% end %>
 							<% end %>
 						</tr>
