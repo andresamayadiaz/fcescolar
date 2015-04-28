@@ -36,7 +36,6 @@ Rails.application.routes.draw do
       post 'create_teacher_dictamination'
       get 'accept_reject_dictamination'
       get 'get_active_subjects_by_study_plan_id'
-      get 'search_dictamination'
     end
   end
   

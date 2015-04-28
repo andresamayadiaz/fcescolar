@@ -9,6 +9,7 @@
   <div class="col-md-9"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Search</button></div>
 </div>
 <hr class="hr-normal">
+<% if @dictaminations.present? %>
 <div class="row" id="dictaminations_list">
   <div class="col-md-12">
   <table class="table table-condensed">
@@ -22,41 +23,29 @@
       </tr>
     </thead>
     <tbody>
+      <% @dictaminations.each do |d| %>
+        <tr>
+          <td><%= d.person.try(:name) %></td>
+          <td><%= d.status %></td>
+          <td><%= d.created_at %></td>
+          <td><%= format_subjects_for_dictamination(Subject.get_by_study_plan(d.study_plan.id)) %></td>
+          <td></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   </div>
 </div>
+<% end %>
 
 <% content_for :specific_js do %>
-<script type="text/javascript">
-  function format_date(d) {         
-                                
-        var yyyy = d.getFullYear().toString();                                    
-        var mm = (d.getMonth()+1).toString(); // getMonth() is zero-based         
-        var dd  = d.getDate().toString();             
-                            
-        return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
-  };  
 
-  $(document).ready(function(){
-    $("#search_dictamination").click(function(){
-      $.ajax({
-        type: 'GET',
-        url: '/people/search_dictamination?teacher='+$('#teacher').val()+'&status='+$('#status').val(),
-        success: function(data){
-          if (data) {
-            $.each(data, function(i, item) {
-              var created_date = format_date(new Date(item.created_at))
-              $('#dictaminations_list table').find('tbody').append('<tr><td>'+item.teacher+'</td><td>'+item.status+'</td><td>'+created_date+'</td><td>'+item.subjects+'</td><td></td></tr>')
-            });
-            $('#dictaminations_list').slideDown();
-          }
-        }
-      })
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#search_dictamination').click(function(){
+        window.location.href = '/people/accept_reject_dictamination?teacher='+$('#teacher').val()+'&status='+$('#status').val();
+      });
     });
-  });
-</script>
+  </script>
+
 <% end %>
-<style>
-  #dictaminations_list{display:none;}
-</style>
