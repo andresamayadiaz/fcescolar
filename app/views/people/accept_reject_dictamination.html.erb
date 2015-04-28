@@ -1,0 +1,62 @@
+<div class="row">
+  <label class="col-md-1 control-label">Teacher:</label>
+  <div class="col-md-3"><%= select_tag 'teacher', options_from_collection_for_select(@active_teachers, "id", "name"), class:'select2' %></div>
+  <label class="col-md-1 control-label">Status:</label>
+  <div class="col-md-3"><%= select_tag 'status', options_for_select(["Pending", "Accepted", "Rejected" ], "Pending"), class:'select2' %></div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-9"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Search</button></div>
+</div>
+<hr class="hr-normal">
+<div class="row" id="dictaminations_list">
+  <div class="col-md-12">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Teacher Name</th>
+        <th>Status</th>
+        <th>Created Date</th>
+        <th>Subjects</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function format_date(d) {         
+                                
+        var yyyy = d.getFullYear().toString();                                    
+        var mm = (d.getMonth()+1).toString(); // getMonth() is zero-based         
+        var dd  = d.getDate().toString();             
+                            
+        return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+  };  
+
+  $(document).ready(function(){
+    $("#search_dictamination").click(function(){
+      $.ajax({
+        type: 'GET',
+        url: '/people/search_dictamination?teacher='+$('#teacher').val()+'&status='+$('#status').val(),
+        success: function(data){
+          if (data) {
+            $.each(data, function(i, item) {
+              var created_date = format_date(new Date(item.created_at))
+              $('#dictaminations_list table').find('tbody').append('<tr><td>'+item.person.name+'</td><td>'+item.status+'</td><td>'+created_date+'</td><td></td><td></td></tr>')
+            });
+            $('#dictaminations_list').slideDown();
+          }
+        }
+      })
+    });
+  });
+</script>
+<% end %>
+<style>
+  #dictaminations_list{display:none;}
+</style>

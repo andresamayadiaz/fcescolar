@@ -28,6 +28,15 @@ class PeopleController < ApplicationController
     end
   end
 
+  def accept_reject_dictamination
+    @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
+  end
+
+  def search_dictamination
+    @dictaminations = TeacherDictamination.where(:person_id=>params[:teacher],:status=>params[:status])
+    render :json => @dictaminations.to_json(:include=> [:person,:study_plan])
+  end
+
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
