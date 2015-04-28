@@ -33,8 +33,8 @@ class PeopleController < ApplicationController
   end
 
   def search_dictamination
-    @dictaminations = TeacherDictamination.where(:person_id=>params[:teacher],:status=>params[:status])
-    render :json => @dictaminations.to_json(:include=> [:person,:study_plan])
+    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher],params[:status])
+    render :json => @dictaminations.to_json
   end
 
   def new_contract

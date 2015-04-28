@@ -47,7 +47,7 @@
           if (data) {
             $.each(data, function(i, item) {
               var created_date = format_date(new Date(item.created_at))
-              $('#dictaminations_list table').find('tbody').append('<tr><td>'+item.person.name+'</td><td>'+item.status+'</td><td>'+created_date+'</td><td></td><td></td></tr>')
+              $('#dictaminations_list table').find('tbody').append('<tr><td>'+item.teacher+'</td><td>'+item.status+'</td><td>'+created_date+'</td><td>'+item.subjects+'</td><td></td></tr>')
             });
             $('#dictaminations_list').slideDown();
           }
