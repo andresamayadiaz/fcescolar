@@ -19,11 +19,13 @@ class PeopleController < ApplicationController
   def create_teacher_dictamination
     teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
     if teacher_dictamination.save
-      flash[:notice]='Teacher dictamination is created'
+      teacher_name = teacher_dictamination.person.try(:name)
+      @pdf_content = "Teacher: #{teacher_name}<br/>Study Plan:#{teacher_dictamination.study_plan.try(:name)}<br/>Name of Witness #1:#{teacher_dictamination.witness_1}<br/>Name of Witness #2:#{teacher_dictamination.witness_2}".html_safe
+      render  :pdf => "Teacher Dictamination: #{teacher_name}"
     else
       flash[:error]='Failed to create teacher dictamination'
+      redirect_to :back
     end
-    redirect_to :back
   end
 
   def new_contract
