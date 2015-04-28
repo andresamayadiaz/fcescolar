@@ -66,7 +66,7 @@
 								<li class=''>
 									<a href='/classrooms'>
 										<i class='icon-caret-right'></i>
-										<span><%= t('clasroom.menu') %></span>
+										<span><%= t('classroom.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
@@ -79,6 +79,12 @@
 									<a href='/careers'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('career.menu') %></span>
+									</a>
+								</li>
+								<li class=''>
+									<a href='/study_plans'>
+										<i class='icon-caret-right'></i>
+										<span><%= t('study_plan.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
@@ -145,7 +151,7 @@
 										<li>
 											<a href='/contracts_templates'>
 												<i class='icon-caret-right'></i>
-												<span><%= t('contract.menu') %></span>
+												<span><%= t('contract_template.menu') %></span>
 											</a>
 										</li>
 										<li>
@@ -167,38 +173,38 @@
 						<li>
 							<a class='dropdown-collapse ' href='#'>
 								<i class='icon-tint'></i>
-								<span>Personas</span>
+								<span><%= t('people.plural') %></span>
 								<i class='icon-angle-down angle-down'></i>
 							</a>
 							<ul class='nav nav-stacked'>
 								<li class=''>
 									<a href='/people'>
 										<i class='icon-caret-right'></i>
-										<span>Personas</span>
+										<span><%= t('people.menu') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/people/new'>
 										<i class='icon-caret-right'></i>
-										<span>Añadir Persona</span>
+										<span><%= t('people.new') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/people/assign_roles'>
 										<i class='icon-caret-right'></i>
-										<span>Assign Roles</span>
+										<span><%= t('people.assign_roles') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/people/manage_personal_record_file'>
 										<i class='icon-caret-right'></i>
-										<span>Manage Personal Record File</span>
+										<span><%= t('people.manage_record_file') %></span>
 									</a>
 								</li>
 								<li class=''>
 									<a href='/people/new_contract'>
 										<i class='icon-caret-right'></i>
-										<span>Create Contract to Person</span>
+										<span><%= t('people.create_contract') %></span>
 									</a>
 								</li>
 							</ul>

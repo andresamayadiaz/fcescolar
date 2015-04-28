@@ -32,6 +32,8 @@ es:
         invalid: "Invalido: %{attribute}."
   general:
     name: "Nombre"
+    fathers_maiden: "Apellido Paterno"
+    mothers_maiden: "Apellido Materno"
     address: "Dirección"
     search: "Buscar"
     previous: "Anterior"
@@ -55,6 +57,7 @@ es:
     catalogue: "Catálogo"
     catalogues: "Catálogos"
     new: "Nuevo"
+    preview: "Previsualizar"
     edit: "Editar"
     are_you_sure: "¿Estas Seguro?"
     general_info: "Información General"
@@ -150,3 +153,16 @@ es:
     plural: "Periodos"
     new: "Nuevo Periodo"
     menu: "Administrar Periodos"
+  study_plan:
+    singular: "Plan de Estudio"
+    plural: "Planes de Estudio"
+    new: "Nuevo Plan de Estudio"
+    menu: "Planes de Estudio"
+  people:
+    singular: "Persona"
+    plural: "Personas"
+    new: "Añadir Persona"
+    menu: "Listado de Personas"
+    assign_roles: "Asignar Roles a Personas"
+    manage_record_file: "Administrar un Archivo Personal"
+    create_contract: "Crear Contrato a Persona"
