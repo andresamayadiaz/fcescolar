@@ -29,7 +29,7 @@
           <td><%= d.status %></td>
           <td><%= d.created_at %></td>
           <td><%= format_subjects_for_dictamination(Subject.get_by_study_plan(d.study_plan.id)) %></td>
-          <td></td>
+          <td><%= dictamination_actions(d.status) %></td>
         </tr>
       <% end %>
     </tbody>
