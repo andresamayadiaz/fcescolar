@@ -5,6 +5,7 @@ module ApplicationHelper
     when 'Pending' 
 			"<a href='javascript:void(0);' class='btn-sm btn-success'>Accept</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-danger'>Reject</a>".html_safe
     when 'Accepted'
+      "<a href='#'>Download Evidence</a>".html_safe
     else 'Rejected'
     end
   end
