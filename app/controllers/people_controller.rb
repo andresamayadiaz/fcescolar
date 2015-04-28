@@ -32,6 +32,15 @@ class PeopleController < ApplicationController
     @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
     @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher],params[:status]) if params[:teacher].present? and params[:status].present?
   end
+
+  def reject_dictamination
+    @dictamination = TeacherDictamination.find(params[:dictamination_id]);
+    if @dictamination.update(:status=>'Rejected')
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
   
   def new_contract
     @person = Person.find(params[:id]) rescue nil

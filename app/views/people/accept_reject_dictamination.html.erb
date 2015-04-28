@@ -29,7 +29,7 @@
           <td><%= d.status %></td>
           <td><%= d.created_at %></td>
           <td><%= format_subjects_for_dictamination(Subject.get_by_study_plan(d.study_plan.id)) %></td>
-          <td><%= dictamination_actions(d.status) %></td>
+          <td><%= dictamination_actions(d.status, d.id) %></td>
         </tr>
       <% end %>
     </tbody>
@@ -42,6 +42,21 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
+      $(".reject-btn").click(function(){
+        if (confirm('Are you sure?')) {
+          var _this = $(this);
+          var dictamination_id = _this.attr('rel');
+          $.ajax({
+            url: '/people/reject_dictamination?dictamination_id='+dictamination_id,
+            success:function(data){
+              _this.parent().html('');
+            },
+            error: function(){
+              alert('Something went wrong');
+            }
+          })
+        }
+      })
       $('#search_dictamination').click(function(){
         window.location.href = '/people/accept_reject_dictamination?teacher='+$('#teacher').val()+'&status='+$('#status').val();
       });
