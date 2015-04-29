@@ -33,6 +33,9 @@ class PeopleController < ApplicationController
     @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher],params[:status]) if params[:teacher].present? and params[:status].present?
   end
 
+  def accept_dictamination
+  end
+
   def reject_dictamination
     @dictamination = TeacherDictamination.find(params[:dictamination_id]);
     if @dictamination.update(:status=>'Rejected')
