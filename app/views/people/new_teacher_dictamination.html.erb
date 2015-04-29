@@ -1,0 +1,65 @@
+<style>#active_subjects_wrapper{display:none;}</style>
+<%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post'  do |f| %>
+    <div class="form-group">
+      <label class="col-md-5 control-label">Teacher</label>
+      <div class="col-md-7"><%= f.association :person, :collection=>@active_teachers, :label=>false%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <label class="col-md-5 control-label">Study Plan</label>
+      <div class="col-md-7"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group" id="active_subjects_wrapper">
+      <label class="col-md-12 control-label"></label>
+      <div class="col-md-12"></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <label class="col-md-12 control-label">Name of Witnesses</label>
+      <div class="col-md-12">
+        <div class="row">
+          <label class="col-md-3 control-label">Witness #1</label>
+          <div class="col-md-6"><%= f.input :witness_1, label:false %></div>
+        </div>
+        <div class="row">
+          <label class="col-md-3 control-label">Witness #2</label>
+          <div class="col-md-6"><%= f.input :witness_2, label:false %></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary">Save and Print PDF</button>
+    </div>
+<% end %>
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function get_active_subjects_by_study_plan_id(val){
+    $("#active_subjects_wrapper").hide();
+    $.ajax({
+      type: 'GET',
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element=''
+          $.each(data,function(index,value){
+            html_element+="<span class='checkbox'><label for='teacher_dictamination_subject_ids_"+value.id+"'><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[subject_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
+          })
+          html_element+='<input name="teacher_dictamination[subject_ids][]" type="hidden" value=""/>'
+          $("#active_subjects_wrapper").find('label').text("Active subjects in "+$('#schedule_campus_id option:selected').text())
+          $("#active_subjects_wrapper").find('div').html(html_element)
+          $("#active_subjects_wrapper").slideDown();
+        }
+      }
+    })
+  }
+
+  $(document).ready(function(){
+    $('#teacher_dictamination_study_plan_id').change(function(){
+      var val = $(this).val();
+      get_active_subjects_by_study_plan_id(val);
+    });
+  
+  })
+</script>
+<% end %>

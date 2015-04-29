@@ -32,6 +32,13 @@ Rails.application.routes.draw do
       get 'new_contract'
       post 'generate_contract'
       post 'preview_contract'
+      get 'new_teacher_dictamination'
+      post 'create_teacher_dictamination'
+      get 'accept_reject_dictamination'
+      get 'get_active_subjects_by_study_plan_id'
+      get 'reject_dictamination'
+      post 'accept_dictamination'
+      get 'download_evidence'
     end
   end
   

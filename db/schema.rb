@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422085354) do
+ActiveRecord::Schema.define(version: 20150429124502) do
+
+  create_table "approved_subjects", force: true do |t|
+    t.integer  "teacher_dictamination_id"
+    t.integer  "subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "approved_subjects", ["subject_id"], name: "index_approved_subjects_on_subject_id", using: :btree
+  add_index "approved_subjects", ["teacher_dictamination_id"], name: "teacher_dict_id", using: :btree
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -476,6 +486,31 @@ ActiveRecord::Schema.define(version: 20150422085354) do
   add_index "subjects", ["franchise_id"], name: "index_subjects_on_franchise_id", using: :btree
   add_index "subjects", ["name"], name: "index_subjects_on_name", using: :btree
   add_index "subjects", ["study_level_id"], name: "index_subjects_on_study_level_id", using: :btree
+
+  create_table "subjects_teacher_dictaminations", force: true do |t|
+    t.integer "subject_id"
+    t.integer "teacher_dictamination_id"
+  end
+
+  add_index "subjects_teacher_dictaminations", ["subject_id"], name: "index_subjects_teacher_dictaminations_on_subject_id", using: :btree
+  add_index "subjects_teacher_dictaminations", ["teacher_dictamination_id"], name: "teacher_dict_id", using: :btree
+
+  create_table "teacher_dictaminations", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "study_plan_id"
+    t.string   "witness_1"
+    t.string   "witness_2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",                default: "Pending"
+    t.string   "evidence_file_name"
+    t.string   "evidence_content_type"
+    t.integer  "evidence_file_size"
+    t.datetime "evidence_updated_at"
+  end
+
+  add_index "teacher_dictaminations", ["person_id"], name: "index_teacher_dictaminations_on_person_id", using: :btree
+  add_index "teacher_dictaminations", ["study_plan_id"], name: "index_teacher_dictaminations_on_study_plan_id", using: :btree
 
   create_table "time_slots", force: true do |t|
     t.integer  "franchise_id"

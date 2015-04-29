@@ -15,4 +15,9 @@ class Subject < ActiveRecord::Base
   	end if ids
   	selected_arr
   end
+
+  def self.get_by_study_plan(study_plan_id)
+    study_plan = StudyPlan.find(study_plan_id)
+    study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten
+  end
 end

@@ -5,6 +5,53 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def get_active_subjects_by_study_plan_id
+    @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
+    render :json => @active_subjects
+  end
+
+  def new_teacher_dictamination
+    @teacher_dictamination = TeacherDictamination.new
+    @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
+    @active_study_plans = StudyPlan.active
+  end
+
+  def create_teacher_dictamination
+    teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
+    if teacher_dictamination.save
+      teacher_name = teacher_dictamination.person.try(:name)
+      @pdf_content = "Teacher: #{teacher_name}<br/>Study Plan:#{teacher_dictamination.study_plan.try(:name)}<br/>Name of Witness #1:#{teacher_dictamination.witness_1}<br/>Name of Witness #2:#{teacher_dictamination.witness_2}".html_safe
+      render  :pdf => "Teacher Dictamination: #{teacher_name}"
+    else
+      flash[:error]='Failed to create teacher dictamination'
+      redirect_to :back
+    end
+  end
+
+  def accept_reject_dictamination
+    @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
+    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher],params[:status]) if params[:teacher].present? and params[:status].present?
+  end
+
+  def accept_dictamination
+    @dictamination = TeacherDictamination.find(params[:teacher_dictamination][:id])
+    if @dictamination.update(params[:teacher_dictamination])
+      flash[:notice]='Dictamination is accepted'
+    else
+      flash[:error]='Failed to accept dictamination'
+    end
+    redirect_to "/people/accept_reject_dictamination?teacher=#{@dictamination.person.id}&status=Accepted"
+  end
+
+  def reject_dictamination
+    @dictamination = TeacherDictamination.find(params[:dictamination_id]);
+    if @dictamination.update(:status=>'Rejected')
+      render :nothing=>true, :status => 200
+    else
+      render :nothing=>true, :status => 503
+    end
+  end
+  
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
@@ -48,6 +95,13 @@ class PeopleController < ApplicationController
     else
       redirect_to :back, :alert=>'Something went wrong...'
     end
+  end
+  
+  def download_evidence
+    @dictamination = TeacherDictamination.find(params[:dictamination_id])
+    evidence_url = URI.unescape(@dictamination.evidence.url(:original, timestamp: false))
+    file = open("#{Rails.root}/public#{evidence_url}")
+    send_file file
   end
 
   def download_personal_record_file
