@@ -8,8 +8,8 @@ class TeacherDictamination < ActiveRecord::Base
   has_attached_file :evidence
   validates_attachment_content_type :evidence, content_type: ['application/pdf']
 
-  def self.dictaminations_list(teacher,status)
-    where(:person_id=>teacher, :status=>status)
+  def self.dictaminations_list(teacher_first_name,teacher_last_name,status)
+    joins(:person).where('people.first_name=? and people.last_name=? and teacher_dictaminations.status=?', teacher_first_name, teacher_last_name, status)
   end
 
 end

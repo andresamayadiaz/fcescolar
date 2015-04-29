@@ -30,7 +30,7 @@ class PeopleController < ApplicationController
 
   def accept_reject_dictamination
     @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
-    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher],params[:status]) if params[:teacher].present? and params[:status].present?
+    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher_first_name],params[:teacher_last_name],params[:status]) if params[:teacher_first_name].present? and params[:teacher_last_name].present? and params[:status].present?
   end
 
   def accept_dictamination
@@ -325,7 +325,8 @@ class PeopleController < ApplicationController
         :curp, 
         :rfc, 
         :email, 
-        :name, 
+        :first_name,
+        :last_name, 
         :fathers_maiden_name, 
         :mothers_maiden_name, 
         :country_id, 

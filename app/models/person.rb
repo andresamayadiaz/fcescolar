@@ -72,7 +72,10 @@ class Person < ActiveRecord::Base
   end
   
   def full_name
-    
+  end 
+ 
+  def name
+    "#{self.first_name} #{self.last_name}"    
   end
 
   def full_name2
