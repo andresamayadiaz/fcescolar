@@ -29,7 +29,7 @@
           <td><%= d.status %></td>
           <td><%= d.created_at %></td>
           <td><%= format_subjects_for_dictamination(Subject.get_by_study_plan(d.study_plan.id)) %></td>
-          <td><%= dictamination_actions(d.status, d.id) %></td>
+          <td><%= dictamination_actions(d.status, d.id, d.study_plan.id) %></td>
         </tr>
       <% end %>
     </tbody>
@@ -42,7 +42,29 @@
 <% content_for :specific_js do %>
 
   <script type="text/javascript">
+  function get_active_subjects_by_study_plan_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element=''
+          $.each(data,function(index,value){
+            html_element+="<span class='checkbox'><label for='teacher_dictamination_subject_ids_"+value.id+"'><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[subject_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
+          })
+          html_element+='<input name="teacher_dictamination[subject_ids][]" type="hidden" value=""/>'
+          $("#accept-dictamination-form").html(html_element);
+          $('#acceptModal').modal('show'); 
+        }
+      }
+    })
+  }
+
     $(document).ready(function(){
+      $(".accept-btn").click(function(e){
+          var study_plan_id = $(this).attr('rel');
+          get_active_subjects_by_study_plan_id(study_plan_id);
+      })
       $(".reject-btn").click(function(){
         if (confirm('Are you sure?')) {
           var _this = $(this);

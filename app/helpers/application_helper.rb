@@ -1,9 +1,9 @@
 module ApplicationHelper
 
-  def dictamination_actions(status,id)
+  def dictamination_actions(status,id,study_plan_id)
     case status
     when 'Pending' 
-			"<a href='javascript:void(0);' class='btn-sm btn-success' data-toggle='modal' data-target='#acceptModal'>Accept</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-danger reject-btn' rel=#{id}>Reject</a>".html_safe
+			"<a href='javascript:void(0);' class='btn-sm btn-success accept-btn' rel=#{study_plan_id}>Accept</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-danger reject-btn' rel=#{id}>Reject</a>".html_safe
     when 'Accepted'
       "<a href='#'>Download Evidence</a>".html_safe
     else 'Rejected'
