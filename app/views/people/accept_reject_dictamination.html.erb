@@ -1,12 +1,14 @@
 <div class="row">
-  <label class="col-md-1 control-label">Teacher:</label>
-  <div class="col-md-3"><%= select_tag 'teacher', options_from_collection_for_select(@active_teachers, "id", "name"), class:'select2' %></div>
+  <label class="col-md-2 control-label">Teacher First Name:</label>
+  <div class="col-md-2"><%= select_tag 'teacher_first_name', options_from_collection_for_select(@active_teachers, "first_name", "first_name"), class:'select2' %></div>
+  <label class="col-md-2 control-label">Teacher Last Name:</label>
+  <div class="col-md-2"><%= select_tag 'teacher_last_name', options_from_collection_for_select(@active_teachers, "last_name", "last_name"), class:'select2' %></div>
   <label class="col-md-1 control-label">Status:</label>
-  <div class="col-md-3"><%= select_tag 'status', options_for_select(["Pending", "Accepted", "Rejected" ], "Pending"), class:'select2' %></div>
+  <div class="col-md-2"><%= select_tag 'status', options_for_select(["Pending", "Accepted", "Rejected" ], "Pending"), class:'select2' %></div>
 </div>
 <br/>
 <div class="row">
-  <div class="col-md-9"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Search</button></div>
+  <div class="col-md-11"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Search</button></div>
 </div>
 <hr class="hr-normal">
 <% if @dictaminations.present? %>
@@ -82,7 +84,7 @@
         }
       })
       $('#search_dictamination').click(function(){
-        window.location.href = '/people/accept_reject_dictamination?teacher='+$('#teacher').val()+'&status='+$('#status').val();
+        window.location.href = '/people/accept_reject_dictamination?teacher_first_name='+$('#teacher_first_name').val()+'&status='+$('#status').val()+'&teacher_last_name='+$('#teacher_last_name').val();
       });
     });
   </script>
