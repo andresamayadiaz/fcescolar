@@ -12,6 +12,14 @@ module ApplicationHelper
       "<a href='/people/download_evidence?dictamination_id=#{id}'>Download Evidence</a>".html_safe
     end
   end
+  
+  def format_approved_subjects(subjects)
+    approved_subjects = []
+    subjects.each do |subject|
+      approved_subjects << subject.subject.name
+    end
+    approved_subjects.join(", ")
+  end
 
   def format_subjects_for_dictamination(subjects)
     subjects.map(&:name).join(", ") if subjects.present?

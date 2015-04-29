@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429103837) do
+ActiveRecord::Schema.define(version: 20150429124502) do
+
+  create_table "approved_subjects", force: true do |t|
+    t.integer  "teacher_dictamination_id"
+    t.integer  "subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "approved_subjects", ["subject_id"], name: "index_approved_subjects_on_subject_id", using: :btree
+  add_index "approved_subjects", ["teacher_dictamination_id"], name: "teacher_dict_id", using: :btree
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
