@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428031255) do
+ActiveRecord::Schema.define(version: 20150429103837) do
 
   create_table "audits", force: true do |t|
     t.integer  "auditable_id"
@@ -492,7 +492,11 @@ ActiveRecord::Schema.define(version: 20150428031255) do
     t.string   "witness_2"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",        default: "Pending"
+    t.string   "status",                default: "Pending"
+    t.string   "evidence_file_name"
+    t.string   "evidence_content_type"
+    t.integer  "evidence_file_size"
+    t.datetime "evidence_updated_at"
   end
 
   add_index "teacher_dictaminations", ["person_id"], name: "index_teacher_dictaminations_on_person_id", using: :btree

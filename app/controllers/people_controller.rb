@@ -34,6 +34,13 @@ class PeopleController < ApplicationController
   end
 
   def accept_dictamination
+    @dictamination = TeacherDictamination.find(params[:teacher_dictamination][:id])
+    if @dictamination.update(params[:teacher_dictamination])
+      flash[:notice]='Dictamination is accepted'
+    else
+      flash[:error]='Failed to accept dictamination'
+    end
+    redirect_to "/people/accept_reject_dictamination?teacher=#{@dictamination.person.id}&status=Accepted"
   end
 
   def reject_dictamination
@@ -88,6 +95,13 @@ class PeopleController < ApplicationController
     else
       redirect_to :back, :alert=>'Something went wrong...'
     end
+  end
+  
+  def download_evidence
+    @dictamination = TeacherDictamination.find(params[:dictamination_id])
+    evidence_url = URI.unescape(@dictamination.evidence.url(:original, timestamp: false))
+    file = open("#{Rails.root}/public#{evidence_url}")
+    send_file file
   end
 
   def download_personal_record_file

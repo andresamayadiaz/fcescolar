@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get 'get_active_subjects_by_study_plan_id'
       get 'reject_dictamination'
       post 'accept_dictamination'
+      get 'download_evidence'
     end
   end
   

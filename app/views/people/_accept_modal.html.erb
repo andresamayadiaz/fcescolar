@@ -3,7 +3,13 @@
 		<div class="modal-content">
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<%= form_tag(accept_dictamination_people_url, :method => "post", id: "accept-dictamination-form") do %>
+				<%= form_tag(accept_dictamination_people_url, :method => "post", id: "accept-dictamination-form",  multipart: true) do %>
+          <div id="subjects_wrapper"></div>
+          <input type="hidden" name="teacher_dictamination[id]" id="teacher_dictamination_id"/>
+          <input type="hidden" name="teacher_dictamination[status]" value="Accepted"/>
+          <label for="file">Evidence PDF File:</label>&nbsp;<input type="file" name="teacher_dictamination[evidence]" id="file"/>
+          <hr class="normal">
+          <button class='btn btn-success'>Accept</button>
 			  <% end %>
       </div>
 		</div><!-- /.modal-content -->
