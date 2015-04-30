@@ -52,6 +52,6 @@ class CampusesController < ApplicationController
     end
 
     def campus_params
-      params.require(:campus).permit(:name, :address, :classrooms, :franchise_id)
+      params.require(:campus).permit(:name, :address, :number_of_classrooms, :franchise_id)
     end
 end
