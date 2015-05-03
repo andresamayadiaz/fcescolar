@@ -1,0 +1,46 @@
+<style>
+  .group_start_year{display:none;}
+</style>
+
+<%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">Study Plan</label>
+      <div class="col-md-6"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <div class="col-md-5"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+    </div>
+    <hr class="hr-normal">
+<% end %>
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function get_periods_by_study_plan_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element='';
+          $.each(data,function(index,value){
+            var year = value.year.split("-")[0];
+            var id = value.id;
+            html_element+="<option value='"+year+"' data-id='"+id+"'>"+year+"</option>"
+          })
+          $("#group_start_year").html(html_element);
+          $(".group_start_year").slideDown();
+        }
+      }
+    })
+  }
+
+  $(document).ready(function(){
+    $("#group_start_year").html('');
+    $('#group_study_plan_id').change(function(){
+      var val = $(this).val();
+      get_periods_by_study_plan_id(val);
+    });
+  
+  })
+</script>
+<% end %>

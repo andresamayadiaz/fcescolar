@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       get 'reject_dictamination'
       post 'accept_dictamination'
       get 'download_evidence'
+      get 'new_group'
     end
   end
   
@@ -92,6 +93,7 @@ Rails.application.routes.draw do
       get 'get_subject_by_curricular_line'
       get 'get_active_classrooms_by_campus_id'
       get 'get_active_time_slots_by_campus_id'
+      get 'get_period_years_by_study_plan_id'
     end
   end
 

@@ -1,6 +1,12 @@
 class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
+  def get_period_years_by_study_plan_id
+    @period_years = StudyPlan.find(params[:study_plan_id]).period.period_details
+    render :json => @period_years
+  end
+
+
   def get_active_classrooms_by_campus_id
     @active_classrooms = Classroom.where(:campus_id=>params[:campus_id]).active
     render :json => @active_classrooms

@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def new_group
+    @group = Group.new
+    @active_study_plans = StudyPlan.active
+  end
+
   def get_active_subjects_by_study_plan_id
     @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
     render :json => @active_subjects
