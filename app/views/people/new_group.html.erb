@@ -1,31 +1,32 @@
 <style>
-  .group_start_year{display:none;}
+  .group_start_year, .group_start_month{display:none;}
 </style>
 
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <div class="form-group">
-      <label class="col-md-2 control-label">Study Plan</label>
+      <label class="col-md-3 control-label">Study Plan</label>
       <div class="col-md-6"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <div class="col-md-5"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+      <div class="col-md-4"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+      <div class="col-md-4"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
     </div>
     <hr class="hr-normal">
 <% end %>
 <% content_for :specific_js do %>
 <script type="text/javascript">
-  function get_periods_by_study_plan_id(val){
+  function get_period_years_by_study_plan_id(val){
     $.ajax({
       type: 'GET',
       url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
-          var html_element='';
+          var html_element='<option>Select Year</option>';
           $.each(data,function(index,value){
             var year = value.year.split("-")[0];
             var id = value.id;
-            html_element+="<option value='"+year+"' data-id='"+id+"'>"+year+"</option>"
+            html_element+="<option value='"+year+"' id='"+id+"'>"+year+"</option>"
           })
           $("#group_start_year").html(html_element);
           $(".group_start_year").slideDown();
@@ -34,12 +35,33 @@
     })
   }
 
+  function get_period_months_by_period_detail_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_period_months_by_period_detail_id?period_detail_id='+val,
+      success: function(data){
+        if(data){
+          var html_element='<option>Select Month</option>';
+          $.each(data,function(index,value){
+            html_element+="<option value='"+value+"'>"+value+"</option>"
+          })
+          $("#group_start_month").html(html_element);
+          $(".group_start_month").slideDown();
+        }
+      }
+    })
+  }
   $(document).ready(function(){
     $("#group_start_year").html('');
     $('#group_study_plan_id').change(function(){
       var val = $(this).val();
-      get_periods_by_study_plan_id(val);
+      get_period_years_by_study_plan_id(val);
     });
+
+    $('#group_start_year').change(function(){
+      var val = $(this).find(':selected').attr('id');
+      get_period_months_by_period_detail_id(val);
+    })
   
   })
 </script>
