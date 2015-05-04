@@ -51,10 +51,22 @@
       }
     })
   }
+
+  function load_preferences(val){
+    $.ajax({
+      type: 'GET',
+      url: '/people/load_group_preferences?study_plan_id='+val,
+      success: function(data){
+        console.log(data); 
+      }
+    });
+  }
+
   $(document).ready(function(){
     $("#group_start_year").html('');
     $('#group_study_plan_id').change(function(){
       var val = $(this).val();
+      $("#group_start_month").html('');
       get_period_years_by_study_plan_id(val);
     });
 
@@ -62,6 +74,11 @@
       var val = $(this).find(':selected').attr('id');
       get_period_months_by_period_detail_id(val);
     })
+
+    $('#group_start_month').change(function(){
+      var val = $('#group_study_plan_id').val();
+      load_preferences(val);
+    });
   
   })
 </script>

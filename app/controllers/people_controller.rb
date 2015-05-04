@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def load_group_preferences
+    @preferences = StudyPlanSubject.get_max_freq_by_study_plan(params[:study_plan_id])
+    render :json => @preferences
+  end
+
   def new_group
     @group = Group.new
     @active_study_plans = StudyPlan.active
