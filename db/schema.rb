@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503043119) do
+ActiveRecord::Schema.define(version: 20150505050223) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -274,7 +274,6 @@ ActiveRecord::Schema.define(version: 20150503043119) do
     t.integer  "franchise_id"
     t.integer  "campus_id"
     t.boolean  "status",                       default: true
-    t.string   "last_name"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree
