@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430132431) do
+ActiveRecord::Schema.define(version: 20150505050223) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -220,6 +220,16 @@ ActiveRecord::Schema.define(version: 20150430132431) do
     t.datetime "updated_at"
   end
 
+  create_table "groups", force: true do |t|
+    t.integer  "study_plan_id"
+    t.string   "start_year"
+    t.string   "start_month"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["study_plan_id"], name: "index_groups_on_study_plan_id", using: :btree
+
   create_table "notifications", force: true do |t|
     t.integer  "franchise_id"
     t.integer  "user_id"
@@ -264,7 +274,6 @@ ActiveRecord::Schema.define(version: 20150430132431) do
     t.integer  "franchise_id"
     t.integer  "campus_id"
     t.boolean  "status",                       default: true
-    t.string   "last_name"
   end
 
   add_index "people", ["country_id"], name: "index_people_on_country_id", using: :btree

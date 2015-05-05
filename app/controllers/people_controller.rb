@@ -326,7 +326,6 @@ class PeopleController < ApplicationController
         :rfc, 
         :email, 
         :first_name,
-        :last_name, 
         :fathers_maiden_name, 
         :mothers_maiden_name, 
         :country_id, 
