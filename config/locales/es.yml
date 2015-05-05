@@ -170,5 +170,6 @@ es:
     menu: "Listado de Personas"
     assign_roles: "Asignar Roles a Personas"
     manage_record_file: "Administrar un Archivo Personal"
-    create_teacher_dictamination: "Dictaminación maestro"
+    create_teacher_dictamination: "Dictaminación Maestro"
+    accept_reject_dictamination: "Aceptar Rechazar Dictaminación"
     create_contract: "Crear Contrato a Persona"
