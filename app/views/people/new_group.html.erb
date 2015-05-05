@@ -1,18 +1,32 @@
 <style>
-  .group_start_year, .group_start_month{display:none;}
+  .group_start_year, .group_start_month, #group_preferences{display:none;}
 </style>
 
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <div class="form-group">
-      <label class="col-md-3 control-label">Study Plan</label>
-      <div class="col-md-6"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+      <label class="col-md-9 control-label">Study Plan</label>
+      <div class="col-md-3"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <div class="col-md-4"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
-      <div class="col-md-4"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
+      <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+      <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
     </div>
     <hr class="hr-normal">
+    <div class="form-group" id='group_preferences'>
+      <div class="col-md-7">
+        <b>Preferences</b><br/>
+        <table width="100%"> 
+          <thead>
+            <tr>
+              <th>Frequency</th>
+              <th>Week Day</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
 <% end %>
 <% content_for :specific_js do %>
 <script type="text/javascript">
@@ -57,7 +71,12 @@
       type: 'GET',
       url: '/people/load_group_preferences?study_plan_id='+val,
       success: function(data){
-        console.log(data); 
+        var html_element='';
+        for (i = 1; i <= data; i++) { 
+          html_element += '<tr><td>'+i+'</td><td>'+i+'</td></tr>'
+        }
+        $('#group_preferences tbody').html(html_element);
+        $('#group_preferences').slideDown();
       }
     });
   }
