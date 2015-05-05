@@ -4,8 +4,8 @@
 
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <div class="form-group">
-      <label class="col-md-9 control-label">Study Plan</label>
-      <div class="col-md-3"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+      <label class="col-md-7 control-label">Study Plan</label>
+      <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
@@ -71,9 +71,60 @@
       type: 'GET',
       url: '/people/load_group_preferences?study_plan_id='+val,
       success: function(data){
-        var html_element='';
-        for (i = 1; i <= data; i++) { 
-          html_element += '<tr><td>'+i+'</td><td>'+i+'</td></tr>'
+        var html_element;
+        var day_options;
+        for (i = 1; i <= data; i++) {
+          if(i > 7){
+            var j = i % 7;
+            switch(j) {
+                case 1:
+                  day_options = '<option value="Monday" selected>Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 2:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday" selected>Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 3:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday" selected>Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 4:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday" selected>Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 5:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday" selected>Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 6:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday" selected>Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 0:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday" selected>Domingo</option>';
+                  break;
+            } 
+          } else {
+            switch(i) {
+                case 1:
+                  day_options = '<option value="Monday" selected>Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 2:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday" selected>Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 3:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday" selected>Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 4:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday" selected>Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 5:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday" selected>Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 6:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday" selected>Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 7:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday" selected>Domingo</option>';
+                  break;
+            } 
+          }
+          html_element += '<tr><td>'+i+'</td><td><select>'+day_options+'</select></td></tr>'
         }
         $('#group_preferences tbody').html(html_element);
         $('#group_preferences').slideDown();
