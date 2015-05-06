@@ -7,8 +7,12 @@ class StudyPlansController < ApplicationController
   end
 
   def get_period_years_by_study_plan_id
-    @period_years = StudyPlan.find(params[:study_plan_id]).period.period_details
-    render :json => @period_years
+    @uniq_period_years = []
+    period_years = StudyPlan.find(params[:study_plan_id]).period.period_details
+    period_years.each do |py|
+      @uniq_period_years << py if !@uniq_period_years.map{|i|i.year.strftime('%Y')}.include? py.year.strftime('%Y') 
+    end
+    render :json => @uniq_period_years
   end
 
 
