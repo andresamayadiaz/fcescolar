@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'download_evidence'
       get 'new_group'
       get 'load_group_preferences'
+      get 'generate_full_groups'
     end
   end
   

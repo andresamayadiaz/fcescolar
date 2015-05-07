@@ -1,5 +1,5 @@
 <style>
-  .group_start_year, .group_start_month, #group_preferences{display:none;}
+  #full_groups_table, .group_start_year, .group_start_month, #group_preferences{display:none;}
 </style>
 
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
@@ -30,10 +30,30 @@
           <br/>
           <br/>
           <br/>
-          <button>Show Groups For Full Generation</button>
+          <button id="show_full_groups">Show Groups For Full Generation</button>
           <br/>
           <br/>
-          <button>Show Single Group</button>
+          <button id="show_single_group">Show Single Group</button>
+      </div>
+    </div>  
+    <hr class="hr-normal">
+    <div class="form-group" id="full_groups_table">
+      <div class="col-md-12">
+      <table width='100%'>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Months</th>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>WeekDay</th>
+            <th>Classroom</th>
+            <th>Time Slot</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
       </div>
     </div>
 <% end %>
@@ -66,7 +86,7 @@
         if(data){
           var html_element='<option>Select Month</option>';
           $.each(data,function(index,value){
-            html_element+="<option value='"+value+"'>"+value+"</option>"
+            html_element+="<option value='"+value.month+"' id='"+value.id+"'>"+value.month+"</option>"
           })
           $("#group_start_month").html(html_element);
           $(".group_start_month").slideDown();
@@ -157,6 +177,30 @@
     $('#group_start_month').change(function(){
       var val = $('#group_study_plan_id').val();
       load_preferences(val);
+    });
+
+    $('#show_full_groups').click(function(e){
+      e.preventDefault();
+      var period_detail_id = $('#group_start_month').find(':selected').attr('id');
+      console.log(period_detail_id);
+      $.ajax({
+        type: 'GET',
+        url: '/people/generate_full_groups?study_plan_id='+$("#group_study_plan_id").val()+'&period_detail_id='+period_detail_id,
+        success: function(data){
+          var html_element;
+          if(data){
+            $.each(data,function(index,value){
+              html_element+="<tr>"+
+                              "<td>"+value.year+"</td>"+
+                              "<td>"+value.months+"</td>"+
+                              "<td>"+value.subject+"</td>"+
+                            "</tr>"
+            })
+            $('#full_groups_table tbody').html(html_element);
+            $('#full_groups_table').slideDown();
+          }
+        }
+      }); 
     });
   
   })

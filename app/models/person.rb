@@ -29,6 +29,27 @@ class Person < ActiveRecord::Base
   
   scope :active, -> { where(status: true) }
   
+  def self.generate_full_groups(study_plan_id, period_detail_id)
+    next_period_details = PeriodDetail.where('id > ?',period_detail_id)
+    study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)
+    period_detail = PeriodDetail.find(period_detail_id)
+    months = period_detail.get_months
+    full_groups = []
+    
+    study_plan_periods.each_with_index do |period,index|
+      period.study_plan_subjects.each do |sp_subject|
+        period_detail = next_period_details[index-1] if index>0
+        full_groups <<  {
+          :year=>next_period_details[index].year.strftime('%Y'), 
+          :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+          :subject=>sp_subject.subject.name
+        }
+      end
+    end
+    
+    full_groups
+  end 
+ 
   def create_user
   	new_user = User.new(:email=>self.email,:password=>'changeme',:password_confirmation=>'changeme')
   	new_user.skip_confirmation_notification!

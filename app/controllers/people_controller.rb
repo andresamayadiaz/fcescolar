@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def generate_full_groups
+    @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id])
+    render :json => @full_groups
+  end
+
   def load_group_preferences
     @preferences = StudyPlanSubject.get_max_freq_by_study_plan(params[:study_plan_id])
     render :json => @preferences
