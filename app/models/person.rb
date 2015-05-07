@@ -41,7 +41,7 @@ class Person < ActiveRecord::Base
       period.study_plan_subjects.each do |sp_subject|
         period_detail = next_period_details[index-1] if index>0
         sp_period[:rows] <<  {
-          :year=>next_period_details[index].year.strftime('%Y'), 
+          :year=>period_detail.year.strftime('%Y'), 
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name
         }
