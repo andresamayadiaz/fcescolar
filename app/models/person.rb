@@ -37,16 +37,17 @@ class Person < ActiveRecord::Base
     full_groups = []
     
     study_plan_periods.each_with_index do |period,index|
+      sp_period = {:period_name=>period.period_name, :rows=>[]}
       period.study_plan_subjects.each do |sp_subject|
         period_detail = next_period_details[index-1] if index>0
-        full_groups <<  {
+        sp_period[:rows] <<  {
           :year=>next_period_details[index].year.strftime('%Y'), 
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name
         }
       end
+      full_groups << sp_period
     end
-    
     full_groups
   end 
  

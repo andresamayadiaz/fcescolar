@@ -38,23 +38,6 @@
     </div>  
     <hr class="hr-normal">
     <div class="form-group" id="full_groups_table">
-      <div class="col-md-12">
-      <table width='100%'>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Months</th>
-            <th>Subject</th>
-            <th>Teacher</th>
-            <th>WeekDay</th>
-            <th>Classroom</th>
-            <th>Time Slot</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      </div>
     </div>
 <% end %>
 <% content_for :specific_js do %>
@@ -182,21 +165,23 @@
     $('#show_full_groups').click(function(e){
       e.preventDefault();
       var period_detail_id = $('#group_start_month').find(':selected').attr('id');
-      console.log(period_detail_id);
       $.ajax({
         type: 'GET',
         url: '/people/generate_full_groups?study_plan_id='+$("#group_study_plan_id").val()+'&period_detail_id='+period_detail_id,
         success: function(data){
-          var html_element;
+          $("#full_groups_table div").html('');
           if(data){
             $.each(data,function(index,value){
-              html_element+="<tr>"+
-                              "<td>"+value.year+"</td>"+
-                              "<td>"+value.months+"</td>"+
-                              "<td>"+value.subject+"</td>"+
-                            "</tr>"
+              var html_element = $("<div class='col-md-12'<h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
+              $.each(value.rows,function(index,val){
+                html_element.find('tbody').append("<tr>"+
+                              "<td>"+val.year+"</td>"+
+                              "<td>"+val.months+"</td>"+
+                              "<td>"+val.subject+"</td>"+
+                            "</tr>")
+              })
+              $("#full_groups_table").append(html_element);
             })
-            $('#full_groups_table tbody').html(html_element);
             $('#full_groups_table').slideDown();
           }
         }
