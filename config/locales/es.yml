@@ -163,6 +163,7 @@ es:
     plural: "Planes de Estudio"
     new: "Nuevo Plan de Estudio"
     menu: "Planes de Estudio"
+    enable: "Habilitar Plan de Estudios"
   people:
     singular: "Persona"
     plural: "Personas"
@@ -173,3 +174,5 @@ es:
     create_teacher_dictamination: "Dictaminación Maestro"
     accept_reject_dictamination: "Aceptar Rechazar Dictaminación"
     create_contract: "Crear Contrato a Persona"
+  groups:
+    plural: "Grupos"
