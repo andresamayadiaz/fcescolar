@@ -7,6 +7,9 @@ class Subject < ActiveRecord::Base
 
   scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
+  def self.get_teacher
+  end
+
   def self.get_selected(ids)
   	selected_arr = []
   	ids.split(",").each do |i|

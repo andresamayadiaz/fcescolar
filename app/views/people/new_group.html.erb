@@ -1,5 +1,5 @@
 <style>
-  #full_groups_table, .group_start_year, .group_start_month, #group_preferences{display:none;}
+  #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
 </style>
 
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
@@ -14,7 +14,7 @@
     </div>
     <hr class="hr-normal">
     <div class="form-group" id='group_preferences'>
-      <div class="col-md-4">
+      <div class="col-md-12">
         <b>Preferences</b><br/>
         <table width="100%"> 
           <thead>
@@ -26,13 +26,16 @@
           <tbody></tbody>
         </table>
       </div>
-      <div class="col-md-8">
+    </div>  
+    <hr class="hr-normal">
+    <div class="form-group" id='group_buttons'>
+      <div class="col-md-6">
           <button id="show_full_groups">Show Groups For Full Generation</button>
-          <br/>
-          <br/>
+      </div>
+      <div class="col-md-6">
           <button id="show_single_group">Show Single Group</button>
       </div>
-    </div>  
+    </div>
     <hr class="hr-normal">
     <div class="form-group" id="full_groups_table">
     </div>
@@ -137,6 +140,7 @@
         }
         $('#group_preferences tbody').html(html_element);
         $('#group_preferences').slideDown();
+        $('#group_buttons').slideDown();
       }
     });
   }
