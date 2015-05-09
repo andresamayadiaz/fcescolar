@@ -19,6 +19,10 @@ class Subject < ActiveRecord::Base
   	selected_arr
   end
 
+  def self.get_by_career(career_id,curricular_line_id)
+    where(:curricular_line_id=>curricular_line_id).select{|s|s.careers.map(&:id).include? career_id.to_i}
+  end
+
   def self.get_by_study_plan(study_plan_id)
     study_plan = StudyPlan.find(study_plan_id)
     study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten

@@ -5,4 +5,5 @@ class StudyPlan < ActiveRecord::Base
   scope :active, -> { where(status: true) } 
 
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
+
 end
