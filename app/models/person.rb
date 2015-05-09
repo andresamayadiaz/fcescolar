@@ -30,10 +30,9 @@ class Person < ActiveRecord::Base
   scope :active, -> { where(status: true) }
   
   def self.generate_full_groups(study_plan_id, period_detail_id)
-    next_period_details = PeriodDetail.where('id > ?',period_detail_id)
     study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)
     period_detail = PeriodDetail.find(period_detail_id)
-    months = period_detail.get_months
+    next_period_details = PeriodDetail.where('id > ? and period_id = ?',period_detail_id, period_detail.period.id)
     full_groups = []
     
     study_plan_periods.each_with_index do |period,index|
@@ -44,9 +43,9 @@ class Person < ActiveRecord::Base
           :year=>period_detail.year.strftime('%Y'), 
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name
-        }
+        } if period_detail.present?
       end
-      full_groups << sp_period
+      full_groups << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0
     end
     full_groups
   end 
