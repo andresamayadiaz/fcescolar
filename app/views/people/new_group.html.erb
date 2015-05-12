@@ -1,5 +1,5 @@
 <style>
-  #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
+  #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
 </style>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <div class="form-group">
@@ -37,6 +37,10 @@
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="full_groups_table">
+    </div>
+    <h4 class="hr-normal">
+    <div class="form-group" id="group_actions">
+      <button>Create and Save Groups</button>
     </div>
 <% end %>
 <% content_for :specific_js do %>
@@ -211,6 +215,7 @@
               $("#full_groups_table").append(html_element);
             })
             $('#full_groups_table').slideDown();
+            $('#group_actions').slideDown();
           }
         }
       }); 

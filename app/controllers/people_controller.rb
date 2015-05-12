@@ -5,6 +5,16 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def create_group
+    @group = Group.new(params[:group])
+    if @group.save
+      flash[:notice]='Group is created'
+    else
+      flash[:alert]='Failed to create group'
+    end
+    redirect_to :back
+  end
+
   def generate_full_groups
     @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id], current_user)
     render :json => @full_groups
