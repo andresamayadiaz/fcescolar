@@ -44,6 +44,7 @@ class Person < ActiveRecord::Base
           :year=>period_detail.year.strftime('%Y'), 
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name,
+          :subject_id=>sp_subject.subject.id,
           :teacher=>[{:id=>1, :name=>'Yosef Kevin Yonathan'},{:id=>2, :name=>'Andres Amaya Diaz'}],
           :weekday=>[{:id=>1, :name=>'Lunes'},{:id=>2, :name=>'Martes'},{:id=>3, :name=>'Miércoles'},{:id=>4, :name=>'Jueves'},{:id=>5, :name=>'Viernes'},{:id=>6, :name=>'Sábado'},{:id=>7, :name=>'Domingo'}],
           :classroom=>[{:id=>1, :name=>'Physco I Class'},{:id=>2, :name=>'Physco II Class'}],

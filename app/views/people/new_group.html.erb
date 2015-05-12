@@ -175,6 +175,7 @@
         success: function(data){
           $("#full_groups_table div").html('');
           if(data){
+            console.log(data)
             $.each(data,function(index,value){
               var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
               var parent_index = index.toString();
@@ -208,7 +209,7 @@
                 html_element.find('tbody').append("<tr>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
-                              "<td>"+val.subject+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
                               "<td><select>"+teacher_options+"</select></td>"+
                               "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
                               "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
