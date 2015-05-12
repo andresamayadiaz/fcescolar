@@ -179,6 +179,8 @@
               var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
               var parent_index = index.toString();
               $.each(value.rows,function(index,val){
+                var child_index = parent_index.concat(index.toString());
+    
                 /*generate teacher options*/
                 var teacher_options = '';
                 $.each(val.teacher,function(index,t){
@@ -203,17 +205,14 @@
                     timeslot_options += "<option value='"+t.id+"'>"+t.name+"</option>"
                 }) 
 
-                var child_index = parent_index.concat(index.toString());
-
-                console.log(child_index);
                 html_element.find('tbody').append("<tr>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
                               "<td>"+val.subject+"</td>"+
                               "<td><select>"+teacher_options+"</select></td>"+
-                              "<td><select>"+weekday_options+"</select></td>"+
-                              "<td><select>"+classroom_options+"</select></td>"+
-                              "<td><select>"+timeslot_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
                             "</tr>")
               })
               $("#full_groups_table").append(html_element);
