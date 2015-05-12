@@ -29,7 +29,8 @@ class Person < ActiveRecord::Base
   
   scope :active, -> { where(status: true) }
   
-  def self.generate_full_groups(study_plan_id, period_detail_id)
+  def self.generate_full_groups(study_plan_id, period_detail_id, current_user)
+    actual_campus = current_user.person.try(:campus)
     study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)
     period_detail = PeriodDetail.find(period_detail_id)
     next_period_details = PeriodDetail.where('id > ? and period_id = ?',period_detail_id, period_detail.period.id)
@@ -46,7 +47,7 @@ class Person < ActiveRecord::Base
           :teacher=>[{:id=>1, :name=>'Yosef Kevin Yonathan'},{:id=>2, :name=>'Andres Amaya Diaz'}],
           :weekday=>[{:id=>1, :name=>'Lunes'},{:id=>2, :name=>'Martes'},{:id=>3, :name=>'Miércoles'},{:id=>4, :name=>'Jueves'},{:id=>5, :name=>'Viernes'},{:id=>6, :name=>'Sábado'},{:id=>7, :name=>'Domingo'}],
           :classroom=>[{:id=>1, :name=>'Physco I Class'},{:id=>2, :name=>'Physco II Class'}],
-          :timeslot=>[{:id=>1, :name=>'10:00 – 11:30'},{:id=>2, :name=>'10:00 – 11:30'}]
+          :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
         } if period_detail.present?
       end
       full_groups << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0

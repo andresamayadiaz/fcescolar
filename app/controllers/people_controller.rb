@@ -6,7 +6,7 @@ class PeopleController < ApplicationController
   respond_to :html
 
   def generate_full_groups
-    @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id])
+    @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id], current_user)
     render :json => @full_groups
   end
 
