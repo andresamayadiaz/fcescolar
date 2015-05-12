@@ -47,7 +47,7 @@ class Person < ActiveRecord::Base
           :subject_id=>sp_subject.subject.id,
           :teacher=>[{:id=>1, :name=>'Yosef Kevin Yonathan'},{:id=>2, :name=>'Andres Amaya Diaz'}],
           :weekday=>[{:id=>1, :name=>'Lunes'},{:id=>2, :name=>'Martes'},{:id=>3, :name=>'Miércoles'},{:id=>4, :name=>'Jueves'},{:id=>5, :name=>'Viernes'},{:id=>6, :name=>'Sábado'},{:id=>7, :name=>'Domingo'}],
-          :classroom=>[{:id=>1, :name=>'Physco I Class'},{:id=>2, :name=>'Physco II Class'}],
+          :classroom=> Classroom.generate_id_and_name(actual_campus),
           :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
         } if period_detail.present?
       end
