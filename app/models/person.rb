@@ -42,7 +42,11 @@ class Person < ActiveRecord::Base
         sp_period[:rows] <<  {
           :year=>period_detail.year.strftime('%Y'), 
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
-          :subject=>sp_subject.subject.name
+          :subject=>sp_subject.subject.name,
+          :teacher=>[{:id=>1, :name=>'Yosef Kevin Yonathan'},{:id=>2, :name=>'Andres Amaya Diaz'}],
+          :weekday=>[],
+          :classroom=>[],
+          :timeslot=>[]
         } if period_detail.present?
       end
       full_groups << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0

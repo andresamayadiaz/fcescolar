@@ -172,14 +172,24 @@
         success: function(data){
           $("#full_groups_table div").html('');
           if(data){
+            console.log(data);
             $.each(data,function(index,value){
               var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
               $.each(value.rows,function(index,val){
+                /*generate teacher options*/
+                var teacher_options = '';
+                $.each(val.teacher,function(index,t){
+                    teacher_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+                console.log(teacher_options);
                 html_element.find('tbody').append("<tr>"+
                               "<td>"+val.year+"</td>"+
                               "<td>"+val.months+"</td>"+
                               "<td>"+val.subject+"</td>"+
-                              "<td>Lorem Ipsum</td><td>Lorem Ipsum</td><td>Lorem Ipsum</td><td>Lorem Ipsum</td>"+
+                              "<td><select>"+teacher_options+"</select></td>"+
+                              "<td><select></select></td>"+
+                              "<td><select></select></td>"+
+                              "<td><select></select></td>"+
                             "</tr>")
               })
               $("#full_groups_table").append(html_element);
