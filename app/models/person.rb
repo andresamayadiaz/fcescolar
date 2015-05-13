@@ -28,7 +28,7 @@ class Person < ActiveRecord::Base
   after_create :create_user
   
   scope :active, -> { where(status: true) }
-  
+
   def self.generate_full_groups(study_plan_id, period_detail_id, current_user)
     actual_campus = current_user.person.try(:campus)
     study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)
@@ -45,7 +45,7 @@ class Person < ActiveRecord::Base
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name,
           :subject_id=>sp_subject.subject.id,
-          :teacher=>[{:id=>1, :name=>'Andres Nombre Nombres'}],
+          :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
           :weekday=>[
             {:id=>'Monday', :name=>'Lunes'},
             {:id=>'Tuesday', :name=>'Martes'},
