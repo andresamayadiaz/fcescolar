@@ -1,1 +1,24 @@
-<%= @pdf_content %>
+<div style='margin-top:40px;'>
+  <p style='float:right;'>DATE [<%= Date.today.strftime('%d %b %Y') %>]</p>
+  <br/><br/><br/>
+  <p>C. EDMUNDO GUAJARDO  GARZA<br/>SECRETARIO  DE  EDUCACION EN  EL  ESTADO<br/>DE NUEVO LEON<br/></p>
+  <br/>
+  <p style='text-align:right;'>AT'  N.  LIC.  JORGE GABRIEL COVARRUBIAS ORTIZ<br/><span style='font-size:12px;'>ENCARGADO DE  lA  DIRECCiÓN DE  ACREDITACiÓN, CERTIFICACiÓN Y CONTROL ESCOlAR</span></p>
+  <br/>
+  <p>Por  medio de  la  presente, solicitamos amablemente la  dictaminación del siguientemaestro, para  impartir  clases  en  nuestra <%= @career_name_of_study_plan %>. Conocemos  las habilidades científicas y educativas  del maestro,  por lo  tanto losproponemos para  que formen  parte de  nuestro Calustro  Actual  de  Maestros.</p>
+  <br/>
+  <p>Docente:  <%= @teacher_full_name %></p>
+  <p>Asignaturas:</p>
+  <br/>
+  <ul>
+    <% @subjects.each do |subject| %>
+      <li><%= subject %></li>
+    <% end %>
+  </ul>
+  <br/><br/>
+  <p>Sin  otro  asunto  que  tratar,  quedamos  de  usted,  atentamente.</p>
+  <br/><br/><br/><br/><br/>
+  <p style='float:right;text-align:center;'>
+    ________________________________________________<br/>Mtro.  Oscar  Mauricio  Luna  Salazar<br/>Rector
+  </p>
+</div>
