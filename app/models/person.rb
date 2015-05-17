@@ -40,8 +40,21 @@ class Person < ActiveRecord::Base
       sp_period = {:period_name=>period.period_name, :rows=>[]}
       period.study_plan_subjects.each do |sp_subject|
         period_detail = next_period_details[index-1] if index>0
+
+        if sp_period.present? and period_detail.nil? and index>0
+          period_detail = PeriodDetail.find(period_detail_id).period.period_details[index-1]
+        end
+
+        if full_groups.present? and period_detail.year.strftime('%Y') < full_groups.last[:rows].last[:year]
+          group_year = (full_groups.last[:rows].last[:end_month]+full_groups.last[:rows].last[:interval].month).strftime('%Y')
+        else
+          group_year = period_detail.year.strftime('%Y')
+        end
+
         sp_period[:rows] <<  {
-          :year=>period_detail.year.strftime('%Y'), 
+          :year=>group_year, 
+          :end_month=>period_detail.end_month,
+          :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
           :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
           :subject=>sp_subject.subject.name,
           :subject_id=>sp_subject.subject.id,
