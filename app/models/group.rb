@@ -7,6 +7,6 @@ class Group < ActiveRecord::Base
   after_create :generate_group_id
 
   def generate_group_id
-    self.update(:group_id=>"#{self.start_year} - #{self.id}")
+    self.update(:group_id=>"#{self.start_year}-#{self.id}")
   end
 end
