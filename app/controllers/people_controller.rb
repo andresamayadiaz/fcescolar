@@ -15,6 +15,11 @@ class PeopleController < ApplicationController
     redirect_to :back
   end
 
+  def generate_single_group
+    @single_group = Person.generate_single_group(params[:study_plan_id], params[:period_detail_id], current_user, params[:subject_id])
+    render :json => @single_group
+  end
+
   def generate_full_groups
     @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id], current_user)
     render :json => @full_groups

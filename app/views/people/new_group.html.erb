@@ -32,7 +32,7 @@
           <button id="show_full_groups">Show Groups For Full Generation</button>
       </div>
       <div class="col-md-6">
-          <button id="show_single_group">Show Single Group</button>
+					<button data-toggle="modal" data-target="#singleGroupModal">Show Single Group</button>
       </div>
     </div>
     <hr class="hr-normal">
@@ -42,9 +42,45 @@
     <div class="form-group" id="group_actions">
       <button>Create and Save Groups</button>
     </div>
+    <div class="modal fade" id="singleGroupModal">
+      <div class="modal-dialog" style="width:70%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Select the Subject for the Group</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-6">Subjects</div>
+            <div class="col-md-6">
+              <select id="subjects_list"></select> 
+            </div>
+            <br/><br/>
+            <div class="col-md-12">
+              <button id="show_single_group">Show Group</button>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 <% end %>
 <% content_for :specific_js do %>
 <script type="text/javascript">
+  function get_active_subjects_by_study_plan_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element=''
+          $.each(data,function(index,value){
+            html_element+="<option value='"+value.id+"'>"+value.name+"</option>"
+          })
+          $("#subjects_list").html(html_element);
+        }
+      }
+    })
+  }
+
   function get_period_years_by_study_plan_id(val){
     $.ajax({
       type: 'GET',
@@ -154,6 +190,7 @@
       var val = $(this).val();
       $("#group_start_month").html('');
       get_period_years_by_study_plan_id(val);
+      get_active_subjects_by_study_plan_id(val);   
     });
 
     $('#group_start_year').change(function(){
@@ -175,7 +212,6 @@
         success: function(data){
           $("#full_groups_table div").html('');
           if(data){
-            console.log(data)
             $.each(data,function(index,value){
               var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
               var parent_index = index.toString();
@@ -225,6 +261,66 @@
       }); 
     });
   
+    $('#show_single_group').click(function(e){
+      e.preventDefault();
+      var period_detail_id = $('#group_start_month').find(':selected').attr('id');
+      var subject_id = $('#subjects_list').val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/generate_single_group?study_plan_id='+$("#group_study_plan_id").val()+'&period_detail_id='+period_detail_id+'&subject_id='+subject_id,
+        success: function(data){
+          $("#full_groups_table div").html('');
+          if(data){
+            console.log(data);
+            $.each(data,function(index,value){
+              var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
+              var parent_index = index.toString();
+              $.each(value.rows,function(index,val){
+                var child_index = parent_index.concat(index.toString());
+    
+                /*generate teacher options*/
+                var teacher_options = '';
+                $.each(val.teacher,function(index,t){
+                    teacher_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+                
+                /*generate weekday_options*/
+                var weekday_options = '';
+                $.each(val.weekday,function(index,t){
+                    weekday_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+               
+                /*generate classroom_options*/
+                var classroom_options = '';
+                $.each(val.classroom,function(index,t){
+                    classroom_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                /*generate timeslot_options*/
+                var timeslot_options = '';
+                $.each(val.timeslot,function(index,t){
+                    timeslot_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                html_element.find('tbody').append("<tr>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
+                            "</tr>")
+              })
+              $("#full_groups_table").append(html_element);
+            })
+            $('#full_groups_table').slideDown();
+            $('#group_actions').slideDown();
+            $("#singleGroupModal").find('.close').click()
+          }
+        }
+      }); 
+    });
   })
 </script>
 <% end %>

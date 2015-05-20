@@ -29,6 +29,56 @@ class Person < ActiveRecord::Base
   
   scope :active, -> { where(status: true) }
 
+  def self.generate_single_group(study_plan_id, period_detail_id, current_user, subject_id)
+    actual_campus = current_user.person.try(:campus)
+    study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)
+    period_detail = PeriodDetail.find(period_detail_id)
+    next_period_details = PeriodDetail.where('id > ? and period_id = ?',period_detail_id, period_detail.period.id)
+    single_group = []
+    selected_subjects = []
+    
+    study_plan_periods.each_with_index do |period,index|
+      sp_period = {:period_name=>period.period_name, :rows=>[]}
+      period.study_plan_subjects.each{|study_plan_subject| selected_subjects << study_plan_subject if study_plan_subject.subject_id==subject_id.to_i }
+      selected_subjects.each do |sp_subject|
+        period_detail = next_period_details[index-1] if index>0
+
+        if sp_period.present? and period_detail.nil? and index>0
+          period_detail = PeriodDetail.find(period_detail_id).period.period_details[index-1]
+        end
+
+        if single_group.present? and period_detail.year.strftime('%Y') < single_group.last[:rows].last[:year]
+          group_year = (single_group.last[:rows].last[:end_month]+single_group.last[:rows].last[:interval].month).strftime('%Y')
+        else
+          group_year = period_detail.year.strftime('%Y')
+        end
+
+        sp_period[:rows] <<  {
+          :year=>group_year, 
+          :end_month=>period_detail.end_month,
+          :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
+          :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+          :subject=>sp_subject.subject.name,
+          :subject_id=>sp_subject.subject.id,
+          :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
+          :weekday=>[
+            {:id=>'Monday', :name=>'Lunes'},
+            {:id=>'Tuesday', :name=>'Martes'},
+            {:id=>'Wednesday', :name=>'Miércoles'},
+            {:id=>'Thursday', :name=>'Jueves'},
+            {:id=>'Friday', :name=>'Viernes'},
+            {:id=>'Saturday', :name=>'Sábado'},
+            {:id=>'Sunday', :name=>'Domingo'}
+          ],
+          :classroom=> Classroom.generate_id_and_name(actual_campus),
+          :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
+        } if period_detail.present?
+      end
+      single_group << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0
+    end
+    single_group
+  end
+
   def self.generate_full_groups(study_plan_id, period_detail_id, current_user)
     actual_campus = current_user.person.try(:campus)
     study_plan_periods = StudyPlanPeriod.where(:study_plan_id=>study_plan_id)

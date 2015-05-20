@@ -50,6 +50,10 @@ class StudyPlansController < ApplicationController
     @subjects = Subject.get_by_career(params[:career_id],params[:cl_id])
     render :json => @subjects
   end
+
+  def get_subject_by_study_plan_id
+    @subjects = StudyPlanSubject
+  end
   
   def index
     @study_plans = StudyPlan.all

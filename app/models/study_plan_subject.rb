@@ -8,4 +8,8 @@ class StudyPlanSubject < ActiveRecord::Base
     arr_freq = study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.weekly_frequency} }.flatten
     arr_freq.max
   end
+
+  def self.get_by_study_plan_id(study_plan_id)
+    where(:study_plan_id=>study_plan_id)
+  end
 end

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       get 'new_group'
       get 'load_group_preferences'
       get 'generate_full_groups'
+      get 'generate_single_group'
       post 'create_group'
     end
   end
