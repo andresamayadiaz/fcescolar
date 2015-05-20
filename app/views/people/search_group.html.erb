@@ -1,0 +1,61 @@
+<style>
+#id_number{display:none;}
+</style>
+<div class="paragraphs">
+	<div class="row">
+		<div class="col-sm-12">
+      <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#search_by_year" aria-controls="home" role="tab" data-toggle="tab">Search By Year</a></li>
+          <li role="presentation"><a href="#search_by_group_id" aria-controls="profile" role="tab" data-toggle="tab">Search By Group ID</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="search_by_year">...</div>
+          <div role="tabpanel" class="tab-pane" id="search_by_group_id">
+            <div class="row">
+              <div class="col-sm-4">
+                Group ID
+              </div>
+              <div class="col-sm-4">  
+                <%= select("group", "id_year", @id_years, { include_blank: 'Select Years'}, {class: 'form-control', id:'id_year' } ) %>
+              </div>
+              <div class="col-sm-4">
+                <select id='id_number' class='form-control'></select>
+              </div>
+            </div>
+            <div class="row">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :specific_js do %>
+  <script type="text/javascript">
+    function load_id_number(year){
+      $.ajax({
+        url: '/people/get_group_id_number?year='+year,
+        success:function(data){
+          var html_element = '<option>Select Number</option>';
+          if(data){
+            $.each(data,function(index,value){ 
+              html_element += '<option value="'+value+'">'+value+'</option>'
+            })
+          }
+          $('#id_number').html(html_element).slideDown();
+        }
+      })
+    }
+
+    $(document).ready(function(){
+      $('#id_year').change(function(){
+        load_id_number($(this).val());
+
+      })
+    });
+  </script>
+<% end %>

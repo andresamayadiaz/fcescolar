@@ -5,6 +5,15 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def get_group_id_number
+    @group_id_numbers = Group.get_group_id_numbers(params[:year])
+    render :json => @group_id_numbers
+  end
+
+  def search_group
+    @id_years = Group.get_years
+  end
+
   def create_group
     @group = Group.new(params[:group])
     if @group.save

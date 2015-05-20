@@ -9,4 +9,12 @@ class Group < ActiveRecord::Base
   def generate_group_id
     self.update(:group_id=>"#{self.start_year}-#{self.id}")
   end
+
+  def self.get_group_id_numbers(year)
+    Group.all.select{|g| g.group_id.split('-').try(:first)==year}.map{|g|g.group_id.split('-').try(:last)}.uniq
+  end
+
+  def self.get_years
+    Group.all.map{|g|g.group_id.split('-').try(:first)}.uniq
+  end
 end
