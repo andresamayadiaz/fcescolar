@@ -174,5 +174,6 @@ es:
     create_teacher_dictamination: "Dictaminación Maestro"
     accept_reject_dictamination: "Aceptar Rechazar Dictaminación"
     create_contract: "Crear Contrato a Persona"
+    create_groups_with_complete_generation: "Crear Grupos Con Generación completa"
   groups:
     plural: "Grupos"
