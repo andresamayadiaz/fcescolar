@@ -13,12 +13,29 @@ table{font-size:12px;}
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="search_by_year">...</div>
+          <div role="tabpanel" class="tab-pane active" id="search_by_year">
+            <div class="row">
+              <div class="col-sm-1">Year</div>
+              <div class="col-sm-3">
+                <%= select("group","year", @years, { include_blank: 'Select Years'}, {class: 'form-control', id:'year'}) %>
+              </div>
+              <div class="col-sm-8">
+               <div class="col-sm-12"><label><%= radio_button_tag "status", "Open", true %>&nbsp; Open</label></div>
+               <div class="col-sm-12"><label><%= radio_button_tag "status", "Closed" %>&nbsp; Closed</label></div>
+               <div class="col-sm-12"><label><%= radio_button_tag "status", "Blocked" %>&nbsp; Blocked</label></div>
+               <div class="col-sm-12"><label><%= radio_button_tag "status", "In Review" %>&nbsp; In Review</label></div>
+               <div class="col-sm-12"><label><%= radio_button_tag "status", "All" %>&nbsp; All</label></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <br/><button id="search_by_year_button">Search</button>
+              </div>
+            </div>
+          </div>
           <div role="tabpanel" class="tab-pane" id="search_by_group_id">
             <div class="row">
-              <div class="col-sm-4">
-                Group ID
-              </div>
+              <div class="col-sm-4">Group ID</div>
               <div class="col-sm-3">
                 <%= select("group", "id_year", @id_years, { include_blank: 'Select Years'}, {class: 'form-control', id:'id_year' } ) %>
               </div>
@@ -92,7 +109,6 @@ table{font-size:12px;}
           url: '/people/search_group_by_group_id?group_id='+group_id,
           success: function(data){
             if(data && data[0]){
-              console.log(data[0]);
               var group_details = data[0].group_details;
               var html_element = '';
               $.each(group_details,function(index,value){
@@ -105,12 +121,34 @@ table{font-size:12px;}
         });
       });
     }
+  
+    function search_by_year(){
+      $('#search_by_year_button').click(function(){
+        var year = $('#year').val();
+        var status = $("input:radio[name=status]:checked").val();
+        $.ajax({
+          url: '/people/search_group_by_year?year='+year+'&status='+status,
+          success: function(data){
+            if(data){
+              var group_details = data;
+              var html_element = '';
+              $.each(group_details,function(index,value){
+                html_element += '<tr><td></td><td>'+value.group.status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(value.group.study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td></tr>' 
+              });
+              $('#search_result_wrap').find('table tbody').html(html_element);
+              $('#search_result_wrap').slideDown();
+            }
+          }
+        })
+      });
+    }
 
     $(document).ready(function(){
       $('#id_year').change(function(){
         load_id_number($(this).val());
         search_by_group_id();
       })
+      search_by_year();
     });
   </script>
 <% end %>
