@@ -5,6 +5,11 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def search_group_by_group_id
+    @group = Group.where(:group_id=>params[:group_id])
+    render :json => @group.to_json(:include=>:group_details)
+  end
+
   def get_group_id_number
     @group_id_numbers = Group.get_group_id_numbers(params[:year])
     render :json => @group_id_numbers

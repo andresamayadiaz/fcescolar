@@ -1,5 +1,5 @@
 <style>
-#id_number{display:none;}
+#id_number, .search_button_wrapper, #search_result_wrap{display:none;}
 </style>
 <div class="paragraphs">
 	<div class="row">
@@ -18,19 +18,45 @@
               <div class="col-sm-4">
                 Group ID
               </div>
-              <div class="col-sm-4">  
+              <div class="col-sm-3">
                 <%= select("group", "id_year", @id_years, { include_blank: 'Select Years'}, {class: 'form-control', id:'id_year' } ) %>
               </div>
+              <div class="col-sm-1">--</div>
               <div class="col-sm-4">
                 <select id='id_number' class='form-control'></select>
               </div>
             </div>
             <div class="row">
-
+              <div class="col-sm-12 search_button_wrapper">
+                <br/><button class="pull-right" id="search_by_group_id_button">Search</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row" id="search_result_wrap">
+    <div class="col-sm-12">
+      <br/>
+      <table width="100%" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Acciones</th>
+            <th>Estatus</th>
+            <th>Año</th>
+            <th>Meses</th>
+            <th>Grupo</th>
+            <th>Nombre Abrev Plan Estudios</th>
+            <th>Materia</th>
+            <th>Maestro</th>
+            <th>Dia Semana</th>
+            <th>Aula</th>
+            <th>Franja Horaria</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -46,15 +72,37 @@
               html_element += '<option value="'+value+'">'+value+'</option>'
             })
           }
+          $('.search_button_wrapper').slideDown();
           $('#id_number').html(html_element).slideDown();
         }
       })
     }
 
+    function search_by_group_id(){
+      $('#search_by_group_id_button').click(function(){
+        var group_id= $('#id_year').val()+"-"+$('#id_number').val();
+        $.ajax({
+          url: '/people/search_group_by_group_id?group_id='+group_id,
+          success: function(data){
+            if(data){
+              var group_details = data[0].group_details;
+              var html_element = '';
+              $.each(group_details,function(index,value){
+                html_element += '<tr><td></td><td>'+data[0].status+'</td><td>'+value.year+'</td><td>'+value.month+'</td></tr>' 
+              });
+              console.log(html_element);
+              $('#search_result_wrap').find('table tbody').html(html_element);
+              $('#search_result_wrap').slideDown();
+            }
+          }
+        });
+      });
+    }
+
     $(document).ready(function(){
       $('#id_year').change(function(){
         load_id_number($(this).val());
-
+        search_by_group_id();
       })
     });
   </script>

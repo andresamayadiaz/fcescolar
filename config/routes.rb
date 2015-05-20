@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       get 'search_group'
       get 'get_group_id_number'
       post 'create_group'
+      get 'search_group_by_group_id'
     end
   end
   
