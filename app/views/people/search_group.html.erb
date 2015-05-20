@@ -1,4 +1,5 @@
 <style>
+table{font-size:12px;}
 #id_number, .search_button_wrapper, #search_result_wrap{display:none;}
 </style>
 <div class="paragraphs">
@@ -78,19 +79,25 @@
       })
     }
 
+    function shorter_study_plan_name(name){
+      var shorter_name = name.replace('Tetramestral','TETRA');
+      shorter_name.replace('Semestral', 'SMTR');
+      return shorter_name
+    }
+
     function search_by_group_id(){
       $('#search_by_group_id_button').click(function(){
         var group_id= $('#id_year').val()+"-"+$('#id_number').val();
         $.ajax({
           url: '/people/search_group_by_group_id?group_id='+group_id,
           success: function(data){
-            if(data){
+            if(data && data[0]){
+              console.log(data[0]);
               var group_details = data[0].group_details;
               var html_element = '';
               $.each(group_details,function(index,value){
-                html_element += '<tr><td></td><td>'+data[0].status+'</td><td>'+value.year+'</td><td>'+value.month+'</td></tr>' 
+                html_element += '<tr><td></td><td>'+data[0].status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(data[0].study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td></tr>' 
               });
-              console.log(html_element);
               $('#search_result_wrap').find('table tbody').html(html_element);
               $('#search_result_wrap').slideDown();
             }

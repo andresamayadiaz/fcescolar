@@ -7,7 +7,7 @@ class PeopleController < ApplicationController
 
   def search_group_by_group_id
     @group = Group.where(:group_id=>params[:group_id])
-    render :json => @group.to_json(:include=>:group_details)
+    render :json => @group.to_json(:include=>[:study_plan,:group_details => {:include=>[:subject, :teacher]} ])
   end
 
   def get_group_id_number
