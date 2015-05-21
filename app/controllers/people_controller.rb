@@ -11,8 +11,18 @@ class PeopleController < ApplicationController
   end
 
   def search_group_by_year
-    @group_details = GroupDetail.joins(:group).where('group_details.year = ? and groups.status = ?', params[:year], params[:status])
-    render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :group => {:include=>[:study_plan]} ])
+    if params[:format]=='pdf'
+      @group_details = GroupDetail.joins(:group).where('group_details.year = ?', params[:year])
+      all_group_status = @group_details.map{|group_detail| group_detail.group.status}
+      if all_group_status.include? 'Blocked' or all_group_status.include? "Closed"
+        redirect_to :back, alert: 'Blocked or closed group is included on search result'
+      else
+        render :pdf => "Group by year: #{@group_details.first.year}"
+      end
+    else
+      @group_details = GroupDetail.joins(:group).where('group_details.year = ? and groups.status = ?', params[:year], params[:status])
+      render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :group => {:include=>[:study_plan]} ])
+    end
   end
   
   def search_group_by_group_id

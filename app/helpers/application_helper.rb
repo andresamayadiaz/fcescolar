@@ -24,4 +24,13 @@ module ApplicationHelper
   def format_subjects_for_dictamination(subjects)
     subjects.map(&:name).join(", ") if subjects.present?
   end
+  
+  def abbrev_study_plan_name(name)
+    if name.include? 'Tetramestral'
+      abbrev_name = name.gsub('Tetramestral', 'TETRA')
+    else
+      abbrev_name = name.gsub('Semestral', 'SMTR')
+    end 
+    abbrev_name
+  end
 end

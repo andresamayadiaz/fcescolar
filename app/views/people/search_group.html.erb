@@ -32,6 +32,11 @@ table{font-size:12px;}
                 <br/><button id="search_by_year_button">Search</button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <br/><button id="search_by_year_print_button">Print All Results</button>
+              </div>
+            </div>
           </div>
           <div role="tabpanel" class="tab-pane" id="search_by_group_id">
             <div class="row">
@@ -143,12 +148,21 @@ table{font-size:12px;}
       });
     }
 
+    function search_by_year_print(){
+      $('#search_by_year_print_button').click(function(){
+        var year = $('#year').val();
+        var status = $("input:radio[name=status]:checked").val();
+        window.open('/people/search_group_by_year?year='+year+'&status='+status+'&format=pdf','_blank')
+      })
+    }
+
     $(document).ready(function(){
       $('#id_year').change(function(){
         load_id_number($(this).val());
         search_by_group_id();
       })
       search_by_year();
+      search_by_year_print();
     });
   </script>
 <% end %>
