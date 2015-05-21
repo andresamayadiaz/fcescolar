@@ -1,0 +1,37 @@
+<%#= debug @group_detail %>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td>Grupo</td>
+      <td><%= @group_detail.group.group_id %></td>
+    </tr>
+    <tr>
+      <td>Año</td>
+      <td><%= @group_detail.year %></td>
+    </tr>
+    <tr>
+      <td>Meses</td>
+      <td><%= @group_detail.month %></td>
+    </tr>
+    <tr>
+      <td>Materia</td>
+      <td><%= @group_detail.subject.try(:name) %></td>
+    </tr>
+    <tr>
+      <td>Dia Semana</td>
+      <td><%= @group_detail.weekday %></td>
+    </tr>
+    <tr>
+      <td>Aula</td>
+      <td><%= @group_detail.classroom.try(:name) %></td>
+    </tr>
+    <tr>
+      <td>Ranura De Tiempo</td>
+      <td><%= @group_detail.time_slot.try(:name) %></td>
+    </tr>
+    <tr>
+      <td>Maestro</td>
+      <td><%= @group_detail.teacher.name %></td>
+    </tr>
+  </tbody>
+</table>

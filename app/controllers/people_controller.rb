@@ -5,6 +5,10 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def view_group
+    @group_detail = GroupDetail.find(params[:group_detail_id])
+  end
+
   def search_group_by_year
     @group_details = GroupDetail.joins(:group).where('group_details.year = ? and groups.status = ?', params[:year], params[:status])
     render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :group => {:include=>[:study_plan]} ])
