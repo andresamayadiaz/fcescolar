@@ -7,6 +7,7 @@ class PeopleController < ApplicationController
 
   def view_group
     @group_detail = GroupDetail.find(params[:group_detail_id])
+    render  :pdf => "Group: #{@group_detail.group.group_id}" if params[:format]=='pdf'
   end
 
   def search_group_by_year
