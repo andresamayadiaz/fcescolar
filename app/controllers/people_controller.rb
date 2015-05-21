@@ -7,12 +7,12 @@ class PeopleController < ApplicationController
 
   def search_group_by_year
     @group_details = GroupDetail.joins(:group).where('group_details.year = ? and groups.status = ?', params[:year], params[:status])
-    render :json => @group_details.to_json(:include=>[:subject, :teacher, :group => {:include=>[:study_plan]} ])
+    render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :group => {:include=>[:study_plan]} ])
   end
   
   def search_group_by_group_id
     @group = Group.where(:group_id=>params[:group_id])
-    render :json => @group.to_json(:include=>[:study_plan,:group_details => {:include=>[:subject, :teacher]} ])
+    render :json => @group.to_json(:include=>[:study_plan,:group_details => {:include=>[:subject, :teacher, :classroom]} ])
   end
 
   def get_group_id_number

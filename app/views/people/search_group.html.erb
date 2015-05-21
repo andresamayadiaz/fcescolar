@@ -112,7 +112,8 @@ table{font-size:12px;}
               var group_details = data[0].group_details;
               var html_element = '';
               $.each(group_details,function(index,value){
-                html_element += '<tr><td></td><td>'+data[0].status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(data[0].study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td></tr>' 
+                console.log(value);
+                html_element += '<tr><td></td><td>'+data[0].status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(data[0].study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td><td>'+value.weekday+'</td><td>'+value.classroom.name+'</td></tr>' 
               });
               $('#search_result_wrap').find('table tbody').html(html_element);
               $('#search_result_wrap').slideDown();
@@ -133,7 +134,7 @@ table{font-size:12px;}
               var group_details = data;
               var html_element = '';
               $.each(group_details,function(index,value){
-                html_element += '<tr><td></td><td>'+value.group.status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(value.group.study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td></tr>' 
+                html_element += '<tr><td></td><td>'+value.group.status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td></td><td>'+shorter_study_plan_name(value.group.study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td><td>'+value.weekday+'</td><td>'+value.classroom.name+'</td></tr>' 
               });
               $('#search_result_wrap').find('table tbody').html(html_element);
               $('#search_result_wrap').slideDown();
