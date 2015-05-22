@@ -1,6 +1,6 @@
 <style>
 table{font-size:12px;}
-#id_number, .search_button_wrapper, #search_result_wrap{display:none;}
+#id_number, .search_button_wrapper, #search_result_wrap, #period_wrap{display:none;}
 </style>
 <div class="paragraphs">
 	<div class="row">
@@ -25,6 +25,12 @@ table{font-size:12px;}
                <div class="col-sm-12"><label><%= radio_button_tag "status", "Blocked" %>&nbsp; Blocked</label></div>
                <div class="col-sm-12"><label><%= radio_button_tag "status", "In Review" %>&nbsp; In Review</label></div>
                <div class="col-sm-12"><label><%= radio_button_tag "status", "All" %>&nbsp; All</label></div>
+              </div>
+            </div>
+            <div class="row" id='period_wrap'>
+              <div class="col-sm-1">Period</div>
+              <div class="col-sm-4">
+                <select id='period' class='form-control'></select>
               </div>
             </div>
             <div class="row">
@@ -131,8 +137,9 @@ table{font-size:12px;}
       $('#search_by_year_button').click(function(){
         var year = $('#year').val();
         var status = $("input:radio[name=status]:checked").val();
+        var period = $('#period').val();
         $.ajax({
-          url: '/people/search_group_by_year?year='+year+'&status='+status,
+          url: '/people/search_group_by_year?year='+year+'&status='+status+'&period='+period,
           success: function(data){
             if(data){
               var group_details = data;
@@ -152,7 +159,8 @@ table{font-size:12px;}
       $('#search_by_year_print_button').click(function(){
         var year = $('#year').val();
         var status = $("input:radio[name=status]:checked").val();
-        window.open('/people/search_group_by_year?year='+year+'&status='+status+'&format=pdf','_blank')
+        var period = $('#period').val();
+        window.open('/people/search_group_by_year?year='+year+'&status='+status+'&period='+period+'&format=pdf','_blank')
       })
     }
 
@@ -160,7 +168,23 @@ table{font-size:12px;}
       $('#id_year').change(function(){
         load_id_number($(this).val());
         search_by_group_id();
-      })
+      });
+      $('#year').change(function(){
+        var year = $(this).val();
+        $.ajax({
+          url: '/people/get_period_of_year_for_search_group?year='+year,
+          success: function(data){
+            if (data) {
+              var html_element = '<option>Select Periods</option>'
+              $.each(data,function(index,value){
+                html_element += '<option value="'+value+'">'+value+'</option>'
+              });
+              $('#period').html(html_element);
+              $('#period_wrap').slideDown();
+            }
+          }
+        })        
+      });
       search_by_year();
       search_by_year_print();
     });

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       post 'create_group'
       get 'search_group_by_group_id'
       get 'search_group_by_year'
+      get 'get_period_of_year_for_search_group'
       get 'view_group'
     end
   end
