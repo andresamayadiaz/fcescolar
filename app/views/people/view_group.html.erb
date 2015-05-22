@@ -1,41 +1,21 @@
 <%#= debug @group_detail %>
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <td>Grupo</td>
-      <td><%= @group_detail.group.group_id %></td>
-    </tr>
-    <tr>
-      <td>Estatus</td>
-      <td><%= @group_detail.group.status %></td>
-    </tr>
-    <tr>
-      <td>Año</td>
-      <td><%= @group_detail.year %></td>
-    </tr>
-    <tr>
-      <td>Meses</td>
-      <td><%= @group_detail.month %></td>
-    </tr>
-    <tr>
-      <td>Materia</td>
-      <td><%= @group_detail.subject.try(:name) %></td>
-    </tr>
-    <tr>
-      <td>Dia Semana</td>
-      <td><%= @group_detail.weekday %></td>
-    </tr>
-    <tr>
-      <td>Aula</td>
-      <td><%= @group_detail.classroom.try(:name) %></td>
-    </tr>
-    <tr>
-      <td>Ranura De Tiempo</td>
-      <td><%= @group_detail.time_slot.try(:name) %></td>
-    </tr>
-    <tr>
-      <td>Maestro</td>
-      <td><%= @group_detail.teacher.name %></td>
-    </tr>
-  </tbody>
-</table>
+<div class='row'>
+  <div class='col-sm-6'>
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td><%= @group_detail.year %></td>
+            <td><%= @group_detail.group.group_id %></td>
+            <td><%= @group_detail.id %></td>
+            <td><%= @group_detail.teacher.name %></td>
+          </tr>
+          <tr style='height:15px;'><td colspan="4"></td></tr>
+          <tr>
+            <td><%= @group_detail.subject.try(:name) %></td>
+            <td><%= @group_detail.classroom.try(:name) %></td>
+            <td><%= @group_detail.time_slot.try(:name) %></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
