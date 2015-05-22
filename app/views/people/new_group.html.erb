@@ -1,0 +1,326 @@
+<style>
+  #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
+</style>
+<%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
+    <div class="form-group">
+      <label class="col-md-7 control-label">Study Plan</label>
+      <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group">
+      <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+      <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group" id='group_preferences'>
+      <div class="col-md-12">
+        <b>Preferences</b><br/>
+        <table width="100%"> 
+          <thead>
+            <tr>
+              <th>Frequency</th>
+              <th>Week Day</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>  
+    <hr class="hr-normal">
+    <div class="form-group" id='group_buttons'>
+      <div class="col-md-6">
+          <button id="show_full_groups">Show Groups For Full Generation</button>
+      </div>
+      <div class="col-md-6">
+					<button data-toggle="modal" data-target="#singleGroupModal">Show Single Group</button>
+      </div>
+    </div>
+    <hr class="hr-normal">
+    <div class="form-group" id="full_groups_table">
+    </div>
+    <h4 class="hr-normal">
+    <div class="form-group" id="group_actions">
+      <button>Create and Save Groups</button>
+    </div>
+    <div class="modal fade" id="singleGroupModal">
+      <div class="modal-dialog" style="width:70%;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Select the Subject for the Group</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-6">Subjects</div>
+            <div class="col-md-6">
+              <select id="subjects_list"></select> 
+            </div>
+            <br/><br/>
+            <div class="col-md-12">
+              <button id="show_single_group">Show Group</button>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+<% end %>
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function get_active_subjects_by_study_plan_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element=''
+          $.each(data,function(index,value){
+            html_element+="<option value='"+value.id+"'>"+value.name+"</option>"
+          })
+          $("#subjects_list").html(html_element);
+        }
+      }
+    })
+  }
+
+  function get_period_years_by_study_plan_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
+      success: function(data){
+        if(data){
+          var html_element='<option>Select Year</option>';
+          $.each(data,function(index,value){
+            var year = value.year.split("-")[0];
+            var id = value.id;
+            html_element+="<option value='"+year+"' id='"+id+"'>"+year+"</option>"
+          })
+          $("#group_start_year").html(html_element);
+          $(".group_start_year").slideDown();
+        }
+      }
+    })
+  }
+
+  function get_period_months_by_period_detail_id(val){
+    $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_period_months_by_period_detail_id?period_detail_id='+val,
+      success: function(data){
+        if(data){
+          var html_element='<option>Select Month</option>';
+          $.each(data,function(index,value){
+            html_element+="<option value='"+value.month+"' id='"+value.id+"'>"+value.month+"</option>"
+          })
+          $("#group_start_month").html(html_element);
+          $(".group_start_month").slideDown();
+        }
+      }
+    })
+  }
+
+  function load_preferences(val){
+    $.ajax({
+      type: 'GET',
+      url: '/people/load_group_preferences?study_plan_id='+val,
+      success: function(data){
+        var html_element;
+        var day_options;
+        for (i = 1; i <= data; i++) {
+          if(i > 7){
+            var j = i % 7;
+            switch(j) {
+                case 1:
+                  day_options = '<option value="Monday" selected>Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 2:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday" selected>Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 3:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday" selected>Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 4:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday" selected>Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 5:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday" selected>Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 6:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday" selected>Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 0:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday" selected>Domingo</option>';
+                  break;
+            } 
+          } else {
+            switch(i) {
+                case 1:
+                  day_options = '<option value="Monday" selected>Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 2:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday" selected>Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 3:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday" selected>Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 4:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday" selected>Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 5:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday" selected>Viernes</option><option value="Saturday">Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 6:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday" selected>Sábado</option><option value="Sunday">Domingo</option>';
+                  break;
+                case 7:
+                  day_options = '<option value="Monday">Lunes</option><option value="Tuesday">Martes</option><option value="Wednesday">Miércoles</option><option value="Thursday">Jueves</option><option value="Friday">Viernes</option><option value="Saturday">Sábado</option><option value="Sunday" selected>Domingo</option>';
+                  break;
+            } 
+          }
+          html_element += '<tr><td>'+i+'</td><td><select>'+day_options+'</select></td></tr>'
+        }
+        $('#group_preferences tbody').html(html_element);
+        $('#group_preferences').slideDown();
+        $('#group_buttons').slideDown();
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $("#group_start_year").html('');
+    $('#group_study_plan_id').change(function(){
+      var val = $(this).val();
+      $("#group_start_month").html('');
+      get_period_years_by_study_plan_id(val);
+      get_active_subjects_by_study_plan_id(val);   
+    });
+
+    $('#group_start_year').change(function(){
+      var val = $(this).find(':selected').attr('id');
+      get_period_months_by_period_detail_id(val);
+    })
+
+    $('#group_start_month').change(function(){
+      var val = $('#group_study_plan_id').val();
+      load_preferences(val);
+    });
+
+    $('#show_full_groups').click(function(e){
+      e.preventDefault();
+      var period_detail_id = $('#group_start_month').find(':selected').attr('id');
+      $.ajax({
+        type: 'GET',
+        url: '/people/generate_full_groups?study_plan_id='+$("#group_study_plan_id").val()+'&period_detail_id='+period_detail_id,
+        success: function(data){
+          $("#full_groups_table div").html('');
+          if(data){
+            $.each(data,function(index,value){
+              var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
+              var parent_index = index.toString();
+              $.each(value.rows,function(index,val){
+                var child_index = parent_index.concat(index.toString());
+    
+                /*generate teacher options*/
+                var teacher_options = '';
+                $.each(val.teacher,function(index,t){
+                    teacher_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+                
+                /*generate weekday_options*/
+                var weekday_options = '';
+                $.each(val.weekday,function(index,t){
+                    weekday_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+               
+                /*generate classroom_options*/
+                var classroom_options = '';
+                $.each(val.classroom,function(index,t){
+                    classroom_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                /*generate timeslot_options*/
+                var timeslot_options = '';
+                $.each(val.timeslot,function(index,t){
+                    timeslot_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                html_element.find('tbody').append("<tr>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
+                            "</tr>")
+              })
+              $("#full_groups_table").append(html_element);
+            })
+            $('#full_groups_table').slideDown();
+            $('#group_actions').slideDown();
+          }
+        }
+      }); 
+    });
+  
+    $('#show_single_group').click(function(e){
+      e.preventDefault();
+      var period_detail_id = $('#group_start_month').find(':selected').attr('id');
+      var subject_id = $('#subjects_list').val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/generate_single_group?study_plan_id='+$("#group_study_plan_id").val()+'&period_detail_id='+period_detail_id+'&subject_id='+subject_id,
+        success: function(data){
+          $("#full_groups_table div").html('');
+          if(data){
+            console.log(data);
+            $.each(data,function(index,value){
+              var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
+              var parent_index = index.toString();
+              $.each(value.rows,function(index,val){
+                var child_index = parent_index.concat(index.toString());
+    
+                /*generate teacher options*/
+                var teacher_options = '';
+                $.each(val.teacher,function(index,t){
+                    teacher_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+                
+                /*generate weekday_options*/
+                var weekday_options = '';
+                $.each(val.weekday,function(index,t){
+                    weekday_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                })
+               
+                /*generate classroom_options*/
+                var classroom_options = '';
+                $.each(val.classroom,function(index,t){
+                    classroom_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                /*generate timeslot_options*/
+                var timeslot_options = '';
+                $.each(val.timeslot,function(index,t){
+                    timeslot_options += "<option value='"+t.id+"'>"+t.name+"</option>"
+                }) 
+
+                html_element.find('tbody').append("<tr>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
+                              "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
+                            "</tr>")
+              })
+              $("#full_groups_table").append(html_element);
+            })
+            $('#full_groups_table').slideDown();
+            $('#group_actions').slideDown();
+            $("#singleGroupModal").find('.close').click()
+          }
+        }
+      }); 
+    });
+  })
+</script>
+<% end %>

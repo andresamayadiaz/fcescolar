@@ -5,6 +5,36 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def create_group
+    @group = Group.new(params[:group])
+    if @group.save
+      flash[:notice]='Group is created'
+    else
+      flash[:alert]='Failed to create group'
+    end
+    redirect_to :back
+  end
+
+  def generate_single_group
+    @single_group = Person.generate_single_group(params[:study_plan_id], params[:period_detail_id], current_user, params[:subject_id])
+    render :json => @single_group
+  end
+
+  def generate_full_groups
+    @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id], current_user)
+    render :json => @full_groups
+  end
+
+  def load_group_preferences
+    @preferences = StudyPlanSubject.get_max_freq_by_study_plan(params[:study_plan_id])
+    render :json => @preferences
+  end
+
+  def new_group
+    @group = Group.new
+    @active_study_plans = StudyPlan.active
+  end
+
   def get_active_subjects_by_study_plan_id
     @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
     render :json => @active_subjects
@@ -19,9 +49,10 @@ class PeopleController < ApplicationController
   def create_teacher_dictamination
     teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
     if teacher_dictamination.save
-      teacher_name = teacher_dictamination.person.try(:name)
-      @pdf_content = "Teacher: #{teacher_name}<br/>Study Plan:#{teacher_dictamination.study_plan.try(:name)}<br/>Name of Witness #1:#{teacher_dictamination.witness_1}<br/>Name of Witness #2:#{teacher_dictamination.witness_2}".html_safe
-      render  :pdf => "Teacher Dictamination: #{teacher_name}"
+      @teacher_full_name = teacher_dictamination.person.try(:name).upcase
+      @career_name_of_study_plan = teacher_dictamination.study_plan.career.try(:name).upcase
+      @subjects = teacher_dictamination.subjects.map(&:name)
+      render  :pdf => "Teacher Dictamination: #{@teacher_full_name}"
     else
       flash[:error]='Failed to create teacher dictamination'
       redirect_to :back
