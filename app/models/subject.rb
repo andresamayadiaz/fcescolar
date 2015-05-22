@@ -7,6 +7,9 @@ class Subject < ActiveRecord::Base
 
   scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
+  def self.get_teacher
+  end
+
   def self.get_selected(ids)
   	selected_arr = []
   	ids.split(",").each do |i|
@@ -14,6 +17,10 @@ class Subject < ActiveRecord::Base
   		selected_arr << {:name=>subject.try(:name),:clave=>subject.try(:clave)}
   	end if ids
   	selected_arr
+  end
+
+  def self.get_by_career(career_id,curricular_line_id)
+    where(:curricular_line_id=>curricular_line_id).select{|s|s.careers.map(&:id).include? career_id.to_i}
   end
 
   def self.get_by_study_plan(study_plan_id)

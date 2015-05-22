@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505050223) do
+ActiveRecord::Schema.define(version: 20150517134907) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -219,6 +219,36 @@ ActiveRecord::Schema.define(version: 20150505050223) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "group_details", force: true do |t|
+    t.integer  "group_id"
+    t.string   "year"
+    t.string   "month"
+    t.integer  "subject_id"
+    t.string   "weekday"
+    t.integer  "classroom_id"
+    t.integer  "time_slot_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "teacher_id"
+  end
+
+  add_index "group_details", ["classroom_id"], name: "index_group_details_on_classroom_id", using: :btree
+  add_index "group_details", ["group_id"], name: "index_group_details_on_group_id", using: :btree
+  add_index "group_details", ["subject_id"], name: "index_group_details_on_subject_id", using: :btree
+  add_index "group_details", ["time_slot_id"], name: "index_group_details_on_time_slot_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.integer  "study_plan_id"
+    t.string   "start_year"
+    t.string   "start_month"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",        default: "Open", null: false
+    t.string   "group_id"
+  end
+
+  add_index "groups", ["study_plan_id"], name: "index_groups_on_study_plan_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "franchise_id"

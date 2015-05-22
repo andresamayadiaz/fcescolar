@@ -9,4 +9,5 @@ class Career < ActiveRecord::Base
   
   validates_attachment_content_type :auth_file, content_type: ['application/pdf']
   validates :auth_file, :attachment_presence => true
+  
 end

@@ -5,6 +5,36 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def create_group
+    @group = Group.new(params[:group])
+    if @group.save
+      flash[:notice]='Group is created'
+    else
+      flash[:alert]='Failed to create group'
+    end
+    redirect_to :back
+  end
+
+  def generate_single_group
+    @single_group = Person.generate_single_group(params[:study_plan_id], params[:period_detail_id], current_user, params[:subject_id])
+    render :json => @single_group
+  end
+
+  def generate_full_groups
+    @full_groups = Person.generate_full_groups(params[:study_plan_id], params[:period_detail_id], current_user)
+    render :json => @full_groups
+  end
+
+  def load_group_preferences
+    @preferences = StudyPlanSubject.get_max_freq_by_study_plan(params[:study_plan_id])
+    render :json => @preferences
+  end
+
+  def new_group
+    @group = Group.new
+    @active_study_plans = StudyPlan.active
+  end
+
   def get_active_subjects_by_study_plan_id
     @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
     render :json => @active_subjects

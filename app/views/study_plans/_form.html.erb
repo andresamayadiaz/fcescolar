@@ -90,7 +90,7 @@ function get_subjects_by_curricular_line() {
         var val = _this.val();
         $.ajax({
             type: 'GET',
-            url: '/study_plans/get_subject_by_curricular_line?cl_id=' + val,
+            url: '/study_plans/get_subject_by_curricular_line?cl_id=' + val + '&career_id='+$('#study_plan_career_id').val(),
             success: function(data) {
                 if (data) {
                     var html_element = '';

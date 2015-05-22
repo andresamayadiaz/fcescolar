@@ -1,6 +1,21 @@
 class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
+  def get_period_months_by_period_detail_id
+    @period_months = PeriodDetail.find(params[:period_detail_id]).get_months
+    render :json => @period_months
+  end
+
+  def get_period_years_by_study_plan_id
+    @uniq_period_years = []
+    period_years = StudyPlan.find(params[:study_plan_id]).period.period_details
+    period_years.each do |py|
+      @uniq_period_years << py if !@uniq_period_years.map{|i|i.year.strftime('%Y')}.include? py.year.strftime('%Y') 
+    end
+    render :json => @uniq_period_years
+  end
+
+
   def get_active_classrooms_by_campus_id
     @active_classrooms = Classroom.where(:campus_id=>params[:campus_id]).active
     render :json => @active_classrooms
@@ -32,8 +47,12 @@ class StudyPlansController < ApplicationController
   # GET /study_plans
   # GET /study_plans.json
   def get_subject_by_curricular_line
-    @subjects = Subject.where(:curricular_line_id=>params[:cl_id])
+    @subjects = Subject.get_by_career(params[:career_id],params[:cl_id])
     render :json => @subjects
+  end
+
+  def get_subject_by_study_plan_id
+    @subjects = StudyPlanSubject
   end
   
   def index
