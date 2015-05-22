@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517134907) do
+ActiveRecord::Schema.define(version: 20150522091718) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 20150517134907) do
     t.datetime "updated_at"
     t.string   "status",        default: "Open", null: false
     t.string   "group_id"
+    t.integer  "creator_id"
   end
 
   add_index "groups", ["study_plan_id"], name: "index_groups_on_study_plan_id", using: :btree

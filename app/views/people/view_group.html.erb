@@ -12,10 +12,21 @@
           <tr style='height:15px;'><td colspan="4"></td></tr>
           <tr>
             <td><%= @group_detail.subject.try(:name) %></td>
-            <td><%= @group_detail.classroom.try(:name) %></td>
+            <td colspan="2"><%= @group_detail.classroom.try(:name) %></td>
             <td><%= @group_detail.time_slot.try(:name) %></td>
+          </tr>
+          <tr style='height:15px;'><td colspan="4"></td></tr>
+          <tr style='height:15px;'><td colspan="4"></td></tr>
+          <tr>
+            <td colspan="2"><%= "#{@group_detail.created_at.strftime('%Y-%m-%d')} #{@group_detail.group.creator.person.name}" %></td>
           </tr>
         </tbody>
       </table>
   </div>
+  <div class='col-sm-6'>
+      <fieldset>
+        <legend>Action</legend>
+      </fieldset>
+  </div>
 </div>
+<hr class="hr-normal">

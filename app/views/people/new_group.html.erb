@@ -2,6 +2,7 @@
   #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
 </style>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
+    <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
     <div class="form-group">
       <label class="col-md-7 control-label">Study Plan</label>
       <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
