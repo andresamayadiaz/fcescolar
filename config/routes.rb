@@ -10,6 +10,12 @@ Rails.application.routes.draw do
 
   get '/profile/:id'=>"people#profile"
 
+  resources :groups do
+    collection do
+      get 'block_it'
+    end
+  end
+
   resources :people do
     collection do
       get 'matching_date_and_user'

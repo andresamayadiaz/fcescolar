@@ -2,7 +2,6 @@
 <table width="100%" style="font-size:12px;">
         <thead>
           <tr>
-            <th>Estatus</th>
             <th>Año</th>
             <th>Meses</th>
             <th>Grupo</th>
@@ -11,13 +10,13 @@
             <th>Maestro</th>
             <th>Dia Semana</th>
             <th>Aula</th>
+            <th>Franja Horaria</th>
           </tr>
           <tr style='height:15px;'><th colspan="9"></th></tr>
         </thead>
         <tbody>
           <% @group_details.each do |group_detail| %>
             <tr>
-              <td><%= group_detail.group.status %></td>
               <td><%= group_detail.year %></td>
               <td><%= group_detail.month %></td>
               <td><%= group_detail.group.group_id %></td>
@@ -26,6 +25,7 @@
               <td><%= group_detail.teacher.first_name %></td>
               <td><%= group_detail.weekday %></td>
               <td><%= group_detail.classroom.name %></td>
+              <td><%= group_detail.time_slot.name %></td>
             </tr>
             <tr style='height:15px;'><td colspan="9"></td></tr>
           <% end %>
