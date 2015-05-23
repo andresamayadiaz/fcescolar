@@ -3,7 +3,7 @@
 </style>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <div class="form-group">
-      <label class="col-md-7 control-label">Study Plan</label>
+      <label class="col-md-7 control-label"><%= t('study_plan.singular') %></label>
       <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
@@ -14,12 +14,12 @@
     <hr class="hr-normal">
     <div class="form-group" id='group_preferences'>
       <div class="col-md-12">
-        <b>Preferences</b><br/>
+        <b><%= t('general.preferencias') %></b><br/>
         <table width="100%"> 
           <thead>
             <tr>
-              <th>Frequency</th>
-              <th>Week Day</th>
+              <th><%= t('general.frecuencia') %></th>
+              <th><%= t('general.dia_de_la_semana') %></th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -29,10 +29,10 @@
     <hr class="hr-normal">
     <div class="form-group" id='group_buttons'>
       <div class="col-md-6">
-          <button id="show_full_groups">Show Groups For Full Generation</button>
+          <button id="show_full_groups"><%= t('groups.show_full_generation') %></button>
       </div>
       <div class="col-md-6">
-					<button data-toggle="modal" data-target="#singleGroupModal">Show Single Group</button>
+					<button data-toggle="modal" data-target="#singleGroupModal"><%= t('groups.show_single_group') %></button>
       </div>
     </div>
     <hr class="hr-normal">
@@ -40,7 +40,7 @@
     </div>
     <h4 class="hr-normal">
     <div class="form-group" id="group_actions">
-      <button>Create and Save Groups</button>
+      <button><%= t('groups.create_and_save') %></button>
     </div>
     <div class="modal fade" id="singleGroupModal">
       <div class="modal-dialog" style="width:70%;">
@@ -50,7 +50,7 @@
             <h4 class="modal-title">Select the Subject for the Group</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-6">Subjects</div>
+            <div class="col-md-6"><%= t('subject.plural') %></div>
             <div class="col-md-6">
               <select id="subjects_list"></select> 
             </div>
