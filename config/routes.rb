@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       post 'accept_dictamination'
       get 'download_evidence'
       get 'new_group'
+      get 'copy_new_group'
       get 'load_group_preferences'
       get 'generate_full_groups'
       get 'generate_single_group'

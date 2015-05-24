@@ -76,6 +76,17 @@ class PeopleController < ApplicationController
     @active_study_plans = StudyPlan.active
   end
 
+  def copy_new_group
+    @group = Group.where(:group_id=>params[:group_id]).try(:first)
+    if @group.blank?
+      redirect_to '/people/new_group'
+    else
+      @year = @group.start_year
+      @start_month = @group.start_month
+      @active_study_plans = StudyPlan.active
+    end
+  end
+
   def get_active_subjects_by_study_plan_id
     @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
     render :json => @active_subjects

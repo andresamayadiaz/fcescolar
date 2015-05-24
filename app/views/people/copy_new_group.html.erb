@@ -1,19 +1,19 @@
 <style>
-  #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
+  #group_actions, #full_groups_table, #group_preferences, #group_buttons{display:none;}
 </style>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
-    <div class="form-group">
+    <div class="form-group row">
       <label class="col-md-7 control-label">Study Plan</label>
       <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group">
+    <div class="form-group row">
       <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
       <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group" id='group_preferences'>
+    <div class="form-group row" id='group_preferences'>
       <div class="col-md-12">
         <b>Preferences</b><br/>
         <table width="100%"> 
@@ -28,7 +28,7 @@
       </div>
     </div>  
     <hr class="hr-normal">
-    <div class="form-group" id='group_buttons'>
+    <div class="form-group row" id='group_buttons'>
       <div class="col-md-6">
           <button id="show_full_groups">Show Groups For Full Generation</button>
       </div>
@@ -37,10 +37,10 @@
       </div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group" id="full_groups_table">
+    <div class="form-group row" id="full_groups_table">
     </div>
     <h4 class="hr-normal">
-    <div class="form-group" id="group_actions">
+    <div class="form-group row" id="group_actions">
       <button>Create and Save Groups</button>
     </div>
     <div class="modal fade" id="singleGroupModal">
@@ -185,15 +185,23 @@
     });
   }
 
-  $(document).ready(function(){
+  $(window).load(function(){
     if($('#group_study_plan_id').val()) {
       var val = $('#group_study_plan_id').val();
-      $("#group_start_month").html('');
+      var start_month = '<%= @start_month %>';
+      var year = '<%= @year %>';
+      console.log(start_month);
+      console.log(year);
+      $('#group_start_month').val(start_month);
+      $('#group_start_year').val(year);
       get_period_years_by_study_plan_id(val);
       get_active_subjects_by_study_plan_id(val);
-      $('#group_start_year').trigger('change');
-      $('#group_start_month').trigger('change');
+      var val2 = $('#group_study_plan_id').val();
+      load_preferences(val2);
     }
+  })
+
+  $(document).ready(function(){
   
     $("#group_start_year").html('');
     $('#group_study_plan_id').change(function(){
