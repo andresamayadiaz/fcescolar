@@ -68,6 +68,9 @@ es:
     general_info: "Información General"
     insert_general_info: "Ingrese los datos generales"
     download_link: "Descargar Documento"
+    frecuencia: "Frecuencia"
+    dia_de_la_semana: "Dia de la Semana"
+    preferencias: "Preferencias"
   franchise:
     singular: "Franquicia"
     plural: "Franquicias"
@@ -174,6 +177,12 @@ es:
     create_teacher_dictamination: "Dictaminación Maestro"
     accept_reject_dictamination: "Aceptar Rechazar Dictaminación"
     create_contract: "Crear Contrato a Persona"
-    create_groups_with_complete_generation: "Crear Grupos Con Generación completa"
+    create_groups: "Crear Grupos"
   groups:
+    singular: "Grupo"
     plural: "Grupos"
+    menu: "Administrar Grupos"
+    new: "Nuevo Grupo"
+    create_and_save: "Crear y Guardar Grupo"
+    show_full_generation: "Ver Generación Completa"
+    show_single_group: "Ver Grupo Independiente"
