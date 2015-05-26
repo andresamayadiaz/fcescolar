@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522101242) do
+ActiveRecord::Schema.define(version: 20150526112532) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -232,6 +232,8 @@ ActiveRecord::Schema.define(version: 20150522101242) do
     t.datetime "updated_at"
     t.integer  "teacher_id"
     t.string   "status"
+    t.integer  "closer_id"
+    t.date     "closed_at"
   end
 
   add_index "group_details", ["classroom_id"], name: "index_group_details_on_classroom_id", using: :btree

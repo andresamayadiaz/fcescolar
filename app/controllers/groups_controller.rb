@@ -5,9 +5,12 @@ class GroupsController < ApplicationController
   def block_it
   end
 
+  def unblock_it
+  end
+
   def close_it
     group_detail = GroupDetail.find(params[:group_detail_id])
-    group_detail.update(:status=>'Closed')
+    group_detail.update(:status=>'Closed', :closer_id=>current_user.id, :closed_at=>Date.today)
     flash[:alert]='This group status is set to close now'
     redirect_to :back
   end

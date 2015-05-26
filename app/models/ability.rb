@@ -13,7 +13,7 @@ class Ability
         can [:check_for_study_plan], Career
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update, :search, :assign_roles, :add_new_role, :block_or_unblock, :manage_personal_record_file, :update_country_and_state, :auth_to_sign_responsive_letter, :profile, :download_personal_record_file, :matching_date_and_user, :new_contract, :generate_contract, :new_teacher_dictamination, :create_teacher_dictamination, :get_active_subjects_by_study_plan_id, :accept_reject_dictamination, :reject_dictamination, :accept_dictamination, :download_evidence, :new_group, :load_group_preferences, :generate_full_groups, :generate_single_group, :search_group, :get_group_id_number, :search_group_by_group_id, :search_group_by_year, :view_group, :get_period_of_year_for_search_group, :copy_new_group], Person
-        can [:block_it, :close_it, :open_it], Group
+        can [:block_it, :close_it, :open_it, :unblock_it], Group
     when 'finance'
         can [:update_password], User, :id=>user.id
         can [:create, :read, :update, :assign_roles, :add_new_role, :profile, :download_personal_record_file, :matching_date_and_user, :new_contract, :generate_contract, :search_group, :get_group_id_number, :search_group_by_group_id, :search_group_by_year, :view_group, :get_period_of_year_for_search_group], Person
