@@ -1,6 +1,7 @@
 <style>
   #group_actions, #full_groups_table, #group_preferences, #group_buttons{display:none;}
 </style>
+<input type='hidden' value='<%= @kind_of_group %>' id='kind_of_group'/>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
     <div class="form-group row">
@@ -69,6 +70,7 @@
   function get_active_subjects_by_study_plan_id(val){
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
@@ -86,6 +88,7 @@
     var selectedYear = (typeof selected_year === 'undefined') ? '' : selected_year;
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
@@ -109,6 +112,7 @@
     var selectedMonth = (typeof selected_month === 'undefined') ? '' : selected_month;
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/study_plans/get_period_months_by_period_detail_id?period_detail_id='+val,
       success: function(data){
         if(data){
@@ -192,20 +196,6 @@
       }
     });
   }
-
-  $(window).load(function(){
-    if($('#group_study_plan_id').val()) {
-      var val = $('#group_study_plan_id').val();
-      var start_month = '<%= @start_month %>';
-      var year = '<%= @year %>';
-      get_period_years_by_study_plan_id(val,year);
-      get_active_subjects_by_study_plan_id(val);
-      get_period_months_by_period_detail_id(val,start_month);
-      var val2 = $('#group_study_plan_id').val();
-      
-      load_preferences(val2);
-    }
-  })
 
   $(document).ready(function(){
   
@@ -345,5 +335,25 @@
       }); 
     });
   })
+
+  
+  $(window).load(function(){
+    if($('#group_study_plan_id').val()) {
+      var val = $('#group_study_plan_id').val();
+      var start_month = '<%= @start_month %>';
+      var year = '<%= @year %>';
+      get_period_years_by_study_plan_id(val,year);
+      get_active_subjects_by_study_plan_id(val);
+      get_period_months_by_period_detail_id($('#group_start_year').find(':selected').attr('id'),start_month);
+      load_preferences(val);
+      var kind_of_group = $('#kind_of_group').val();
+      if (kind_of_group=='full'){
+        $('#show_full_groups').trigger('click')
+      } else {
+        $('#show_single_group').trigger('click')
+      }
+    }
+  })
+
 </script>
 <% end %>

@@ -3,17 +3,17 @@
 </style>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
-    <div class="form-group">
+    <div class="row form-group">
       <label class="col-md-7 control-label"><%= t('study_plan.singular') %></label>
       <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group">
+    <div class="row form-group">
       <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
       <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group" id='group_preferences'>
+    <div class="row form-group" id='group_preferences'>
       <div class="col-md-12">
         <b><%= t('general.preferencias') %></b><br/>
         <table width="100%"> 
@@ -28,7 +28,7 @@
       </div>
     </div>  
     <hr class="hr-normal">
-    <div class="form-group" id='group_buttons'>
+    <div class="row form-group" id='group_buttons'>
       <div class="col-md-6">
           <button id="show_full_groups"><%= t('groups.show_full_generation') %></button>
       </div>
@@ -37,10 +37,10 @@
       </div>
     </div>
     <hr class="hr-normal">
-    <div class="form-group" id="full_groups_table">
+    <div class="row form-group" id="full_groups_table">
     </div>
     <h4 class="hr-normal">
-    <div class="form-group" id="group_actions">
+    <div class="row form-group" id="group_actions">
       <button><%= t('groups.create_and_save') %></button>
     </div>
     <div class="modal fade" id="singleGroupModal">
