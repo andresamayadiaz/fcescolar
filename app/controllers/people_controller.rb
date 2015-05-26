@@ -12,6 +12,8 @@ class PeopleController < ApplicationController
 
   def view_group
     @group_detail = GroupDetail.find(params[:group_detail_id])
+    active_role = current_user.active_role
+    @able_to_block = active_role=='super_administrator' or active_role=='franchise_director' ? true : false
     render  :pdf => "Group: #{@group_detail.group.group_id}" if params[:format]=='pdf'
   end
 
