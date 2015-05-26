@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       get 'block_it'
       get 'close_it'
+      get 'open_it'
     end
   end
 
