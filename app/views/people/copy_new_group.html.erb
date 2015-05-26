@@ -65,6 +65,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 <% end %>
+<input type='hidden' value='<%= @selected_subject_id %>' id='selected_subject_id' />
 <% content_for :specific_js do %>
 <script type="text/javascript">
   function get_active_subjects_by_study_plan_id(val){
@@ -79,6 +80,10 @@
             html_element+="<option value='"+value.id+"'>"+value.name+"</option>"
           })
           $("#subjects_list").html(html_element);
+          if ($('#kind_of_group').val()=='single'){
+            var selected_subject_id = $("#selected_subject_id").val();
+            $('#subjects_list').val(selected_subject_id);
+          }
         }
       }
     })

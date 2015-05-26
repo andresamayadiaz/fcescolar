@@ -79,6 +79,7 @@ class PeopleController < ApplicationController
   def copy_new_group
     @group = Group.where(:group_id=>params[:group_id]).try(:first)
     @kind_of_group = @group.group_details.map{|gd|gd.subject.name}.uniq!.present? ? 'single' : 'full'
+    @selected_subject_id = @group.group_details.try(:first).subject_id if @kind_of_group == 'single'
     if @group.blank?
       redirect_to '/people/new_group'
     else
