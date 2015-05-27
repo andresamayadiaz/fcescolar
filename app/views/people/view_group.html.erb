@@ -32,14 +32,16 @@
             <tr>
               <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.group.group_id) %>" class="btn">Copiar</a></td>
               <td><% if @group_detail.status=='Closed' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
-              <td><% if @able_to_block %><a href="#" class="btn">Bloquear</a><% end %></td>
+              <td><% if @able_to_block %>
+                <a href="<%= block_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Bloquear</a>
+              <% end %></td>
               <td><% if @group_detail.status=='Open' %><a href="<%= close_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Cerrar</a><% end %></td>
             </tr>
             <% if @able_to_block %>
             <tr style='height:15px;'><td colspan="4"></td></tr>
             <tr>
               <td colspan="3"></td>
-              <td><a href="#" class="btn">Desbloquear</a></td>
+              <td><a href="<%= unblock_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Desbloquear</a></td>
             </tr>
             <% end %>
           </tbody>

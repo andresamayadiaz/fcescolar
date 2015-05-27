@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :groups do
     collection do
       get 'block_it'
+      get 'unblock_it'
       get 'close_it'
       get 'open_it'
     end
