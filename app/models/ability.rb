@@ -41,6 +41,9 @@ class Ability
         can [:update_password], User, :id=>user.id
         can [:search, :profile, :download_personal_record_file, :matching_date_and_user], Person
         can [:close_it, :open_it], Group
+    when 'student'
+        can [:update_password], User, :id=>user.id
+        can [:profile, :download_personal_record_file], Person
     end
     # The first argument to `can` is the action you are giving the user 
     # permission to do.
