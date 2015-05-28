@@ -27,7 +27,11 @@ class PeopleController < ApplicationController
         render :pdf => "Group by year: #{@group_details.first.year}"
       end
     else
-      @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.status = ? and group_details.month = ?', params[:year], params[:status], params[:period])
+      if params[:status]!='All'
+        @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.status = ? and group_details.month = ?', params[:year], params[:status], params[:period])
+      else  
+        @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.month = ?', params[:year], params[:period])
+      end
       render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
     end
   end
