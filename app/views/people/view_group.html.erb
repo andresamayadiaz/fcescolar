@@ -1,4 +1,11 @@
 <%#= debug @group_detail %>
+<% if @group_detail.status=='Open' %>
+  <div class="alert alert-success">This group status is Open</div>
+<% elsif @group_detail.status=='Closed' %>
+  <div class="alert alert-warning">This group status is Closed</div>
+<% elsif @group_detail.status=='Blocked' %>
+  <div class="alert alert-danger">This group status is Blocked (In Review)</div>
+<% end %>
 <div class='row'>
   <div class='col-sm-6'>
       <table width="100%">
@@ -31,13 +38,13 @@
           <tbody>
             <tr>
               <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.group.group_id) %>" class="btn">Copiar</a></td>
-              <td><% if @group_detail.status=='In Review' or @group_detail.status=='Blocked' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
-              <td><% if @able_to_block and @group_detail.status=='Closed' %>
+              <td><% if @group_detail.status!='Blocked' and @group_detail.status!='Open' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
+              <td><% if @able_to_block and (@group_detail.status=='Closed' or @group_detail.status=='Open') %>
                 <a href="<%= block_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Bloquear</a>
               <% end %></td>
-              <td><% if @group_detail.status=='Open' or @group_detail.status=='In Review' %><a href="<%= close_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Cerrar</a><% end %></td>
+              <td><% if @group_detail.status=='Open' or @group_detail.status=='Blocked' %><a href="<%= close_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Cerrar</a><% end %></td>
             </tr>
-            <% if @able_to_block and (@group_detail.status=='Closed' or @group_detail.status=='Open') %>
+            <% if @able_to_block and (@group_detail.status=='Blocked') %>
             <tr style='height:15px;'><td colspan="4"></td></tr>
             <tr>
               <td colspan="3"></td>

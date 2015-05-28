@@ -11,8 +11,8 @@ class GroupsController < ApplicationController
 
   def unblock_it
     group_detail = GroupDetail.find(params[:group_detail_id])
-    group_detail.update(:status=>'In Review')
-    flash[:notice]='This group is is In Review now'
+    group_detail.update(:status=>'Open')
+    flash[:notice]='This group status is set to open now'
     redirect_to :back
   end
 
