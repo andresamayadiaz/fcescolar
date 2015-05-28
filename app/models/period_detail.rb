@@ -14,7 +14,7 @@ class PeriodDetail < ActiveRecord::Base
 
   def self.get_month_range(selected_year)
     period_details = where('extract(year from year) = ?',selected_year)
-    return period_details.map{|period_detail| {:id=>period_detail.id, :month=>"#{period_detail.initial_month.strftime('%B')} - #{period_detail.end_month.strftime('%B')}" } }
+    return period_details.map{|period_detail| {:id=>period_detail.id, :month=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}" } }
   end
 
 end

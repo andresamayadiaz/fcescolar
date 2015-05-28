@@ -11,6 +11,10 @@ class GroupsController < ApplicationController
     render :json => PeriodDetail.get_month_range(params[:year])
   end
 
+  def get_week_day_of_selected_month
+    render :json => GroupDetail.get_related_weekday(params[:study_plan_id],params[:year],params[:month])
+  end
+
   def new_enroll_student
     @available_study_plans = current_user.person.franchise.careers.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name }
   end

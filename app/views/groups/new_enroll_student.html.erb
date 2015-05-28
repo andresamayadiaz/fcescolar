@@ -1,5 +1,5 @@
 <style>
-  #start_period_wrap, #start_period_month {display: none;}
+  #start_period_wrap, #start_period_month, #weekday_wrap {display: none;}
 </style>
 <div class='row'>
   <div class='col-sm-2'>Study Plan:</div>
@@ -13,8 +13,15 @@
   <div class='col-sm-2'>
     <select id='start_period_year' class='form-control'></select>
   </div>
-  <div class='col-sm-4'>
+  <div class='col-sm-2'>
     <select id='start_period_month' class='form-control'></select>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='weekday_wrap'>
+  <div class='col-sm-2'>Week Day:</div>
+  <div class='col-sm-2'>
+    <select id='weekday' class='form-control'></select>
   </div>
 </div>
 <% content_for :specific_js do %>
@@ -48,6 +55,22 @@
             })
             $('#start_period_month').html(html_element);
             $('#start_period_month').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#start_period_month').change(function(){
+      var url = '/groups/get_week_day_of_selected_month?study_plan_id='+$('#study_plan_id').val()+'&year='+$('#start_period_year').val()+'&month='+$(this).find(':selected').text();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Week Day</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v.id+'">'+v.weekday+'</option>';
+            })
+            $('#weekday').html(html_element);
+            $('#weekday_wrap').slideDown(); 
           }
         }
       })
