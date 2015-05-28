@@ -1,5 +1,5 @@
 <style>
-  #start_period_wrap, #start_period_month, #weekday_wrap {display: none;}
+  #start_period_wrap, #start_period_month, #weekday_wrap, #latest_added_students {display: none;}
 </style>
 <div class='row'>
   <div class='col-sm-2'>Study Plan:</div>
@@ -20,8 +20,24 @@
 <hr class='normal'/>
 <div class='row' id='weekday_wrap'>
   <div class='col-sm-2'>Week Day:</div>
-  <div class='col-sm-2'>
+  <div class='col-sm-4'>
     <select id='weekday' class='form-control'></select>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='latest_added_students'>
+  <div class='col-sm-7'>
+    <table class='table-striped' width='100%'>
+      <thead>
+        <tr>
+          <th>Matricula</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 </div>
 <% content_for :specific_js do %>
@@ -71,6 +87,22 @@
             })
             $('#weekday').html(html_element);
             $('#weekday_wrap').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#weekday').change(function(){
+      var url = '/groups/load_latest_added_students';
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<tr><td></td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
+            })
+            $('#latest_added_students tbody').html(html_element);
+            $('#latest_added_students').slideDown(); 
           }
         }
       })
