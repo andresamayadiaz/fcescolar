@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'unblock_it'
       get 'close_it'
       get 'open_it'
+      get 'new_enroll_student'
     end
   end
 

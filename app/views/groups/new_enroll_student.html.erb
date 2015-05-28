@@ -1,0 +1,6 @@
+<div class='row'>
+  <div class='col-sm-2'>Study Plan:</div>
+  <div class='col-sm-4'>
+    <%= collection_select(:study_plan, :study_plan_id, @available_study_plans, :id, :name, {prompt: 'Available Study Plans'}, {class: 'form-control'}) %>
+  </div>
+</div>

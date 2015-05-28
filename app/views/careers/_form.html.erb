@@ -69,6 +69,13 @@
             </div>
             <div class="col-sm-7 col-sm-offset-1">
               <div class="form-group">
+                <% if current_user.active_role=='super_administrator' %>
+                  <%= f.association :franchise, :label=>t('franchise.singular'),:class=>'select2 form-control' %>
+                <% else %>
+                  <%= f.association :franchise, :label=>t('franchise.singular'),:class=>'select2 form-control',:collection=>[current_user.person.franchise] %>
+                <% end %>
+              </div>
+              <div class="form-group">
                 <%= f.association :study_level, :label=>t('study_level.singular'),:class=>'select2 form-control' %>
               </div>
               <div class="form-group">

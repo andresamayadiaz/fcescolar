@@ -1,6 +1,10 @@
 class GroupsController < ApplicationController
 
   load_and_authorize_resource
+
+  def new_enroll_student
+    @available_study_plans = current_user.person.franchise.careers.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name }
+  end
   
   def block_it
     group_detail = GroupDetail.find(params[:group_detail_id])
