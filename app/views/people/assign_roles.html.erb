@@ -9,6 +9,8 @@
 			  </div>
 			</div>
 		</div>
+  </div>
+  <div class="row">
 		<% if @unassigned_roles.present? and @person.status %>
 		<div class="col-sm-12">
 			<br/>
@@ -30,6 +32,8 @@
 			</fieldset>
 		</div>
 		<% end %>
+  </div>
+  <div class="row">
 		<% if @person.user.roles.present? and @person.user.roles.length>0 %>
 		<div class="col-sm-12">
 			<br/>

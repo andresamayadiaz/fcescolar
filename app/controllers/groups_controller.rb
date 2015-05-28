@@ -15,6 +15,10 @@ class GroupsController < ApplicationController
     render :json => GroupDetail.get_related_weekday(params[:study_plan_id],params[:year],params[:month])
   end
 
+  def load_latest_added_students #limit to 10
+    render :json => UsersRole.get_latest_added_students 
+  end
+
   def new_enroll_student
     @available_study_plans = current_user.person.franchise.careers.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name }
   end
