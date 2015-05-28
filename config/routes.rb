@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       get 'close_it'
       get 'open_it'
       get 'new_enroll_student'
+      get 'get_years_of_selected_study_plan'
+      get 'get_months_of_selected_year'
     end
   end
 

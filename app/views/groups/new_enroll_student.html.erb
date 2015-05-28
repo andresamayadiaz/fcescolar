@@ -1,6 +1,57 @@
+<style>
+  #start_period_wrap, #start_period_month {display: none;}
+</style>
 <div class='row'>
   <div class='col-sm-2'>Study Plan:</div>
   <div class='col-sm-4'>
-    <%= collection_select(:study_plan, :study_plan_id, @available_study_plans, :id, :name, {prompt: 'Available Study Plans'}, {class: 'form-control'}) %>
+    <%= collection_select(:study_plan, :id, @available_study_plans, :id, :name, {prompt: 'Available Study Plans'}, {class: 'form-control'}) %>
   </div>
 </div>
+<hr class='normal'/>
+<div class='row' id='start_period_wrap'>
+  <div class='col-sm-2'>Choose Start Period:</div>
+  <div class='col-sm-2'>
+    <select id='start_period_year' class='form-control'></select>
+  </div>
+  <div class='col-sm-4'>
+    <select id='start_period_month' class='form-control'></select>
+  </div>
+</div>
+<% content_for :specific_js do %>
+<script type='text/javascript'>
+  $(document).ready(function(){
+    $('#study_plan_id').change(function(){
+      var url = '/groups/get_years_of_selected_study_plan?study_plan_id='+$(this).val();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Years</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v+'">'+v+'</option>';
+            })
+            $('#start_period_year').html(html_element);
+            $('#start_period_wrap').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#start_period_year').change(function(){
+      var url = '/groups/get_months_of_selected_year?year='+$(this).val();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Months</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v.id+'">'+v.month+'</option>';
+            })
+            $('#start_period_month').html(html_element);
+            $('#start_period_month').slideDown(); 
+          }
+        }
+      })
+    })
+  })  
+</script>
+<% end %>
