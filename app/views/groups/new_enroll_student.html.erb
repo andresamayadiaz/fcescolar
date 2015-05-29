@@ -99,7 +99,7 @@
           var html_element = '';
           if(data){
             $.each(data,function(i,v){
-              html_element += '<tr><td></td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
+              html_element += '<tr><td><input type="checkbox" name="selected_student" value="'+v.id+'"/>&nbsp;'+v.id+'</td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
             })
             $('#latest_added_students tbody').html(html_element);
             $('#latest_added_students').slideDown(); 
