@@ -40,9 +40,22 @@
     </table>
   </div>
 </div>
+<hr class='normal'/>
+<div class='row' id='action_buttons_1'></div>
 <% content_for :specific_js do %>
 <script type='text/javascript'>
   $(document).ready(function(){
+    $("#latest_added_students input.selected_student").live('change',function()
+    {
+      var num_of_checked = $('input.selected_student:checked').length
+      if (num_of_checked>0 && $('#continue').length==0) {
+        $('#action_buttons_1').append('<div class="col-sm-3" id="continue"><button>Continuar</button</div>')
+      } else {
+        if (num_of_checked==0){
+          $('#continue').remove();
+        }
+      }
+    });
     $('#study_plan_id').change(function(){
       var url = '/groups/get_years_of_selected_study_plan?study_plan_id='+$(this).val();
       $.ajax({
@@ -99,9 +112,10 @@
           var html_element = '';
           if(data){
             $.each(data,function(i,v){
-              html_element += '<tr><td><input type="checkbox" name="selected_student" value="'+v.id+'"/>&nbsp;'+v.id+'</td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
+              html_element += '<tr><td><input type="checkbox" class="selected_student" value="'+v.id+'"/>&nbsp;'+v.id+'</td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
             })
             $('#latest_added_students tbody').html(html_element);
+            $('#action_buttons_1').html('<div class="col-sm-4"><button>Buscar Alumno</button></div>')           
             $('#latest_added_students').slideDown(); 
           }
         }
