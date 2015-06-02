@@ -8,10 +8,10 @@ class UsersRole < ActiveRecord::Base
 
   def self.get_latest_added_students
     students = []
-    students_role = UsersRole.joins(:role).where('roles.name="student" and status=true')
-    students_role.each do |sr|
-      students << sr.user.person
+    latest_added_people = Person.all.limit(10);
+    latest_added_people.each do |p|
+      students << p if p.user.users_roles.map{|users_role| users_role.role.name.include? 'student'}
     end
-    students
+    students.sort_by(&:id)
   end
 end

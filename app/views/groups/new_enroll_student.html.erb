@@ -140,8 +140,7 @@
 					if (data){
 						var html_data = null;
             data.map(function(d){
-              console.log(d);
-              html_data = html_data + '<tr class="clickable-student"><td>'+d.id+'</td><td>'+d.first_name+'</td><td>'+d.fathers_maiden_name+
+              html_data = html_data + '<tr class="clickable-student"><td><input type="checkbox" class="selected_student" value="'+d.id+'" style="display:none;"/>&nbsp;'+d.id+'</td><td>'+d.first_name+'</td><td>'+d.fathers_maiden_name+
 							'</td><td>'+d.mothers_maiden_name+'</td></tr>';
 						})
 						if (html_data==null){
@@ -152,7 +151,13 @@
 					}
 					_this.find(':button[type="submit"]').prop('disabled', false);
 					$('.clickable-student').click(function(){
-						console.log('0000');
+            var html_element = $(this)[0].outerHTML;
+            var student_id = $(this).find('td:first').text();
+            if ($('#latest_added_students tbody tr > td:contains('+student_id+')').length==0){
+              $('#latest_added_students tbody').append(html_element);
+              $('#latest_added_students tbody tr').show();
+            }
+            $('#searchStudentModal').find('.close').click(); 
 					})
 				}
 			});
