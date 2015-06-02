@@ -7,11 +7,11 @@ class GroupDetail < ActiveRecord::Base
   belongs_to :closer, :class_name => 'User', :foreign_key => 'closer_id'
   scope :open_by_year_and_month, ->(year,month) { where(:year => year, :month => month, :status=>'Open')}
 
-  def self.load(year,month,study_plan_id)
+  def self.load(year,month,study_plan_id,weekday)
     group_details = []
     groups = Group.where(:study_plan_id=>study_plan_id)
     groups.each do |group|
-      group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month}
+      group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month and group_detail.weekday==weekday}
     end
     group_details
   end
