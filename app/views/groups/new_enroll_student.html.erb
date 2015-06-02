@@ -151,7 +151,7 @@
 					}
 					_this.find(':button[type="submit"]').prop('disabled', false);
 					$('.clickable-student').click(function(){
-            var html_element = $(this)[0].outerHTML;
+            var html_element = $(this)[0].outerHTML.replace('class="clickable-student"','').replace('style="display:none;"','');
             var student_id = $(this).find('td:first').text();
             if ($('#latest_added_students tbody tr > td:contains('+student_id+')').length==0){
               $('#latest_added_students tbody').append(html_element);
