@@ -42,6 +42,7 @@
 </div>
 <hr class='normal'/>
 <div class='row' id='action_buttons_1'></div>
+<%= render 'search_student_modal' %>
 <% content_for :specific_js do %>
 <script type='text/javascript'>
   $(document).ready(function(){
@@ -115,7 +116,7 @@
               html_element += '<tr><td><input type="checkbox" class="selected_student" value="'+v.id+'"/>&nbsp;'+v.id+'</td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
             })
             $('#latest_added_students tbody').html(html_element);
-            $('#action_buttons_1').html('<div class="col-sm-4"><button>Buscar Alumno</button></div>')           
+            $('#action_buttons_1').html('<div class="col-sm-4"><button data-toggle="modal" data-target="#searchStudentModal">Buscar Alumno</button></div>')           
             $('#latest_added_students').slideDown(); 
           }
         }

@@ -2,6 +2,9 @@ class GroupsController < ApplicationController
 
   load_and_authorize_resource
 
+  def search_student
+  end
+
   def get_years_of_selected_study_plan
     study_plan = StudyPlan.find(params[:study_plan_id])
     render :json => study_plan.period.period_details.map{|pd|pd.year.strftime('%Y')}.uniq 
