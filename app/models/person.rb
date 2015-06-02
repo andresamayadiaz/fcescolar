@@ -147,7 +147,9 @@ class Person < ActiveRecord::Base
     if params[:student_id].present?
       student_id = params[:student_id]
     end
-    Person.where('fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ? OR id = ?',fathers_maiden_name,mothers_maiden_name,name,student_id)
+    people = Person.where('fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ? OR id = ?',fathers_maiden_name,mothers_maiden_name,name,student_id)
+    students = people.select{|p| p.user.users_roles.present? and p.user.users_roles.map{|users_role| users_role.role.name}.include? 'student' } 
+    students
   end
 
   def self.search(params, user)
