@@ -3,6 +3,8 @@ class GroupsController < ApplicationController
   load_and_authorize_resource
 
   def search_student
+    @search_result = Person.search_student(params)
+    render :json => @search_result
   end
 
   def get_years_of_selected_study_plan

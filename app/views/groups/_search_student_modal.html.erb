@@ -8,11 +8,11 @@
 			<div class="modal-body">
 				<%= form_tag(search_student_groups_url, :method => "post", id: "search-student-form") do %>
 					<div class="form-group row">
-					    <label for="id" class="col-xs-3 control-label">ID</label>
+					    <label for="student_id" class="col-xs-3 control-label">ID</label>
 					    <div class="col-xs-9">
 					        <div class="form-inline">
 					            <div class="form-group">
-					                <%= text_field_tag :id, nil, :class=>'form-control' %>
+					                <%= text_field_tag :student_id, nil, :class=>'form-control' %>
 					            </div>
 					        </div>
 					    </div>
@@ -51,7 +51,7 @@
 				<% end %>
 				<br/>
 				<h4>Resultados de la Busqueda</h4>
-				<table id="search_person_result" class="table table-striped" style="display:none;">
+				<table id="search_student_result" class="table table-striped" style="display:none;">
 					<thead>
             <tr>
               <th>ID</th>
