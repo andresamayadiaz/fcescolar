@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get 'get_week_day_of_selected_month'
       get 'load_latest_added_students'
       post 'search_student'
+      get 'load'
     end
   end
 
