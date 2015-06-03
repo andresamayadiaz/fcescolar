@@ -29,9 +29,20 @@ class GroupsController < ApplicationController
   end
 
   def new_enroll_student
+    @new_enrolled_student = EnrolledStudent.new
     @available_study_plans = current_user.person.franchise.careers.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name }
   end
   
+  def create_enroll_student
+    if params[:enrolled_student].present?
+      enrolled = EnrolledStudent.add(params[:enrolled_student])
+      enrolled ? flash[:notice]='All students are enrolled' : flash[:alert]='Failed to enroll student'
+    else
+      flash[:alert]='No student to enroll'
+    end
+    redirect_to :back
+  end
+
   def block_it
     group_detail = GroupDetail.find(params[:group_detail_id])
     group_detail.update(:status=>'Blocked')

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'load_latest_added_students'
       post 'search_student'
       get 'load'
+      get 'create_enroll_student'
     end
   end
 
