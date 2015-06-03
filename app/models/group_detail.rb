@@ -7,13 +7,36 @@ class GroupDetail < ActiveRecord::Base
   belongs_to :closer, :class_name => 'User', :foreign_key => 'closer_id'
   scope :open_by_year_and_month, ->(year,month) { where(:year => year, :month => month, :status=>'Open')}
 
-  def self.load(year,month,study_plan_id,weekday)
-    group_details = []
+  def self.load(year,month,study_plan_id,weekday,student_ids)
+    selected_group_details = Array.new
+    required_docs = Schedule.find_by_study_plan_id(study_plan_id).background_official_docs.map(&:id)
     groups = Group.where(:study_plan_id=>study_plan_id)
-    groups.each do |group|
-      group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month and group_detail.weekday==weekday}
+    student_ids.each do |id|
+      group_details_hash = {}
+      person = Person.find(id)
+      if (required_docs-person.personal_record_files.map{|f|f.background_official_doc.id}).empty?
+        #all docs are loaded
+        group_details_hash[:color]='green' #need to check if any of docs is responsive letter later
+      else
+        #one or more docs are missing
+        group_details_hash[:color]='red'
+      end
+      groups.each do |group|
+        group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month and group_detail.weekday==weekday}
+        group_details.each do |group_detail|
+          group_details_hash[:group_id]=group_detail.group.group_id
+          group_details_hash[:year]=group_detail.year
+          group_details_hash[:month]=group_detail.month
+          group_details_hash[:subject]=group_detail.subject.try(:name)
+          group_details_hash[:weekday]=group_detail.weekday
+          group_details_hash[:classroom]=group_detail.classroom.name
+          group_details_hash[:time_slot]=group_detail.time_slot.name
+          group_details_hash[:person_id]=person.id
+        end if group_details.present?
+      end
+      selected_group_details << group_details_hash
     end
-    group_details
+    selected_group_details
   end
 
   def self.get_years

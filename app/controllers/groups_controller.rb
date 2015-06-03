@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   load_and_authorize_resource
 
   def load
-    render :json => GroupDetail.load(params[:year],params[:month],params[:study_plan_id],params[:weekday]).to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
+    render :json => GroupDetail.load(params[:year],params[:month],params[:study_plan_id],params[:weekday],params[:student_ids])  
   end
 
   def search_student

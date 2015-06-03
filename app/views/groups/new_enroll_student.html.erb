@@ -186,14 +186,19 @@
     });
     $('#continue').live('click',function(){
       var url= '/groups/load?year='+$('#start_period_year').val()+'&month='+$('#start_period_month option:selected').text()+'&study_plan_id='+$('#study_plan_id').val()+'&weekday='+$('#weekday option:selected').text();
+      var data = { 'student_ids[]' : []};
+      $('input.selected_student:checked').each(function() {
+          data['student_ids[]'].push($(this).val());
+      });
       $.ajax({
         url: url,
-        success: function(data){
+        data: data,
+        success: function(dt){
           var html_element = '';
-          if(data){
-          $.each(data,function(i,d){
-              html_element += '<tr><td>'+d.group.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject.name+'</td><td>'+d.weekday+'</td><td>'+d.classroom.name+'</td><td>'+d.time_slot.name+'</td><td></td></tr>';
-            })
+          if(dt){
+          $.each(dt,function(i,d){
+              html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td>'+d.color+'</td></tr>';
+              })
             $('#groups_wrap tbody').html(html_element);
             $('#groups_wrap').slideDown(); 
           }
