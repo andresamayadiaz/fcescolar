@@ -1,22 +1,57 @@
-<%#= debug @group_detail %>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <div class='row'>
-  <div class='col-sm-6'>
-      <table width="100%">
-        <tbody>
+  <div class='col-sm-12'>
+    <h1 style='text-align:center'><%= @group_detail.teacher.franchise.try(:name) %></h1>
+    <p>Instituto con Reconocimiento de Validez Oficial de Estudios mediante el Resolutorio Administrativo No. AM-11 050/2007, de fecha 20 de Agosto del 2007, otogardo por el Ejecutivo del Estado de Nuevo Leon y publicado en el Periódico Oficial de Estado el 9 de Noviembre del 2007</p>
+    <h2 style='text-align:center'>CALIFICACIÓN ORDINARIA</h2>
+    <br/>
+    <table width="100%">
+      <tr>
+        <td>Carrera:</td><td colspan="3"><%= @group_detail.group.study_plan.career.try(:name).upcase %></td>
+      </tr>
+      <tr>
+        <td>Grupo:</td><td><%= @group_detail.group.group_id %></td>
+        <td>Dia:</td><td><%= @group_detail.weekday %></td>
+      </tr>
+      <tr>
+        <td>Materia:</td><td><%= @group_detail.subject.try(:name).upcase%></td>
+        <td>Horario:</td><td><%= @group_detail.time_slot.try(:name) %></td>
+      </tr>
+      <tr>
+        <td>Sub Materia:</td><td></td>
+        <td>Aula:</td><td><%= @group_detail.classroom.try(:name) %></td>
+      </tr>
+      <tr>
+        <td>Maestro:</td><td><%= @group_detail.teacher.try(:name).upcase %></td>
+        <td>Periodo:</td><td><%= "#{@group_detail.month} : #{@group_detail.year}" %></td>
+      </tr>
+    </table>
+    <% if @group_detail.enrolled_students.present? %>
+      <br/>
+    <table width="100%" border="1" style='border-collapse: collapse;'>
+      <thead>
+        <tr>
+          <th>Num.</th>
+          <th>IDAlumno</th>
+          <th>Alumno</th>
+          <th>Asistencia</th>
+          <th>Evaluacion</th>
+          <th>2 Oportunidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @group_detail.enrolled_students.each_with_index do |student,index| %>
           <tr>
-            <td><%= @group_detail.year %></td>
-            <td><%= @group_detail.group.group_id %></td>
-            <td><%= @group_detail.id %></td>
-            <td><%= @group_detail.teacher.name %></td>
-          </tr>
-          <tr style='height:15px;'><td colspan="4"></td></tr>
-          <tr>
-            <td><%= @group_detail.subject.try(:name) %></td>
-            <td><%= @group_detail.classroom.try(:name) %></td>
-            <td><%= @group_detail.time_slot.try(:name) %></td>
-          </tr>
-        </tbody>
-      </table>
+          <td><%= index+1 %></td>
+          <td><%= student.person.id %></td>
+          <td><%= student.person.name %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
   </div>
 </div>
