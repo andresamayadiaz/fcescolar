@@ -15,9 +15,9 @@ class GroupDetail < ActiveRecord::Base
     student_ids.each do |id|
       group_details_hash = {}
       person = Person.find(id)
-      if (required_docs-person.personal_record_files.map{|f|f.background_official_doc.id}).empty?
-        #all docs are loaded
-        group_details_hash[:color]='green' #need to check if any of docs is responsive letter later
+      loaded_files = person.personal_record_files
+      if (required_docs-loaded_files.map{|f|f.background_official_doc.id}).empty?
+        loaded_files.map(&:is_responsive_letter).include? true ? group_details_hash[:color]='orange' : group_details_hash[:color]='green'
       else
         #one or more docs are missing
         group_details_hash[:color]='red'
