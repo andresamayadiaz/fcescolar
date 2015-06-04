@@ -13,7 +13,7 @@ class EnrolledStudent < ActiveRecord::Base
     students = []
     enrolled_students = where(:person_id=>person_id)
     enrolled_students.each do |s|
-      if students.select {|s| s[:career]==s.group_detail.group.study_plan.career.try(:name) }.length==0
+      if students.select {|student| student[:career]==s.group_detail.group.study_plan.career.try(:name) }.length==0
         student_hash = {}
         student_hash[:study_plan] = s.group_detail.group.study_plan.try(:name)
         student_hash[:id] = s.id
