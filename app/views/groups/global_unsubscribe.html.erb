@@ -1,4 +1,4 @@
-<style>.clickable-student{cursor:pointer;}</style>
+<style>.clickable-student{cursor:pointer;}#subscription_wrap{display:none;}</style>
 <div class='row'>
   <div class='col-sm-2'>Student:</div>
   <div class='col-sm-2'>
@@ -9,6 +9,22 @@
 </div>
 <div class='row text-right' id='continue_wrap'>
   <div class='col-sm-12'></div>
+</div>
+<div class='row' id='subscription_wrap'>
+  <div class='col-sm-12'>
+    <table width='100%'>
+      <thead>
+        <tr>
+          <th>Career Name</th>
+          <th>Study Plan</th>
+          <th>Periods</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 </div>
 <%= render 'search_student_modal' %>
 
@@ -46,7 +62,7 @@
             $('#student_name').val($(this).find('#first_name').text());
             $('#person_id').val($(this).find('.selected_student').val());
             $('#searchStudentModal').find('.close').click();
-            $('#continue_wrap div.col-sm-12').append('<br/><button id="continue">Continue</button>');
+            $('#continue_wrap div.col-sm-12').html('<br/><button id="continue">Continue</button>');
             $('#continue_wrap').after('<hr class="normal"/>');
 					})
 				}
@@ -58,7 +74,12 @@
         url: '/groups/load_subscription?person_id='+person_id,
         success: function(data){
           if(data){
-            console.log(data);
+            var html_element = null;
+            data.map(function(d){
+              html_element +=  '<tr><td>'+d.career+'</td><td>'+d.study_plan+'</td><td>'+d.period+'</td><td></td></tr>'
+              }) 
+            $('#subscription_wrap tbody').html(html_element);
+            $('#subscription_wrap').slideDown();
           } 
         }
       })
