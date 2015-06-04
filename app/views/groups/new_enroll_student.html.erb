@@ -201,7 +201,7 @@
           var html_element = '';
           if(dt){
             $.each(dt,function(i,d){
-              if (d.color == 'red'){
+              if (d.color != 'green'){
                 html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';
               } else {
               html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span><input type="hidden" name="enrolled_student['+i+'][person_id]" value="'+d.person_id+'"/><input type="hidden" name="enrolled_student['+i+'][group_detail_id]" value="'+d.id+'"/></td></tr>';
