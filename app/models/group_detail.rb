@@ -17,7 +17,11 @@ class GroupDetail < ActiveRecord::Base
       person = Person.find(id)
       loaded_files = person.personal_record_files
       if (required_docs-loaded_files.map{|f|f.background_official_doc.id}).empty?
-        loaded_files.map(&:is_responsive_letter).include? true ? group_details_hash[:color]='orange' : group_details_hash[:color]='green'
+        if loaded_files.map(&:is_responsive_letter).include? true
+          group_details_hash[:color]='orange'
+        else
+          group_details_hash[:color]='green'
+        end
       else
         #one or more docs are missing
         group_details_hash[:color]='red'
