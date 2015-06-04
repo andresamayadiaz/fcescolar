@@ -46,8 +46,15 @@ class GroupDetail < ActiveRecord::Base
   end
 
   def self.get_related_weekday(study_plan_id,year,month)
-    group = Group.where(:study_plan_id=>study_plan_id).try(:first)
-    group.present? and group.group_details.present?  ? group.group_details.open_by_year_and_month(year,month) : []
+    arr = []
+    groups = Group.where(:study_plan_id=>study_plan_id)
+    groups.each do |group|
+      if group.present? and group.group_details.present?
+        selected_group_details = group.group_details.open_by_year_and_month(year,month)
+        arr += selected_group_details if selected_group_details.present?
+      end
+    end
+    arr.uniq { |a| a.weekday }
   end
 
 end
