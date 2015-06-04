@@ -2,6 +2,9 @@ class GroupsController < ApplicationController
 
   load_and_authorize_resource
 
+  def global_unsubscribe
+  end
+
   def load
     render :json => GroupDetail.load(params[:year],params[:month],params[:study_plan_id],params[:weekday],params[:student_ids])  
   end
