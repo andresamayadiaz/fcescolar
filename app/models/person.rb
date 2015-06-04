@@ -134,6 +134,24 @@ class Person < ActiveRecord::Base
   	self.update_attribute(:user,new_user)
   end
 
+  def self.search_student(params)
+    if params[:fathers_maiden_name].present?
+      fathers_maiden_name = '%' + params[:fathers_maiden_name] + '%'
+    end
+    if params[:mothers_maiden_name].present?
+      mothers_maiden_name = '%' + params[:mothers_maiden_name] + '%'
+    end
+    if params[:name].present?
+      name = '%' + params[:name] + '%'
+    end
+    if params[:student_id].present?
+      student_id = params[:student_id]
+    end
+    people = Person.where('fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ? OR id = ?',fathers_maiden_name,mothers_maiden_name,name,student_id)
+    students = people.select{|p| p.user.users_roles.present? and p.user.users_roles.map{|users_role| users_role.role.name}.include? 'student' } 
+    students
+  end
+
   def self.search(params, user)
     if params[:fathers_maiden_name].present?
       fathers_maiden_name = '%' + params[:fathers_maiden_name] + '%'

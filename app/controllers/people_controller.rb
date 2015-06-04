@@ -12,20 +12,26 @@ class PeopleController < ApplicationController
 
   def view_group
     @group_detail = GroupDetail.find(params[:group_detail_id])
+    active_role = current_user.active_role
+    @able_to_block = active_role=='super_administrator' or active_role=='franchise_director' ? true : false
     render  :pdf => "Group: #{@group_detail.group.group_id}" if params[:format]=='pdf'
   end
 
   def search_group_by_year
     if params[:format]=='pdf'
       @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.month = ?', params[:year], params[:period])
-      all_group_status = @group_details.map{|group_detail| group_detail.group.status}
+      all_group_status = @group_details.map(&:status)
       if all_group_status.include? 'Blocked' or all_group_status.include? "Closed"
         redirect_to :back, alert: 'Blocked or closed group is included on search result'
       else
         render :pdf => "Group by year: #{@group_details.first.year}"
       end
     else
-      @group_details = GroupDetail.joins(:group).where('group_details.year = ? and groups.status = ? and group_details.month = ?', params[:year], params[:status], params[:period])
+      if params[:status]!='All'
+        @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.status = ? and group_details.month = ?', params[:year], params[:status], params[:period])
+      else  
+        @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.month = ?', params[:year], params[:period])
+      end
       render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
     end
   end
@@ -74,6 +80,19 @@ class PeopleController < ApplicationController
   def new_group
     @group = Group.new
     @active_study_plans = StudyPlan.active
+  end
+
+  def copy_new_group
+    @group = Group.where(:group_id=>params[:group_id]).try(:first)
+    @kind_of_group = @group.group_details.map{|gd|gd.subject.name}.uniq!.present? ? 'single' : 'full'
+    @selected_subject_id = @group.group_details.try(:first).subject_id if @kind_of_group == 'single'
+    if @group.blank?
+      redirect_to '/people/new_group'
+    else
+      @year = @group.start_year
+      @start_month = @group.start_month
+      @active_study_plans = StudyPlan.active
+    end
   end
 
   def get_active_subjects_by_study_plan_id

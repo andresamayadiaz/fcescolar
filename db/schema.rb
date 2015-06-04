@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517134907) do
+ActiveRecord::Schema.define(version: 20150603070403) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -212,6 +212,17 @@ ActiveRecord::Schema.define(version: 20150517134907) do
   add_index "degree_achievements_categories_schedules", ["degree_achievements_category_id"], name: "degree_category_id", using: :btree
   add_index "degree_achievements_categories_schedules", ["schedule_id"], name: "index_degree_achievements_categories_schedules_on_schedule_id", using: :btree
 
+  create_table "enrolled_students", force: true do |t|
+    t.integer  "group_detail_id"
+    t.integer  "person_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "enrolled_students", ["group_detail_id"], name: "index_enrolled_students_on_group_detail_id", using: :btree
+  add_index "enrolled_students", ["person_id"], name: "index_enrolled_students_on_person_id", using: :btree
+
   create_table "franchises", force: true do |t|
     t.string   "name"
     t.string   "clave_dgp"
@@ -231,6 +242,9 @@ ActiveRecord::Schema.define(version: 20150517134907) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teacher_id"
+    t.string   "status"
+    t.integer  "closer_id"
+    t.date     "closed_at"
   end
 
   add_index "group_details", ["classroom_id"], name: "index_group_details_on_classroom_id", using: :btree
@@ -244,8 +258,8 @@ ActiveRecord::Schema.define(version: 20150517134907) do
     t.string   "start_month"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",        default: "Open", null: false
     t.string   "group_id"
+    t.integer  "creator_id"
   end
 
   add_index "groups", ["study_plan_id"], name: "index_groups_on_study_plan_id", using: :btree

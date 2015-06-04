@@ -3,4 +3,5 @@ class Franchise < ActiveRecord::Base
 	has_many :people
 	has_many :campuses
   has_many :degree_achievements_categories
+  has_many :careers
 end

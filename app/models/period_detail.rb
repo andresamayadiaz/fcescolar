@@ -11,4 +11,10 @@ class PeriodDetail < ActiveRecord::Base
     months =  selected_period_details.map{|spd| {:id=>spd.id, :month=>spd.initial_month.strftime('%b') } }
     months
   end
+
+  def self.get_month_range(selected_year)
+    period_details = where('extract(year from year) = ?',selected_year)
+    return period_details.map{|period_detail| {:id=>period_detail.id, :month=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}" } }
+  end
+
 end

@@ -35,6 +35,7 @@ es:
       messages:
         blank: "No puede estar vacio: %{attribute}."
         invalid: "Invalido: %{attribute}."
+        record_invalid: "Validación falló: %{errors}"
   general:
     name: "Nombre"
     fathers_maiden: "Apellido Paterno"

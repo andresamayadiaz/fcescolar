@@ -1,26 +1,27 @@
 <style>
-  #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
+  #group_actions, #full_groups_table, #group_preferences, #group_buttons{display:none;}
 </style>
+<input type='hidden' value='<%= @kind_of_group %>' id='kind_of_group'/>
 <%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
     <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
-    <div class="row form-group">
-      <label class="col-md-7 control-label"><%= t('study_plan.singular') %></label>
+    <div class="form-group row">
+      <label class="col-md-7 control-label">Study Plan</label>
       <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="row form-group">
+    <div class="form-group row">
       <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
       <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
     </div>
     <hr class="hr-normal">
-    <div class="row form-group" id='group_preferences'>
+    <div class="form-group row" id='group_preferences'>
       <div class="col-md-12">
-        <b><%= t('general.preferencias') %></b><br/>
+        <b>Preferences</b><br/>
         <table width="100%"> 
           <thead>
             <tr>
-              <th><%= t('general.frecuencia') %></th>
-              <th><%= t('general.dia_de_la_semana') %></th>
+              <th>Frequency</th>
+              <th>Week Day</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -28,20 +29,20 @@
       </div>
     </div>  
     <hr class="hr-normal">
-    <div class="row form-group" id='group_buttons'>
+    <div class="form-group row" id='group_buttons'>
       <div class="col-md-6">
-          <button id="show_full_groups"><%= t('groups.show_full_generation') %></button>
+          <button id="show_full_groups">Show Groups For Full Generation</button>
       </div>
       <div class="col-md-6">
-					<button data-toggle="modal" data-target="#singleGroupModal"><%= t('groups.show_single_group') %></button>
+					<button data-toggle="modal" data-target="#singleGroupModal">Show Single Group</button>
       </div>
     </div>
     <hr class="hr-normal">
-    <div class="row form-group" id="full_groups_table">
+    <div class="form-group row" id="full_groups_table">
     </div>
     <h4 class="hr-normal">
-    <div class="row form-group" id="group_actions">
-      <button><%= t('groups.create_and_save') %></button>
+    <div class="form-group row" id="group_actions">
+      <button>Create and Save Groups</button>
     </div>
     <div class="modal fade" id="singleGroupModal">
       <div class="modal-dialog" style="width:70%;">
@@ -51,7 +52,7 @@
             <h4 class="modal-title">Select the Subject for the Group</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-6"><%= t('subject.plural') %></div>
+            <div class="col-md-6">Subjects</div>
             <div class="col-md-6">
               <select id="subjects_list"></select> 
             </div>
@@ -64,11 +65,13 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 <% end %>
+<input type='hidden' value='<%= @selected_subject_id %>' id='selected_subject_id' />
 <% content_for :specific_js do %>
 <script type="text/javascript">
   function get_active_subjects_by_study_plan_id(val){
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
@@ -77,14 +80,20 @@
             html_element+="<option value='"+value.id+"'>"+value.name+"</option>"
           })
           $("#subjects_list").html(html_element);
+          if ($('#kind_of_group').val()=='single'){
+            var selected_subject_id = $("#selected_subject_id").val();
+            $('#subjects_list').val(selected_subject_id);
+          }
         }
       }
     })
   }
 
-  function get_period_years_by_study_plan_id(val){
+  function get_period_years_by_study_plan_id(val,selected_year){
+    var selectedYear = (typeof selected_year === 'undefined') ? '' : selected_year;
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
@@ -95,15 +104,20 @@
             html_element+="<option value='"+year+"' id='"+id+"'>"+year+"</option>"
           })
           $("#group_start_year").html(html_element);
+          if (selectedYear!=''){
+            $('#group_start_year').val(selectedYear);
+          }
           $(".group_start_year").slideDown();
         }
       }
     })
   }
 
-  function get_period_months_by_period_detail_id(val){
+  function get_period_months_by_period_detail_id(val,selected_month){
+    var selectedMonth = (typeof selected_month === 'undefined') ? '' : selected_month;
     $.ajax({
       type: 'GET',
+      async: false,
       url: '/study_plans/get_period_months_by_period_detail_id?period_detail_id='+val,
       success: function(data){
         if(data){
@@ -112,6 +126,9 @@
             html_element+="<option value='"+value.month+"' id='"+value.id+"'>"+value.month+"</option>"
           })
           $("#group_start_month").html(html_element);
+          if (selectedMonth!=''){
+            $('#group_start_month').val(selectedMonth);
+          }
           $(".group_start_month").slideDown();
         }
       }
@@ -186,14 +203,6 @@
   }
 
   $(document).ready(function(){
-    if($('#group_study_plan_id').val()) {
-      var val = $('#group_study_plan_id').val();
-      $("#group_start_month").html('');
-      get_period_years_by_study_plan_id(val);
-      get_active_subjects_by_study_plan_id(val);
-      $('#group_start_year').trigger('change');
-      $('#group_start_month').trigger('change');
-    }
   
     $("#group_start_year").html('');
     $('#group_study_plan_id').change(function(){
@@ -281,7 +290,6 @@
         success: function(data){
           $("#full_groups_table div").html('');
           if(data){
-            console.log(data);
             $.each(data,function(index,value){
               var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
               var parent_index = index.toString();
@@ -332,5 +340,25 @@
       }); 
     });
   })
+
+  
+  $(window).load(function(){
+    if($('#group_study_plan_id').val()) {
+      var val = $('#group_study_plan_id').val();
+      var start_month = '<%= @start_month %>';
+      var year = '<%= @year %>';
+      get_period_years_by_study_plan_id(val,year);
+      get_active_subjects_by_study_plan_id(val);
+      get_period_months_by_period_detail_id($('#group_start_year').find(':selected').attr('id'),start_month);
+      load_preferences(val);
+      var kind_of_group = $('#kind_of_group').val();
+      if (kind_of_group=='full'){
+        $('#show_full_groups').trigger('click')
+      } else {
+        $('#show_single_group').trigger('click')
+      }
+    }
+  })
+
 </script>
 <% end %>

@@ -1,0 +1,219 @@
+<style>
+  #groups_wrap, #start_period_wrap, #start_period_month, #weekday_wrap, #latest_added_students {display: none;}
+  .clickable-student {cursor: pointer;}
+</style>
+<div class='row'>
+  <div class='col-sm-2'>Study Plan:</div>
+  <div class='col-sm-4'>
+    <%= collection_select(:study_plan, :id, @available_study_plans, :id, :name, {prompt: 'Available Study Plans'}, {class: 'form-control'}) %>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='start_period_wrap'>
+  <div class='col-sm-2'>Choose Start Period:</div>
+  <div class='col-sm-2'>
+    <select id='start_period_year' class='form-control'></select>
+  </div>
+  <div class='col-sm-2'>
+    <select id='start_period_month' class='form-control'></select>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='weekday_wrap'>
+  <div class='col-sm-2'>Week Day:</div>
+  <div class='col-sm-4'>
+    <select id='weekday' class='form-control'></select>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='latest_added_students'>
+  <div class='col-sm-7'>
+    <table class='table-striped' width='100%'>
+      <thead>
+        <tr>
+          <th>Matricula</th>
+          <th>Apellido Paterno</th>
+          <th>Apellido Materno</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<hr class='normal'/>
+<div class='row' id='action_buttons_1'></div>
+<hr class='normal'/>
+<div class='row' id='groups_wrap'>
+  <form action='/groups/create_enroll_student'>
+    <div class='col-sm-12'>
+      <table class='table-striped' width='100%'>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Subject</th>
+            <th>Week Day</th>
+            <th>Classroom</th>
+            <th>Time Slot</th>
+            <th>Enroll</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <br/>
+    <div id='action_buttons_2' class='text-right'></div>
+  </form>
+</div>
+
+<%= render 'search_student_modal' %>
+
+<% content_for :specific_js do %>
+<script type='text/javascript'>
+  $(document).ready(function(){
+    $("#latest_added_students input.selected_student").live('change',function()
+    {
+      var num_of_checked = $('input.selected_student:checked').length
+      if (num_of_checked>0 && $('#continue').length==0) {
+        $('#action_buttons_1').append('<div class="col-sm-3" id="continue"><button>Continuar</button</div>')
+      } else {
+        if (num_of_checked==0){
+          $('#continue').remove();
+        }
+      }
+    });
+    $('#study_plan_id').change(function(){
+      var url = '/groups/get_years_of_selected_study_plan?study_plan_id='+$(this).val();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Years</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v+'">'+v+'</option>';
+            })
+            $('#start_period_year').html(html_element);
+            $('#start_period_wrap').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#start_period_year').change(function(){
+      var url = '/groups/get_months_of_selected_year?year='+$(this).val();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Months</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v.id+'">'+v.month+'</option>';
+            })
+            $('#start_period_month').html(html_element);
+            $('#start_period_month').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#start_period_month').change(function(){
+      var url = '/groups/get_week_day_of_selected_month?study_plan_id='+$('#study_plan_id').val()+'&year='+$('#start_period_year').val()+'&month='+$(this).find(':selected').text();
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '<option>Select Week Day</option>';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<option value="'+v.id+'">'+v.weekday+'</option>';
+            })
+            $('#weekday').html(html_element);
+            $('#weekday_wrap').slideDown(); 
+          }
+        }
+      })
+    })
+    $('#weekday').change(function(){
+      var url = '/groups/load_latest_added_students';
+      $.ajax({
+        url: url,
+        success: function(data){
+          var html_element = '';
+          if(data){
+            $.each(data,function(i,v){
+              html_element += '<tr><td><input type="checkbox" class="selected_student" value="'+v.id+'"/>&nbsp;'+v.id+'</td><td>'+v.fathers_maiden_name+'</td><td>'+v.mothers_maiden_name+'</td><td>'+v.first_name+'</td></tr>';
+            })
+            $('#latest_added_students tbody').html(html_element);
+            $('#action_buttons_1').html('<div class="col-sm-4"><button data-toggle="modal" data-target="#searchStudentModal">Buscar Alumno</button></div>')           
+            $('#latest_added_students').slideDown(); 
+          }
+        }
+      })
+    })
+		$("#search-student-form").submit(function(e){
+			e.preventDefault();
+			var _this = $(this)
+			_this.find(':button[type="submit"]').prop('disabled', true); 
+			var postData = _this.serializeArray();
+			var formURL = _this.attr("action");
+			$('#search_person_result tbody').html('');
+			$('#search_person_result').slideUp();
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					if (data){
+						var html_data = null;
+            data.map(function(d){
+              html_data = html_data + '<tr class="clickable-student"><td><input type="checkbox" class="selected_student" value="'+d.id+'" style="display:none;"/>&nbsp;'+d.id+'</td><td>'+d.first_name+'</td><td>'+d.fathers_maiden_name+
+							'</td><td>'+d.mothers_maiden_name+'</td></tr>';
+						})
+						if (html_data==null){
+							html_data = '<tr><td colspan="3">No se encontró persona</td></tr>'
+						}
+						$('#search_student_result tbody').html(html_data); 
+						$('#search_student_result').slideDown(); 
+					}
+					_this.find(':button[type="submit"]').prop('disabled', false);
+					$('.clickable-student').click(function(){
+            var html_element = $(this)[0].outerHTML.replace('class="clickable-student"','').replace('style="display:none;"','');
+            var student_id = $(this).find('td:first').text();
+            if ($('#latest_added_students tbody tr > td:contains('+student_id+')').length==0){
+              $('#latest_added_students tbody').append(html_element);
+              $('#latest_added_students tbody tr').show();
+            }
+            $('#searchStudentModal').find('.close').click(); 
+					})
+				}
+			});
+    });
+    $('#continue').live('click',function(){
+      var url= '/groups/load?year='+$('#start_period_year').val()+'&month='+$('#start_period_month option:selected').text()+'&study_plan_id='+$('#study_plan_id').val()+'&weekday='+$('#weekday option:selected').text();
+      var data = { 'student_ids[]' : []};
+      $('input.selected_student:checked').each(function() {
+          data['student_ids[]'].push($(this).val());
+      });
+      $.ajax({
+        url: url,
+        data: data,
+        success: function(dt){
+          var html_element = '';
+          if(dt){
+            $.each(dt,function(i,d){
+              if (d.color != 'green'){
+                html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';
+              } else {
+              html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span><input type="hidden" name="enrolled_student['+i+'][person_id]" value="'+d.person_id+'"/><input type="hidden" name="enrolled_student['+i+'][group_detail_id]" value="'+d.id+'"/></td></tr>';
+              }
+            })
+            $('#groups_wrap tbody').html(html_element);
+            $('#groups_wrap #action_buttons_2').html('<button disabled>Determinar Plan de Pagos (Pendiente)</button><br/><br/><button>Inscribir en Grupos Seleccionado`</button>');
+            $('#groups_wrap').slideDown(); 
+          }
+        }
+      })     
+    });
+  })  
+</script>
+<% end %>

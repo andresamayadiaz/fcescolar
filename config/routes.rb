@@ -10,6 +10,23 @@ Rails.application.routes.draw do
 
   get '/profile/:id'=>"people#profile"
 
+  resources :groups do
+    collection do
+      get 'block_it'
+      get 'unblock_it'
+      get 'close_it'
+      get 'open_it'
+      get 'new_enroll_student'
+      get 'get_years_of_selected_study_plan'
+      get 'get_months_of_selected_year'
+      get 'get_week_day_of_selected_month'
+      get 'load_latest_added_students'
+      post 'search_student'
+      get 'load'
+      get 'create_enroll_student'
+    end
+  end
+
   resources :people do
     collection do
       get 'matching_date_and_user'
@@ -40,6 +57,7 @@ Rails.application.routes.draw do
       post 'accept_dictamination'
       get 'download_evidence'
       get 'new_group'
+      get 'copy_new_group'
       get 'load_group_preferences'
       get 'generate_full_groups'
       get 'generate_single_group'
