@@ -5,6 +5,10 @@ class GroupsController < ApplicationController
   def global_unsubscribe
   end
 
+  def load_subscription
+    render :json => EnrolledStudent.load_subscription(params[:person_id])
+  end
+
   def load
     render :json => GroupDetail.load(params[:year],params[:month],params[:study_plan_id],params[:weekday],params[:student_ids])  
   end

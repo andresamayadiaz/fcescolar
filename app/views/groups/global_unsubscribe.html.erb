@@ -1,7 +1,10 @@
 <style>.clickable-student{cursor:pointer;}</style>
 <div class='row'>
   <div class='col-sm-2'>Student:</div>
-  <div class='col-sm-2'><input type='text' disabled id='student_name'/></div>
+  <div class='col-sm-2'>
+    <input type='text' disabled id='student_name'/>
+    <input type='hidden' id='person_id'/>
+  </div>
   <div class='col-sm-6'><button data-toggle="modal" data-target="#searchStudentModal">Search</button></div>
 </div>
 <div class='row text-right' id='continue_wrap'>
@@ -41,13 +44,25 @@
 					_this.find(':button[type="submit"]').prop('disabled', false);
 					$('.clickable-student').click(function(){
             $('#student_name').val($(this).find('#first_name').text());
+            $('#person_id').val($(this).find('.selected_student').val());
             $('#searchStudentModal').find('.close').click();
-            $('#continue_wrap div.col-sm-12').append('<br/><button>Continue</button>');
+            $('#continue_wrap div.col-sm-12').append('<br/><button id="continue">Continue</button>');
             $('#continue_wrap').after('<hr class="normal"/>');
 					})
 				}
 			});
     });
+    $('#continue').live('click',function(){
+      var person_id = $('#person_id').val();
+      $.ajax({
+        url: '/groups/load_subscription?person_id='+person_id,
+        success: function(data){
+          if(data){
+            console.log(data);
+          } 
+        }
+      })
+    })
   })
 </script>
 <% end %>
