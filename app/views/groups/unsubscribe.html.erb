@@ -15,10 +15,14 @@
     <table width='100%'>
       <thead>
         <tr>
-          <th>Career Name</th>
-          <th>Study Plan</th>
-          <th>Periods</th>
-          <th>Action</th>
+          <th>Group</th>
+          <th>Year</th>
+          <th>Months</th>
+          <th>Subject</th>
+          <th>Weekday</th>
+          <th>Classroom</th>
+          <th>Time Slot</th>
+          <th>Unsubscribe</th>
         </tr>
       </thead>
       <tbody>
@@ -71,12 +75,12 @@
     $('#continue').live('click',function(){
       var person_id = $('#person_id').val();
       $.ajax({
-        url: '/groups/load_subscription?person_id='+person_id,
+        url: '/groups/load_group_subscription?person_id='+person_id,
         success: function(data){
           if(data){
             var html_element = null;
             data.map(function(d){
-              html_element +=  '<tr><td>'+d.career+'</td><td>'+d.study_plan+'</td><td>'+d.period+'</td><td><a href="javascript:void(0);" class="global_unsubscribe_link" rel="'+d.career_id+'"><span class="glyphicon glyphicon-remove"></span></a></td></tr>'
+              html_element +=  '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><a href="javascript:void(0);" class="unsubscribe_link" rel="'+d.group_id+'"><span class="glyphicon glyphicon-trash"></span></a></td></tr>'
               }) 
             $('#subscription_wrap tbody').html(html_element);
             $('#subscription_wrap').slideDown();
@@ -84,9 +88,9 @@
         }
       })
     })
-    $('a.global_unsubscribe_link').live('click',function(){
-      if (confirm('Are you sure to Unsubscribe student from the Career?')) {
-        window.location.href = '/groups/create_global_unsubscribe?career_id='+$(this).attr('rel'); 
+    $('a.unsubscribe_link').live('click',function(){
+      if (confirm('Are you sure to unsubscribe the student from this group?')) {
+        window.location.href = '/groups/create_unsubscribe?enrolled_student_id='+$(this).attr('rel'); 
       }
     });
   })

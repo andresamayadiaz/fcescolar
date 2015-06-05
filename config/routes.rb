@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get 'unsubscribe'
       get 'global_unsubscribe'
       get 'create_global_unsubscribe'
+      get 'load_group_subscription'
       get 'load_subscription'
     end
   end

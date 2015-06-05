@@ -15,6 +15,10 @@ class GroupsController < ApplicationController
     raise e
   end
   
+  def load_group_subscription
+    render :json => EnrolledStudent.load_group_subscription(params[:person_id])
+  end
+  
   def load_subscription
     render :json => EnrolledStudent.load_subscription(params[:person_id])
   end
