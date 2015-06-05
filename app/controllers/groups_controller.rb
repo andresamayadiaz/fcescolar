@@ -2,6 +2,9 @@ class GroupsController < ApplicationController
 
   load_and_authorize_resource
 
+  def unsubscribe
+  end
+  
   def global_unsubscribe
   end
 
