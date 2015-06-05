@@ -5,6 +5,15 @@ class GroupsController < ApplicationController
   def unsubscribe
   end
   
+  def create_unsubscribe
+    if EnrolledStudent.find(params[:enrolled_student_id]).destroy
+      flash[:notice] = 'The student is unsubscribed from that group'
+    else
+      flash[:alert] = 'Failed to unsubscribe student from that group'
+    end
+    redirect_to :back
+  end
+  
   def global_unsubscribe
   end
 

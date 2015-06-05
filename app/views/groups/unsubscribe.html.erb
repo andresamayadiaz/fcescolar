@@ -80,7 +80,7 @@
           if(data){
             var html_element = null;
             data.map(function(d){
-              html_element +=  '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><a href="javascript:void(0);" class="unsubscribe_link" rel="'+d.group_id+'"><span class="glyphicon glyphicon-trash"></span></a></td></tr>'
+              html_element +=  '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><a href="javascript:void(0);" class="unsubscribe_link" rel="'+d.enrolled_student_id+'"><span class="glyphicon glyphicon-trash"></span></a></td></tr>'
               }) 
             $('#subscription_wrap tbody').html(html_element);
             $('#subscription_wrap').slideDown();
