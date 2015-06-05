@@ -26,7 +26,7 @@
         <td>Periodo:</td><td><%= "#{@group_detail.month} : #{@group_detail.year}" %></td>
       </tr>
     </table>
-    <% if @group_detail.enrolled_students.present? %>
+    <% if @enrolled_students.present? %>
       <br/>
     <table width="100%" border="1" style='border-collapse: collapse;'>
       <thead>
@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @group_detail.enrolled_students.each_with_index do |student,index| %>
+        <% @enrolled_students.each_with_index do |student,index| %>
           <tr>
           <td><%= index+1 %></td>
           <td><%= student.person.id %></td>

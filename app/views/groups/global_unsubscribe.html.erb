@@ -1,0 +1,94 @@
+<style>.clickable-student{cursor:pointer;}#subscription_wrap{display:none;}</style>
+<div class='row'>
+  <div class='col-sm-2'>Student:</div>
+  <div class='col-sm-2'>
+    <input type='text' disabled id='student_name'/>
+    <input type='hidden' id='person_id'/>
+  </div>
+  <div class='col-sm-6'><button data-toggle="modal" data-target="#searchStudentModal">Search</button></div>
+</div>
+<div class='row text-right' id='continue_wrap'>
+  <div class='col-sm-12'></div>
+</div>
+<div class='row' id='subscription_wrap'>
+  <div class='col-sm-12'>
+    <table width='100%'>
+      <thead>
+        <tr>
+          <th>Career Name</th>
+          <th>Study Plan</th>
+          <th>Periods</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%= render 'search_student_modal' %>
+
+<% content_for :specific_js do %>
+<script type='text/javascript'>
+  $(document).ready(function(){
+		$("#search-student-form").submit(function(e){
+			e.preventDefault();
+			var _this = $(this)
+			_this.find(':button[type="submit"]').prop('disabled', true); 
+			var postData = _this.serializeArray();
+			var formURL = _this.attr("action");
+			$('#search_person_result tbody').html('');
+			$('#search_person_result').slideUp();
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data){
+					if (data){
+						var html_data = null;
+            data.map(function(d){
+              html_data = html_data + '<tr class="clickable-student"><td><input type="checkbox" class="selected_student" value="'+d.id+'" style="display:none;"/>&nbsp;'+d.id+'</td><td id="first_name">'+d.first_name+'</td><td>'+d.fathers_maiden_name+
+							'</td><td>'+d.mothers_maiden_name+'</td></tr>';
+						})
+						if (html_data==null){
+							html_data = '<tr><td colspan="3">No se encontró persona</td></tr>'
+						}
+						$('#search_student_result tbody').html(html_data); 
+						$('#search_student_result').slideDown(); 
+					}
+					_this.find(':button[type="submit"]').prop('disabled', false);
+					$('.clickable-student').click(function(){
+            $('#student_name').val($(this).find('#first_name').text());
+            $('#person_id').val($(this).find('.selected_student').val());
+            $('#searchStudentModal').find('.close').click();
+            $('#continue_wrap div.col-sm-12').html('<br/><button id="continue">Continue</button>');
+            $('#continue_wrap').after('<hr class="normal"/>');
+					})
+				}
+			});
+    });
+    $('#continue').live('click',function(){
+      var person_id = $('#person_id').val();
+      $.ajax({
+        url: '/groups/load_subscription?person_id='+person_id,
+        success: function(data){
+          if(data){
+            var html_element = null;
+            data.map(function(d){
+              html_element +=  '<tr><td>'+d.career+'</td><td>'+d.study_plan+'</td><td>'+d.period+'</td><td><a href="javascript:void(0);" class="global_unsubscribe_link" rel="'+d.career_id+'"><span class="glyphicon glyphicon-remove"></span></a></td></tr>'
+              }) 
+            $('#subscription_wrap tbody').html(html_element);
+            $('#subscription_wrap').slideDown();
+          } 
+        }
+      })
+    })
+    $('a.global_unsubscribe_link').live('click',function(){
+      if (confirm('Are you sure to Unsubscribe student from the Career?')) {
+        window.location.href = '/groups/create_global_unsubscribe?career_id='+$(this).attr('rel'); 
+      }
+    });
+  })
+</script>
+<% end %>

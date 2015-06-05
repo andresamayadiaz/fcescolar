@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       post 'search_student'
       get 'load'
       get 'create_enroll_student'
+      get 'global_unsubscribe'
+      get 'create_global_unsubscribe'
+      get 'load_subscription'
     end
   end
 

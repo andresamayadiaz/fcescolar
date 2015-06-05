@@ -1,4 +1,3 @@
-<%#= debug @group_detail %>
 <% if @group_detail.status=='Open' %>
   <div class="alert alert-success">This group status is Open</div>
 <% elsif @group_detail.status=='Closed' %>
@@ -8,52 +7,83 @@
 <% end %>
 <div class='row'>
   <div class='col-sm-6'>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td><%= @group_detail.year %></td>
+          <td><%= @group_detail.group.group_id %></td>
+          <td><%= @group_detail.id %></td>
+          <td><%= @group_detail.teacher.name %></td>
+        </tr>
+        <tr style='height:15px;'><td colspan="4"></td></tr>
+        <tr>
+          <td><%= @group_detail.subject.try(:name) %></td>
+          <td colspan="2"><%= @group_detail.classroom.try(:name) %></td>
+          <td><%= @group_detail.time_slot.try(:name) %></td>
+        </tr>
+        <tr style='height:15px;'><td colspan="4"></td></tr>
+        <tr style='height:15px;'><td colspan="4"></td></tr>
+        <tr>
+          <td colspan="2"><%= "#{@group_detail.created_at.strftime('%Y-%m-%d')} #{@group_detail.group.creator.person.name}" %></td>
+          <% if @group_detail.status=='Closed' %><td colspan="2"><%= "#{@group_detail.closed_at.strftime('%Y-%m-%d')} #{@group_detail.closer.person.name}" %></td><% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='col-sm-6'>
+    <fieldset>
+      <legend>Action</legend>
       <table width="100%">
         <tbody>
           <tr>
-            <td><%= @group_detail.year %></td>
-            <td><%= @group_detail.group.group_id %></td>
-            <td><%= @group_detail.id %></td>
-            <td><%= @group_detail.teacher.name %></td>
+            <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.group.group_id) %>" class="btn">Copiar</a></td>
+            <td><% if @group_detail.status!='Blocked' and @group_detail.status!='Open' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
+            <td><% if @able_to_block and (@group_detail.status=='Closed' or @group_detail.status=='Open') %>
+              <a href="<%= block_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Bloquear</a>
+            <% end %></td>
+            <td><% if @group_detail.status=='Open' or @group_detail.status=='Blocked' %><a href="<%= close_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Cerrar</a><% end %></td>
           </tr>
-          <tr style='height:15px;'><td colspan="4"></td></tr>
+          <% if @able_to_block and (@group_detail.status=='Blocked') %>
+            <tr style='height:15px;'><td colspan="4"></td></tr>
           <tr>
-            <td><%= @group_detail.subject.try(:name) %></td>
-            <td colspan="2"><%= @group_detail.classroom.try(:name) %></td>
-            <td><%= @group_detail.time_slot.try(:name) %></td>
+            <td colspan="3"></td>
+            <td><a href="<%= unblock_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Desbloquear</a></td>
           </tr>
-          <tr style='height:15px;'><td colspan="4"></td></tr>
-          <tr style='height:15px;'><td colspan="4"></td></tr>
-          <tr>
-            <td colspan="2"><%= "#{@group_detail.created_at.strftime('%Y-%m-%d')} #{@group_detail.group.creator.person.name}" %></td>
-            <% if @group_detail.status=='Closed' %><td colspan="2"><%= "#{@group_detail.closed_at.strftime('%Y-%m-%d')} #{@group_detail.closer.person.name}" %></td><% end %>
-          </tr>
+        <% end %>
         </tbody>
       </table>
-  </div>
-  <div class='col-sm-6'>
-      <fieldset>
-        <legend>Action</legend>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.group.group_id) %>" class="btn">Copiar</a></td>
-              <td><% if @group_detail.status!='Blocked' and @group_detail.status!='Open' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
-              <td><% if @able_to_block and (@group_detail.status=='Closed' or @group_detail.status=='Open') %>
-                <a href="<%= block_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Bloquear</a>
-              <% end %></td>
-              <td><% if @group_detail.status=='Open' or @group_detail.status=='Blocked' %><a href="<%= close_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Cerrar</a><% end %></td>
-            </tr>
-            <% if @able_to_block and (@group_detail.status=='Blocked') %>
-            <tr style='height:15px;'><td colspan="4"></td></tr>
-            <tr>
-              <td colspan="3"></td>
-              <td><a href="<%= unblock_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Desbloquear</a></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </fieldset>
+    </fieldset>
   </div>
 </div>
+<% if @enrolled_students.present? %>
 <hr class="hr-normal">
+<div class='row'>
+  <div class='col-sm-12'>
+    <h5>Student List</h5>
+    <table width="100%" border="1" style='border-collapse: collapse;'>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Student Full Name</th>
+          <% if @group_detail.status!='Open' %>
+            <th>Assistance Percentage</th>
+            <th>Final Evaluation</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @enrolled_students.each do |student| %>
+          <tr>
+            <td><%= student.person.id %></td>
+            <td><%= student.person.name %></td>
+            <% if @group_detail.status!='Open' %>
+              <td></td>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% end %>

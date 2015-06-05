@@ -2,6 +2,20 @@ class GroupsController < ApplicationController
 
   load_and_authorize_resource
 
+  def global_unsubscribe
+  end
+
+  def create_global_unsubscribe
+    EnrolledStudent.all.select{|s|s.destroy if s.group_detail.group.study_plan.career_id==params[:career_id].to_i}
+    redirect_to :back, notice: 'The sudent is unsubscribed from the career'
+  rescue => e
+    raise e
+  end
+  
+  def load_subscription
+    render :json => EnrolledStudent.load_subscription(params[:person_id])
+  end
+
   def load
     render :json => GroupDetail.load(params[:year],params[:month],params[:study_plan_id],params[:weekday],params[:student_ids])  
   end
