@@ -179,6 +179,7 @@ es:
     accept_reject_dictamination: "Aceptar Rechazar Dictaminación"
     create_contract: "Crear Contrato a Persona"
     create_groups: "Crear Grupos"
+    search_groups: "Buscar Grupos"
   groups:
     singular: "Grupo"
     plural: "Grupos"
