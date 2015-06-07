@@ -13,7 +13,7 @@
           <td><%= @group_detail.year %></td>
           <td><%= @group_detail.group.group_id %></td>
           <td><%= @group_detail.id %></td>
-          <td><%= @group_detail.teacher.name %></td>
+          <td><%= link_to @group_detail.teacher.name, person_path(@group_detail.teacher) %></td>
         </tr>
         <tr style='height:15px;'><td colspan="4"></td></tr>
         <tr>
