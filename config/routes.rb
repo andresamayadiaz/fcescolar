@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   get '/profile/:id'=>"people#profile"
+  get '/profile/'=>'people#profile_without_id'
 
   resources :groups do
     collection do
