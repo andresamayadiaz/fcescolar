@@ -398,11 +398,24 @@ class PeopleController < ApplicationController
     respond_with(@person)
   end
 
+  def profile_without_id
+      @person = current_user.person
+      @profile = @person
+      @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
+      @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
+      @attached_docs = @person.personal_record_files.with_attach_user
+      render 'profile'
+  end
+
   def profile
-    @profile = @person
-    @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
-    @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
-    @attached_docs = @person.personal_record_files.with_attach_user
+    if current_user.person != @person
+      redirect_to '/profile'
+    else
+      @profile = @person
+      @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
+      @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
+      @attached_docs = @person.personal_record_files.with_attach_user
+    end
   end
 
   private
