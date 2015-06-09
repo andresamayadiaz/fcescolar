@@ -180,6 +180,7 @@ es:
     create_contract: "Crear Contrato a Persona"
     create_groups: "Crear Grupos"
     search_groups: "Buscar Grupos"
+    student_group_enrollment: "Grupo Matriculación de alumnos"
   groups:
     singular: "Grupo"
     plural: "Grupos"
