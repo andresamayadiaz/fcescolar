@@ -16,7 +16,7 @@
     <div class="row form-group" id='group_preferences'>
       <div class="col-md-12">
         <b><%= t('general.preferencias') %></b><br/>
-        <table width="100%"> 
+        <table width="20%"> 
           <thead>
             <tr>
               <th><%= t('general.frecuencia') %></th>
@@ -39,9 +39,9 @@
     <hr class="hr-normal">
     <div class="row form-group" id="full_groups_table">
     </div>
-    <h4 class="hr-normal">
+    <hr class="hr-normal">
     <div class="row form-group" id="group_actions">
-      <button><%= t('groups.create_and_save') %></button>
+      <div class="col-md-6"><button><%= t('groups.create_and_save') %></button></div>
     </div>
     <div class="modal fade" id="singleGroupModal">
       <div class="modal-dialog" style="width:70%;">
@@ -53,7 +53,7 @@
           <div class="modal-body">
             <div class="col-md-6"><%= t('subject.plural') %></div>
             <div class="col-md-6">
-              <select id="subjects_list"></select> 
+              <select class='form-control' id="subjects_list"></select> 
             </div>
             <br/><br/>
             <div class="col-md-12">
@@ -176,7 +176,7 @@
                   break;
             } 
           }
-          html_element += '<tr><td>'+i+'</td><td><select>'+day_options+'</select></td></tr>'
+          html_element += '<tr><td>'+i+'</td><td><select class="form-control">'+day_options+'</select></td></tr>'
         }
         $('#group_preferences tbody').html(html_element);
         $('#group_preferences').slideDown();
@@ -256,10 +256,10 @@
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][status]' value='Open'/><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
-                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
                             "</tr>")
               })
               $("#full_groups_table").append(html_element);
@@ -316,10 +316,10 @@
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][status]' value='Open'/><input type='hidden' name='group[group_details_attributes]["+child_index+"][year]' value='"+val.year+"'/>"+val.year+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][month]' value='"+val.months+"'/>"+val.months+"</td>"+
                               "<td><input type='hidden' name='group[group_details_attributes]["+child_index+"][subject_id]' value='"+val.subject_id+"'/>"+val.subject+"</td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
-                              "<td><select name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
-                              "<td><select name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][teacher_id]'>"+teacher_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][weekday]'>"+weekday_options+"</select></td>"+
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][classroom_id]'>"+classroom_options+"</select></td>"+               
+                              "<td><select class='form-control' name='group[group_details_attributes]["+child_index+"][time_slot_id]'>"+timeslot_options+"</select></td>"+
                             "</tr>")
               })
               $("#full_groups_table").append(html_element);
