@@ -4,7 +4,7 @@ class CreateAdminService
     state = State.create!(:name=>'Mexico')
     person = Person.new(
       email: Rails.application.secrets.admin_email,
-      name: 'Andres Amaya Diaz',
+      first_name: 'Andres',
       country: country,
       state: state,
       last_academic_degree: 'Phd'
