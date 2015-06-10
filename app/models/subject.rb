@@ -7,6 +7,11 @@ class Subject < ActiveRecord::Base
 
   scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
+  
+  validates :franchise, :presence=>true
+  validates :study_level, :presence=>true
+  validates :curricular_line, :presence=>true
+  
   def self.get_teacher
   end
 

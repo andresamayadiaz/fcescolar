@@ -5,4 +5,5 @@ class Campus < ActiveRecord::Base
   has_many :classrooms
 
   validates :name, :presence=>true
+  validates :franchise, :presence=>true
 end

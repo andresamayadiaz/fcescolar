@@ -1,7 +1,7 @@
 class CreateAdminService
   def call
     country = Country.create!(:name=>'Mexico')
-    state = State.create!(:name=>'Mexico')
+    state = State.create!(:name=>'Mexico',:country_id=>country.id)
     person = Person.new(
       email: Rails.application.secrets.admin_email,
       first_name: 'Andres',
