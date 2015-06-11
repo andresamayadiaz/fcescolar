@@ -95,8 +95,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @profile.user.roles.each do |r|%>
-                    <tr><td><%= r.name.humanize %></td></tr>
+                  <% @profile.user.users_roles.each do |r|%>
+                    <tr><td><%= r.role.name.humanize %></td></tr>
                   <% end %>
                 </tbody>
               </table>

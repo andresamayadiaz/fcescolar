@@ -5,13 +5,14 @@
   <%= link_to 'UnBlock', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-primary btn-xs', method: :put, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <br/><br/>
-<div role="tabpanel">
+<div class='tabbable'>
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
+  <ul class="nav nav-responsive nav-tabs">
     <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
     <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contacts</a></li>
     <li role="presentation"><a href="#relationship" aria-controls="relationship" role="tab" data-toggle="tab">Relationship</a></li>
     <li role="presentation"><a href="#work_info" aria-controls="work_info" role="tab" data-toggle="tab">Work Info</a></li>
+    <li role="presentation"><a href="#assigned_role" aria-controls="assigned_role" role="tab" data-toggle="tab">Roles</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -185,6 +186,29 @@
           </tr>
         </table>
         <% end %>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="assigned_role">
+      <fieldset>
+        <legend>Assigned Roles</legend>
+        <div class="col-sm-12">
+          <div class='responsive-table'>
+            <div class='scrollable-area'>
+              <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+                <thead>
+                  <tr>
+                    <th>Role Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @person.user.users_roles.each do |r|%>
+                    <tr><td><%= r.role.name.humanize %></td></tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </fieldset>
     </div>
   </div>
