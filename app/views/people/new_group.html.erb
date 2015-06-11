@@ -1,69 +1,113 @@
-<style>
-  #group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}
-</style>
-<%= simple_form_for @group, :url => '/people/create_group', :method=>'post'  do |f| %>
+<style>#group_actions, #full_groups_table, .group_start_year, .group_start_month, #group_preferences, #group_buttons{display:none;}</style>
+<!-- // TITULO -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-header">
+			<h1 class="pull-left">
+				<i class="icon-edit"></i>
+				<span>Group</span>
+			</h1>
+			<div class="pull-right">
+				<ul class="breadcrumb">
+					<li>
+						<a href="index.html">
+							<i class="icon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li>
+						<%= t('general.catalogues') %>
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li class="active">Groups</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+	<div class="box-header blue-background">
+		<div class="title">New Group</div>
+	</div>
+	<div class="box-content box-double-padding">
+    <%= simple_form_for @group, :url => '/people/create_group', :method=>'post', :class=>'form'  do |f| %>
+		<%= f.error_notification %>
     <%= f.input :creator_id, as: :hidden, :input_html => {:value=>current_user.id} %>
-    <div class="row form-group">
-      <label class="col-md-7 control-label"><%= t('study_plan.singular') %></label>
-      <div class="col-md-5"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
-    </div>
-    <hr class="hr-normal">
-    <div class="row form-group">
-      <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
-      <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
-    </div>
-    <hr class="hr-normal">
-    <div class="row form-group" id='group_preferences'>
-      <div class="col-md-12">
-        <b><%= t('general.preferencias') %></b><br/>
-        <table width="20%"> 
-          <thead>
-            <tr>
-              <th><%= t('general.frecuencia') %></th>
-              <th><%= t('general.dia_de_la_semana') %></th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>  
-    <hr class="hr-normal">
-    <div class="row form-group" id='group_buttons'>
-      <div class="col-md-6">
-          <button id="show_full_groups"><%= t('groups.show_full_generation') %></button>
-      </div>
-      <div class="col-md-6">
-					<button data-toggle="modal" data-target="#singleGroupModal"><%= t('groups.show_single_group') %></button>
-      </div>
-    </div>
-    <hr class="hr-normal">
-    <div class="row form-group" id="full_groups_table">
-    </div>
-    <hr class="hr-normal">
-    <div class="row form-group" id="group_actions">
-      <div class="col-md-6"><button><%= t('groups.create_and_save') %></button></div>
-    </div>
-    <div class="modal fade" id="singleGroupModal">
-      <div class="modal-dialog" style="width:70%;">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Select the Subject for the Group</h4>
+		<fieldset>
+			<div class="col-sm-12">
+        <div class="row form-group">
+          <label class="col-md-3 control-label"><%= t('study_plan.singular') %></label>
+          <div class="col-md-9"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+        </div>
+        <hr class="hr-normal">
+        <div class="row form-group">
+          <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
+          <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
+        </div>
+        <hr class="hr-normal">
+        <div class="row form-group" id='group_preferences'>
+          <div class="col-md-12">
+            <b><%= t('general.preferencias') %></b><br/>
+            <table width="50%"> 
+              <thead>
+                <tr>
+                  <th><%= t('general.frecuencia') %></th>
+                  <th><%= t('general.dia_de_la_semana') %></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
-          <div class="modal-body">
-            <div class="col-md-6"><%= t('subject.plural') %></div>
-            <div class="col-md-6">
-              <select class='form-control' id="subjects_list"></select> 
-            </div>
-            <br/><br/>
-            <div class="col-md-12">
-              <button id="show_single_group">Show Group</button>
-            </div>
+        </div>  
+        <hr class="hr-normal">
+        <div class="row form-group" id='group_buttons'>
+          <div class="col-md-6">
+              <button id="show_full_groups"><%= t('groups.show_full_generation') %></button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-<% end %>
+          <div class="col-md-6">
+              <button data-toggle="modal" data-target="#singleGroupModal"><%= t('groups.show_single_group') %></button>
+          </div>
+        </div>
+        <hr class="hr-normal">
+        <div class="row form-group" id="full_groups_table">
+        </div>
+        <hr class="hr-normal">
+        <div class="row form-group" id="group_actions">
+          <div class="col-md-6"><button class="btn btn-primary btn-lg"><%= t('groups.create_and_save') %></button></div>
+        </div>
+			</div>
+		</fieldset>
+		<% end %>
+	</div>
+</div>
+<!-- .// TABLE -->
+<div class="modal fade" id="singleGroupModal">
+  <div class="modal-dialog" style="width:70%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select the Subject for the Group</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-6"><%= t('subject.plural') %></div>
+        <div class="col-md-6">
+          <select class='form-control' id="subjects_list"></select> 
+        </div>
+        <br/><br/>
+        <div class="col-md-12">
+          <button id="show_single_group">Show Group</button>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <% content_for :specific_js do %>
 <script type="text/javascript">
   function get_active_subjects_by_study_plan_id(val){
