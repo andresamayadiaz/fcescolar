@@ -39,6 +39,17 @@
     </div>
   </div>
   <div class='box-content box-no-padding'>
+    <br/>
+    <div class='col-sm-4'>
+      <%= select_tag "filter_career", options_from_collection_for_select(@careers, "id", "name", params[:career]), {:class=>'form-control filter',:include_blank=>'All Careers'} %>
+    </div>
+    <div class='col-sm-4'>
+      <%= select_tag "filter_period", options_from_collection_for_select(@periods, "id", "name", params[:period]), {:class=>'form-control filter',:include_blank=>'All Periods'} %>
+    </div>
+    <div class='col-sm-4'>
+      <%= select_tag "filter_status", options_for_select([['All Statuses',''],['Enabled','enabled'],['Not Enabled','not_enabled']], params[:status]), {:class=>'form-control filter'} %>
+    </div>
+    <hr class='normal'>
     <div class='responsive-table'>
       <div class='scrollable-area'>
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
@@ -73,3 +84,12 @@
 </div>
 </div>
 <!-- .// TABLE -->
+<% content_for :specific_js do %>
+<script type='text/javascript'>
+  $(document).ready(function(){
+      $('.filter').change(function(){
+          window.location.href = '/study_plans/filter?career='+$('#filter_career').val()+'&period='+$('#filter_period').val()+'&status='+$('#filter_status').val()
+      })   
+  })
+</script>
+<% end %>
