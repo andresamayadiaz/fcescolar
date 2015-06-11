@@ -39,8 +39,8 @@
     <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
     <%= render 'contact_telephone_fields', :f => contact_telephone %>
     <% end %>
-    <div class='row links'>
-        <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+    <div class='links'>
+      <%= link_to_add_association 'Add Telephone', f, :contact_telephones, :class=>'btn btn-info btn-xs' %>
     </div>
   </div>
 </fieldset>
@@ -60,7 +60,7 @@
     <%= render 'person_email_fields', :f => person_email %>
     <% end %>
     <div class='links'>
-        <%= link_to_add_association 'Add Email', f, :person_emails %>
+      <%= link_to_add_association 'Add Email', f, :person_emails, :class=>'btn btn-info btn-xs' %>
     </div>
   </div>
 </fieldset>
