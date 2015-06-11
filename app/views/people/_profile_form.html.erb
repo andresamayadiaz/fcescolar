@@ -1,46 +1,78 @@
-<%= simple_form_for(@profile,:html => { :class => 'form-inline' }) do |f| %>
+<%= simple_form_for(@profile,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
 <%= f.error_notification %>
 <fieldset>
-    <legend>Contact Information:</legend>
-    <div class="col-sm-6">
-        <%= f.simple_fields_for :person_living_address do |p| %>
-            <%= p.input :street %><div class="clear"></div>
-            <%= p.input :num_ext %>
-            <%= p.input :num_int %><div class="clear"></div>
-            <%= p.input :colonia %>
-            <%= p.input :cp %><div class="clear"></div>
-            <%= p.input :municipio %><div class="clear"></div>
-            <%= p.association :country %><div class="clear"></div>
-            <%= p.association :state %><div class="clear"></div>
-            <%= p.input :phone_emergency %>
-        <% end %>
+  <div class="col-sm-4">
+    <div class="box">
+      <div class="lead">
+        <i class="icon-edit text-contrast"></i>
+        <%= t('general.general_info') %>
+      </div>
+      <small class="text-muted"><%= t('general.insert_general_info') %></small>
     </div>
-    <div class="col-sm-3">
-        <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
-        <%= render 'contact_telephone_fields', :f => contact_telephone %>
-        <% end %>
-        <div class='links'>
-            <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
-        </div>
+  </div>
+  <div class="col-sm-7 col-sm-offset-1">
+    <%= f.simple_fields_for :person_living_address do |p| %>
+        <%= p.input :street %>
+        <%= p.input :num_ext %>
+        <%= p.input :num_int %>
+        <%= p.input :colonia %>
+        <%= p.input :cp %>
+        <%= p.input :municipio %>
+        <%= p.association :country %>
+        <%= p.association :state %>
+        <%= p.input :phone_emergency %>
+    <% end %>
+  </div>
+</fieldset>
+<hr class="hr-normal">
+<fieldset>
+  <div class="col-sm-4">
+    <div class="box">
+      <div class="lead">
+        <i class="icon-edit text-contrast"></i>
+        Add Telephones
+      </div>
+      <small class="text-muted">Insert New Telephone</small>
     </div>
-    <div class="col-sm-3">
-        <%= f.simple_fields_for :person_emails do |person_email| %>
-        <%= render 'person_email_fields', :f => person_email %>
-        <% end %>
-        <div class='links'>
-            <%= link_to_add_association 'Add Email', f, :person_emails %>
-        </div>
+  </div>
+  <div class="col-sm-7 col-sm-offset-1">
+    <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
+    <%= render 'contact_telephone_fields', :f => contact_telephone %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'Add Telephone', f, :contact_telephones, :class=>'btn btn-info btn-xs' %>
     </div>
+  </div>
+</fieldset>
+<hr class="hr-normal">
+<fieldset>
+  <div class="col-sm-4">
+    <div class="box">
+      <div class="lead">
+        <i class="icon-edit text-contrast"></i>
+        Add E-mails
+      </div>
+      <small class="text-muted">Insert New E-mail Contacts</small>
+    </div>
+  </div>
+  <div class="col-sm-7 col-sm-offset-1">
+    <%= f.simple_fields_for :person_emails do |person_email| %>
+    <%= render 'person_email_fields', :f => person_email %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'Add Email', f, :person_emails, :class=>'btn btn-info btn-xs' %>
+    </div>
+  </div>
 </fieldset>
 <hr class="hr-normal">
 <div class="form-actions">
-    <div class="row">
-        <div class="col-sm-7 col-sm-offset-5">
-            <%= button_tag( :class => "btn btn-primary btn-lg") do %>
-            <i class="icon-save"></i>
-            Save Contact Information
-            <% end %>
-        </div>
+  <div class="row">
+    <div class="col-sm-7 col-sm-offset-5">
+      <%= button_tag( :class => "btn btn-primary btn-lg") do %>
+      <i class="icon-save"></i>
+      <%= t('general.save') %>
+      <% end %>
     </div>
+  </div>
 </div>
 <% end %>

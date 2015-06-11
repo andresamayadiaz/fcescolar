@@ -2,12 +2,47 @@
 table{font-size:12px;}
 #id_number, .search_button_wrapper, #search_result_wrap, #period_wrap{display:none;}
 </style>
-<div class="paragraphs">
-	<div class="row">
-		<div class="col-sm-12">
-      <div role="tabpanel">
+<!-- // TITULO -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-header">
+			<h1 class="pull-left">
+				<i class="icon-edit"></i>
+				<span>Group</span>
+			</h1>
+			<div class="pull-right">
+				<ul class="breadcrumb">
+					<li>
+						<a href="index.html">
+							<i class="icon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li>
+						<%= t('general.catalogues') %>
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li class="active">Groups</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+	<div class="box-header blue-background">
+		<div class="title">Search Group</div>
+	</div>
+	<div class="box-content box-double-padding">
+      <div class='tabbable'>
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-responsive nav-tabs">
           <li role="presentation" class="active"><a href="#search_by_year" aria-controls="home" role="tab" data-toggle="tab">Search By Year</a></li>
           <li role="presentation"><a href="#search_by_group_id" aria-controls="profile" role="tab" data-toggle="tab">Search By Group ID</a></li>
         </ul>
@@ -63,32 +98,33 @@ table{font-size:12px;}
           </div>
         </div>
       </div>
+      <div class="row" id="search_result_wrap">
+        <div class="col-sm-12 responsive-table">
+          <div class='scrollable-area'>
+            <table class="data-table table table-striped">
+              <thead>
+                <tr>
+                  <th>Acciones</th>
+                  <th>Estatus</th>
+                  <th>Año</th>
+                  <th>Meses</th>
+                  <th>Grupo</th>
+                  <th>Plan Estudios</th>
+                  <th>Materia</th>
+                  <th>Maestro</th>
+                  <th>Día</th>
+                  <th>Aula</th>
+                  <th>Franja Horaria</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row" id="search_result_wrap">
-    <div class="col-sm-12">
-      <br/>
-      <table width="100%" class="table table-striped">
-        <thead>
-          <tr>
-            <th>Acciones</th>
-            <th>Estatus</th>
-            <th>Año</th>
-            <th>Meses</th>
-            <th>Grupo</th>
-            <th>Nombre Abrev Plan Estudios</th>
-            <th>Materia</th>
-            <th>Maestro</th>
-            <th>Dia Semana</th>
-            <th>Aula</th>
-            <th>Franja Horaria</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </div>
 </div>
+<!-- .// TABLE -->
 <% content_for :specific_js do %>
   <script type="text/javascript">
     function load_id_number(year){
@@ -108,8 +144,9 @@ table{font-size:12px;}
     }
 
     function shorter_study_plan_name(name){
-      var shorter_name = name.replace('Tetramestral','TETRA');
-      shorter_name.replace('Semestral', 'SMTR');
+      if(name.indexOf('Tetramestral')!=-1){ var shorter_name = name.replace('Tetramestral','TETRA') }
+      if(name.indexOf('Trimestral')!=-1){ var shorter_name = name.replace('Trimestral', 'TRI') }
+      if(name.indexOf('Semestral')!=-1){ var shorter_name = name.replace('Semestral', 'SMTR') };
       return shorter_name
     }
 
@@ -120,12 +157,13 @@ table{font-size:12px;}
           url: '/people/search_group_by_group_id?group_id='+group_id,
           success: function(data){
             if(data && data[0]){
+              $('#search_result_wrap table').dataTable().fnClearTable();
               var group_details = data[0].group_details;
-              var html_element = '';
               $.each(group_details,function(index,value){
-                html_element += '<tr><td><a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a></td><td>'+value.status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td>'+data[0].group_id+'</td><td>'+shorter_study_plan_name(data[0].study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td><td>'+value.weekday+'</td><td>'+value.classroom.name+'</td><td>'+value.time_slot.name+'</td></tr>' 
+                $('#search_result_wrap table').dataTable().fnAddData( [
+                    '<a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a>',
+                    value.status, value.year, value.month, data[0].group_id, shorter_study_plan_name(data[0].study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name ])
               });
-              $('#search_result_wrap').find('table tbody').html(html_element);
               $('#search_result_wrap').slideDown();
             }
           }
@@ -142,12 +180,13 @@ table{font-size:12px;}
           url: '/people/search_group_by_year?year='+year+'&status='+status+'&period='+period,
           success: function(data){
             if(data){
+              $('#search_result_wrap table').dataTable().fnClearTable();
               var group_details = data;
-              var html_element = '';
               $.each(group_details,function(index,value){
-                html_element += '<tr><td><a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a></td><td>'+value.status+'</td><td>'+value.year+'</td><td>'+value.month+'</td><td>'+value.group.group_id+'</td><td>'+shorter_study_plan_name(value.group.study_plan.name)+'</td><td>'+value.subject.name+'</td><td>'+value.teacher.first_name+'</td><td>'+value.weekday+'</td><td>'+value.classroom.name+'</td><td>'+value.time_slot.name+'</td></tr>' 
+                $('#search_result_wrap table').dataTable().fnAddData( [
+                  '<a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a>',
+                  value.status, value.year, value.month, value.group.group_id, shorter_study_plan_name(value.group.study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name  ]);
               });
-              $('#search_result_wrap').find('table tbody').html(html_element);
               $('#search_result_wrap').slideDown();
             }
           }
