@@ -122,7 +122,7 @@ class PeopleController < ApplicationController
 
   def accept_reject_dictamination
     @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
-    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher_first_name],params[:teacher_last_name],params[:status]) if params[:teacher_first_name].present? and params[:teacher_last_name].present? and params[:status].present?
+    @dictaminations = TeacherDictamination.dictaminations_list(params[:teacher_first_name],params[:teacher_last_name],params[:status])
   end
 
   def accept_dictamination
@@ -306,7 +306,7 @@ class PeopleController < ApplicationController
     @new_user_role = UsersRole.new(params[:users_role])
     if @new_user_role.save
       user = @new_user_role.user
-      user.send_confirmation_instructions if user.roles.blank? and user.confirmation_token.present? and user.confirmed_at.blank?
+      user.send_confirmation_instructions if user.users_roles.length<=1 and user.confirmation_token.present? and user.confirmed_at.blank?
       redirect_to :back, :notice=>'New role is assigned successfully'
     else      
       redirect_to :back, :alert=>'No new role is selected to assign or validation failed'
