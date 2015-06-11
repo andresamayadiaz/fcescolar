@@ -1,6 +1,13 @@
 class StudyPlansController < ApplicationController
   before_action :set_study_plan, only: [:show, :edit, :update, :destroy]
 
+  def filter
+    @study_plans = StudyPlan.filter(params)
+    @careers = Career.all
+    @periods = Period.all
+    render 'index'
+  end
+
   def get_period_months_by_period_detail_id
     @period_months = PeriodDetail.find(params[:period_detail_id]).get_months
     render :json => @period_months
@@ -57,6 +64,8 @@ class StudyPlansController < ApplicationController
   
   def index
     @study_plans = StudyPlan.all
+    @careers = Career.all
+    @periods = Period.all
   end
 
   # GET /study_plans/1

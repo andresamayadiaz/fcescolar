@@ -123,6 +123,7 @@ Rails.application.routes.draw do
 
   resources :study_plans do
     collection do
+      get 'filter'
       get 'enable'
       post 'create_schedule'
       get 'get_subject_by_curricular_line'
