@@ -60,7 +60,7 @@
           <%= f.input :fathers_maiden_name, :class=>'form-control', :label=>'Apellido Paterno'%>
           <%= f.input :mothers_maiden_name, :class=>'form-control', :label=>'Apellido Materno' %>
           <%= f.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= f.association :state, :class=>'form-control', :label=>'Estados'%>
+          <%= f.association :state, :collection=>[], :class=>'form-control', :label=>'Estados'%>
           <%= f.input :birthday, :class=>'form-control', :label=>'Birthday', as: :string %>
           <%= f.input :profile_picture, :label=>'Seleccionar Archivo' %>
           <% if @person.profile_picture.exists? %>
@@ -89,7 +89,7 @@
           <%= p.input :cp, :class=>'form-control', :label=>'CP'%>
           <%= p.input :municipio, :class=>'form-control', :label=>'Municipio'%>
           <%= p.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= p.association :state, :class=>'form-control', :label=>'Estados'%>
+          <%= p.association :state, :collection=>[], :class=>'form-control', :label=>'Estados'%>
           <%= p.input :phone_emergency, :class=>'form-control', :label=>'Teléfono de emergencia'%>
         <% end %>
         <div class="col-md-12">
@@ -167,7 +167,7 @@
           <%= w.input :num_ext, :class=>'form-control', :label=>'Num Ext'%>
           <%= w.input :num_int, :class=>'form-control', :label=>'Num Int'%>
           <%= w.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= w.association :state, :class=>'form-control' , :label=>'Estados'%>
+          <%= w.association :state, :collection=>[], :class=>'form-control', :label=>'Estados'%>
           <%= w.input :colonia, :class=>'form-control', :label=>'Colonia'%>
           <%= w.input :cp, :class=>'form-control', :label=>'CP'%>
         <% end %>
