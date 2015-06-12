@@ -135,7 +135,7 @@
                               <td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
                               <td><%= d.attach_user.person.name || d.attach_user.email %></td>
                               <td><%= d.match_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
-                              <td><%= d.match_user.person.name || d.match_user.email %></td>
+                              <td><%= d.match_user.person.name rescue nil %></td>
                             </tr>
                           <% end %>
                         </tbody>
