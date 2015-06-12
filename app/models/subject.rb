@@ -30,6 +30,6 @@ class Subject < ActiveRecord::Base
 
   def self.get_by_study_plan(study_plan_id)
     study_plan = StudyPlan.find(study_plan_id)
-    study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten
+    study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten.uniq
   end
 end
