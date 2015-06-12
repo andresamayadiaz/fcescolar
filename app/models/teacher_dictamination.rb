@@ -6,8 +6,12 @@ class TeacherDictamination < ActiveRecord::Base
 
   accepts_nested_attributes_for :approved_subjects, :reject_if => :all_blank, :allow_destroy => true
   has_attached_file :evidence
-  validates :evidence, :attachment_presence => true, :on => :update
+  validates :evidence, :attachment_presence => true, :on => :update, if: :accept_dictamination
   validates_attachment_content_type :evidence, content_type: ['application/pdf']
+
+  def accept_dictamination
+    self.status=='Accepted'
+  end
 
   def self.dictaminations_list(teacher_first_name,teacher_last_name,status)
     joins(:person).where('(people.first_name LIKE ? OR CONCAT(people.fathers_maiden_name," ",people.mothers_maiden_name) LIKE ?) and teacher_dictaminations.status=?', "%#{teacher_first_name}%", "%#{teacher_last_name}%", status)

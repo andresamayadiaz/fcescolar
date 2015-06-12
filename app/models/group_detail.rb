@@ -8,7 +8,6 @@ class GroupDetail < ActiveRecord::Base
   has_many :enrolled_students
   scope :open_by_year_and_month, ->(year,month) { where(:year => year, :month => month, :status=>'Open')}
 
-  validates :group, presence: true
   validates :subject, presence: true
   validates :classroom, presence: true
   validates :teacher, presence: true
