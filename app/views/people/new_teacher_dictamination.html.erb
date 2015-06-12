@@ -46,7 +46,7 @@
             html_element+="<span class='checkbox'><label for='teacher_dictamination_subject_ids_"+value.id+"'><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[subject_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
           })
           html_element+='<input name="teacher_dictamination[subject_ids][]" type="hidden" value=""/>'
-          $("#active_subjects_wrapper").find('label').text("Active subjects in "+$('#schedule_campus_id option:selected').text())
+          $("#active_subjects_wrapper").find('label').text("Active subjects in "+$('#teacher_dictamination_study_plan_id option:selected').text())
           $("#active_subjects_wrapper").find('div').html(html_element)
           $("#active_subjects_wrapper").slideDown();
         }
