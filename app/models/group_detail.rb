@@ -8,6 +8,11 @@ class GroupDetail < ActiveRecord::Base
   has_many :enrolled_students
   scope :open_by_year_and_month, ->(year,month) { where(:year => year, :month => month, :status=>'Open')}
 
+  validates :group, presence: true
+  validates :subject, presence: true
+  validates :classroom, presence: true
+  validates :teacher, presence: true
+
   def self.load(year,month,study_plan_id,weekday,student_ids)
     selected_group_details = Array.new
     required_docs = Schedule.find_by_study_plan_id(study_plan_id).background_official_docs.map(&:id)
