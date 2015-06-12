@@ -103,7 +103,7 @@ class StudyPlansController < ApplicationController
   def update
     respond_to do |format|
       if @study_plan.update(study_plan_params)
-        format.html { redirect_to @study_plan, notice: 'Study plan was successfully updated.' }
+        format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @study_plan }
       else
         format.html { render :edit }
