@@ -4,7 +4,7 @@
 
   .scrollable-area {
     width: 100%;
-    overflow: scroll;
+    overflow: hidden;
     overflow-y: hidden;
   }
 
@@ -27,6 +27,7 @@
 }
 
 .dataTables_wrapper {
+  overflow-x: scroll!important;
   .datatables-top, .datatables-bottom {
     padding: 5px;
   }
