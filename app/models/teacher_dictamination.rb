@@ -14,7 +14,7 @@ class TeacherDictamination < ActiveRecord::Base
   end
 
   def self.dictaminations_list(teacher_first_name,teacher_last_name,status)
-    joins(:person).where('(people.first_name LIKE ? OR CONCAT(people.fathers_maiden_name," ",people.mothers_maiden_name) LIKE ?) and teacher_dictaminations.status=?', "%#{teacher_first_name}%", "%#{teacher_last_name}%", status)
+    joins(:person).where('people.first_name LIKE ? and CONCAT(people.fathers_maiden_name," ",people.mothers_maiden_name) LIKE ? and teacher_dictaminations.status=?', "%#{teacher_first_name}%", "%#{teacher_last_name}%", status)
   end
 
   def self.generate_teacher(subject_id)
