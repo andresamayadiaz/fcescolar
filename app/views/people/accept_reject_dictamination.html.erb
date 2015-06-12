@@ -30,7 +30,7 @@
           <td><%= d.person.try(:name) %></td>
           <td><%= d.status %></td>
           <td><%= d.created_at %></td>
-          <td><%= d.approved_subjects.present? ? format_approved_subjects(d.approved_subjects) : format_subjects_for_dictamination(Subject.get_by_study_plan(d.study_plan.id)) %></td>
+          <td><%= d.approved_subjects.present? ? format_approved_subjects(d.approved_subjects) : format_subjects_for_dictamination(d.subjects) %></td>
           <td><%= dictamination_actions(d) %></td>
         </tr>
       <% end %>
@@ -44,10 +44,10 @@
 <% content_for :specific_js do %>
 
   <script type="text/javascript">
-  function get_active_subjects_by_study_plan_id(val){
+  function get_subjects_of_dictamination(val){
     $.ajax({
       type: 'GET',
-      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      url: '/people/get_subjects_of_dictamination?dictamination_id='+val,
       success: function(data){
         if(data){
           var html_element=''
@@ -66,7 +66,7 @@
           var study_plan_id = $(this).attr('rel');
           var id = $(this).next().attr('rel');
           $('#teacher_dictamination_id').val(id);         
-          get_active_subjects_by_study_plan_id(study_plan_id);
+          get_subjects_of_dictamination(id);
       })
       $(".reject-btn").click(function(){
         if (confirm('Are you sure?')) {

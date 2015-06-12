@@ -101,6 +101,10 @@ class PeopleController < ApplicationController
     render :json => @active_subjects
   end
 
+  def get_subjects_of_dictamination
+    render :json => TeacherDictamination.find(params[:dictamination_id]).subjects
+  end
+
   def new_teacher_dictamination
     @teacher_dictamination = TeacherDictamination.new
     @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
