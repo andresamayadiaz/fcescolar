@@ -1,6 +1,6 @@
 <div class='study_plan_subject_fields nested-fields'>
-<%= f.input :curricular_line_id, collection: CurricularLine.all, input_html: { class: 'study_plan_subject_cl input-sm'} %>
-<%= f.input :subject_id, collection: [], input_html: { class: 'input-sm study_plan_subject_id'} %>
+<%= f.association :curricular_line, input_html: { class: 'study_plan_subject_cl input-sm'} %>
+<%= f.association :subject, input_html: { class: 'input-sm study_plan_subject_id'} %>
 <%= f.input :weekly_frequency  , input_html: { class: 'input-sm study_plan_subject_weekly_freq'} %>
 <%= f.input :credits  , input_html: { class: 'input-sm study_plan_subject_credits'} %>
 <span class="links">
@@ -9,6 +9,13 @@
 </div>
 <script>
   $(document).ready(function(){
-    get_subjects_by_curricular_line() 
+    $('.study_plan_subject_id').each(function(){
+      if(!$(this).parent().prev().find('select option:selected').text()){
+          $(this).html('<option></option>');
+      }
+    })
+    $('.study_plan_subject_cl').change(function() {
+      get_subjects_by_curricular_line($(this).val(),$(this))
+    })
   });
 </script>

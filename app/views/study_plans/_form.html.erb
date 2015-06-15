@@ -84,26 +84,31 @@ function fill_study_plan_name(career, period) {
     $('#study_plan_name').val(career + ' ' + period + ' ' + _this_year);
 }
 
-function get_subjects_by_curricular_line() {
-    $('.study_plan_subject_cl').change(function() {
-        var _this = $(this);
-        var val = _this.val();
+function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
+        var val = cl_id;
         $.ajax({
             type: 'GET',
             url: '/study_plans/get_subject_by_curricular_line?cl_id=' + val + '&career_id='+$('#study_plan_career_id').val(),
             success: function(data) {
                 if (data) {
-                    var html_element = '';
+                    var html_element = '<option></option>';
                     $.each(data, function(index, value) {
                         html_element += "<option value=" + value.id + ">" + value.name + "</option>"
-                    })
+                        })
                     _this.parent().next().find('select').html(html_element);
+                    if(old_selected_subject){
+                      _this.parent().next().find('select').val(old_selected_subject);
+                    }
                 }
             }
         })
-    });
 }
 $(document).ready(function() {
+    $('.study_plan_subject_cl').each(function() {
+          var old_selected_subject = $(this).parent().next().find('select').val();
+          get_subjects_by_curricular_line($(this).val(),$(this),old_selected_subject);
+    })
+    
     $("#study_plan_period_id").change(function() {
         fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_period_id option:selected').text());
     })
@@ -139,7 +144,6 @@ $(document).ready(function() {
                     $('#study_plan_name').val('');
                 }                 
                 
-                
                 $('.sp_period_name').each(function(i){
                     if (d && d.study_plan_periods[i]) {
                       var study_plan_period = d.study_plan_periods[i];
@@ -152,6 +156,7 @@ $(document).ready(function() {
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_id').val(item.subject_id) 
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_weekly_freq').val(item.weekly_frequency) 
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_credits').val(item.credits) 
+                        get_subjects_by_curricular_line(add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(),add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl'),item.subject_id);
                       })
                     }
                 });
