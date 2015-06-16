@@ -58,6 +58,8 @@
         <%= f.association :campus, collection: [] %>
         <div class="form-group person_role">
           <label class='control-label'>Role</label>
+          <button id='select_all' class='btn-success btn-xs'>Select All</button>
+          <button id='select_none' class='btn-danger btn-xs'>Select None</button>
           <%=  f.collection_check_boxes :role, @all_roles, :id, :name do |b| %>
               <%=b.check_box + b.text.titleize%>
           <% end %>
@@ -105,7 +107,15 @@
     get_campus_by_franchise_id('person_franchise_id','person_campus_id');
     $('#person_franchise_id').change(function(){
       get_campus_by_franchise_id('person_franchise_id','person_campus_id');
-    })  
+    });
+    $('button#select_all').click(function(e){
+      e.preventDefault();
+      $('div.person_role input:checkbox').attr('checked',true);
+    });
+    $('button#select_none').click(function(e){
+      e.preventDefault();
+      $('div.person_role input:checkbox').attr('checked',false);
+    });
   })
 </script>
 <% end %>
