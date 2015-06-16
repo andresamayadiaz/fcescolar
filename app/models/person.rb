@@ -1,5 +1,7 @@
 require 'csv'
 class Person < ActiveRecord::Base
+  attr_accessor :role
+  
   belongs_to :country
   belongs_to :state
   belongs_to :franchise
@@ -28,6 +30,14 @@ class Person < ActiveRecord::Base
   after_create :create_user
 
   scope :active, -> { where(status: true) }
+
+  def self.filter(parameters=nil)
+    if parameters.nil?
+      all
+    else
+      Person.where(parameters)
+    end
+  end
 
   def self.to_csv
     CSV.generate do |csv|

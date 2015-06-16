@@ -5,11 +5,12 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
-  def export_person_to_csv
+  def export_to_csv
+    @all_roles = Role.all.each{ |r| r.name.humanize}
   end
 
-  def create_export_person_to_csv
-    @people = Person.all
+  def create_csv
+    @people = Person.filter(params[:person])
     send_data @people.to_csv, filename: 'person.csv'
   end
 
