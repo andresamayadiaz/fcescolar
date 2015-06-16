@@ -76,6 +76,8 @@ Rails.application.routes.draw do
       get 'get_period_of_year_for_search_group'
       get 'view_group'
       get 'get_subjects_of_dictamination'
+      get 'export_person_to_csv'
+      get 'create_export_person_to_csv'
     end
   end
   
