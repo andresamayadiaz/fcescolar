@@ -31,12 +31,19 @@ class Person < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
 
-  def self.filter(parameters=nil)
-    if parameters.nil?
-      all
+  def self.filter(params)
+    franchise_id = params[:franchise_id].present? ? params[:franchise_id] : nil
+    campus_id = params[:campus_id].present? ? params[:campus_id] : nil
+    fathers_maiden_name = params[:fathers_maiden_name].present? ? '%' + params[:fathers_maiden_name] + '%' : nil
+    mothers_maiden_name = params[:mothers_maiden_name].present? ? '%' + params[:mothers_maiden_name] + '%' : nil
+    name =  params[:first_name].present? ? '%' + params[:first_name] + '%' : nil
+    roles = params[:role].reject(&:empty?)
+    if roles.empty?
+      people = where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ?) AND campus_id = ? AND franchise_id = ?',fathers_maiden_name, mothers_maiden_name, name, campus_id, franchise_id)
     else
-      Person.where(parameters)
+      people = joins(:user=>:users_roles).where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ?) AND campus_id = ? AND franchise_id = ? AND users_roles.role_id IN (?)',fathers_maiden_name, mothers_maiden_name, name, campus_id, franchise_id, roles)
     end
+    people.uniq
   end
 
   def self.to_csv
@@ -194,7 +201,6 @@ class Person < ActiveRecord::Base
       selected_campus_id = user.person.franchise.campuses.map(&:id)
       Person.where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ?) AND campus_id IN (?)',fathers_maiden_name,mothers_maiden_name,name, selected_campus_id)
     end
-
   end
 
   def self.search_by_name(params)

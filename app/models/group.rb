@@ -12,7 +12,6 @@ class Group < ActiveRecord::Base
     selected_groups = []
     groups.each do |group|
       group.group_details.each do |group_detail|
-        byebug if group_detail.year==year
         selected_groups << group if group_detail.year==year
       end
     end

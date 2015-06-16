@@ -77,7 +77,7 @@ Rails.application.routes.draw do
       get 'view_group'
       get 'get_subjects_of_dictamination'
       get 'export_to_csv'
-      patch 'create_csv'
+      post 'create_csv'
     end
   end
   
