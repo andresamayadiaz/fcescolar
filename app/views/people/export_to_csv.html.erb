@@ -1,0 +1,121 @@
+<style>div.person_role span{display:block;}</style>
+<!-- // TITULO -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1 class="pull-left">
+        <i class="icon-list"></i>
+        <span><%= t('people.export_to_csv') %></span>
+      </h1>
+      <div class="pull-right">
+        <ul class="breadcrumb">
+          <li>
+            <a href="index.html">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li>
+            <%= t('general.catalogues') %>
+          </li>
+          <li class="separator">
+            <i class="icon-angle-right"></i>
+          </li>
+          <li class="active"><%= t('people.export_to_csv') %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+	<div class="box-header blue-background">
+		<div class="title">
+			<%= t('people.export_to_csv') %>
+		</div>
+	</div>
+	<div class="box-content box-double-padding">
+    <%= simple_form_for(Person.new, :url =>create_csv_people_path , :class=>'form', :style=>'margin-bottom:0;') do |f| %>
+		<%= f.error_notification %>
+		<fieldset>
+			<div class="col-sm-4">
+				<div class="box">
+					<div class="lead">
+						<i class="icon-edit text-contrast"></i>
+						<%= t('general.filter') %>
+					</div>
+					<small class="text-muted"><%= t('general.inser_filter_info') %></small>
+				</div>
+			</div>
+			<div class="col-sm-7 col-sm-offset-1">
+        <% if current_user.active_role=='super_administrator' %>
+          <%= f.association :franchise %>
+        <% end %>
+        <%= f.association :campus, collection: [] %>
+        <div class="form-group person_role">
+          <label class='control-label'>Role</label>
+          <button id='select_all' class='btn-success btn-xs'>Select All</button>
+          <button id='select_none' class='btn-danger btn-xs'>Select None</button>
+          <%=  f.collection_check_boxes :role, @all_roles, :id, :name do |b| %>
+              <%=b.check_box + b.text.titleize%>
+          <% end %>
+        </div>
+        <%= f.input :first_name, label: 'Name' %>
+        <%= f.input :fathers_maiden_name %>
+        <%= f.input :mothers_maiden_name %>
+			</div>
+		</fieldset>
+		<hr class="hr-normal">
+		<div class="form-actions">
+			<div class="row">
+				<div class="col-sm-7 col-sm-offset-5">
+					<%= button_tag( :class => "btn btn-primary btn-lg") do %>
+					<i class="icon-save"></i>
+					<%= t('people.export') %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>
+<!-- .// TABLE -->
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  function get_campus_by_franchise_id(franchise_select, campus_select) {
+      var val = $('#'+franchise_select).val();
+      $.ajax({
+        type: 'GET',
+        url: '/people/get_campus_by_franchise_id?franchise_id='+val,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<option value="+value.id+">"+value.name+"</option>"
+            })
+            $('#'+campus_select).html(html_element);
+          }
+        }
+      })
+  }
+
+  $(document).ready(function(){
+    get_campus_by_franchise_id('person_franchise_id','person_campus_id');
+    $('#person_franchise_id').change(function(){
+      get_campus_by_franchise_id('person_franchise_id','person_campus_id');
+    });
+    $('button#select_all').click(function(e){
+      e.preventDefault();
+      $('div.person_role input:checkbox').attr('checked',true);
+    });
+    $('button#select_none').click(function(e){
+      e.preventDefault();
+      $('div.person_role input:checkbox').attr('checked',false);
+    });
+  })
+</script>
+<% end %>

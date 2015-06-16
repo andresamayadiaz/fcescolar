@@ -37,6 +37,8 @@ es:
         invalid: "Invalido: %{attribute}."
         record_invalid: "Validación falló: %{errors}"
   general:
+    filter: "Filtrado Por"
+    inser_filter_info: "Introduzca el filtro"
     name: "Nombre"
     fathers_maiden: "Apellido Paterno"
     mothers_maiden: "Apellido Materno"
@@ -181,6 +183,8 @@ es:
     create_groups: "Crear Grupos"
     search_groups: "Buscar Grupos"
     student_group_enrollment: "Grupo Matriculación de alumnos"
+    export_to_csv: "Exportar Personas"
+    export: "Exportar"
   groups:
     singular: "Grupo"
     plural: "Grupos"

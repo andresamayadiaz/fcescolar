@@ -5,6 +5,15 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def export_to_csv
+    @all_roles = Role.all.each{ |r| r.name.humanize}
+  end
+
+  def create_csv
+    @people = Person.filter(params[:person])
+    send_data @people.to_csv, filename: 'person.csv'
+  end
+
   def get_period_of_year_for_search_group
     @periods = GroupDetail.where(:year=>params[:year]).map(&:month).uniq
     render :json=>@periods
@@ -36,7 +45,7 @@ class PeopleController < ApplicationController
       render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
     end
   end
-  
+
   def search_group_by_group_id
     @group = Group.where(:group_id=>params[:group_id])
     render :json => @group.to_json(:include=>[:study_plan,:group_details => {:include=>[:subject, :teacher, :classroom, :time_slot]} ])
@@ -147,7 +156,7 @@ class PeopleController < ApplicationController
       render :nothing=>true, :status => 503
     end
   end
-  
+
   def new_contract
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
@@ -162,12 +171,12 @@ class PeopleController < ApplicationController
     @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
     prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
     render  :pdf => template.name,
-            :header => {
-              :content => prefix_content
-            },
-            :footer => {
-              :content => prefix_content
-            }
+      :header => {
+      :content => prefix_content
+    },
+    :footer => {
+      :content => prefix_content
+    }
   end
 
   def generate_contract
@@ -182,17 +191,17 @@ class PeopleController < ApplicationController
       @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
       prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
       render  :pdf => template.name,
-              :header => {
-                :content => prefix_content
-              },
-              :footer => {
-                :content => prefix_content
-              }
+        :header => {
+        :content => prefix_content
+      },
+      :footer => {
+        :content => prefix_content
+      }
     else
       redirect_to :back, :alert=>'Something went wrong...'
     end
   end
-  
+
   def download_evidence
     @dictamination = TeacherDictamination.find(params[:dictamination_id])
     evidence_url = URI.unescape(@dictamination.evidence.url(:original, timestamp: false))
@@ -228,9 +237,9 @@ class PeopleController < ApplicationController
         @pdf_content = "#{new_personal_record_file.background_official_doc.responsive_letter}#{new_personal_record_file.motive}".html_safe
         footer_pdf_datetime = new_personal_record_file.created_at.strftime('%Y-%m-%d %H:%M:%S')
         render  :pdf => new_personal_record_file.document_file_name,
-                :footer => {
-                  :content => "<center><i>--- This has been digitally signed on #{footer_pdf_datetime} ---</i></center>"
-                }
+          :footer => {
+          :content => "<center><i>--- This has been digitally signed on #{footer_pdf_datetime} ---</i></center>"
+        }
       else
         redirect_to :back, :alert=>'Something went wrong...'
       end
@@ -403,12 +412,12 @@ class PeopleController < ApplicationController
   end
 
   def profile_without_id
-      @person = current_user.person
-      @profile = @person
-      @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
-      @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
-      @attached_docs = @person.personal_record_files.with_attach_user
-      render 'profile'
+    @person = current_user.person
+    @profile = @person
+    @person.person_living_address = PersonLivingAddress.new if @person.person_living_address.blank?
+    @person.person_work_place = PersonWorkPlace.new if @person.person_work_place.blank?
+    @attached_docs = @person.personal_record_files.with_attach_user
+    render 'profile'
   end
 
   def profile
@@ -423,29 +432,29 @@ class PeopleController < ApplicationController
   end
 
   private
-    def set_person
-      @person = Person.find(params[:id])
-    end
+  def set_person
+    @person = Person.find(params[:id])
+  end
 
-    def person_params
-      params.require(:person).permit(
-        :franchise_id,
-        :campus_id,
-        :curp, 
-        :rfc, 
-        :email, 
-        :first_name,
-        :fathers_maiden_name, 
-        :mothers_maiden_name, 
-        :country_id, 
-        :state_id, 
-        :birthday,
-        :profile_picture,
-        person_living_address_attributes: [:id, :street, :num_ext, :num_int, :colonia, :cp, :municipio, :state_id, :country_id, :phone_emergency],
-        person_work_place_attributes: [:id, :empresa, :puesto, :calle, :municipio, :num_ext, :num_int, :colonia, :cp, :state_id, :country_id],
-        person_emails_attributes: [:id, :email, :_destroy],
-        contact_telephones_attributes: [:id, :phone_number, :phone_type, :_destroy],
-        related_people_attributes: [:id, :full_name, :relation_name, :_destroy]
-      )
-    end
+  def person_params
+    params.require(:person).permit(
+      :franchise_id,
+      :campus_id,
+      :curp, 
+      :rfc, 
+      :email, 
+      :first_name,
+      :fathers_maiden_name, 
+      :mothers_maiden_name, 
+      :country_id, 
+      :state_id, 
+      :birthday,
+      :profile_picture,
+      person_living_address_attributes: [:id, :street, :num_ext, :num_int, :colonia, :cp, :municipio, :state_id, :country_id, :phone_emergency],
+      person_work_place_attributes: [:id, :empresa, :puesto, :calle, :municipio, :num_ext, :num_int, :colonia, :cp, :state_id, :country_id],
+      person_emails_attributes: [:id, :email, :_destroy],
+      contact_telephones_attributes: [:id, :phone_number, :phone_type, :_destroy],
+      related_people_attributes: [:id, :full_name, :relation_name, :_destroy]
+    )
+  end
 end
