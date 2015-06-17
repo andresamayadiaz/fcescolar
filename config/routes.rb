@@ -93,7 +93,11 @@ Rails.application.routes.draw do
 
   resources :notifications
 
-  resources :time_slots
+  resources :time_slots do
+    collection do
+      get 'filter_campus'
+    end
+  end
 
   resources :classrooms do
     collection do

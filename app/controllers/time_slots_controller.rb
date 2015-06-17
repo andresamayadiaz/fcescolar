@@ -4,8 +4,19 @@ class TimeSlotsController < ApplicationController
 
   respond_to :html
 
+  def filter_campus
+    if params[:campus_id].present?
+      @time_slots = TimeSlot.where(:campus_id=>params[:campus_id]).active
+      @campus = Campus.all
+      render 'index'
+    else
+      redirect_to time_slots_path
+    end
+  end
+
   def index
     @time_slots = TimeSlot.active
+    @campus = Campus.all
     respond_with(@time_slots)
   end
 
