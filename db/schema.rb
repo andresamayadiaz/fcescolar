@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617083545) do
+ActiveRecord::Schema.define(version: 20150617091612) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20150617083545) do
   add_index "campuses", ["franchise_id"], name: "index_campuses_on_franchise_id", using: :btree
 
   create_table "careers", force: true do |t|
-    t.integer  "franchise_id"
     t.string   "name"
     t.boolean  "status",                 default: true
     t.string   "rvoe"
@@ -94,7 +93,6 @@ ActiveRecord::Schema.define(version: 20150617083545) do
     t.datetime "auth_file_updated_at"
   end
 
-  add_index "careers", ["franchise_id"], name: "index_careers_on_franchise_id", using: :btree
   add_index "careers", ["study_level_id"], name: "index_careers_on_study_level_id", using: :btree
 
   create_table "careers_subjects", id: false, force: true do |t|
