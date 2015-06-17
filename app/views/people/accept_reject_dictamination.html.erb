@@ -12,30 +12,34 @@
 </div>
 <hr class="hr-normal">
 <% if @dictaminations.present? %>
-<div class="row" id="dictaminations_list">
+  <div class="row" id="dictaminations_list">
   <div class="col-md-12">
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Teacher Name</th>
-        <th>Status</th>
-        <th>Created Date</th>
-        <th>Subjects</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @dictaminations.each do |d| %>
-        <tr>
-          <td><%= d.person.try(:name) %></td>
-          <td><%= d.status %></td>
-          <td><%= d.created_at %></td>
-          <td><%= d.approved_subjects.present? ? format_approved_subjects(d.approved_subjects) : format_subjects_for_dictamination(d.subjects) %></td>
-          <td><%= dictamination_actions(d) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <div class='responsive-table'>
+      <div class='scrollable-area'>
+        <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+          <thead>
+            <tr>
+              <th>Teacher Name</th>
+              <th>Status</th>
+              <th>Created Date</th>
+              <th>Subjects</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @dictaminations.each do |d| %>
+              <tr>
+              <td><%= d.person.try(:name) %></td>
+              <td><%= d.status %></td>
+              <td><%= d.created_at %></td>
+              <td><%= d.approved_subjects.present? ? format_approved_subjects(d.approved_subjects) : format_subjects_for_dictamination(d.subjects) %></td>
+              <td><%= dictamination_actions(d) %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 <%= render 'accept_modal' %>
@@ -44,49 +48,49 @@
 <% content_for :specific_js do %>
 
   <script type="text/javascript">
-  function get_subjects_of_dictamination(val){
-    $.ajax({
-      type: 'GET',
-      url: '/people/get_subjects_of_dictamination?dictamination_id='+val,
-      success: function(data){
-        if(data){
-          var html_element=''
-          $.each(data,function(index,value){
-            html_element+="<span class='checkbox'><label><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[approved_subjects_attributes]["+index+"][subject_id]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
-          })
-          $("#subjects_wrapper").html(html_element);
-          $('#acceptModal').modal('show'); 
-        }
-      }
-    })
-  }
+function get_subjects_of_dictamination(val){
+  $.ajax({
+type: 'GET',
+url: '/people/get_subjects_of_dictamination?dictamination_id='+val,
+success: function(data){
+if(data){
+var html_element=''
+$.each(data,function(index,value){
+  html_element+="<span class='checkbox'><label><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[approved_subjects_attributes]["+index+"][subject_id]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
+  })
+$("#subjects_wrapper").html(html_element);
+$('#acceptModal').modal('show'); 
+}
+}
+})
+}
 
-    $(document).ready(function(){
-      $(".accept-btn").click(function(e){
-          var study_plan_id = $(this).attr('rel');
-          var id = $(this).next().attr('rel');
-          $('#teacher_dictamination_id').val(id);         
-          get_subjects_of_dictamination(id);
+$(document).ready(function(){
+    $(".accept-btn").click(function(e){
+      var study_plan_id = $(this).attr('rel');
+      var id = $(this).next().attr('rel');
+      $('#teacher_dictamination_id').val(id);         
+      get_subjects_of_dictamination(id);
       })
-      $(".reject-btn").click(function(){
-        if (confirm('Are you sure?')) {
-          var _this = $(this);
-          var dictamination_id = _this.attr('rel');
-          $.ajax({
-            url: '/people/reject_dictamination?dictamination_id='+dictamination_id,
-            success:function(data){
-              _this.parent().html('');
-            },
-            error: function(){
-              alert('Something went wrong');
-            }
-          })
-        }
+    $(".reject-btn").click(function(){
+      if (confirm('Are you sure?')) {
+      var _this = $(this);
+      var dictamination_id = _this.attr('rel');
+      $.ajax({
+url: '/people/reject_dictamination?dictamination_id='+dictamination_id,
+success:function(data){
+_this.parent().html('');
+},
+error: function(){
+alert('Something went wrong');
+}
+})
+      }
       })
-      $('#search_dictamination').click(function(){
-        window.location.href = '/people/accept_reject_dictamination?teacher_first_name='+$('#teacher_first_name').val()+'&status='+$('#status').val()+'&teacher_last_name='+$('#teacher_last_name').val();
-      });
+$('#search_dictamination').click(function(){
+    window.location.href = '/people/accept_reject_dictamination?teacher_first_name='+$('#teacher_first_name').val()+'&status='+$('#status').val()+'&teacher_last_name='+$('#teacher_last_name').val();
     });
-  </script>
+});
+</script>
 
 <% end %>
