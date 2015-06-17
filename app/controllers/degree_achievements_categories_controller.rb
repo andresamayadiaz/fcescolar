@@ -49,6 +49,6 @@ class DegreeAchievementsCategoriesController < ApplicationController
     end
 
     def degree_achievements_category_params
-      params.require(:degree_achievements_category).permit(:franchise_id, :name, :status)
+      params.require(:degree_achievements_category).permit(:name, :status)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617035244) do
+ActiveRecord::Schema.define(version: 20150617083545) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -195,14 +195,11 @@ ActiveRecord::Schema.define(version: 20150617035244) do
   add_index "curricular_lines", ["franchise_id"], name: "index_curricular_lines_on_franchise_id", using: :btree
 
   create_table "degree_achievements_categories", force: true do |t|
-    t.integer  "franchise_id"
     t.string   "name"
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "degree_achievements_categories", ["franchise_id"], name: "index_degree_achievements_categories_on_franchise_id", using: :btree
 
   create_table "degree_achievements_categories_schedules", force: true do |t|
     t.integer "degree_achievements_category_id"

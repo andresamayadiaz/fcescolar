@@ -45,9 +45,6 @@
             <thead>
               <tr>
                 <th>
-                  <%= t('franchise.singular') %>
-                </th>
-                <th>
                   <%= t('general.name') %>
                 </th>
                 <th></th>
@@ -56,7 +53,6 @@
             <tbody>
               <% @degree_achievements_categories.each do |degree_achievements_category| %>
               <tr>
-                <td><%= degree_achievements_category.franchise.try(:name) %></td>
                 <td><%= degree_achievements_category.name %></td>
                 <td>
                   <div class="text-right">
