@@ -1,14 +1,11 @@
 class Subject < ActiveRecord::Base
   resourcify
-  belongs_to :franchise
   belongs_to :study_level
   belongs_to :curricular_line
   has_and_belongs_to_many :careers
 
   scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
-  
-  validates :franchise, :presence=>true
   validates :study_level, :presence=>true
   validates :curricular_line, :presence=>true
   
