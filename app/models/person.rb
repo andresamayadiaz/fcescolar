@@ -39,9 +39,9 @@ class Person < ActiveRecord::Base
     name =  params[:first_name].present? ? '%' + params[:first_name] + '%' : nil
     roles = params[:role].reject(&:empty?)
     if roles.empty?
-      people = where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ?) AND campus_id = ? AND franchise_id = ?',fathers_maiden_name, mothers_maiden_name, name, campus_id, franchise_id)
+      people = where('(franchise_id = ? AND campus_id = ?) OR (first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ?)',franchise_id, campus_id, name, fathers_maiden_name, mothers_maiden_name)
     else
-      people = joins(:user=>:users_roles).where('(fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR first_name LIKE ?) AND campus_id = ? AND franchise_id = ? AND users_roles.role_id IN (?)',fathers_maiden_name, mothers_maiden_name, name, campus_id, franchise_id, roles)
+      people = joins(:user=>:users_roles).where('(franchise_id = ? AND campus_id = ? AND  users_roles.role_id IN (?)) OR (first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ?)',franchise_id, campus_id, roles, name, fathers_maiden_name, mothers_maiden_name)
     end
     people.uniq
   end
