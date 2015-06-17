@@ -95,7 +95,11 @@ Rails.application.routes.draw do
 
   resources :time_slots
 
-  resources :classrooms
+  resources :classrooms do
+    collection do
+      get 'filter_campus'
+    end
+  end
 
   resources :subjects do
     collection do

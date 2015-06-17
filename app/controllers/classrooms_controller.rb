@@ -4,8 +4,19 @@ class ClassroomsController < ApplicationController
 
   respond_to :html
 
+  def filter_campus
+    if params[:campus_id].present?
+      @classrooms = Classroom.where(:campus_id=>params[:campus_id]).active
+      @campus = Campus.all
+      render 'index'
+    else
+      redirect_to classrooms_path
+    end
+  end
+
   def index
     @classrooms = Classroom.active
+    @campus = Campus.all
     respond_with(@classrooms)
   end
 
