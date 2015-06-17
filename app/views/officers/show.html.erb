@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @officer.title %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @officer.last_name %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @officer.position %>
+</p>
+
+<p>
+  <strong>Dependency level 1:</strong>
+  <%= @officer.dependency_level_1 %>
+</p>
+
+<p>
+  <strong>Dependency level 2:</strong>
+  <%= @officer.dependency_level_2 %>
+</p>
+
+<p>
+  <strong>Dependency level 3:</strong>
+  <%= @officer.dependency_level_3 %>
+</p>
+
+<p>
+  <strong>Dependency level 4:</strong>
+  <%= @officer.dependency_level_4 %>
+</p>
+
+<p>
+  <strong>Dependency level 5:</strong>
+  <%= @officer.dependency_level_5 %>
+</p>
+
+<%= link_to 'Edit', edit_officer_path(@officer) %> |
+<%= link_to 'Back', officers_path %>

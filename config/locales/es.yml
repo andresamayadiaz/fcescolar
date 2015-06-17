@@ -185,6 +185,10 @@ es:
     student_group_enrollment: "Grupo Matriculación de alumnos"
     export_to_csv: "Exportar Personas"
     export: "Exportar"
+  officer:
+    singular: "Funcionario"
+    plural: "Funcionarios"
+    new: "Nuevo Funcionarios"
   groups:
     singular: "Grupo"
     plural: "Grupos"

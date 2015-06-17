@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603070403) do
+ActiveRecord::Schema.define(version: 20150617035244) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -277,6 +277,20 @@ ActiveRecord::Schema.define(version: 20150603070403) do
 
   add_index "notifications", ["franchise_id"], name: "index_notifications_on_franchise_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "officers", force: true do |t|
+    t.string   "title"
+    t.string   "last_name"
+    t.string   "position"
+    t.string   "dependency_level_1"
+    t.string   "dependency_level_2"
+    t.string   "dependency_level_3"
+    t.string   "dependency_level_4"
+    t.string   "dependency_level_5"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
 
   create_table "official_domains", force: true do |t|
     t.integer  "franchise_id"

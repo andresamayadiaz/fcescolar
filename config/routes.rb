@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :officers
+
   root to: 'visitors#index'
   devise_for :users
   resources :users  do
