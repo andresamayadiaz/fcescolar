@@ -39,6 +39,13 @@
     </div>
   </div>
   <div class='box-content box-no-padding'>
+    <div class='col-sm-12'>
+      <br/>
+      <div class='form-inline'>
+        <label>Filter By Campus</label>
+        <div class='form-group'><%= select_tag "filter_campus", options_from_collection_for_select(@campus, "id", "name", params[:campus_id]), include_blank: 'All Campus', class:'form-control' %></div>
+      </div>
+    </div>
     <div class='responsive-table'>
       <div class='scrollable-area'>
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
@@ -79,3 +86,12 @@
 </div>
 </div>
 <!-- .// TABLE -->
+<% content_for :specific_js do %>
+  <script type='text/javascript'>
+    $(document).ready(function(){
+      $('select#filter_campus').change(function(){
+        window.location.href = '/time_slots/filter_campus?campus_id='+$(this).val() 
+      });   
+    })
+  </script>
+<% end %>
