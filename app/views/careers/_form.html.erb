@@ -158,9 +158,20 @@
   <div class="form-actions">
     <div class="row">
      <div class="col-sm-7 col-sm-offset-5">
-      <%= button_tag( :class => "btn btn-primary btn-lg") do %>
-      <i class="icon-save"></i>
-      <%= t('general.save') %>
+      <% if @career.id.blank? %> 
+        <%= button_tag(:name => "commit", :value => "save_and_select_subjects", :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Guardar y Cargar Materias
+        <% end %>
+        <%= button_tag(:name => "commit", :value => "save", :class => "btn btn-primary btn-lg") do %>
+          <i class="icon-save"></i>
+          Guardar y Volver
+        <% end %>
+      <% else %>
+        <%= button_tag(:class=> 'btn btn-primary btn-lg') do %>
+          <i class='icon-save'></i>
+          <%= t('general.save') %>
+        <% end %>
       <% end %>
     </div>
   </div>

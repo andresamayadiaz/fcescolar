@@ -1,6 +1,11 @@
-<h1>Editing career</h1>
-
 <%= render 'form' %>
+<% content_for :specific_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      if (window.location.href.indexOf('#retab2')!=-1){
+        $('a[href="#retab2"]').trigger('click');
+      }
+    })
+  </script>
+<% end %>
 
-<%= link_to 'Show', @career %> |
-<%= link_to 'Back', careers_path %>

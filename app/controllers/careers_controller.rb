@@ -38,7 +38,14 @@ class CareersController < ApplicationController
     respond_with(@career) do |format|
       format.html { 
         if @career.save 
-          redirect_to careers_url 
+          case params[:commit]
+            when 'save'
+              redirect_to careers_url
+            when 'save_and_select_subjects'
+              redirect_to "#{edit_career_url(@career)}#retab2"
+            else
+              redirect_to careers_url
+          end
         else 
           @subjects = @career.subjects
           render 'new'
