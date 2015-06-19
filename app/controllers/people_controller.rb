@@ -139,13 +139,15 @@ class PeopleController < ApplicationController
   end
 
   def accept_dictamination
-    @dictamination = TeacherDictamination.find(params[:teacher_dictamination][:id])
-    if @dictamination.update(params[:teacher_dictamination])
-      flash[:notice]='Dictamination is accepted'
-    else
-      flash[:error]='Failed to accept dictamination'
+    begin
+      @dictamination = TeacherDictamination.find(params[:teacher_dictamination][:id])
+      @dictamination.update!(params[:teacher_dictamination])
+      flash[:notice]= 'Dictamination is accepted'
+      redirect_to "/people/accept_reject_dictamination?teacher=#{@dictamination.person.id}&status=Accepted"
+    rescue => error
+      flash[:error]= error.to_s
+      redirect_to :back
     end
-    redirect_to "/people/accept_reject_dictamination?teacher=#{@dictamination.person.id}&status=Accepted"
   end
 
   def reject_dictamination
