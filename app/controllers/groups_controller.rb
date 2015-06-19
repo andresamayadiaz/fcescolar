@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
 
   def new_enroll_student
     @new_enrolled_student = EnrolledStudent.new
-    @available_study_plans = current_user.person.franchise.careers.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name }
+    @available_study_plans = Career.all.map{|c| c.study_plans.active.map{|sp|sp} }.flatten.uniq { |sp| sp.name } #because of removing career and franchise relation.
   end
   
   def create_enroll_student
