@@ -10,7 +10,7 @@ class UsersRole < ActiveRecord::Base
     students = []
     latest_added_people = Person.all.limit(10);
     latest_added_people.each do |p|
-      students << p if p.user.users_roles.map{|users_role| users_role.role.name.include? 'student'}.first
+      students << p if p.user.users_roles.map{|users_role| users_role.role.name}.include? 'student'
     end
     students.sort_by(&:id)
   end
