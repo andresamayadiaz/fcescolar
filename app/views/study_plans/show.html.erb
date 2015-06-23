@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_study_plan_path(@study_plan) %> |
-<%= link_to 'Back', study_plans_path %>
+<h1><%= @study_plan.name %></h1>
+<% if @enabled %>
+  <p>Enabled</p>
+  <%= render 'show_enabled' %>
+<% else %>
+  <p>Not Enabled</p>
+  <%= render 'show_not_enabled' %>
+<% end %>

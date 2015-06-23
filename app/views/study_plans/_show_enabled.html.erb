@@ -1,0 +1,106 @@
+<div class='tabbable'>
+  <!-- Nav tabs -->
+  <ul class="nav nav-responsive nav-tabs">
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
+    <li role="presentation"><a href="#study_plan_periods" aria-controls="study_plan_periods" role="tab" data-toggle="tab">Study Plan Periods</a></li>
+    <li role="presentation"><a href="#enabled_info" aria-controls="enabled_info" role="tab" data-toggle="tab">Enabled Info</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="general_info">
+      <fieldset>
+        <legend>General Information</legend>
+        <div class="col-sm-8">
+          <table class="table table-condensed">
+            <tr><td>Career</td><td><%= @study_plan.career.try(:name) %></td></tr>          
+            <tr><td>Number of periods</td><td><%= @study_plan.number_of_periods %></td></tr>          
+            <tr><td>Period</td><td><%= @study_plan.period.try(:name) %></td></tr>          
+            <tr><td>Attendance rate</td><td><%= @study_plan.attendance_rate %></td></tr>
+            <tr><td>Extra opportunities</td><td><%= @study_plan.extra_opportunities %></td></tr>
+            <tr><td>Name</td><td><%= @study_plan.name %></td></tr>
+          </table>
+        </div>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="study_plan_periods">
+      <fieldset>
+        <legend>Study Plan Periods</legend>
+        <div class="col-sm-8">
+          <% @study_plan.study_plan_periods.each do |study_plan_period| %>
+            <h5>Period Name:&nbsp;<%= study_plan_period.period_name %></h5>
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Curricular Line</th>
+                <th>Subject</th>
+                <th>Weekly frequency</th>
+                <th>Credits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% study_plan_period.study_plan_subjects.each do |study_plan_subject| %>
+                <tr>
+                <td><%= study_plan_subject.curricular_line.try(:name) %></td>
+                <td><%= study_plan_subject.subject.try(:name) %></td>         
+                <td><%= study_plan_subject.weekly_frequency %></td>          
+                <td><%= study_plan_subject.credits %></td>
+              </tr>          
+            <% end %>
+            </tbody>  
+          </table>
+          <hr class='normal'>
+        <% end %>
+        </div>
+      </fieldset>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="enabled_info">
+      <fieldset>
+        <legend>Enabled Information</legend>
+        <% @study_plan.schedules.each do |schedule| %>
+          <h5>Campus:&nbsp;<%= schedule.campus.try(:name) %></h5>
+          <div class="form-group">
+            <label class="col-md-12 control-label">Official Required Background Documents:</label>
+            <div class="col-md-12">
+              <ul>
+                <% schedule.background_official_docs.each do |doc| %>
+                  <li><%= doc.name %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-12 control-label">Active Classrooms:</label>
+            <div class="col-md-12">
+              <ul>
+                <% schedule.classrooms.each do |classroom| %>
+                  <li><%= classroom.name %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-12 control-label">Active Time Slots:</label>
+            <div class="col-md-12">
+              <ul>
+                <% schedule.time_slots.each do |timeslot| %>
+                  <li><%= timeslot.name %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-12 control-label">Degree Achievements Categories:</label>
+            <div class="col-md-12">
+              <ul>
+                <% schedule.degree_achievements_categories.each do |degree| %>
+                  <li><%= degree.name %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <hr class='normal'>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
