@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       get 'add_period_detail'
       get 'remove_period_detail'
       get 'calculate_end_month'
+      post 'add_multiple_period_detail'
     end
   end
 

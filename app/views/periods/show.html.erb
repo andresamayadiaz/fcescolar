@@ -39,6 +39,28 @@
     </div>
   </div>
   <div class='box-content box-no-padding'>
+    <br/>
+    <div class='col-sm-12'>
+      <strong>Add Multiple Periods</strong>
+    </div>
+    <br/>
+    <form method="POST" action="<%=add_multiple_period_detail_periods_path%>">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"/>
+      <input name="period_id" value="<%= @period.id %>" type="hidden"/>
+      <div class='col-sm-3'>
+        <%= select_year(14, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year, prompt: 'Elija Años'}, {:class=>'form-control', :name=>'start_year', :id=>'start_year'})%>
+      </div>
+      <div class='col-sm-3'>
+        <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control', :name=>'start_month', :id=>'start_month'}) %>
+      </div>
+      <div class='col-sm-3'>
+        <input name="number_of_period_details" type='number' placeholder="Number of Period Details" class='form-control'/>
+      </div>
+      <div class='col-sm-3'>
+        <button class='btn'>Save</button>
+      </div>
+    </form>
+    <hr class='normal'>
     <div class='responsive-table'>
       <div class='scrollable-area'>
         <table class='table table-bordered table-striped' style='margin-bottom:0;'>
