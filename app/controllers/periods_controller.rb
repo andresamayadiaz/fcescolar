@@ -10,6 +10,16 @@ class PeriodsController < ApplicationController
     render :json => end_month
   end
 
+  def add_multiple_period_detail
+    @period = Period.find(params[:period_id])
+    if PeriodDetail.multiple_add(params[:start_year],params[:start_month],params[:number_of_period_details],@period)
+      flash[:notice]= 'New period details have been added'
+    else
+      flash[:error]= 'Failed to create new period details'
+    end
+    redirect_to @period
+  end
+
   def add_period_detail
     @period = Period.find(params[:period_id])
     @new_period_detail = PeriodDetail.new(params.except(:controller,:action).permit!)

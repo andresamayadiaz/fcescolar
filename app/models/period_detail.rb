@@ -3,6 +3,29 @@ class PeriodDetail < ActiveRecord::Base
   belongs_to :period
 
   validates :period, :initial_month, :end_month, :year, :presence => true
+	
+  def self.multiple_add(start_year,start_month,num_to_add,period)
+    num = num_to_add.to_i
+		inserts = []
+		j = 0
+    id = period.id
+    month_length = period.month_length
+    updated_initial_month = Date.new(start_year.to_i,start_month.to_i)
+		while j < num do
+			new_initial_month = j==0 ? updated_initial_month : updated_initial_month+(j*month_length).months
+			end_month = j==0 ? updated_initial_month+(month_length-1).months : new_initial_month+(month_length-1).months
+			year = new_initial_month
+			inserts.push "('#{new_initial_month}', '#{end_month}', '#{year}', #{id})"
+			j = j + 1
+		end
+		sql = "INSERT INTO period_details (`initial_month`, `end_month`, `year`, `period_id`) VALUES #{inserts.join(", ")}"
+    begin
+        ActiveRecord::Base.connection.execute sql
+        true
+    rescue
+        false
+    end
+	end
 
   def get_months
     selected_year = self.year.strftime('%Y')

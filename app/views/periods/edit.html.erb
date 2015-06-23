@@ -9,18 +9,18 @@
       <div class="pull-right">
         <ul class="breadcrumb">
           <li>
-            <a href="index.html">
-              <i class="icon-home"></i>
-            </a>
+          <a href="index.html">
+            <i class="icon-home"></i>
+          </a>
           </li>
           <li class="separator">
-            <i class="icon-angle-right"></i>
+          <i class="icon-angle-right"></i>
           </li>
           <li>
-            Períodos
+          Períodos
           </li>
           <li class="separator">
-            <i class="icon-angle-right"></i>
+          <i class="icon-angle-right"></i>
           </li>
           <li class="active">Períodos detalles</li>
         </ul>
@@ -39,6 +39,28 @@
     </div>
   </div>
   <div class='box-content box-no-padding'>
+    <br/>
+    <div class='col-sm-12'>
+      <strong>Add Multiple Periods</strong>
+    </div>
+    <br/>
+    <form method="POST" action="<%=add_multiple_period_detail_periods_path%>">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"/>
+      <input name="period_id" value="<%= @period.id %>" type="hidden"/>
+      <div class='col-sm-3'>
+        <%= select_year(14, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year, prompt: 'Elija Años'}, {:class=>'form-control', :name=>'start_year', :id=>'start_year'})%>
+      </div>
+      <div class='col-sm-3'>
+        <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control', :name=>'start_month', :id=>'start_month'}) %>
+      </div>
+      <div class='col-sm-3'>
+        <input name="number_of_period_details" type='number' placeholder="Number of Period Details" class='form-control'/>
+      </div>
+      <div class='col-sm-3'>
+        <button class='btn'>Save</button>
+      </div>
+    </form>
+    <hr class='normal'>
     <div class='responsive-table'>
       <div class='scrollable-area'>
         <table class='table table-bordered table-striped' style='margin-bottom:0;'>
@@ -53,7 +75,7 @@
           </thead>
           <tbody>
             <% @period.period_details.each do |p| %>
-            <tr>
+              <tr>
               <td><%= p.period.name %></td>
               <td><%= p.initial_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%B') %></td>
@@ -61,12 +83,12 @@
               <td>
                 <div class='text-right'>
                   <%= link_to remove_period_detail_periods_path(:id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
-                  <i class='icon-remove'></i>
-                  <% end %>
+                    <i class='icon-remove'></i>
+                <% end %>
                 </div>
               </td>
             </tr>
-            <% end %>
+          <% end %>
             <tr>
               <td><%= @period.name %></td>
               <td>
@@ -89,27 +111,27 @@
 <!-- .// TABLE -->
 <% content_for :specific_js do %>
 <script type="text/javascript">
-  function getMonthName(v) {
-    var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return n[v]
-  }
+function getMonthName(v) {
+  var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  return n[v]
+}
 
-  $(document).ready(function(){
+$(document).ready(function(){
 
     var month_length = $("#month_length").val();
 
     $("#date_month").change(function(){
       var _this = $(this);
       $.ajax({
-        type: 'GET',
-        url: '/periods/calculate_end_month?initial_month='+$(this).val()+'&month_length='+month_length,
-        success:function(data){
-          var end_month_name = getMonthName(parseInt(data)-1);
-          var end_month_number = data;
-          _this.parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
-        }
-      });     
-    });
+type: 'GET',
+url: '/periods/calculate_end_month?initial_month='+$(this).val()+'&month_length='+month_length,
+success:function(data){
+var end_month_name = getMonthName(parseInt(data)-1);
+var end_month_number = data;
+_this.parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
+}
+});     
+      });
 
     $("#date_year").change(function(){
       var new_year = new Date($(this).val());
@@ -120,12 +142,12 @@
       var this_parent = $(this).parents('tr');
 
       if (new_year && new_initial_month && new_end_month){
-        add_period_url = '/periods/add_period_detail?year='+new_year+'&initial_month='+new_initial_month+'&end_month='+new_end_month+'&period_id='+period_id;
-        window.location.href = add_period_url;
+      add_period_url = '/periods/add_period_detail?year='+new_year+'&initial_month='+new_initial_month+'&end_month='+new_end_month+'&period_id='+period_id;
+      window.location.href = add_period_url;
       }
 
-    });
+      });
 
-  });
+});
 </script>
 <% end %>
