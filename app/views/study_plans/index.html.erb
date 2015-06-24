@@ -67,6 +67,7 @@
               <td><%= study_plan.name %></td>
               <td>
                <div class="text-right">
+              <%= link_to 'View', study_plan_path(study_plan), class: 'btn btn-info btn-xs' %>
                <%= link_to edit_study_plan_url(study_plan), class: 'btn btn-success btn-xs' do %>
                 <i class='icon-ok'></i>
                 <% end %>

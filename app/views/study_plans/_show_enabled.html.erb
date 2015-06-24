@@ -57,13 +57,12 @@
     <div role="tabpanel" class="tab-pane" id="enabled_info">
       <fieldset>
         <legend>Enabled Information</legend>
-        <% @study_plan.schedules.each do |schedule| %>
-          <h5>Campus:&nbsp;<%= schedule.campus.try(:name) %></h5>
+          <h5>Campus:&nbsp;<%= @schedule.campus.try(:name) %></h5>
           <div class="form-group">
             <label class="col-md-12 control-label">Official Required Background Documents:</label>
             <div class="col-md-12">
               <ul>
-                <% schedule.background_official_docs.each do |doc| %>
+                <% @schedule.background_official_docs.each do |doc| %>
                   <li><%= doc.name %></li>
                 <% end %>
               </ul>
@@ -73,7 +72,7 @@
             <label class="col-md-12 control-label">Active Classrooms:</label>
             <div class="col-md-12">
               <ul>
-                <% schedule.classrooms.each do |classroom| %>
+                <% @schedule.classrooms.each do |classroom| %>
                   <li><%= classroom.name %></li>
                 <% end %>
               </ul>
@@ -83,7 +82,7 @@
             <label class="col-md-12 control-label">Active Time Slots:</label>
             <div class="col-md-12">
               <ul>
-                <% schedule.time_slots.each do |timeslot| %>
+                <% @schedule.time_slots.each do |timeslot| %>
                   <li><%= timeslot.name %></li>
                 <% end %>
               </ul>
@@ -93,14 +92,13 @@
             <label class="col-md-12 control-label">Degree Achievements Categories:</label>
             <div class="col-md-12">
               <ul>
-                <% schedule.degree_achievements_categories.each do |degree| %>
+                <% @schedule.degree_achievements_categories.each do |degree| %>
                   <li><%= degree.name %></li>
                 <% end %>
               </ul>
             </div>
           </div>
           <hr class='normal'>
-        <% end %>
       </fieldset>
     </div>
   </div>

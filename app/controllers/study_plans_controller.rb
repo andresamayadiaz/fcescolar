@@ -72,6 +72,7 @@ class StudyPlansController < ApplicationController
   # GET /study_plans/1.json
   def show
     @enabled = @study_plan.schedules.present? ? true : false
+    @schedule = @study_plan.schedules.last if @enabled #to get latest schedule
   end
 
   # GET /study_plans/new
