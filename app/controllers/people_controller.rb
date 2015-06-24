@@ -106,7 +106,7 @@ class PeopleController < ApplicationController
   end
 
   def get_active_subjects_by_study_plan_id
-    @active_subjects = Subject.get_by_study_plan(params[:study_plan_id])
+    @active_subjects = Subject.get_by_study_plan(params[:study_plan_id],params[:teacher_id])
     render :json => @active_subjects
   end
 

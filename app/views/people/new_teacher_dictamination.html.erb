@@ -38,7 +38,7 @@
     $("#active_subjects_wrapper").hide();
     $.ajax({
       type: 'GET',
-      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val,
+      url: '/people/get_active_subjects_by_study_plan_id?study_plan_id='+val+'&teacher_id='+$('#teacher_dictamination_person_id').val(),
       success: function(data){
         if(data){
           var html_element=''
