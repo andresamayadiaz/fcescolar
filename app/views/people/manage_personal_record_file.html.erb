@@ -79,9 +79,9 @@
 							<td><%= link_to d.document_file_name, download_personal_record_file_people_url(:rec_file_id=>d.id) %></td>
 							<td><%= d.due_date.to_date.strftime("%Y-%m-%d") rescue nil %></td>
 							<td><%= d.created_at.to_date.strftime("%Y-%m-%d") %></td>
-							<td><%= d.attach_user.name || d.attach_user.email %></td>
+							<td><%= d.attach_user.person.name || d.attach_user.email %></td>
 							<td><%= d.match_date %></td>
-							<td><%= (d.match_user.name || d.match_user.email) if d.match_user.present? %></td>
+							<td><%= (d.match_user.person.name || d.match_user.email) if d.match_user.present? %></td>
 							<% if d.match_user.blank? and d.match_date.blank? and d.has_been_matched.nil? %>
 								<td>
 									<a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>true) %>' class='btn-sm btn-success match_date'>Match OK</a>&nbsp;
@@ -141,7 +141,7 @@
 				success: function(data){
 					console.log(data);
 					_this.parent().prev().prev().html(data)
-					_this.parent().prev().html('<%= current_user.name || current_user.email %>')
+					_this.parent().prev().html('<%= current_user.person.name || current_user.email %>')
 					if(_this.hasClass('btn-success')){
 						_this.parent().html('<span class="alert-success">OK</span>')
 					} else {

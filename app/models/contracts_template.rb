@@ -7,7 +7,7 @@ class ContractsTemplate < ActiveRecord::Base
     content.gsub! '@@person_fullname@@', person.name
     content.gsub! '@@person_fullname2@@', person.name
     content.gsub! '@@person_id@@', person.id.to_s
-    content.gsub! '@@username@@', person.user.name
+    content.gsub! '@@username@@', person.name
     content.gsub! '@@franchise_name@@', franchise.name
     content.gsub! '@@franchise_address@@', franchise.address
     content.gsub! '@@date_now@@', Time.now.strftime('%Y-%m-%d')
