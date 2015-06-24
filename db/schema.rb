@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617093310) do
+ActiveRecord::Schema.define(version: 20150624042042) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -482,6 +482,14 @@ ActiveRecord::Schema.define(version: 20150617093310) do
   end
 
   add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
+
+  create_table "study_levels_users_roles", force: true do |t|
+    t.integer "study_level_id"
+    t.integer "users_role_id"
+  end
+
+  add_index "study_levels_users_roles", ["study_level_id"], name: "index_study_levels_users_roles_on_study_level_id", using: :btree
+  add_index "study_levels_users_roles", ["users_role_id"], name: "index_study_levels_users_roles_on_users_role_id", using: :btree
 
   create_table "study_plan_periods", force: true do |t|
     t.string   "period_name"
