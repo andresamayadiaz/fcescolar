@@ -56,7 +56,6 @@
           <%= f.input :name, readonly: true, label:'Study Plan Name' %>
           <div id="officers_study_plans_wrapper">
             <%= f.simple_fields_for :officers_study_plans do |officers_study_plan| %>
-              <%= officers_study_plan.index %>
               <%= render 'officers_study_plan_fields', :f => officers_study_plan %>
             <% end %>
             <div class='links'>
