@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624042042) do
+ActiveRecord::Schema.define(version: 20150625031522) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -286,6 +286,17 @@ ActiveRecord::Schema.define(version: 20150624042042) do
     t.datetime "updated_at"
     t.string   "name"
   end
+
+  create_table "officers_study_plans", force: true do |t|
+    t.integer  "officer_id"
+    t.integer  "study_plan_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "officers_study_plans", ["officer_id"], name: "index_officers_study_plans_on_officer_id", using: :btree
+  add_index "officers_study_plans", ["study_plan_id"], name: "index_officers_study_plans_on_study_plan_id", using: :btree
 
   create_table "official_domains", force: true do |t|
     t.integer  "franchise_id"

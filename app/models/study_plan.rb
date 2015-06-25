@@ -3,7 +3,8 @@ class StudyPlan < ActiveRecord::Base
   belongs_to :period
   has_many :study_plan_periods
   has_many :schedules
-  has_and_belongs_to_many :officers
+  has_many :officers_study_plans
+  has_many :officers, through: :officers_study_plans
   scope :active, -> { where(status: true) } 
 
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
