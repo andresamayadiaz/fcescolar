@@ -124,8 +124,10 @@ function check_to_hide_or_show_add_link() {
 
 
 $(document).ready(function() {
-    $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function() {
+    $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
       check_to_hide_or_show_add_link();
+      var rank = $('#officers_study_plans_wrapper .nested-fields').length;
+      item.find('input').val(rank);
     });
 
     $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function() {
