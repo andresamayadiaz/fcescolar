@@ -88,7 +88,7 @@ class StudyPlansController < ApplicationController
   # POST /study_plans.json
   def create
     @study_plan = StudyPlan.new(study_plan_params)
-
+byebug
     respond_to do |format|
       if @study_plan.save
         format.html { redirect_to study_plans_url, notice: 'Study plan was successfully created.' }

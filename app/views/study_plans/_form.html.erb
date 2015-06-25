@@ -52,15 +52,24 @@
           <%= f.input :number_of_periods %>
           <%= f.association :period %>
           <%= f.input :attendance_rate %>
-          <div class="form-group">%</div>
           <%= f.input :extra_opportunities %>
           <%= f.input :name, readonly: true, label:'Study Plan Name' %>
+          <div id="officers_study_plans_wrapper">
+            <%= f.simple_fields_for :officers_study_plans do |officers_study_plan| %>
+              <%= officers_study_plan.index %>
+              <%= render 'officers_study_plan_fields', :f => officers_study_plan %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association 'Add Officer', f, :officers_study_plans %>
+            </div>
+          </div>
+          <br/>
           <div id="study_plan_periods_wrapper">
             <% @period_counter = 1 %>
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
             <% @period_counter = @period_counter + 1 %>
-          <% end %>
+            <% end %>
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
               <%= link_to_add_association 'Add Study Plan Period', f, :study_plan_periods %>
             </div>

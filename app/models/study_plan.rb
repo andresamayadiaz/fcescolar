@@ -8,6 +8,7 @@ class StudyPlan < ActiveRecord::Base
   scope :active, -> { where(status: true) } 
 
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :officers_study_plans, :reject_if => :all_blank, :allow_destroy => true
 
   def self.filter(p)
     filtered_study_plans = all
