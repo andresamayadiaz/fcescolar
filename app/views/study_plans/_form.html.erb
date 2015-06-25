@@ -82,6 +82,7 @@
   </div>
 </div>
 <!-- .// TABLE -->
+<input type='hidden' value='<%= Officer.all.length %>' id='max_officers'/>
 
 
 <% content_for :specific_js do %>
@@ -111,7 +112,27 @@ function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
             }
         })
 }
+
+function check_to_hide_or_show_add_link() {
+    var max_officers = $('#max_officers').val();
+    if ($('#officers_study_plans_wrapper .nested-fields').length == max_officers) {
+      $('#officers_study_plans_wrapper .links a').hide();
+    } else {
+      $('#officers_study_plans_wrapper .links a').show();
+    }
+  }
+
+
 $(document).ready(function() {
+    $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function() {
+      check_to_hide_or_show_add_link();
+    });
+
+    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function() {
+      check_to_hide_or_show_add_link();
+    });
+
+   check_to_hide_or_show_add_link();
     $('.study_plan_subject_cl').each(function() {
           var old_selected_subject = $(this).parent().next().find('select').val();
           get_subjects_by_curricular_line($(this).val(),$(this),old_selected_subject);
