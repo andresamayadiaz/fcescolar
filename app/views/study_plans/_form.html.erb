@@ -123,14 +123,25 @@ function check_to_hide_or_show_add_link() {
     } else {
       $('#officers_study_plans_wrapper .links a').show();
     }
-  }
+}
+
+function validate_selected_officers(current_select){
+      var selected_officers = $('#officers_study_plans_wrapper select').map(function(){ return $(this).val() });
+      current_select.find('option').map(function(){
+          var is_selected_officer = $.inArray($(this).val(),selected_officers);
+          if (is_selected_officer!=-1){
+            $(this).remove();
+          }
+      })
+}
 
 
 $(document).ready(function() {
     $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
       check_to_hide_or_show_add_link();
       var rank = $('#officers_study_plans_wrapper .nested-fields').length;
-      item.find('input').val(rank);
+      item.find('input').val(rank); 
+      validate_selected_officers(item.find('select'));
     });
 
     $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function() {
