@@ -119,7 +119,11 @@ function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
 function check_to_hide_or_show_add_link() {
     var max_officers = $('#max_officers').val();
     if ($('#officers_study_plans_wrapper .nested-fields').length == max_officers) {
-      $('#officers_study_plans_wrapper .links a').hide();
+      if($('#officers_study_plans_wrapper .nested-fields:hidden').length>0) {
+        $('#officers_study_plans_wrapper .links a').show();
+      } else {
+        $('#officers_study_plans_wrapper .links a').hide();
+      }
     } else {
       $('#officers_study_plans_wrapper .links a').show();
     }
@@ -153,7 +157,7 @@ $(document).ready(function() {
       $('#officers_study_plans_wrapper .links a').attr('disabled',true);
     });
 
-    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function() {
+    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function(e,item) {
       check_to_hide_or_show_add_link();
     });
 
