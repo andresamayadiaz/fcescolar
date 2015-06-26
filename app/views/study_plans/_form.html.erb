@@ -126,10 +126,11 @@ function check_to_hide_or_show_add_link() {
 }
 
 function validate_selected_officers(current_select){
+      current_select.parents('fieldset').prev().find('select').attr('disabled',true);
       var selected_officers = $('#officers_study_plans_wrapper select').map(function(){ return $(this).val() });
       current_select.find('option').map(function(){
           var is_selected_officer = $.inArray($(this).val(),selected_officers);
-          if (is_selected_officer!=-1){
+          if (is_selected_officer!=-1 && $(this).text()!='Select an officer'){
             $(this).remove();
           }
       })
@@ -137,11 +138,19 @@ function validate_selected_officers(current_select){
 
 
 $(document).ready(function() {
+    $('#officers_study_plans_wrapper select').attr('disabled',true)
+    $('form#new_study_plan').bind('submit', function() {
+      $(this).find('select').removeAttr('disabled');
+    });
+    $('#officers_study_plans_wrapper select').live('change',function(){
+      $('#officers_study_plans_wrapper .links a').removeAttr('disabled');
+    })
     $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
       check_to_hide_or_show_add_link();
       var rank = $('#officers_study_plans_wrapper .nested-fields').length;
-      item.find('input').val(rank); 
+      item.find('input.form-control').val(rank); 
       validate_selected_officers(item.find('select'));
+      $('#officers_study_plans_wrapper .links a').attr('disabled',true);
     });
 
     $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function() {
