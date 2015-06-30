@@ -158,11 +158,11 @@ table{font-size:12px;}
           success: function(data){
             if(data && data[0]){
               $('#search_result_wrap table').dataTable().fnClearTable();
-              var group_details = data[0].group_details;
+              var group_details = data;
               $.each(group_details,function(index,value){
                 $('#search_result_wrap table').dataTable().fnAddData( [
-                    '<a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a>',
-                    value.status, value.year, value.month, data[0].group_id, shorter_study_plan_name(data[0].study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name ])
+                  '<a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a>',
+                  value.status, value.year, value.month, value.custom_group_id, shorter_study_plan_name(value.group.study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name  ]);
               });
               $('#search_result_wrap').slideDown();
             }
@@ -185,7 +185,7 @@ table{font-size:12px;}
               $.each(group_details,function(index,value){
                 $('#search_result_wrap table').dataTable().fnAddData( [
                   '<a href="/people/view_group?group_detail_id='+value.id+'" target="_blank">Ver</a>&nbsp;|&nbsp;<a href="/people/view_group?group_detail_id='+value.id+'&format=pdf" target="_blank">Imprimir Minuta</a>',
-                  value.status, value.year, value.month, value.group.group_id, shorter_study_plan_name(value.group.study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name  ]);
+                  value.status, value.year, value.month, value.custom_group_id, shorter_study_plan_name(value.group.study_plan.name), value.subject.name, value.teacher.first_name, value.weekday, value.classroom.name, value.time_slot.name  ]);
               });
               $('#search_result_wrap').slideDown();
             }

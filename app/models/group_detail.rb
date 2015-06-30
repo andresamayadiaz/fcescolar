@@ -12,6 +12,20 @@ class GroupDetail < ActiveRecord::Base
   validates :classroom, presence: true
   validates :teacher, presence: true
 
+  after_create :generate_custom_group_id
+
+  def generate_custom_group_id
+    self.update(:custom_group_id=>"#{self.group.start_year}-#{self.id}")
+  end
+
+  def self.get_group_id_numbers(year)
+    GroupDetail.all.select{|g| g.custom_group_id.split('-').try(:first)==year}.map{|g|g.custom_group_id.split('-').try(:last)}.uniq
+  end
+
+  def self.get_id_years
+    GroupDetail.all.map{|g|g.custom_group_id.split('-').try(:first)}.uniq
+  end
+
   def self.load(year,month,study_plan_id,weekday,student_ids)
     selected_group_details = Array.new
     required_docs = Schedule.find_by_study_plan_id(study_plan_id).background_official_docs.map(&:id)
