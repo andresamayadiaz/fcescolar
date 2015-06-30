@@ -8,17 +8,17 @@ class Subject < ActiveRecord::Base
 
   validates :study_level, :presence=>true
   validates :curricular_line, :presence=>true
-  
+
   def self.get_teacher
   end
 
   def self.get_selected(ids)
-  	selected_arr = []
-  	ids.split(",").each do |i|
-  		subject = self.find(i)
-  		selected_arr << {:name=>subject.try(:name),:clave=>subject.try(:clave)}
-  	end if ids
-  	selected_arr
+    selected_arr = []
+    ids.split(",").each do |i|
+      subject = self.find(i)
+      selected_arr << {:name=>subject.try(:name),:clave=>subject.try(:clave)}
+    end if ids
+    selected_arr
   end
 
   def self.get_by_career(career_id,curricular_line_id)
@@ -28,11 +28,15 @@ class Subject < ActiveRecord::Base
   def self.get_by_study_plan(study_plan_id,teacher_id)
     study_plan = StudyPlan.find(study_plan_id)
     selected_subjects = study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten.uniq
-    teacher_user_id = Person.find(teacher_id).user.id
-    role = Role.find_by_name('teacher')
-    teacher_role = UsersRole.find_by_user_id_and_role_id(teacher_user_id,role.id)
-    permitted_study_levels = teacher_role.study_levels.map(&:id)
-    filtered_selected_subjects = selected_subjects.select{|subject| permitted_study_levels.include? subject.study_level_id}
+    if teacher_id.present?
+      teacher_user_id = Person.find(teacher_id).user.id
+      role = Role.find_by_name('teacher')
+      teacher_role = UsersRole.find_by_user_id_and_role_id(teacher_user_id,role.id)
+      permitted_study_levels = teacher_role.study_levels.map(&:id)
+      filtered_selected_subjects = selected_subjects.select{|subject| permitted_study_levels.include? subject.study_level_id}
+    else
+      filtered_selected_subjects = selected_subjects
+    end
     filtered_selected_subjects 
   end
 end
