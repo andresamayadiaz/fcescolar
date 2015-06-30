@@ -32,7 +32,7 @@ class StudyPlansController < ApplicationController
     @active_time_slots = TimeSlot.where(:campus_id=>params[:campus_id]).active
     render :json => @active_time_slots
   end
-  
+
   def enable
     @active_study_plans = StudyPlan.active
     @campuses = current_user.person.franchise.try(:campuses)
@@ -61,7 +61,7 @@ class StudyPlansController < ApplicationController
   def get_subject_by_study_plan_id
     @subjects = StudyPlanSubject
   end
-  
+
   def index
     @study_plans = StudyPlan.all
     @careers = Career.all
@@ -88,7 +88,6 @@ class StudyPlansController < ApplicationController
   # POST /study_plans.json
   def create
     @study_plan = StudyPlan.new(study_plan_params)
-
     respond_to do |format|
       if @study_plan.save
         format.html { redirect_to study_plans_url, notice: 'Study plan was successfully created.' }
@@ -125,13 +124,45 @@ class StudyPlansController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_study_plan
-      @study_plan = StudyPlan.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_study_plan
+    @study_plan = StudyPlan.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def study_plan_params
-      params[:study_plan]
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def study_plan_params
+    params.require(:study_plan).permit(
+      :id,
+      :career_id,
+      :period_id,
+      :number_of_periods,
+      :name,
+      :attendance_rate,
+      :extra_opportunities,
+      officers_study_plans_attributes: [
+        :id, 
+        :study_plan_id, 
+        :officer_id, 
+        :rank,
+        :_destroy
+      ],
+      study_plan_periods_attributes: [
+        :id, 
+        :period_name, 
+        :curricular_line_id, 
+        :study_plan_id,
+        :_destroy,
+        study_plan_subjects_attributes: [
+          :id, 
+          :study_plan_period_id, 
+          :curricular_line_id, 
+          :subject_id, 
+          :name, 
+          :weekly_frequency, 
+          :credits,
+          :_destroy
+        ]
+      ]
+    )
+  end
 end

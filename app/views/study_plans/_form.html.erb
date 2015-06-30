@@ -1,4 +1,7 @@
-<style>.remove_sp_period_link{display:none}</style>
+<style>
+.remove_sp_period_link{display:none}
+#officers_study_plans_wrapper input, #officers_study_plans_wrapper select {height:30px;}
+</style>
 
 <!-- // TITULO -->
 <div class="row">
@@ -52,15 +55,23 @@
           <%= f.input :number_of_periods %>
           <%= f.association :period %>
           <%= f.input :attendance_rate %>
-          <div class="form-group">%</div>
           <%= f.input :extra_opportunities %>
           <%= f.input :name, readonly: true, label:'Study Plan Name' %>
+          <div id="officers_study_plans_wrapper">
+            <%= f.simple_fields_for :officers_study_plans do |officers_study_plan| %>
+              <%= render 'officers_study_plan_fields', :f => officers_study_plan %>
+            <% end %>
+            <div class='links'>
+              <%= link_to_add_association 'Add Officer', f, :officers_study_plans, class: 'btn btn-sm btn-info', style: 'margin-top:10px;' %>
+            </div>
+          </div>
+          <br/>
           <div id="study_plan_periods_wrapper">
             <% @period_counter = 1 %>
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
             <% @period_counter = @period_counter + 1 %>
-          <% end %>
+            <% end %>
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
               <%= link_to_add_association 'Add Study Plan Period', f, :study_plan_periods %>
             </div>
@@ -74,6 +85,7 @@
   </div>
 </div>
 <!-- .// TABLE -->
+<input type='hidden' value='<%= Officer.all.length %>' id='max_officers'/>
 
 
 <% content_for :specific_js do %>
@@ -103,7 +115,53 @@ function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
             }
         })
 }
+
+function check_to_hide_or_show_add_link() {
+    var max_officers = $('#max_officers').val();
+    if ($('#officers_study_plans_wrapper .nested-fields').length == max_officers) {
+      if($('#officers_study_plans_wrapper .nested-fields:hidden').length>0) {
+        $('#officers_study_plans_wrapper .links a').show();
+      } else {
+        $('#officers_study_plans_wrapper .links a').hide();
+      }
+    } else {
+      $('#officers_study_plans_wrapper .links a').show();
+    }
+}
+
+function validate_selected_officers(current_select){
+      current_select.parents('fieldset').prev().find('select').attr('disabled',true);
+      var selected_officers = $('#officers_study_plans_wrapper select').map(function(){ return $(this).val() });
+      current_select.find('option').map(function(){
+          var is_selected_officer = $.inArray($(this).val(),selected_officers);
+          if (is_selected_officer!=-1 && $(this).text()!='Select an officer'){
+            $(this).remove();
+          }
+      })
+}
+
+
 $(document).ready(function() {
+    $('#officers_study_plans_wrapper select').attr('disabled',true)
+    $('form#new_study_plan').bind('submit', function() {
+      $(this).find('select').removeAttr('disabled');
+    });
+    $('#officers_study_plans_wrapper select').live('change',function(){
+      $('#officers_study_plans_wrapper .links a').removeAttr('disabled');
+    })
+    $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
+      check_to_hide_or_show_add_link();
+      var rank = $('#officers_study_plans_wrapper .nested-fields').length;
+      item.find('input.form-control').val(rank); 
+      validate_selected_officers(item.find('select'));
+      $('#officers_study_plans_wrapper .links a').attr('disabled',true);
+    });
+
+    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function(e,item) {
+      check_to_hide_or_show_add_link();
+    });
+
+   check_to_hide_or_show_add_link();
     $('.study_plan_subject_cl').each(function() {
           var old_selected_subject = $(this).parent().next().find('select').val();
           get_subjects_by_curricular_line($(this).val(),$(this),old_selected_subject);
