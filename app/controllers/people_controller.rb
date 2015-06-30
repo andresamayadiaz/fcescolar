@@ -24,7 +24,7 @@ class PeopleController < ApplicationController
     active_role = current_user.active_role
     @able_to_block = active_role=='super_administrator' or active_role=='franchise_director' ? true : false
     @enrolled_students = @group_detail.enrolled_students
-    render  :pdf => "Group: #{@group_detail.group.group_id}" if params[:format]=='pdf'
+    render  :pdf => "Group: #{@group_detail.custom_group_id}" if params[:format]=='pdf'
   end
 
   def search_group_by_year
@@ -47,17 +47,17 @@ class PeopleController < ApplicationController
   end
 
   def search_group_by_group_id
-    @group = Group.where(:group_id=>params[:group_id])
-    render :json => @group.to_json(:include=>[:study_plan,:group_details => {:include=>[:subject, :teacher, :classroom, :time_slot]} ])
+    @group_details = GroupDetail.where(:custom_group_id=>params[:group_id])
+    render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
   end
 
   def get_group_id_number
-    @group_id_numbers = Group.get_group_id_numbers(params[:year])
+    @group_id_numbers = GroupDetail.get_group_id_numbers(params[:year])
     render :json => @group_id_numbers
   end
 
   def search_group
-    @id_years = Group.get_years
+    @id_years = GroupDetail.get_id_years
     @years = GroupDetail.get_years
     @months = GroupDetail.all.map(&:month).uniq
   end
@@ -93,9 +93,10 @@ class PeopleController < ApplicationController
   end
 
   def copy_new_group
-    @group = Group.where(:group_id=>params[:group_id]).try(:first)
-    @kind_of_group = @group.group_details.map{|gd|gd.subject.name}.uniq!.present? ? 'single' : 'full'
-    @selected_subject_id = @group.group_details.try(:first).subject_id if @kind_of_group == 'single'
+    group_details = GroupDetail.where(:custom_group_id=>params[:group_id])
+    @group = group_details.try(:first).group
+    @kind_of_group = group_details.map{|gd|gd.subject.name}.uniq!.present? ? 'single' : 'full'
+    @selected_subject_id = group_details.try(:first).subject_id if @kind_of_group == 'single'
     if @group.blank?
       redirect_to '/people/new_group'
     else

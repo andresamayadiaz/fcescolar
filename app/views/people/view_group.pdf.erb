@@ -10,7 +10,7 @@
         <td>Carrera:</td><td colspan="3"><%= @group_detail.group.study_plan.career.try(:name).upcase %></td>
       </tr>
       <tr>
-        <td>Grupo:</td><td><%= @group_detail.group.group_id %></td>
+        <td>Grupo:</td><td><%= @group_detail.custom_group_id %></td>
         <td>Dia:</td><td><%= @group_detail.weekday %></td>
       </tr>
       <tr>

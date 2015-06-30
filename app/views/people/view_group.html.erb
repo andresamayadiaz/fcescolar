@@ -11,7 +11,7 @@
       <tbody>
         <tr>
           <td><%= @group_detail.year %></td>
-          <td><%= @group_detail.group.group_id %></td>
+          <td><%= @group_detail.custom_group_id %></td>
           <td><%= @group_detail.id %></td>
           <td><%= link_to @group_detail.teacher.name, person_path(@group_detail.teacher) %></td>
         </tr>
@@ -36,7 +36,7 @@
       <table width="100%">
         <tbody>
           <tr>
-            <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.group.group_id) %>" class="btn">Copiar</a></td>
+            <td><a href="<%= copy_new_group_people_path(:group_id=>@group_detail.custom_group_id) %>" class="btn">Copiar</a></td>
             <td><% if @group_detail.status!='Blocked' and @group_detail.status!='Open' %><a href="<%= open_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Abrir</a><% end %></td>
             <td><% if @able_to_block and (@group_detail.status=='Closed' or @group_detail.status=='Open') %>
               <a href="<%= block_it_groups_path(:group_detail_id=>@group_detail.id) %>" class="btn">Bloquear</a>
