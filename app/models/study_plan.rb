@@ -7,6 +7,8 @@ class StudyPlan < ActiveRecord::Base
   has_many :officers, through: :officers_study_plans
   scope :active, -> { where(status: true) } 
 
+  validates :period, :presence => true
+
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :officers_study_plans, :reject_if => :all_blank, :allow_destroy => true
 
