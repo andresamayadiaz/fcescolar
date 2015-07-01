@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630044911) do
+ActiveRecord::Schema.define(version: 20150701042022) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -617,6 +617,7 @@ ActiveRecord::Schema.define(version: 20150630044911) do
     t.integer  "role"
     t.string   "active_role"
     t.integer  "person_id"
+    t.integer  "active_franchise"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

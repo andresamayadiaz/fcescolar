@@ -17,4 +17,6 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  validates :active_franchise, :presence => true, :if => "active_role.present? and active_role=='super_administrator'"
 end

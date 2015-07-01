@@ -3,10 +3,10 @@ class UsersController < ApplicationController
 
   def set_active_role
     @user = current_user
-    if @user.update_attributes(active_role_params)
+    if @user.update_attributes(active_role_params) and @user.active_role.present?
       redirect_to root_path, :notice => "Done"
     else
-      redirect_to root_path, :alert => "Unable to set active role."
+      redirect_to root_path, :alert => "Unable to set active role. Please set active franchise if you choose Super Administrator"
     end
   end
 
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   end
 
   def active_role_params
-    params.required(:user).permit(:active_role)
+    params.required(:user).permit(:active_role, :active_franchise)
   end
 
   def secure_params
