@@ -10,6 +10,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_selected_franchise
+    @user = current_user
+    if @user.update_attributes(active_franchise_params)
+      franchise = Franchise.find(@user.active_franchise)
+      flash[:notice]= "You select to work with #{franchise.name} franchise"
+    else
+      flash[:notice]='Unable to change selected franchise'
+    end
+    redirect_to root_path
+  end
+
   def index
     @users = User.all
   end
@@ -67,6 +78,10 @@ class UsersController < ApplicationController
 
   def active_role_params
     params.required(:user).permit(:active_role, :active_franchise)
+  end
+
+  def active_franchise_params
+    params.required(:user).permit(:active_franchise)
   end
 
   def secure_params

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users  do
     collection do
       patch 'update_password'
+      patch 'update_selected_franchise'
       patch 'set_active_role'
     end
   end

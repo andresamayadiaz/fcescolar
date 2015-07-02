@@ -505,4 +505,11 @@
 		<% end %>
 
 	</body>
+  <script type='text/javascript'>
+    $(document).ready(function(){
+      $('#user_active_franchise').change(function(){
+        $(this).parents('form').submit();
+      });    
+    }) 
+  </script>
 	</html>
