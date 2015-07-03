@@ -5,6 +5,16 @@ class Group < ActiveRecord::Base
   
   accepts_nested_attributes_for :group_details, :reject_if => :all_blank, :allow_destroy => true
 
+  validate :conflict_classroom_teacher_weekday_time_slot
+  
+  def conflict_classroom_teacher_weekday_time_slot
+    arr_group_details = self.group_details
+    arr_0 = arr_group_details.map{|gd| "#{gd.classroom_id} - #{gd.teacher_id} - #{gd.weekday} - #{gd.time_slot_id}" }
+    arr_1 = arr_group_details.map{|gd| "#{gd.classroom_id} - #{gd.weekday} - #{gd.time_slot_id}" }
+    arr_2 = arr_group_details.map{|gd| "#{gd.teacher_id} - #{gd.weekday} - #{gd.time_slot_id}" }
+    errors.add(:base, "Group is conflicted each other") unless arr_0.uniq.length==arr_0.length and arr_1.uniq.length==arr_1.length and arr_2.uniq.length==arr_2.length
+  end
+  
   def self.search_by_year(status,year)
     groups = Group.where(:status=>status)
     selected_groups = []
