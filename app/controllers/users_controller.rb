@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def set_active_role
     @user = current_user
+    session[:active_franchise] = active_role_params[:active_franchise]
     if @user.update_attributes(active_role_params) and @user.active_role.present?
       redirect_to root_path, :notice => "Done"
     else
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
   def update_selected_franchise
     @user = current_user
     if @user.update_attributes(active_franchise_params)
+      session[:active_franchise] = @user.active_franchise
       franchise = Franchise.find(@user.active_franchise)
       flash[:notice]= "You select to work with #{franchise.name} franchise"
     else
