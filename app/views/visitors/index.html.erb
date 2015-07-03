@@ -4,6 +4,7 @@
 <fieldset>
 	<div class="col-sm-7">
 		<%= f.input :active_role, collection: @enabled_roles.map { |r| [r.role.name.humanize, r.role.name] }, prompt: "Select your assigned role(s)", label:'Select Role(s)' %>
+    <%= f.input :active_franchise, collection: Franchise.all.map { |franchise| [franchise.name.humanize, franchise.id] }, prompt: "Select franchise to work with", label:'Select Franchise' %>
 		<div class="form-actions">
 			<%= button_tag( :class => "btn btn-primary btn-lg") do %>
 			<i class="icon-save"></i>Select Role
@@ -48,3 +49,17 @@
 </div>
 <% end %>
 <% end %>
+<% content_for :specific_js do %>
+<script type='text/javascript'>
+  $(document).ready(function(){
+      $('#user_active_role').change(function(){
+        if($(this).val()=='super_administrator'){
+          $('div.user_active_franchise').slideDown();    
+        }
+      }); 
+  });  
+</script>
+<% end %>
+<style>
+div.user_active_franchise{display:none;}
+</style>

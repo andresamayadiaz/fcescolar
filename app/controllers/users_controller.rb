@@ -3,11 +3,24 @@ class UsersController < ApplicationController
 
   def set_active_role
     @user = current_user
-    if @user.update_attributes(active_role_params)
+    session[:active_franchise] = active_role_params[:active_franchise]
+    if @user.update_attributes(active_role_params) and @user.active_role.present?
       redirect_to root_path, :notice => "Done"
     else
-      redirect_to root_path, :alert => "Unable to set active role."
+      redirect_to root_path, :alert => "Unable to set active role. Please set active franchise if you choose Super Administrator"
     end
+  end
+
+  def update_selected_franchise
+    @user = current_user
+    if @user.update_attributes(active_franchise_params)
+      session[:active_franchise] = @user.active_franchise
+      franchise = Franchise.find(@user.active_franchise)
+      flash[:notice]= "You select to work with #{franchise.name} franchise"
+    else
+      flash[:notice]='Unable to change selected franchise'
+    end
+    redirect_to root_path
   end
 
   def index
@@ -66,7 +79,11 @@ class UsersController < ApplicationController
   end
 
   def active_role_params
-    params.required(:user).permit(:active_role)
+    params.required(:user).permit(:active_role, :active_franchise)
+  end
+
+  def active_franchise_params
+    params.required(:user).permit(:active_franchise)
   end
 
   def secure_params
