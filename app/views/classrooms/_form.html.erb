@@ -53,7 +53,11 @@
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.association :franchise, :label=>t('franchise.singular'),:class=>'select2 form-control' %>
+          <% if current_user.active_role=='super_administrator' %>
+            <%= f.association :franchise, as: :hidden, input_html: {value: session[:active_franchise]} %>
+          <% else %>
+            <%= f.association :franchise, as: :hidden, input_html:{value: current_user.person.franchise_id} %>
+          <% end %>
         </div>
         <div class="form-group">
           <%= f.association :campus, :label=>t('campus.singular'), :class=>'select2 form-control' %>
@@ -102,12 +106,6 @@
   $(document).ready(function(){
 
     get_by_franchise_id($('#classroom_franchise_id').val());
-
-    $('#classroom_franchise_id').change(function(){
-      var val = $(this).val();
-      $('#classroom_campus_id').select2('val','');
-      get_by_franchise_id(val);
-    });
   
   })
 </script>
