@@ -8,6 +8,7 @@ class Subject < ActiveRecord::Base
 
   validates :study_level, :presence=>true
   validates :curricular_line, :presence=>true
+  validates :clave, uniqueness: true
 
   def self.get_teacher
   end

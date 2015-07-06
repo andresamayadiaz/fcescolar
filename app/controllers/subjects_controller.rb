@@ -23,16 +23,28 @@ class SubjectsController < ApplicationController
 
   def create
     @subject = Subject.new(subject_params)
-    @subject.save
     respond_with(@subject) do |format|
-      format.html { redirect_to subjects_url }
+      format.html { 
+        if @subject.save
+          flash[:notice] = 'Subject was successfully created.' 
+          redirect_to subjects_path 
+        else 
+          render 'new'
+        end
+      }
     end
   end
 
   def update
-    @subject.update(subject_params)
     respond_with(@subject) do |format|
-      format.html { redirect_to subjects_url }
+      format.html { 
+        if @subject.update(subject_params)
+          flash[:notice] = 'Subject was successfully updated.' 
+          redirect_to subjects_path 
+        else 
+          render 'edit'
+        end
+      }
     end
   end
 
