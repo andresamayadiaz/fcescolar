@@ -23,16 +23,28 @@ class StatesController < ApplicationController
 
   def create
     @state = State.new(state_params)
-    @state.save
     respond_with(@state) do |format|
-      format.html { redirect_to states_url }
+      format.html { 
+        if @state.save 
+          flash[:notice] = 'State was successfully created.' 
+          redirect_to states_url 
+        else 
+          render 'new'
+        end
+      }
     end
   end
 
   def update
-    @state.update(state_params)
     respond_with(@state) do |format|
-      format.html { redirect_to states_url }
+      format.html { 
+        if @state.update(state_params)
+          flash[:notice] = 'State was successfully updated.' 
+          redirect_to states_url 
+        else 
+          render 'edit'
+        end
+      }
     end
   end
 
