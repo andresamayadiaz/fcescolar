@@ -32,10 +32,10 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody>
+          <tbody>
 						<% @notifications.each do |n| %>
 						<tr>
-							<td><%= n.user.try(:name) %></td>
+							<td><%= n.user.person.try(:name) %></td>
 							<td><%= n.title %></td>
 							<td><%= n.message %></td>
 							<td><%= "#{time_ago_in_words(n.created_at)} ago" %></td>

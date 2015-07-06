@@ -6,5 +6,8 @@ class Notification < ActiveRecord::Base
 
   validates :franchise, :presence => true
   validates :user, :presence => true
-  validates :role, :presence => true
+
+  def self.get_all_matched(role_id)
+    where('role_id=? OR role_id IS NULL', role_id).order('created_at desc')
+  end
 end

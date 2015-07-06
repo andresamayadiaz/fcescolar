@@ -59,7 +59,7 @@
               <td><%= notification.user.try(:email) %></td>
               <td><%= notification.title %></td>
               <td><%= notification.message %></td>
-              <td><%= notification.role.try(:name).humanize %></td>
+              <td><%= notification.role.try(:name).humanize rescue 'All roles' %></td>
               <td>
                <div class='text-right'>
                 <%= link_to edit_notification_url(notification), class: 'btn btn-success btn-xs' do %>
