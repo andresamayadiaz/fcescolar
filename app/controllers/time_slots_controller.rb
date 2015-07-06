@@ -18,10 +18,11 @@ class TimeSlotsController < ApplicationController
     @time_slots = TimeSlot.active
     if current_user.active_role=='super_administrator'
       @time_slots = @time_slots.select{|ts| ts.franchise_id==session[:active_franchise].to_i }
+      @campus = Campus.where(:franchise_id=>session[:active_franchise].to_i)
     else
       @time_slots = @time_slots.select{|ts| ts.franchise_id==current_user.person.franchise_id }
+      @campus = Campus.where(:franchise_id=>current_user.person.franchise_id)
     end
-    @campus = Campus.all
     respond_with(@time_slots)
   end
 
