@@ -16,7 +16,11 @@ class ClassroomsController < ApplicationController
 
   def index
     @classrooms = Classroom.active
-    @campus = Campus.all
+    if current_user.active_role=='super_administrator'
+      @campus = Campus.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @campus = Campus.where(:franchise_id=>current_user.person.franchise_id)
+    end
     respond_with(@classrooms)
   end
 
