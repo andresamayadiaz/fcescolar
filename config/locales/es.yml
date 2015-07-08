@@ -31,6 +31,7 @@ es:
       about_x_hours:
         one: "1 hour"
         other: "%{count} hours"
+      less_than_x_minutes: "hace menos de %{count} minuto"
   date:
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dec]
