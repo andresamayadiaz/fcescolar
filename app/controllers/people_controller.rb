@@ -356,7 +356,11 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @people = Person.all
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+      @people = Person.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @people = Person.where(:franchise_id=>current_user.person.franchise_id)
+    end
     respond_with(@people)
   end
 
@@ -365,6 +369,11 @@ class PeopleController < ApplicationController
   end
 
   def new
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+      @campus = Campus.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @campus = Campus.where(:franchise_id=>current_user.person.franchise_id)
+    end
     @person = Person.new
     @person.build_person_living_address if @person.person_living_address.blank?
     @person.build_person_work_place if @person.person_work_place.blank?
@@ -372,6 +381,11 @@ class PeopleController < ApplicationController
   end
 
   def edit
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+      @campus = Campus.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @campus = Campus.where(:franchise_id=>current_user.person.franchise_id)
+    end
     @person.build_person_living_address if @person.person_living_address.blank?
     @person.build_person_work_place if @person.person_work_place.blank?
   end
