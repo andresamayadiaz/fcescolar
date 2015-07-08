@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
 
   def set_all_campus
     if signed_in? and current_user.present?
-  	 @all_campus = Campus.all if current_user.active_role=='super_administrator' or current_user.active_role=='franchise_director'
+      if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+        @all_campus = Campus.where(:franchise_id=>session[:active_franchise].to_i)
+      else
+        @all_campus = Campus.where(:franchise_id=>current_user.person.franchise_id)
+      end
     end 
   end
 end
