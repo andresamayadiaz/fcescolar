@@ -4,7 +4,11 @@ class VisitorsController < ApplicationController
 			current_user.update_attribute(:active_role, current_user.users_roles.active.first.role.name) if current_user.users_roles.active.present? and current_user.users_roles.active.length==1
 			if current_user.active_role.present?
 				role_id = Role.where(:name=>current_user.active_role).try(:first).id
-				@notifications = Notification.get_all_matched(role_id)
+        if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+				  @notifications = Notification.get_all_matched(role_id, session[:active_franchise].to_i)
+        else
+				  @notifications = Notification.get_all_matched(role_id, current_user.person.franchise_id)
+        end
 			end
 			@enabled_roles = current_user.users_roles.active
 		else

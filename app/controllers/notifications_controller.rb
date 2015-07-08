@@ -5,7 +5,11 @@ class NotificationsController < ApplicationController
   respond_to :html
 
   def index
-    @notifications = Notification.all
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+      @notifications = Notification.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @notifications = Notification.where(:franchise_id=>current_user.person.franchise_id)
+    end
     respond_with(@notifications)
   end
 
