@@ -39,6 +39,10 @@ es:
   activerecord:
     errors:
       models:
+        person: 
+          attributes:
+            email:
+              taken: "Email ya está en uso"
         subject:
           attributes:
             clave:
