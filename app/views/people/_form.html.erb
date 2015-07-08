@@ -49,10 +49,12 @@
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
-        <% if current_user.active_role=='super_administrator' %>
-          <%= f.association :franchise, :class=>'form-control', :label=>'Franquicia'%>
-          <%= f.association :campus, :class=>'form-control', :label=>'Campus' %>
-        <% end %>
+          <% if current_user.active_role=='super_administrator' %>
+            <%= f.association :franchise, as: :hidden, input_html: {value: session[:active_franchise]} %>
+          <% else %>
+            <%= f.association :franchise, as: :hidden, input_html: {value: current_user.person.franchise_id} %>
+          <% end %>
+          <%= f.input :campus_id, :collection=>@campus, :class=>'form-control', :label=>'Campus' %>
           <%= f.input :curp, :class=>'form-control', :label=>'CURP'%>
           <%= f.input :rfc, :class=>'form-control', :label=>'RFC'%>
           <%= f.input :email, :class=>'form-control', :label=>'E-mail'%>
