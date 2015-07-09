@@ -12,6 +12,10 @@ class StudyPlan < ActiveRecord::Base
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :officers_study_plans, :reject_if => :all_blank, :allow_destroy => true
 
+  def is_enabled
+    self.schedules.length>0 ? 'Enabled' : 'Not Enabled'
+  end
+
   def self.filter(p)
     filtered_study_plans = all
     return filtered_study_plans if p[:career].blank? and p[:period].blank? and p[:status].blank?
