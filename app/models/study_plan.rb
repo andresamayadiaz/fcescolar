@@ -16,6 +16,10 @@ class StudyPlan < ActiveRecord::Base
     self.schedules.length>0 ? 'Enabled' : 'Not Enabled'
   end
 
+  def enabled
+    self if self.schedules.length>0
+  end
+
   def self.filter(p)
     filtered_study_plans = all
     return filtered_study_plans if p[:career].blank? and p[:period].blank? and p[:status].blank?
