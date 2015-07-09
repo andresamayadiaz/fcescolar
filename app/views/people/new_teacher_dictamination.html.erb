@@ -1,5 +1,5 @@
 <style>#active_subjects_wrapper{display:none;}</style>
-<%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post'  do |f| %>
+<%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post', :html=>{:target=>'_blank'}  do |f| %>
     <div class="form-group">
       <label class="col-md-5 control-label">Teacher</label>
       <div class="col-md-7"><%= f.association :person, :collection=>@active_teachers, :label=>false%></div>
