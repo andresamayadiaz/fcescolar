@@ -17,4 +17,13 @@ class UsersRole < ActiveRecord::Base
     end
     students.sort_by(&:id)
   end
+
+  def self.active_teacher
+    users_roles = UsersRole.active
+    teachers = []
+    users_roles.each do |ur|
+      teachers << ur.user.person if ur.role.name=='teacher' if ur.user.person.status
+    end
+    teachers
+  end
 end

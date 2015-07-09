@@ -117,7 +117,7 @@ class PeopleController < ApplicationController
 
   def new_teacher_dictamination
     @teacher_dictamination = TeacherDictamination.new
-    @active_teachers = Person.active.select{|p| p.user.roles.map(&:name).include? 'teacher' }
+    @active_teachers = UsersRole.active_teacher
     @active_study_plans = StudyPlan.active
   end
 
