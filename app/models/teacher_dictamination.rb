@@ -8,6 +8,7 @@ class TeacherDictamination < ActiveRecord::Base
   has_attached_file :evidence
   validates :evidence, :attachment_presence => true, :on => :update, if: :accept_dictamination
   validates_attachment_content_type :evidence, content_type: ['application/pdf']
+  validates :subjects, presence: true
 
   def accept_dictamination
     self.status=='Accepted'
