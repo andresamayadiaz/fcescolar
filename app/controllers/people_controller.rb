@@ -89,7 +89,7 @@ class PeopleController < ApplicationController
 
   def new_group
     @group = Group.new
-    @active_study_plans = StudyPlan.active
+    @active_study_plans = StudyPlan.active.select{|sp| sp.enabled}
   end
 
   def copy_new_group
