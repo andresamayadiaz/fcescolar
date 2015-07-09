@@ -1,7 +1,7 @@
 require 'csv'
 class Person < ActiveRecord::Base
   attr_accessor :role
-  
+
   belongs_to :country
   belongs_to :state
   belongs_to :franchise
@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
   validates :person_living_address, :presence => true
   validates :name, :presence => true
   validates :email, uniqueness: true
-  
+
   after_create :create_user
 
   scope :active, -> { where(status: true) }
@@ -80,26 +80,51 @@ class Person < ActiveRecord::Base
           group_year = period_detail.year.strftime('%Y')
         end
 
-        sp_period[:rows] <<  {
-          :year=>group_year, 
-          :end_month=>period_detail.end_month,
-          :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
-          :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
-          :subject=>sp_subject.subject.name,
-            :subject_id=>sp_subject.subject.id,
-            :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
-            :weekday=>[
-              {:id=>'Monday', :name=>'Lunes'},
-              {:id=>'Tuesday', :name=>'Martes'},
-              {:id=>'Wednesday', :name=>'Miércoles'},
-              {:id=>'Thursday', :name=>'Jueves'},
-              {:id=>'Friday', :name=>'Viernes'},
-              {:id=>'Saturday', :name=>'Sábado'},
-              {:id=>'Sunday', :name=>'Domingo'}
-            ],
-            :classroom=> Classroom.generate_id_and_name(actual_campus),
-            :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
-        } if period_detail.present?
+        if sp_subject.weekly_frequency>1
+          sp_subject.weekly_frequency.times do
+            sp_period[:rows] <<  {
+              :year=>group_year, 
+              :end_month=>period_detail.end_month,
+              :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
+              :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+              :subject=>sp_subject.subject.name,
+                :subject_id=>sp_subject.subject.id,
+                :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
+                :weekday=>[
+                  {:id=>'Monday', :name=>'Lunes'},
+                  {:id=>'Tuesday', :name=>'Martes'},
+                  {:id=>'Wednesday', :name=>'Miércoles'},
+                  {:id=>'Thursday', :name=>'Jueves'},
+                  {:id=>'Friday', :name=>'Viernes'},
+                  {:id=>'Saturday', :name=>'Sábado'},
+                  {:id=>'Sunday', :name=>'Domingo'}
+                ],
+                :classroom=> Classroom.generate_id_and_name(actual_campus),
+                :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
+            } if period_detail.present?
+          end
+        else
+          sp_period[:rows] <<  {
+            :year=>group_year, 
+            :end_month=>period_detail.end_month,
+            :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
+            :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+            :subject=>sp_subject.subject.name,
+              :subject_id=>sp_subject.subject.id,
+              :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
+              :weekday=>[
+                {:id=>'Monday', :name=>'Lunes'},
+                {:id=>'Tuesday', :name=>'Martes'},
+                {:id=>'Wednesday', :name=>'Miércoles'},
+                {:id=>'Thursday', :name=>'Jueves'},
+                {:id=>'Friday', :name=>'Viernes'},
+                {:id=>'Saturday', :name=>'Sábado'},
+                {:id=>'Sunday', :name=>'Domingo'}
+              ],
+              :classroom=> Classroom.generate_id_and_name(actual_campus),
+              :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
+          } if period_detail.present?
+        end
       end
       single_group << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0
     end
@@ -128,26 +153,51 @@ class Person < ActiveRecord::Base
           group_year = period_detail.year.strftime('%Y')
         end
 
-        sp_period[:rows] <<  {
-          :year=>group_year, 
-          :end_month=>period_detail.end_month,
-          :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
-          :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
-          :subject=>sp_subject.subject.name,
-            :subject_id=>sp_subject.subject.id,
-            :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
-            :weekday=>[
-              {:id=>'Monday', :name=>'Lunes'},
-              {:id=>'Tuesday', :name=>'Martes'},
-              {:id=>'Wednesday', :name=>'Miércoles'},
-              {:id=>'Thursday', :name=>'Jueves'},
-              {:id=>'Friday', :name=>'Viernes'},
-              {:id=>'Saturday', :name=>'Sábado'},
-              {:id=>'Sunday', :name=>'Domingo'}
-            ],
-            :classroom=> Classroom.generate_id_and_name(actual_campus),
-            :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
-        } if period_detail.present?
+        if sp_subject.weekly_frequency>1
+          sp_subject.weekly_frequency.times do
+            sp_period[:rows] <<  {
+              :year=>group_year, 
+              :end_month=>period_detail.end_month,
+              :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
+              :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+              :subject=>sp_subject.subject.name,
+                :subject_id=>sp_subject.subject.id,
+                :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
+                :weekday=>[
+                  {:id=>'Monday', :name=>'Lunes'},
+                  {:id=>'Tuesday', :name=>'Martes'},
+                  {:id=>'Wednesday', :name=>'Miércoles'},
+                  {:id=>'Thursday', :name=>'Jueves'},
+                  {:id=>'Friday', :name=>'Viernes'},
+                  {:id=>'Saturday', :name=>'Sábado'},
+                  {:id=>'Sunday', :name=>'Domingo'}
+                ],
+                :classroom=> Classroom.generate_id_and_name(actual_campus),
+                :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
+            } if period_detail.present?
+          end
+        else
+          sp_period[:rows] <<  {
+            :year=>group_year, 
+            :end_month=>period_detail.end_month,
+            :interval=>(period_detail.end_month.year * 12 + period_detail.end_month.month) - (period_detail.initial_month.year * 12 + period_detail.initial_month.month),
+            :months=>"#{period_detail.initial_month.strftime('%b')} - #{period_detail.end_month.strftime('%b')}", 
+            :subject=>sp_subject.subject.name,
+              :subject_id=>sp_subject.subject.id,
+              :teacher=>TeacherDictamination.generate_teacher(sp_subject.subject.id),
+              :weekday=>[
+                {:id=>'Monday', :name=>'Lunes'},
+                {:id=>'Tuesday', :name=>'Martes'},
+                {:id=>'Wednesday', :name=>'Miércoles'},
+                {:id=>'Thursday', :name=>'Jueves'},
+                {:id=>'Friday', :name=>'Viernes'},
+                {:id=>'Saturday', :name=>'Sábado'},
+                {:id=>'Sunday', :name=>'Domingo'}
+              ],
+              :classroom=> Classroom.generate_id_and_name(actual_campus),
+              :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
+          } if period_detail.present?
+        end
       end
       full_groups << sp_period if sp_period[:rows].present? and sp_period[:rows].length>0
     end
