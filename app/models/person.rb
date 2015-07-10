@@ -49,9 +49,24 @@ class Person < ActiveRecord::Base
 
   def self.to_csv
     CSV.generate do |csv|
-      csv << column_names
+      csv << ["ID", "CURP", "RFC", "Email", "First Name", "Father's Maiden Name", "Mother's Maiden Name", "Country", "State", "Birthday", "Last Academic Degree", "Franchise", "Campus", "Status"]
       all.each do |person|
-        csv << person.attributes.values_at(*column_names)
+        csv << [
+          person.id,
+          person.curp,
+          person.rfc,
+          person.email,
+          person.first_name,
+          person.fathers_maiden_name,
+          person.mothers_maiden_name,
+          person.country.name,
+          person.state.name,
+          person.birthday,
+          person.last_academic_degree,
+          person.franchise.name,
+          person.campus.name,
+          person.status
+        ]
       end
     end
   end
