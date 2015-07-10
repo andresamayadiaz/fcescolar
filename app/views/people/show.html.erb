@@ -122,20 +122,24 @@
     <div role="tabpanel" class="tab-pane" id="relationship">
       <fieldset>
         <legend>Relationship</legend>
-        <% @person.related_people.each do |related_person| %>
-        <thead>
-          <tr>
-            <th>Relationship</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= related_person.relation_name %></td>
-            <td><%= related_person.full_name %></td>
-          </tr>
-        </tbody>
-        <% end if @person.related_people.present? %>
+          <% if @person.related_people.present? %>
+          <table class='table table-condensed'>
+            <thead>
+              <tr>
+                <th>Relationship</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+          <tbody>
+            <% @person.related_people.each do |related_person| %>
+            <tr>
+              <td><%= related_person.relation_name %></td>
+              <td><%= related_person.full_name %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
       </fieldset>
     </div>
     <div role="tabpanel" class="tab-pane" id="work_info">
