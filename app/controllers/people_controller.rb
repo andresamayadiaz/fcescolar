@@ -183,6 +183,9 @@ class PeopleController < ApplicationController
     }
   end
 
+  def download_contract
+  end
+
   def generate_contract
     new_contract = Contract.new(params[:contract])
     if new_contract.save
@@ -296,6 +299,7 @@ class PeopleController < ApplicationController
     if @person.present?
       @new_personal_record_file = PersonalRecordFile.new
       @attached_docs = @person.personal_record_files.with_attach_user
+      @contracts = @person.contracts
     end
   end
 
