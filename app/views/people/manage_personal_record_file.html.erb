@@ -126,7 +126,13 @@
                     <tr>
                       <td><%= contract.id %></td>
                       <td><%= contract.created_at.to_date.strftime("%Y-%m-%d") %></td>
-                      <td></td>
+                      <td>
+                        <%= simple_form_for(@new_contract,:url=>'/people/download_contract',:html => {:method=>'POST', :target=>'_blank'}) do |f| %>
+                          <%= f.input :person_id, :as=>:hidden %>
+                          <%= f.input :contracts_template_id, :as=>:hidden, input_html: {value: contract.contracts_template_id}  %>
+                          <button class="btn-sm btn-info">Download PDF</button>
+                        <% end %>
+                      </td>
                     </tr>
                   <% end %>
                 </tbody>

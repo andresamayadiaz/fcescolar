@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       get 'new_contract'
       post 'generate_contract'
       post 'preview_contract'
+      post 'download_contract'
       get 'new_teacher_dictamination'
       post 'create_teacher_dictamination'
       get 'accept_reject_dictamination'
