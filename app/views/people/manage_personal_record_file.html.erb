@@ -56,7 +56,6 @@
 				</fieldset>
 			</div>
 		</div>
-		<% if @attached_docs.present? %>
 		<div class="col-sm-12">
       <div class='tabbable'>
         <!-- Nav tabs -->
@@ -70,6 +69,7 @@
           <div role="tabpanel" class="tab-pane active" id="general_info">
             <fieldset>
               <legend>Documentos Adjuntos</legend>
+		          <% if @attached_docs.present? %>
               <table class='table table-striped'>
                 <thead>
                   <tr>
@@ -107,6 +107,9 @@
                   <% end %>
                 </tbody>
               </table>
+              <% else %>
+                <strong>No docs for this person</strong>
+		          <% end %>
             </fieldset>
           </div>
           <div role="tabpanel" class="tab-pane" id="contracts">
@@ -138,13 +141,13 @@
                 </tbody>
               </table>
               <% else %>
+                <strong>No contracts for this person</strong>
               <% end %>
             </fieldset>
           </div>
         </div>
       </div>
 		</div>
-		<% end %>
 		<% end %>
 	</div>
 </div>
