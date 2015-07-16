@@ -14,12 +14,17 @@ class TimeSlot < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
 
-  def self.generate_id_and_name(actual_campus)
+  def self.generate_id_and_name(actual_campus, study_plan_id)
     arr = []
+    study_plan = StudyPlan.find(study_plan_id)
+    if study_plan.enabled 
+      arr_time_slot_id = study_plan.schedules.last.time_slots.map(&:id)
+    end
     time_slots = where(:campus_id=>actual_campus.id, :status=>true)
     time_slots.each do |ts|
-      arr << {:id=>ts.id, :name=>ts.name}
+      arr << {:id=>ts.id, :name=>ts.name} if arr_time_slot_id.include? ts.id
     end
+    arr
   end
   
   def generate_name
