@@ -11,12 +11,17 @@ class Classroom < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
   
-  def self.generate_id_and_name(actual_campus)
+  def self.generate_id_and_name(actual_campus, study_plan_id)
     arr = []
+    study_plan = StudyPlan.find(study_plan_id)
+    if study_plan.enabled 
+      arr_classroom_id = study_plan.schedules.last.classrooms.map(&:id)
+    end
     classrooms = where(:campus_id=>actual_campus.id, :status=>true)
     classrooms.each do |d|
-      arr << {:id=>d.id, :name=>d.name}
+      arr << {:id=>d.id, :name=>d.name} if arr_classroom_id.include? d.id
     end
+    arr
   end
   
   def generate_consecutive

@@ -115,7 +115,7 @@ class Person < ActiveRecord::Base
                   {:id=>'Saturday', :name=>'Sábado'},
                   {:id=>'Sunday', :name=>'Domingo'}
                 ],
-                :classroom=> Classroom.generate_id_and_name(actual_campus),
+                :classroom=> Classroom.generate_id_and_name(actual_campus, study_plan_id),
                 :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
             } if period_detail.present?
           end
@@ -137,7 +137,7 @@ class Person < ActiveRecord::Base
                 {:id=>'Saturday', :name=>'Sábado'},
                 {:id=>'Sunday', :name=>'Domingo'}
               ],
-              :classroom=> Classroom.generate_id_and_name(actual_campus),
+              :classroom=> Classroom.generate_id_and_name(actual_campus, study_plan_id),
               :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
           } if period_detail.present?
         end
@@ -188,7 +188,7 @@ class Person < ActiveRecord::Base
                   {:id=>'Saturday', :name=>'Sábado'},
                   {:id=>'Sunday', :name=>'Domingo'}
                 ],
-                :classroom=> Classroom.generate_id_and_name(actual_campus),
+                :classroom=> Classroom.generate_id_and_name(actual_campus,study_plan_id),
                 :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
             } if period_detail.present?
           end
@@ -210,7 +210,7 @@ class Person < ActiveRecord::Base
                 {:id=>'Saturday', :name=>'Sábado'},
                 {:id=>'Sunday', :name=>'Domingo'}
               ],
-              :classroom=> Classroom.generate_id_and_name(actual_campus),
+              :classroom=> Classroom.generate_id_and_name(actual_campus, study_plan_id),
               :timeslot=> TimeSlot.generate_id_and_name(actual_campus)
           } if period_detail.present?
         end
