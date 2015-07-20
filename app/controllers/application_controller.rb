@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  private
+
+  def current_ability
+    @current_ability ||= Ability.new(current_user, session[:active_franchise])
+  end
+
   def set_all_campus
     if signed_in? and current_user.present?
       if current_user.active_role=='super_administrator' and session[:active_franchise].present?
