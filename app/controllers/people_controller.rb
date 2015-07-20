@@ -183,6 +183,19 @@ class PeopleController < ApplicationController
     }
   end
 
+  def download_contract
+    new_contract = Contract.new(params[:contract])
+    template = new_contract.contracts_template
+    @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+    prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
+    render  :pdf => template.name,
+      :header => {
+      :content => prefix_content
+    },
+    :footer => {
+      :content => prefix_content
+    }
+  end
   def generate_contract
     new_contract = Contract.new(params[:contract])
     if new_contract.save
@@ -296,6 +309,8 @@ class PeopleController < ApplicationController
     if @person.present?
       @new_personal_record_file = PersonalRecordFile.new
       @attached_docs = @person.personal_record_files.with_attach_user
+      @new_contract = Contract.new(:person_id=>@person.id)
+      @contracts = @person.contracts
     end
   end
 
