@@ -5,7 +5,7 @@ class GroupDetail < ActiveRecord::Base
   belongs_to :time_slot
   belongs_to :teacher, :class_name => 'Person', :foreign_key => 'teacher_id'
   belongs_to :closer, :class_name => 'User', :foreign_key => 'closer_id'
-  has_many :enrolled_students
+  has_many :enrolled_students, dependent: :destroy
   scope :open_by_year_and_month, ->(year,month) { where(:year => year, :month => month, :status=>'Open')}
 
   validates :subject, presence: true
