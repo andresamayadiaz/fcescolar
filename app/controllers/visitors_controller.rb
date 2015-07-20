@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
 			if current_user.active_role.present?
 				role_id = Role.where(:name=>current_user.active_role).try(:first).id
         if current_user.active_role=='super_administrator' and session[:active_franchise].present?
-				  @notifications = Notification.get_all_matched(role_id, session[:active_franchise].to_i)
+          @notifications = Notification.get_all_matched(role_id, session[:active_franchise].to_i)
         else
 				  @notifications = Notification.get_all_matched(role_id, current_user.person.franchise_id)
         end

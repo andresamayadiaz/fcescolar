@@ -1,6 +1,6 @@
 <%# Rails flash messages styled for Bootstrap 3.0 %>
 <% if ENV['RAILS_ENV']=='development' %>
-<div class='alert alert-info'>You are using <%= ENV['RAILS_ENV'] %> environment</div>
+  <div class='alert alert-info'>You are using <%= ENV['RAILS_ENV'] %> environment with Active Franchise: <%= session[:active_franchise] %></div>
 <% end %>
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>

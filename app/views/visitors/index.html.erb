@@ -1,4 +1,4 @@
-<% if current_user.active_role.blank? %>
+<% if current_user.active_role.blank? or session[:active_franchise].blank? %>
 <div class="alert alert-info" role="alert">Bienvenido, por favor seleccione el papel que desea utilizar</div>
 <%= simple_form_for(current_user, :url =>set_active_role_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
 <fieldset>
@@ -51,7 +51,10 @@
 <% end %>
 <% content_for :specific_js do %>
 <script type='text/javascript'>
-  $(document).ready(function(){
+$(document).ready(function(){
+      if ($('#user_active_role').val()=='super_administrator') {
+          $('div.user_active_franchise').slideDown();    
+      }
       $('#user_active_role').change(function(){
         if($(this).val()=='super_administrator'){
           $('div.user_active_franchise').slideDown();    

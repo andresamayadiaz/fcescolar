@@ -2,8 +2,10 @@ class Subject < ActiveRecord::Base
   resourcify
   belongs_to :study_level
   belongs_to :curricular_line
+  
   has_and_belongs_to_many :careers
-
+  before_destroy { careers.clear }
+  
   scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
   validates :study_level, :presence=>true

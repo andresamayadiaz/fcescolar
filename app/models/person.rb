@@ -7,14 +7,14 @@ class Person < ActiveRecord::Base
   belongs_to :franchise
   belongs_to :campus
 
-  has_one :person_living_address
-  has_one :person_work_place
-  has_one :user
-  has_many :related_people
-  has_many :person_emails
-  has_many :contact_telephones
-  has_many :personal_record_files
-  has_many :contracts
+  has_one :person_living_address, dependent: :destroy
+  has_one :person_work_place, dependent: :destroy
+  has_one :user, dependent: :destroy
+  has_many :related_people, dependent: :destroy
+  has_many :person_emails, dependent: :destroy
+  has_many :contact_telephones, dependent: :destroy
+  has_many :personal_record_files, dependent: :destroy
+  has_many :contracts, dependent: :destroy
 
   accepts_nested_attributes_for :person_living_address, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :person_work_place, :reject_if => :all_blank, :allow_destroy => true

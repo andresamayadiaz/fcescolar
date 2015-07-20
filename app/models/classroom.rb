@@ -2,7 +2,9 @@ class Classroom < ActiveRecord::Base
   resourcify
   belongs_to :franchise
   belongs_to :campus
+  
   has_and_belongs_to_many :schedules
+  before_destroy { schedules.clear }
   
   validates :franchise, :presence => true
   validates :campus, :presence => true

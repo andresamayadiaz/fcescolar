@@ -51,9 +51,11 @@
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
-        <div class="form-group">
-          <%= f.association :franchise, :label=>t('franchise.singular'),:class=>'select2 form-control' %>
-        </div>
+        <% if current_user.active_role=='super_administrator' %>
+          <%= f.association :franchise, as: :hidden, input_html: {value: session[:active_franchise]} %>
+        <% else %>
+          <%= f.association :franchise, as: :hidden, input_html: {value: current_user.person.franchise_id} %>
+        <% end %>
         <div class="form-group">
           <%= f.input :name, :label=>t('general.name'),:class=>'form-control' %>
         </div>

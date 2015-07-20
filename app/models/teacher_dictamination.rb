@@ -1,8 +1,11 @@
 class TeacherDictamination < ActiveRecord::Base
   belongs_to :person
   belongs_to :study_plan
+  
   has_and_belongs_to_many :subjects
-  has_many :approved_subjects
+  before_destroy { subjects.clear }
+  
+  has_many :approved_subjects, dependent: :destroy
 
   accepts_nested_attributes_for :approved_subjects, :reject_if => :all_blank, :allow_destroy => true
   has_attached_file :evidence
