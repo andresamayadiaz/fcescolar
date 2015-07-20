@@ -1,7 +1,8 @@
 class Career < ActiveRecord::Base
   resourcify
   belongs_to :study_level
-  
+  belongs_to :franchise
+
   has_many :study_plans, dependent: :destroy
   
   has_and_belongs_to_many :subjects
