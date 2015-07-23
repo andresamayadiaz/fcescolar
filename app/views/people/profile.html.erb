@@ -37,6 +37,7 @@
         <div class="box-content box-double-padding">
           <%= simple_form_for(current_user, :url =>update_password_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
           <%= f.error_notification %>
+          <%= f.input :active_franchise, as: :hidden, input_html: {value: session[:active_franchise]} %>
           <fieldset>
             <div class="col-sm-4">
               <div class="box">

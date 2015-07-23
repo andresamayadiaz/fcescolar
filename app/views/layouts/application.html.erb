@@ -14,8 +14,7 @@
 <% if !user_signed_in? %>
 
 <body class='login contrast-background'>
-	<%= render 'layouts/sign_in' %>
-
+  <%= yield %>
 	<% else %>
 
 	<body class='without-footer'>

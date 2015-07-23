@@ -8,4 +8,10 @@ class NotificationMailer < ActionMailer::Base
 		@content = doc.has_been_matched ? "Attached document #{doc.document_file_name} is validated successfully" : "Attached document #{doc.document_file_name} validation failed"	
 		mail(to: [@user.email,@validator.email], subject: @subject)
 	end
+
+  def password_changes(user)
+    @user = user
+    @subject = 'Your Password has been Changed'
+		mail(to: @user.email, subject: @subject)
+  end
 end
