@@ -64,6 +64,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       # Sign in the user by passing validation in case their password changed
       sign_in @user, :bypass => true
+      NotificationMailer.password_changes(@user).deliver
       flash[:notice] = 'General information is updated'
     else
       flash[:error] = 'Failed to change general information'
@@ -75,7 +76,7 @@ class UsersController < ApplicationController
 
   def user_params
     # NOTE: Using `strong_parameters` gem
-    params.required(:user).permit(:password, :password_confirmation, :email)
+    params.required(:user).permit(:password, :password_confirmation, :email, :active_franchise)
   end
 
   def active_role_params
