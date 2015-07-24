@@ -1,0 +1,8 @@
+<h1><%= @study_plan.name %></h1>
+<% if @enabled %>
+  <p>Enabled</p>
+  <%= render 'show_enabled' %>
+<% else %>
+  <p>Not Enabled</p>
+  <%= render 'show_not_enabled' %>
+<% end %>
