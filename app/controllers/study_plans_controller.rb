@@ -74,6 +74,7 @@ class StudyPlansController < ApplicationController
     @enabled = @study_plan.schedules.present? ? true : false
     @schedule = @study_plan.schedules.last if @enabled #to get latest schedule
     if params[:pdf].present? and params[:pdf]=='1'
+      @is_pdf = true
       render  :pdf => "Study Plan #{@study_plan.id}"
     end
   end
