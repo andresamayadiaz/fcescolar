@@ -1,9 +1,11 @@
 <div class='tabbable'>
   <!-- Nav tabs -->
+  <% if !@is_pdf %>
   <ul class="nav nav-responsive nav-tabs">
     <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
     <li role="presentation"><a href="#study_plan_periods" aria-controls="study_plan_periods" role="tab" data-toggle="tab">Study Plan Periods</a></li>
   </ul>
+  <% end %>
 
   <!-- Tab panes -->
   <div class="tab-content">

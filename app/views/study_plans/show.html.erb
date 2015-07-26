@@ -1,3 +1,6 @@
+<% if @is_pdf %>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<% end %>
 <h1><%= @study_plan.name %></h1>
 <% if @enabled %>
   <p>Enabled</p>
