@@ -43,15 +43,15 @@ es:
         person: 
           attributes:
             email:
-              taken: "Email ya está en uso"
+              taken: "El Email ya está en uso"
         subject:
           attributes:
             clave:
-              taken: "Clave ya está en uso"
+              taken: "La Clave ya está en uso"
       messages:
-        blank: "No puede estar vacio: %{attribute}."
-        invalid: "Invalido: %{attribute}."
-        record_invalid: "Validación falló: %{errors}"
+        blank: "El campo no puede estar vacio: %{attribute}."
+        invalid: "Inválido: %{attribute}."
+        record_invalid: "Validación Falló: %{errors}"
   general:
     filter: "Filtrado Por"
     inser_filter_info: "Introduzca el filtro"
