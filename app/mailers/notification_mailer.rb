@@ -14,4 +14,11 @@ class NotificationMailer < ActionMailer::Base
     @subject = 'Your Password has been Changed'
 		mail(to: @user.email, subject: @subject)
   end
+
+  def notify_responsive_letter(user, responsive_letter)
+    @user = user
+    @subject = "Due Date Responsive Letter: #{responsive_letter.document_file_name}"
+    mail(to: @user.email, subject: @subject)
+  end
+
 end
