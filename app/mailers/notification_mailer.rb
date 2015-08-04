@@ -17,7 +17,8 @@ class NotificationMailer < ActionMailer::Base
 
   def notify_responsive_letter(user, responsive_letter)
     @user = user
-    @subject = "Due Date Responsive Letter: #{responsive_letter.document_file_name}"
+    @responsive_letter = responsive_letter
+    @subject = "Expired Responsive Letter: #{@responsive_letter.document_file_name}"
     mail(to: @user.email, subject: @subject)
   end
 

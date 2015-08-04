@@ -17,6 +17,7 @@ class PersonalRecordFile < ActiveRecord::Base
     responsive_letters = PersonalRecordFile.where('is_responsive_letter = 1 and (due_date = ? or due_date < ?)', Date.today-1.days, Date.today-1.days)
     if responsive_letters.present?
       responsive_letters.each do |rl|
+        NotificationMailer.notify_responsive_letter(rl.person.user,rl).deliver
       end
     end
   end

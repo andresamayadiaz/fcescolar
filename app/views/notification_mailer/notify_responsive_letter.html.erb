@@ -59,23 +59,23 @@
                                       <table border='0' cellpadding='0' cellspacing='0' width='100%'>
                                           <tr>
                                               <td align='center' valign='top'>
-                                                  <h2>Your Password has been Changed</h2>
+                                                  <h2>Your Responsive Letter is Expired</h2>
                                               </td>
                                           </tr>
                                           <tr>
                                               <td align='center' valign='top'>
-                                                  <h4 style='color: #00acec !important'>Account confirmation</h4>
+                                                  <h4 style='color: #00acec !important'>Details</h4>
                                               </td>
                                           </tr>
                                           <tr>
                                               <td align='center' style='border-top: 1px solid #dce1e5;border-bottom: 1px solid #dce1e5;' valign='top'>
                                                   <p style='margin: 1em 0;'>
-                                                      <strong>Username:</strong>
-                                                      <%= @user.person.name %>
-                                                  </p>
-                                                  <p style='margin: 1em 0;'>
                                                       <strong>E-mail:</strong>
                                                       <a href="mailto:<%= @user.email %>" style="color: #000000 !important;"><%= @user.email %></a>
+                                                  </p>
+                                                  <p style='margin: 1em 0;'>
+                                                      <strong>Document Name:</strong>
+                                                      <%= @responsive_letter.document_file_name%>
                                                   </p>
                                               </td>
                                           </tr>
