@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150802085611) do
+ActiveRecord::Schema.define(version: 20150805091715) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20150802085611) do
     t.integer  "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "due_date"
   end
 
   add_index "contracts", ["contracts_template_id"], name: "index_contracts_on_contracts_template_id", using: :btree
