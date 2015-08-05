@@ -24,8 +24,7 @@ gem "audited-activerecord", "~> 4.0"
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rails4-autocomplete'
-gem 'delayed_job_active_record'
-gem "daemons"
+gem 'whenever', :require => false
 
 group :development do
   gem 'better_errors'
