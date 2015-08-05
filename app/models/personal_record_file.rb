@@ -18,6 +18,18 @@ class PersonalRecordFile < ActiveRecord::Base
     if responsive_letters.present?
       responsive_letters.each do |rl|
         NotificationMailer.notify_responsive_letter(rl.person.user,rl).deliver
+        
+        users_with_head_of_school_control_role = []
+        users_with_franchise = rl.person.franchise.people.map(&:user) rescue []
+        
+        users_with_franchise.each do |u|
+          users_with_head_of_school_control_role << u if u.users_roles.map{|ur| ur.role.name=='head_of_school_control'}
+        end if users_with_franchise.present? and users_with_franchise.length>0
+     
+        users_with_head_of_school_control_role.each do |u|
+          NotificationMailer.notify_responsive_letter(u,rl).deliver
+        end if users_with_head_of_school_control_role.present? and users_with_head_of_school_control_role.length>0
+
       end
     end
   end
