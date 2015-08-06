@@ -22,4 +22,11 @@ class NotificationMailer < ActionMailer::Base
     mail(to: @user.email, subject: @subject)
   end
 
+  def notify_contract_end(user, contract)
+    @user = user
+    @contract = contract
+    @subject = "Contract end soon: #{@contract.contracts_template.name} for #{@contract.person.name}"
+    mail(to: @user.email, subject: @subject)
+  end
+
 end

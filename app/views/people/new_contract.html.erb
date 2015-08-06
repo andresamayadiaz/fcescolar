@@ -25,6 +25,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-md-2 control-label">Due Date</label>
+          <div class="col-md-5">
+            <%= f.input :due_date, :class=>'form-control', label: false,  as: :string %>
+          </div>
+        </div>
+        <div class="form-group">
           <div class="col-md-3"><a class='btn btn-info btn-sm' href="javascript:void(0);" id='preview-contract'>Preview</a></div>
           <div class="col-md-9"><button class='btn btn-primary btn-sm'>Generate Contract</button></div>
         </div>
@@ -38,6 +44,11 @@
 <% content_for :specific_js do %>
 <script type="text/javascript">
 	$(document).ready(function(){
+    $('#contract_due_date').datepicker({
+      format: "yyyy-mm-dd"
+    }).on('changeDate', function(e){
+        $(this).datepicker('hide');
+    });
     $('#searchModal').on('shown.bs.modal', function () {
       $('#fathers_maiden_name').focus();
     })
