@@ -18,6 +18,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+every 1.day, :at => '12:05 am' do
+    runner 'Contract.with_due_date_tomorrow'
+end
 every 1.day, :at => '12:10 am' do
     runner 'PersonalRecordFile.responsive_letter_with_due_date_yesterday_or_less'
 end
