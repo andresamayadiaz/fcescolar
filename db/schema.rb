@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805091715) do
+ActiveRecord::Schema.define(version: 20150806102940) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -287,6 +287,8 @@ ActiveRecord::Schema.define(version: 20150805091715) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
+    t.boolean  "is_read"
+    t.date     "read_date"
   end
 
   add_index "notifications", ["franchise_id"], name: "index_notifications_on_franchise_id", using: :btree
