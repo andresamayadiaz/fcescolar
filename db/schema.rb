@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720063110) do
+ActiveRecord::Schema.define(version: 20150802085611) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -208,6 +208,22 @@ ActiveRecord::Schema.define(version: 20150720063110) do
 
   add_index "degree_achievements_categories_schedules", ["degree_achievements_category_id"], name: "degree_category_id", using: :btree
   add_index "degree_achievements_categories_schedules", ["schedule_id"], name: "index_degree_achievements_categories_schedules_on_schedule_id", using: :btree
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "enrolled_students", force: true do |t|
     t.integer  "group_detail_id"
