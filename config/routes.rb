@@ -94,7 +94,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notifications
+  resources :notifications do
+    member { get :mark_as_read }
+  end
 
   resources :time_slots do
     collection do

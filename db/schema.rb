@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 20150806102940) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
-    t.boolean  "is_read"
+    t.boolean  "is_read",          default: false
     t.date     "read_date"
   end
 

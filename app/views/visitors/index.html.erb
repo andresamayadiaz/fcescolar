@@ -26,7 +26,7 @@
 							<th>Desde</th>
 							<th>Titulo</th>
 							<th>Mensaje</th>
-							<th></th>
+              <th colspan="2"></th>
 						</tr>
 					</thead>
           <tbody>
@@ -35,7 +35,7 @@
 							<td><%= n.user.person.try(:name) %></td>
 							<td><%= n.title %></td>
 							<td><%= n.message %></td>
-							<td><%= "#{time_ago_in_words(n.created_at)} ago" %></td>
+              <td><%= "#{time_ago_in_words(n.created_at)} ago" %></td><td><a class="btn btn-info btn-xs" href="<%= mark_as_read_notification_path(n) %>">Mark as read</a></td>
 						</tr>
 						<% end %>
 					</tbody>

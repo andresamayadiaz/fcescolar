@@ -25,6 +25,11 @@ class NotificationsController < ApplicationController
   def edit
   end
 
+  def mark_as_read
+    @notification.update(:is_read=>true,:read_date=>Date.today)
+    redirect_to root_path, notice: 'Notification has been marked as read'
+  end
+
   def create
     @notification = Notification.new(notification_params)
     @notification.save
