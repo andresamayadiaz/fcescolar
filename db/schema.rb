@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806102940) do
+ActiveRecord::Schema.define(version: 20150808135441) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 20150806102940) do
     t.datetime "updated_at"
   end
 
+  add_index "period_details", ["initial_month", "end_month", "year", "period_id"], name: "unique_index", unique: true, using: :btree
   add_index "period_details", ["period_id"], name: "index_period_details_on_period_id", using: :btree
 
   create_table "periods", force: true do |t|
