@@ -75,7 +75,7 @@
         <% @enrolled_students.each do |student| %>
           <tr>
             <td><%= student.person.id %></td>
-            <td><%= student.person.name %></td>
+            <td><%= link_to student.person.name, person_path(student.person), target: '_blank' %></td>
             <% if @group_detail.status!='Open' %>
               <td></td>
               <td></td>

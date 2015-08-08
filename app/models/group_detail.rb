@@ -48,7 +48,7 @@ class GroupDetail < ActiveRecord::Base
         group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month and group_detail.weekday==weekday}
         group_details.each do |group_detail|
           group_details_hash[:id]=group_detail.id
-          group_details_hash[:group_id]=group_detail.group.group_id
+          group_details_hash[:group_id]=group_detail.custom_group_id
           group_details_hash[:year]=group_detail.year
           group_details_hash[:month]=group_detail.month
           group_details_hash[:subject]=group_detail.subject.try(:name)
