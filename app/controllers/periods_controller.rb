@@ -15,7 +15,7 @@ class PeriodsController < ApplicationController
     if PeriodDetail.multiple_add(params[:start_year],params[:start_month],params[:number_of_period_details],@period)
       flash[:notice]= 'New period details have been added'
     else
-      flash[:error]= 'Failed to create new period details'
+      flash[:error]= 'Failed to create new period details, it may be duplicated'
     end
     redirect_to @period
   end
