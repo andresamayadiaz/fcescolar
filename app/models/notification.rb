@@ -8,6 +8,6 @@ class Notification < ActiveRecord::Base
   validates :user, :presence => true
 
   def self.get_all_matched(role_id, franchise_id)
-    where('franchise_id=? AND (role_id=? OR role_id IS NULL)', franchise_id, role_id).order('created_at desc')
+    where('franchise_id=? AND (role_id=? OR role_id IS NULL) AND is_read = ?', franchise_id, role_id, false).order('created_at desc')
   end
 end
