@@ -50,48 +50,62 @@
 							</a>
 
 							<ul class='nav nav-stacked'>
-								<li class=''>
+                <% if can?(:manage, Subject) or can?(:read, Subject) %>
+                <li class=''>
 									<a href='/subjects'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('subject.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, CurricularLine) or can?(:read, CurricularLine) %>
 								<li class=''>
 									<a href='/curricular_lines'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('curricular_line.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, Classroom) or can?(:read, Classroom) %>
 								<li class=''>
 									<a href='/classrooms'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('classroom.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, TimeSlot) or can?(:read, TimeSlot) %>
 								<li class=''>
 									<a href='/time_slots'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('time_slot.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, Career) or can?(:read, Career) %>
 								<li class=''>
 									<a href='/careers'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('career.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, StudyPlan) or can?(:read, StudyPlan) %>
 								<li class=''>
 									<a href='/study_plans'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('study_plan.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, Notification) or can?(:read, Notification) %>
 								<li class=''>
 									<a href='/notifications'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('notification.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
 								<li class=''>
 									<a class='dropdown-collapse' href='javascript:void(0);'>
 										<i class='icon-folder-open-alt'></i>
@@ -99,72 +113,94 @@
 										<i class='icon-angle-down angle-down'></i>
 									</a>
 									<ul class='nav nav-stacked'>
+                    <% if can?(:manage, Franchise) or can?(:read, Franchise) %>
 										<li>
 											<a href='/franchises'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('franchise.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, Campus) or can?(:read, Campus) %>
 										<li>
 											<a href='/campuses'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('campus.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, Country) or can?(:read, Country) %>
 										<li>
 											<a href='/countries'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('country.menu') %></span>
 											</a>
-										</li>
-										<li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, State) or can?(:read, State) %>
+                    <li>
 											<a href='/states'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('state.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, StudyLevel) or can?(:read, StudyLevel) %>
 										<li>
 											<a href='/study_levels'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('study_level.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, DegreeAchievementsCategory) or can?(:read, DegreeAchievementsCategory) %>
 										<li>
 											<a href='/degree_achievements_categories'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('degree_achivements.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, Period) or can?(:read, Period) %>
 										<li>
 											<a href='/periods'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('period.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, BackgroundOfficialDoc) or can?(:read, BackgroundOfficialDoc) %>
 										<li>
 											<a href='/background_official_docs'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('background_docs.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, ContractsTemplate) or can?(:read, ContractsTemplate) %>
 										<li>
 											<a href='/contracts_templates'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('contract_template.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, OfficialDomain) or can?(:read, OfficialDomain) %>
 										<li>
 											<a href='/official_domains'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('official_domain.menu') %></span>
 											</a>
-										</li>
+                    </li>
+                    <% end %>
+                    <% if can?(:manage, RelationshipType) or can?(:read, RelationshipType) %>
 										<li>
 											<a href='/relationship_types'>
 												<i class='icon-caret-right'></i>
 												<span><%= t('relationship.menu') %></span>
 											</a>
-										</li>
+                      </li>
+                    <% end %>
 									</ul>
 								</li>
 							</ul>
@@ -176,66 +212,86 @@
 								<i class='icon-angle-down angle-down'></i>
 							</a>
 							<ul class='nav nav-stacked'>
+                <% if can?(:manage, Officer) or can?(:read, Officer) %>
 								<li class=''>
 									<a href='/officers'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('officer.plural') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage, Person) or can?(:read, Person) %>
 								<li class=''>
 									<a href='/people'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.menu') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:new, Person) %>
 								<li class=''>
 									<a href='/people/new'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.new') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:assign_roles, Person) %>
 								<li class=''>
 									<a href='/people/assign_roles'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.assign_roles') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:manage_personal_record_file, Person) %>
 								<li class=''>
 									<a href='/people/manage_personal_record_file'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.manage_record_file') %></span>
 									</a>
-								</li>
-								<li class=''>
+                </li>
+                <% end %>
+                <% if can?(:new_teacher_dictamination, Person) %>
+                <li class=''>
 									<a href='/people/new_teacher_dictamination'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.create_teacher_dictamination') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:accept_reject_dictamination, Person) %>
 								<li class=''>
 									<a href='/people/accept_reject_dictamination'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.accept_reject_dictamination') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:new_contract, Person) %>
 								<li class=''>
 									<a href='/people/new_contract'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.create_contract') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:new_enroll_student, Group) %>
 								<li class=''>
 									<a href='/groups/new_enroll_student'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.student_group_enrollment') %></span>
 									</a>
-								</li>
-								<li class=''>
+                </li>
+                <% end %>
+                <% if can?(:export_to_csv, Person) %>
+                <li class=''>
 									<a href='/people/export_to_csv'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.export_to_csv') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
 							</ul>
 						</li>
 						<li>
@@ -245,233 +301,38 @@
 								<i class='icon-angle-down angle-down'></i>
 							</a>
 							<ul class='nav nav-stacked'>
+                <% if can?(:search_group, Person) %>
 								<li class=''>
 									<a href='/people/search_group'>
 										<i class='icon-search'></i>
                     <span><%= t('people.search_groups') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:new, StudyPlan) %>
 								<li class=''>
 									<a href='/study_plans/new'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('study_plan.new') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:enable, StudyPlan) %>
 								<li class=''>
 									<a href='/study_plans/enable'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('study_plan.enable') %></span>
 									</a>
-								</li>
+                </li>
+                <% end %>
+                <% if can?(:new_group, Person) %>
 								<li class=''>
 									<a href='/people/new_group'>
 										<i class='icon-caret-right'></i>
 										<span><%= t('people.create_groups') %></span>
 									</a>
-								</li>
-								<!--<li class=''>
-									<a href='fileupload.html'>
-										<i class='icon-file'></i>
-										<span>Fileupload</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='todo.html'>
-										<i class='icon-list-alt'></i>
-										<span>Todo list</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='wysiwyg.html'>
-										<i class='icon-paste'></i>
-										<span>WYSIWYG</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class=''>
-							<a href='tables.html'>
-								<i class='icon-table'></i>
-								<span>Tables</span>
-							</a>
-						</li>
-						<li class=''>
-							<a href='grid.html'>
-								<i class='icon-th'></i>
-								<span>Grid</span>
-							</a>
-						</li>
-						<li class=''>
-							<a href='type.html'>
-								<i class='icon-font'></i>
-								<span>Typography</span>
-							</a>
-						</li>
-						<li class=''>
-							<a href='calendar.html'>
-								<i class='icon-calendar'></i>
-								<span>Calendar</span>
-							</a>
-						</li>
-						<li>
-							<a class='dropdown-collapse' href='#'>
-								<i class='icon-book'></i>
-								<span>Example pages</span>
-								<i class='icon-angle-down angle-down'></i>
-							</a>
-							<ul class='nav nav-stacked'>
-								<li class=''>
-									<a href='invoice.html'>
-										<i class='icon-money'></i>
-										<span>Invoice</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='gallery.html'>
-										<i class='icon-picture'></i>
-										<span>Gallery</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='timeline.html'>
-										<i class='icon-time'></i>
-										<span>Timeline</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='pricing_tables.html'>
-										<i class='icon-table'></i>
-										<span>Pricing tables</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='user_profile.html'>
-										<i class='icon-user'></i>
-										<span>User profile</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='err404.html' target='_blank'>
-										<i class='icon-question-sign'></i>
-										<span>404 Error</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='err500.html' target='_blank'>
-										<i class='icon-cogs'></i>
-										<span>500 Error</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='sign_in.html' target='_blank'>
-										<i class='icon-signin'></i>
-										<span>Sign in</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='faq.html'>
-										<i class='icon-bullhorn'></i>
-										<span>FAQ</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='orders.html'>
-										<i class='icon-inbox'></i>
-										<span>Orders</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='search_results.html'>
-										<i class='icon-search'></i>
-										<span>Search results</span>
-									</a>
-								</li>
-								<li class='active'>
-									<a href='blank.html'>
-										<i class='icon-circle-blank'></i>
-										<span>Blank page</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a class='dropdown-collapse ' href='#'>
-								<i class='icon-cog'></i>
-								<span>Layouts</span>
-								<i class='icon-angle-down angle-down'></i>
-							</a>
-							<ul class='nav nav-stacked'>
-								<li class=''>
-									<a href='closed_navigation.html'>
-										<i class='icon-caret-right'></i>
-										<span>Closed navigation</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='fixed_header.html'>
-										<i class='icon-caret-right'></i>
-										<span>Fixed header</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='fixed_navigation.html'>
-										<i class='icon-caret-right'></i>
-										<span>Fixed navigation</span>
-									</a>
-								</li>
-								<li class=''>
-									<a href='fixed_navigation_and_header.html'>
-										<i class='icon-caret-right'></i>
-										<span>Fixed navigation & header</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class=''>
-							<a href='email_templates.html'>
-								<i class='icon-mail-reply'></i>
-								<span>Email templates</span>
-							</a>
-						</li>
-						<li>
-							<a class='dropdown-collapse' href='#'>
-								<i class='icon-folder-open-alt'></i>
-								<span>Four level dropdown</span>
-								<i class='icon-angle-down angle-down'></i>
-							</a>
-							<ul class='nav nav-stacked'>
-								<li>
-									<a class='dropdown-collapse' href='#'>
-										<i class='icon-caret-right'></i>
-										<span>Second level</span>
-										<i class='icon-angle-down angle-down'></i>
-									</a>
-									<ul class='nav nav-stacked'>
-										<li>
-											<a class='dropdown-collapse' href='#'>
-												<i class='icon-caret-right'></i>
-												<span>Third level</span>
-												<i class='icon-angle-down angle-down'></i>
-											</a>
-											<ul class='nav nav-stacked'>
-												<li>
-													<a href='#'>
-														<i class='icon-caret-right'></i>
-														<span>Fourth level</span>
-													</a>
-												</li>
-												<li>
-													<a href='#'>
-														<i class='icon-caret-right'></i>
-														<span>Another fourth level</span>
-													</a>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>-->
+                </li>
+                <% end %>
 					</ul>
 					<% end %>
 				</div>
