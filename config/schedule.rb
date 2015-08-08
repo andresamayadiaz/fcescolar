@@ -18,6 +18,9 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+set :output, "/tmp/fcescolar_background_jobs.log"
+
 every 1.day, :at => '12:05 am' do
     runner 'Contract.with_due_date_tomorrow'
 end

@@ -1,3 +1,10 @@
+
+Background Jobs
+================
+Need to update .rvmrc file on VPS with: 
+rvm_trust_rvmrcs_flag=1 
+
+
 Fcescolar
 ================
 
