@@ -64,7 +64,7 @@
           <%= f.association :country, :class=>'form-control', :label=>'Pais'%>
           <%= f.association :state, :class=>'form-control', :label=>'Estados'%>
           <%= f.input :birthday, :class=>'form-control', :label=>'Birthday', as: :string %>
-          <%= f.input :profile_picture, :label=>'Seleccionar Archivo' %>
+          <%= f.input :profile_picture, :label=>'Añadir imagen de perfil' %>
           <% if @person.profile_picture.exists? %>
             <label class="col-md-7 control-label">Existing Picture</label>
             <div class="col-md-5"><%= image_tag @person.profile_picture.url(:thumb) %></div>
