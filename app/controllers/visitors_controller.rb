@@ -16,4 +16,8 @@ class VisitorsController < ApplicationController
        		redirect_to root_url
 		end
 	end
+
+  def search
+    @people = Person.where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+  end
 end
