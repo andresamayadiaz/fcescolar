@@ -31,8 +31,8 @@ class PeopleController < ApplicationController
     if params[:format]=='pdf'
       @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.month = ?', params[:year], params[:period])
       all_group_status = @group_details.map(&:status)
-      if all_group_status.include? 'Blocked' or all_group_status.include? "Closed"
-        redirect_to :back, alert: 'Blocked or closed group is included on search result'
+      if all_group_status.include? 'Blocked' or all_group_status.include? "Closed" or @group_details.blank?
+        redirect_to :back, alert: 'Blocked or closed group is included on search result or it may be search result is empty'
       else
         render :pdf => "Group by year: #{@group_details.first.year}"
       end
