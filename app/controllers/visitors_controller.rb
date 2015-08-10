@@ -19,5 +19,6 @@ class VisitorsController < ApplicationController
 
   def search
     @people = Person.where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+    @subjects = Subject.where("name LIKE ?", "%#{params[:q]}%")
   end
 end
