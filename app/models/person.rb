@@ -33,6 +33,10 @@ class Person < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
 
+  def self.accessible_attributes
+    [:id, :curp, :rfc, :email, :first_name, :fathers_maiden_name, :mothers_maiden_name, :country_id, :state_id, :birtday, :last_academic_degree, :franchise_id, :campus_id]
+  end
+
   def self.filter(params)
     franchise_id = params[:franchise_id].present? ? params[:franchise_id] : nil
     campus_id = params[:campus_id].present? ? params[:campus_id] : nil

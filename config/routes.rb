@@ -86,6 +86,8 @@ Rails.application.routes.draw do
       post 'create_csv'
     end
   end
+
+  resources :person_imports
   
   resources :periods do
     collection do
