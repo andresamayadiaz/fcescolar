@@ -25,6 +25,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rails4-autocomplete'
 gem 'whenever', :require => false
+gem 'roo', '~> 2.1.0'
 
 group :development do
   gem 'better_errors'
