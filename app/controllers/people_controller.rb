@@ -5,6 +5,14 @@ class PeopleController < ApplicationController
 
   respond_to :html
 
+  def import
+  end
+
+  def create_from_import
+    Person.import(params[:file])
+    redirect_to :back, notice: "People imported."
+  end
+
   def export_to_csv
     @all_roles = Role.all.each{ |r| r.name.humanize}
   end
