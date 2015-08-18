@@ -1,8 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user,active_franchise=nil)
-    if active_franchise.present?
+  def initialize(user)
       user ||= User.new # guest user (not logged in)
       case user.active_role
       when 'super_administrator'
@@ -45,5 +44,4 @@ class Ability
         can [:profile, :download_personal_record_file], Person
       end
     end
-  end
 end
