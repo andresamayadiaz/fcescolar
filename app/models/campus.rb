@@ -6,4 +6,10 @@ class Campus < ActiveRecord::Base
 
   validates :name, :presence=>true
   validates :franchise, :presence=>true
+  
+  def self.get_id(name)
+    campus = find_by_name(name)
+    return campus.id
+  end
+
 end

@@ -39,8 +39,48 @@ class Person < ActiveRecord::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
+      params = {
+        'franchise_id'=>Franchise.get_id(row["Franchise"]),
+        'campus_id'=>Campus.get_id(row["Campus"]),
+        'curp'=>row["CURP"],
+        'rfc'=>row["RFC"],
+        'email'=>row["Email"],
+        'first_name'=>row["First Name"],
+        'fathers_maiden_name'=>row["Father's Maiden Name"],
+        'mothers_maiden_name'=>row["Mother's Maiden Name"],
+        'country_id'=>Country.get_id(row["Country"]),
+        'state_id'=>State.get_id(row["State"]),
+        'birthday'=>row["Birthday"],
+        'last_academic_degree'=>row["Last Academic Degree"],
+        'person_living_address_attributes' =>
+          {
+            'street'=>'test',
+            'num_ext'=>'test',
+            'num_int'=>'test',
+            'colonia'=>'test',
+            'cp'=>'test',
+            'municipio'=>'test',
+            'country_id'=>'1',
+            'state_id'=>'1',
+            'phone_emergency'=>'12345'
+          },
+          'person_work_place_attributes' =>
+          {
+            'empresa'=>'test',
+            'puesto'=>'test',
+            'calle'=>'test',
+            'municipio'=>'test',
+            'num_ext'=>'test',
+            'num_int'=>'test',
+            'country_id'=>'1',
+            'state_id'=>'1',
+            'colonia'=>'test',
+            'cp'=>'test'
+          }
+      }
+      #  {"franchise_id"=>"2", "campus_id"=>"2", "curp"=>"tester1", "rfc"=>"tester1", "email"=>"tester1@example.com", "first_name"=>"Change", "fathers_maiden_name"=>"Me", "mothers_maiden_name"=>"Later", "country_id"=>"1", "state_id"=>"1", "birthday"=>"2015-08-17", "person_living_address_attributes"=>{"street"=>"tester street 1", "num_ext"=>"1", "num_int"=>"1", "colonia"=>"1", "cp"=>"1", "municipio"=>"tester1", "country_id"=>"1", "state_id"=>"1", "phone_emergency"=>"12345"}, "person_work_place_attributes"=>{"empresa"=>"tester1", "puesto"=>"tester1", "calle"=>"tester1", "municipio"=>"tester1", "num_ext"=>"tester1", "num_int"=>"tester1", "country_id"=>"1", "state_id"=>"1", "colonia"=>"tester1", "cp"=>""}}
       person = find_by_id(row["id"]) || new
-      person.attributes = row.to_hash
+      person.attributes = params
       person.save(:validate=>false)
     end
   end
