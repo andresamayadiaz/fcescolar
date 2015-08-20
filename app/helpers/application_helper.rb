@@ -6,7 +6,7 @@ module ApplicationHelper
     case status
     when 'Pending' 
       study_plan_id = dictamination.study_plan.id
-			"<a href='javascript:void(0);' class='btn-sm btn-success accept-btn' rel=#{study_plan_id}>Accept</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-danger reject-btn' rel=#{id}>Reject</a>".html_safe
+			"<a href='/people/download_pending_teacher_dictamination?id=#{dictamination.id}' target='_blank' class='btn-sm btn-info'>Download again</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-success accept-btn' rel=#{study_plan_id}>Accept</a>&nbsp;<a href='javascript:void(0);' class='btn-sm btn-danger reject-btn' rel=#{id}>Reject</a>".html_safe
     when 'Accepted'
       evidence_url = dictamination.evidence.url
       "<a href='/people/download_evidence?dictamination_id=#{id}'>Download Evidence</a>".html_safe

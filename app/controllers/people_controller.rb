@@ -121,6 +121,19 @@ class PeopleController < ApplicationController
     @active_study_plans = StudyPlan.active
   end
 
+  def download_pending_teacher_dictamination
+    begin 
+      teacher_dictamination = TeacherDictamination.find(params[:id])
+      @teacher_full_name = teacher_dictamination.person.try(:name).upcase
+      @career_name_of_study_plan = teacher_dictamination.study_plan.career.try(:name).upcase
+      @subjects = teacher_dictamination.subjects.map(&:name)
+      render  :pdf => "Teacher Dictamination: #{@teacher_full_name}"
+    rescue => error
+      flash[:error]=error.to_s
+      redirect_to :back
+    end
+  end
+
   def create_teacher_dictamination
     begin 
       teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
