@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   get '/profile/:id'=>"people#profile"
   get '/profile/'=>'people#profile_without_id'
-
+  get '/search/'=>'visitors#search'
+  
   resources :groups do
     collection do
       get 'block_it'

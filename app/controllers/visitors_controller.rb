@@ -16,4 +16,10 @@ class VisitorsController < ApplicationController
        		redirect_to root_url
 		end
 	end
+
+  def search
+    @people = Person.joins(:contact_telephones).where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ? OR contact_telephones.phone_number LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+    @subjects = Subject.where("name LIKE ?", "%#{params[:q]}%")
+    @group_details = GroupDetail.where(:custom_group_id=>params[:q])
+  end
 end
