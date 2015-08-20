@@ -4,6 +4,8 @@ Background Jobs
 Need to update .rvmrc file on VPS with: 
 rvm_trust_rvmrcs_flag=1 
 
+run this command: whenever -i 
+On server and it will automatically create the cron job.
 
 Fcescolar
 ================
