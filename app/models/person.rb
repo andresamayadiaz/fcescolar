@@ -92,6 +92,9 @@ class Person < ActiveRecord::Base
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+  
+  def self.main_search(params)
+    joins(("LEFT JOIN `contact_telephones` ON contact_telephones.person_id = people.id")).where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ? OR contact_telephones.phone_number LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
 
   def self.filter(params)
     franchise_id = params[:franchise_id].present? ? params[:franchise_id] : nil
