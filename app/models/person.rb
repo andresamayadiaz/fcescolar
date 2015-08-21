@@ -1,3 +1,4 @@
+require 'roo'
 require 'csv'
 class Person < ActiveRecord::Base
   attr_accessor :role
@@ -33,6 +34,65 @@ class Person < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
 
+  def self.import(file)
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(1)
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      params = {
+        'franchise_id'=>Franchise.get_id(row["Franchise"]),
+        'campus_id'=>Campus.get_id(row["Campus"]),
+        'curp'=>row["CURP"],
+        'rfc'=>row["RFC"],
+        'email'=>row["Email"],
+        'first_name'=>row["First Name"],
+        'fathers_maiden_name'=>row["Father's Maiden Name"],
+        'mothers_maiden_name'=>row["Mother's Maiden Name"],
+        'country_id'=>Country.get_id(row["Country"]),
+        'state_id'=>State.get_id(row["State"]),
+        'birthday'=>row["Birthday"],
+        'last_academic_degree'=>row["Last Academic Degree"],
+        'person_living_address_attributes' =>
+          {
+            'street'=>row["Street"],
+            'num_ext'=>row["Num Ext 1"],
+            'num_int'=>row["Num Int 1"],
+            'colonia'=>row["Colonia"],
+            'cp'=>row["CP"],
+            'municipio'=>row["Municipio 1"],
+            'country_id'=>Country.get_id(row["Country"]),
+            'state_id'=>State.get_id(row["State"]),
+            'phone_emergency'=>row["Phone Emergency"]
+          },
+          'person_work_place_attributes' =>
+          {
+            'empresa'=>row["Empresa"],
+            'puesto'=>row["Puesto"],
+            'calle'=>row["Calle"],
+            'municipio'=>row["Municipio 2"],
+            'num_ext'=>row["Num Ext 2"],
+            'num_int'=>row["Num Int 2"],
+            'country_id'=>Country.get_id(row["Country"]),
+            'state_id'=>State.get_id(row["State"]),
+            'colonia'=>row["Colonia"],
+            'cp'=>row["CP"]
+          }
+      }
+      person = find_by_id(row["id"]) || new
+      person.attributes = params
+      person.save(:validate=>false)
+    end
+  end
+
+  def self.open_spreadsheet(file)
+    case File.extname(file.original_filename)
+    when ".csv" then Roo::CSV.new(file.path)
+    when ".xls" then Roo::Excel.open(file.path)
+    when ".xlsx" then Roo::Excelx.new(file.path)
+    else raise "Unknown file type: #{file.original_filename}"
+    end
+  end
+  
   def self.main_search(params)
     joins(("LEFT JOIN `contact_telephones` ON contact_telephones.person_id = people.id")).where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ? OR contact_telephones.phone_number LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
   end

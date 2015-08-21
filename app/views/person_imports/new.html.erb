@@ -1,0 +1,17 @@
+<h1>Person Import</h1>
+<%= form_for @person_import do |f| %>
+  <% if @person_import.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@person_import.errors.count, "error") %> prohibited this import from completing:</h2>
+      <ul>
+        <% @person_import.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.file_field :file %>
+  </div>
+  <div class="buttons"><%= f.submit "Import" %></div>
+<% end %>

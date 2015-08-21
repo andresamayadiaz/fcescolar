@@ -1,0 +1,65 @@
+<!-- // TITULO -->
+<div class="row">
+	<div class="col-sm-12">
+		<div class="page-header">
+			<h1 class="pull-left">
+				<i class="icon-edit"></i>
+				<span>Import People</span>
+			</h1>
+			<div class="pull-right">
+				<ul class="breadcrumb">
+					<li>
+						<a href="index.html">
+							<i class="icon-home"></i>
+						</a>
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li>
+						Catalogues
+					</li>
+					<li class="separator">
+						<i class="icon-angle-right"></i>
+					</li>
+					<li class="active">Import People</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- .// TITULO -->
+
+<!-- // TABLE -->
+<div class="box bordered-box blue-border">
+	<div class="box-header blue-background">
+		<div class="title">Import People</div>
+	</div>
+	<div class="box-content box-double-padding">
+    <%= form_tag create_from_import_people_path, multipart: true do %>
+		<fieldset>
+			<div class="col-sm-4">
+				<div class="box">
+					<div class="lead">
+						<i class="icon-edit text-contrast"></i>
+						<%= t('general.general_info') %>
+					</div>
+					<small class="text-muted"><%= t('general.insert_general_info') %></small>
+				</div>
+      </div>
+      <div class="col-sm-7 col-sm-offset-1">
+        <label>Browse CSV File</label>
+        <%= file_field_tag :file %>
+			</div>
+    </fieldset>
+    <hr class="hr-normal">
+    <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-7 col-sm-offset-5">
+          <%= button_tag 'Import', :class => "btn btn-primary btn-lg" %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

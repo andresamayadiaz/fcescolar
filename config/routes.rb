@@ -84,8 +84,12 @@ Rails.application.routes.draw do
       get 'get_subjects_of_dictamination'
       get 'export_to_csv'
       post 'create_csv'
+      get 'import'
+      post 'create_from_import'
     end
   end
+
+  resources :person_imports
   
   resources :periods do
     collection do
