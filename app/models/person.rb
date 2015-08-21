@@ -33,6 +33,10 @@ class Person < ActiveRecord::Base
 
   scope :active, -> { where(status: true) }
 
+  def self.main_search(params)
+    joins(("LEFT JOIN `contact_telephones` ON contact_telephones.person_id = people.id")).where("first_name LIKE ? OR fathers_maiden_name LIKE ? OR mothers_maiden_name LIKE ? OR email LIKE ? OR contact_telephones.phone_number LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+  end
+
   def self.filter(params)
     franchise_id = params[:franchise_id].present? ? params[:franchise_id] : nil
     campus_id = params[:campus_id].present? ? params[:campus_id] : nil
