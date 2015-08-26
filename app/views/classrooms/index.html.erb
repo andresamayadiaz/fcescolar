@@ -48,7 +48,7 @@
     </div>
     <div class='responsive-table'>
       <div class='scrollable-area'>
-        <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
+        <table id='classrooms-data-table' class='table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
               <th><%= t('franchise.singular') %></th>
@@ -87,11 +87,40 @@
 </div>
 <!-- .// TABLE -->
 <% content_for :specific_js do %>
-  <script type='text/javascript'>
-    $(document).ready(function(){
-      $('select#filter_campus').change(function(){
-        window.location.href = '/classrooms/filter_campus?campus_id='+$(this).val() 
-      });   
-    })
-  </script>
+<script type='text/javascript'>
+
+
+$(document).ready(function(){
+    $('select#filter_campus').change(function(){
+      window.location.href = '/classrooms/filter_campus?campus_id='+$(this).val() 
+    });
+    var dt, sdom;
+    var elem = '#classrooms-data-table';
+    if ($(elem).data("pagination-top-bottom") === true) {
+      sdom = "<'row datatables-top'<'col-sm-6'l><'col-sm-6 text-right'pf>r>t<'row datatables-bottom'<'col-sm-6'i><'col-sm-6 text-right'p>>";
+    } else if ($(elem).data("pagination-top") === true) {
+      sdom = "<'row datatables-top'<'col-sm-6'l><'col-sm-6 text-right'pf>r>t<'row datatables-bottom'<'col-sm-6'i><'col-sm-6 text-right'>>";
+    } else {
+      sdom = "<'row datatables-top'<'col-sm-6'l><'col-sm-6 text-right'f>r>t<'row datatables-bottom'<'col-sm-6'i><'col-sm-6 text-right'p>>";
+    }
+    dt = $(elem).dataTable({
+        sDom: sdom,
+        sPaginationType: "bootstrap",
+        "iDisplayLength": $(elem).data("pagination-records") || 10,
+        oLanguage: {
+        sLengthMenu: "_MENU_ records per page"
+        },
+        aoColumns: [
+          { "bSearchable": false },
+          { "bSearchable": false },
+          null,
+          { "bSearchable": false },
+          { "bSearchable": false },
+          { "bSearchable": false }
+        ]
+    });
+    dt.closest('.dataTables_wrapper').find('div[id$=_filter] input').css("width", "200px");
+    dt.closest('.dataTables_wrapper').find('input').addClass("form-control input-sm").attr('placeholder', 'Search');
+})
+</script>
 <% end %>
