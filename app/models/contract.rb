@@ -24,4 +24,40 @@ class Contract < ActiveRecord::Base
       end
     end
   end
+
+  def replace_keywords(content,person,franchise)
+    content.gsub! '@@person_fullname@@', person.name
+    content.gsub! '@@person_fullname2@@', person.name
+    content.gsub! '@@person_id@@', person.id.to_s
+    content.gsub! '@@username@@', person.name
+    content.gsub! '@@franchise_name@@', franchise.name
+    content.gsub! '@@franchise_address@@', franchise.address
+    content.gsub! '@@date_now@@', Time.now.strftime('%Y-%m-%d')
+    content.gsub! '@@date_time@@', Time.now.strftime('%Y-%m-%d %H:%M:%S')
+    content.gsub! '@@person_street@@', person.person_living_address.street
+    content.gsub! '@@person_streetnumber1@@', person.person_living_address.num_ext
+    content.gsub! '@@person_RFC@@', person.rfc
+    content.gsub! '@@person_CURP@@', person.curp
+    content.gsub! '@@person_primary_email@@', person.user.email
+    content.gsub! '@@person_primary_phone@@', person.contact_telephones.try(:first).try(:phone_number) rescue ""
+    content.gsub! '@@person_street@@', person.person_living_address.street rescue ""
+    content.gsub! '@@person_num_ext@@', person.person_living_address.try(:num_ext)
+    content.gsub! '@@person_num_int@@', person.person_living_address.try(:num_int)
+    content.gsub! '@@person_colonia@@', person.person_living_address.try(:colonia)
+    content.gsub! '@@person_cp@@', person.person_living_address.try(:cp)
+    content.gsub! '@@person_municipio@@', person.person_living_address.try(:municipio)
+    content.gsub! '@@person_estado@@', person.person_living_address.try(:state).try(:name)
+    content.gsub! '@@person_country@@', person.person_living_address.try(:country).try(:name)
+    content.gsub! '@@person_emergency_phone@@', person.person_living_address.try(:phone_emergency) rescue ""
+    content.gsub! '@@person_work_company_name@@', person.person_work_place.try(:empresa) rescue ""
+    content.gsub! '@@person_work_company_puesto@@', person.person_work_place.try(:puesto) rescue ""
+    content.gsub! '@@person_roles@@', person.user.users_roles.map{|ur| ur.role.name}.join(", ") rescue ""
+    content.gsub! '@@Year@@', due_date.strftime('%Y')
+    content.gsub! '@@Month@@', due_date.strftime('%m')
+    content.gsub! '@@Day@@', due_date.strftime('%d')
+    content.gsub! '@@Date@@', due_date.strftime('%Y-%m-%d')
+    content.gsub! '@@Time@@', due_date.strftime("%H:%M:%S")
+    return content
+  end
+
 end

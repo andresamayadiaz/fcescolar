@@ -186,14 +186,14 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
       @new_contract = Contract.new(:person_id=>@person.id)
-      @active_contracts_templates = ContractsTemplate.active
+      @active_contracts_templates = new_contract.active
     end
   end
 
   def preview_contract
     new_contract = Contract.new(params[:contract])
     template = new_contract.contracts_template
-    @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+    @pdf_content = "#{new_contract.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
     prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
     render  :pdf => template.name,
       :header => {
@@ -207,7 +207,7 @@ class PeopleController < ApplicationController
   def download_contract
     new_contract = Contract.new(params[:contract])
     template = new_contract.contracts_template
-    @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+    @pdf_content = "#{new_contract.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
     prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
     render  :pdf => template.name,
       :header => {
@@ -226,7 +226,7 @@ class PeopleController < ApplicationController
       else
         template.update(:consecutive_next=>template.consecutive_next+1)
       end
-      @pdf_content = "#{ContractsTemplate.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
+      @pdf_content = "#{new_contract.replace_keywords(template.content,new_contract.person,new_contract.person.franchise)}".html_safe
       prefix_content = "#{template.serie}#{template.consecutive_next}".html_safe
       render  :pdf => template.name,
         :header => {
