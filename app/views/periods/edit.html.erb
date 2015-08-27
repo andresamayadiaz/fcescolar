@@ -35,13 +35,13 @@
   <div class='box-header blue-background'>
     <div class='title'>Nombre: <%= @period.name %></div>
     <div class='actions'>
-      <%= link_to 'Espalda', periods_path, :class=>'btn btn-large btn-success' %>
+      <%= link_to 'Regresar', periods_path, :class=>'btn btn-large btn-success' %>
     </div>
   </div>
   <div class='box-content box-no-padding'>
     <br/>
     <div class='col-sm-12'>
-      <strong>Add Multiple Periods</strong>
+      <strong>Agregar Multiples Periodos</strong>
     </div>
     <br/>
     <form method="POST" action="<%=add_multiple_period_detail_periods_path%>">
@@ -57,7 +57,7 @@
         <input name="number_of_period_details" type='number' placeholder="Number of Period Details" class='form-control'/>
       </div>
       <div class='col-sm-3'>
-        <button class='btn'>Save</button>
+        <button class='btn'> <%= t('general.save') %></button>
       </div>
     </form>
     <hr class='normal'>
@@ -66,10 +66,10 @@
         <table class='table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Initial Month</th>
-              <th>End Month</th>
-              <th>Year</th>
+              <th> <%= t('general.name') %></th>
+              <th>Mes Inicial</th>
+              <th>Mes Final</th>
+              <th>Año</th>
               <th></th>
             </tr>
           </thead>

@@ -57,6 +57,7 @@ es:
         record_invalid: "Validación Falló: %{errors}"
   general:
     filter: "Filtrado Por"
+    status: "Estatus"
     inser_filter_info: "Introduzca el filtro"
     name: "Nombre"
     fathers_maiden: "Apellido Paterno"

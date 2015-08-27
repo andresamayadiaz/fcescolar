@@ -1,13 +1,13 @@
 <% if current_user.active_role.blank? or (current_user.active_role=='super_administrator' and session[:active_franchise].blank?) %>
-<div class="alert alert-info" role="alert">Bienvenido, por favor seleccione el papel que desea utilizar</div>
+<div class="alert alert-info" role="alert">Bienvenido, por favor seleccione el rol que desea utilizar</div>
 <%= simple_form_for(current_user, :url =>set_active_role_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
 <fieldset>
 	<div class="col-sm-7">
-		<%= f.input :active_role, collection: @enabled_roles.map { |r| [r.role.name.humanize, r.role.name] }, prompt: "Select your assigned role(s)", label:'Select Role(s)' %>
-    <%= f.input :active_franchise, collection: Franchise.all.map { |franchise| [franchise.name.humanize, franchise.id] }, prompt: "Select franchise to work with", label:'Select Franchise' %>
+		<%= f.input :active_role, collection: @enabled_roles.map { |r| [r.role.name.humanize, r.role.name] }, prompt: "Favor de seleccionar un rol", label:'Seleccionar rol de usuario a utilizar' %>
+    <%= f.input :active_franchise, collection: Franchise.all.map { |franchise| [franchise.name.humanize, franchise.id] }, prompt: "Seleccionar franquicia", label:'Seleccionar Franquicia' %>
 		<div class="form-actions">
 			<%= button_tag( :class => "btn btn-primary btn-lg") do %>
-			<i class="icon-save"></i>Select Role
+			<i class="icon-save"></i>Rol de Usuario
 			<% end %>
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 							<td><%= n.user.person.try(:name) %></td>
 							<td><%= n.title %></td>
 							<td><%= n.message %></td>
-              <td><%= "#{time_ago_in_words(n.created_at)} ago" %></td><td><a class="btn btn-info btn-xs" href="<%= mark_as_read_notification_path(n) %>">Mark as read</a></td>
+              <td><%= "#{time_ago_in_words(n.created_at)} ago" %></td><td><a class="btn btn-info btn-xs" href="<%= mark_as_read_notification_path(n) %>">Marcar como leido</a></td>
 						</tr>
 						<% end %>
 					</tbody>

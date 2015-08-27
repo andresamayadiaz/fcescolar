@@ -8,8 +8,8 @@
       <%= image_tag @profile.profile_picture.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
       <div class="content-heading">
         <h3><%= current_user.person.try(:name) %></h3>
-        <p><%= "Last Academic Degree: #{@profile.last_academic_degree}" %></p>
-        <p><%= "Location: #{@profile.country.try(:name)}, #{@profile.state.try(:name)}"%></p>
+        <p><%= "Ultimo Grado Academico: #{@profile.last_academic_degree}" %></p>
+        <p><%= "Ubicación Actual: #{@profile.country.try(:name)}, #{@profile.state.try(:name)}"%></p>
       </div>
     </div>
   </div>
@@ -21,9 +21,9 @@
 <div class='tabbable'>
   <!-- Nav tabs -->
   <ul class="nav nav-responsive nav-tabs">
-    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
-    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab">Assigned Roles</a></li>
-    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab">My Personal Record File</a></li>
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">Información General</a></li>
+    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab">Roles Asignados</a></li>
+    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab">Archivo Personal</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -32,7 +32,7 @@
       <!-- // TABLE -->
       <div class="box bordered-box blue-border">
         <div class="box-header blue-background">
-          <div class="title">Change E-mail and Password</div>
+          <div class="title">Cambiar E-mail y Password</div>
         </div>
         <div class="box-content box-double-padding">
           <%= simple_form_for(current_user, :url =>update_password_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
@@ -72,7 +72,7 @@
       <!-- // TABLE -->
       <div class="box bordered-box blue-border">
         <div class="box-header blue-background">
-          <div class="title">Contact Information</div>
+          <div class="title">Información de Contacto</div>
         </div>
         <div class="box-content box-double-padding">
           <%= render 'profile_form' %>
@@ -84,7 +84,7 @@
       <!-- .// TABLE -->
       <div class='box bordered-box blue-border' style='margin-bottom:0;'>
         <div class='box-header blue-background'>
-          <div class='title'>My Roles List</div>
+          <div class='title'>Mis Roles de Usuario</div>
         </div>
         <div class='box-content box-no-padding'>
           <div class='responsive-table'>
@@ -92,7 +92,7 @@
               <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
                 <thead>
                   <tr>
-                    <th>Role Name</th>
+                    <th>Rol</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -112,7 +112,7 @@
         <!-- .// TABLE -->
         <div class='box bordered-box blue-border' style='margin-bottom:0;'>
           <div class='box-header blue-background'>
-            <div class='title'>Attached Files in My Personal File</div>
+            <div class='title'>Archivos Adjuntos</div>
           </div>
           <div class='box-content box-no-padding'>
             <div class='responsive-table'>
@@ -120,10 +120,10 @@
                 <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
                         <thead>
                           <tr>
-                            <th>Name</th>
-                            <th>Due Date</th>
-                            <th>Attach Date</th>
-                            <th>Attach User</th>
+                            <th>Nombre</th>
+                            <th>Fecha de Vigencia</th>
+                            <th>Fecha de Carga</th>
+                            <th>Usuario que Cargó</th>
                             <th>Matching Date</th>
                             <th>Matching User</th>
                           </tr>

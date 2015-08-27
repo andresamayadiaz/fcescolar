@@ -15,24 +15,24 @@
 	<div class="row">
     <div class="col-sm-12">
       <fieldset>
-        <legend>Generate Contract</legend>
+        <legend>Generar Contrato</legend>
         <%= simple_form_for(@new_contract,:url=>'/people/generate_contract',:html => { :class => 'form form-horizontal', :method=>'POST', :target=>'_blank'}) do |f| %>
         <%= f.input :person_id, :as=>:hidden %>
         <div class="form-group">
-          <label class="col-md-2 control-label">Contract Template</label>
+          <label class="col-md-2 control-label">Template de Contrato</label>
           <div class="col-md-5">
             <%= f.association :contracts_template, collection: @active_contracts_templates, label: false, include_blank: 'Active Contracts Templates List' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Due Date</label>
+          <label class="col-md-2 control-label">Fecha de Vencimiento</label>
           <div class="col-md-5">
             <%= f.input :due_date, :class=>'form-control', label: false,  as: :string %>
           </div>
         </div>
         <div class="form-group">
-          <div class="col-md-3"><a class='btn btn-info btn-sm' href="javascript:void(0);" id='preview-contract'>Preview</a></div>
-          <div class="col-md-9"><button class='btn btn-primary btn-sm'>Generate Contract</button></div>
+          <div class="col-md-3"><a class='btn btn-info btn-sm' href="javascript:void(0);" id='preview-contract'>Previsualizar</a></div>
+          <div class="col-md-9"><button class='btn btn-primary btn-sm'>Generar Contrato</button></div>
         </div>
         <% end %>
       </fieldset>
