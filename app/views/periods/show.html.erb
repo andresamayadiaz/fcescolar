@@ -82,7 +82,7 @@
               <td><%= p.year.strftime('%Y') %></td>
               <td>
                 <div class='text-right'>
-                  <%= link_to remove_period_detail_periods_path(:id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
+                  <%= link_to remove_period_detail_periods_path(:period_detail_id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
                   <i class='icon-remove'></i>
                   <% end %>
                 </div>
