@@ -47,7 +47,7 @@ class PeopleController < ApplicationController
     else
       if params[:status]!='All'
         @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.status = ? and group_details.month = ?', params[:year], params[:status], params[:period])
-      else  
+      else
         @group_details = GroupDetail.joins(:group).where('group_details.year = ? and group_details.month = ?', params[:year], params[:period])
       end
       render :json => @group_details.to_json(:include=>[:subject, :teacher, :classroom, :time_slot, :group => {:include=>[:study_plan]} ])
@@ -130,7 +130,7 @@ class PeopleController < ApplicationController
   end
 
   def download_pending_teacher_dictamination
-    begin 
+    begin
       teacher_dictamination = TeacherDictamination.find(params[:id])
       @teacher_full_name = teacher_dictamination.person.try(:name).upcase
       @career_name_of_study_plan = teacher_dictamination.study_plan.career.try(:name).upcase
@@ -143,7 +143,7 @@ class PeopleController < ApplicationController
   end
 
   def create_teacher_dictamination
-    begin 
+    begin
       teacher_dictamination = TeacherDictamination.new(params[:teacher_dictamination])
       teacher_dictamination.save!
       @teacher_full_name = teacher_dictamination.person.try(:name).upcase
@@ -186,7 +186,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id]) rescue nil
     if @person.present?
       @new_contract = Contract.new(:person_id=>@person.id)
-      @active_contracts_templates = new_contract.active
+      @active_contracts_templates = ContractsTemplate.active
     end
   end
 
@@ -361,7 +361,7 @@ class PeopleController < ApplicationController
       user = @new_user_role.user
       user.send_confirmation_instructions if user.users_roles.length<=1 and user.confirmation_token.present? and user.confirmed_at.blank?
       redirect_to :back, :notice=>'New role is assigned successfully'
-    else      
+    else
       redirect_to :back, :alert=>'No new role is selected to assign or validation failed'
     end
   end
@@ -430,11 +430,11 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     respond_with(@person) do |format|
-      format.html { 
-        if @person.save 
-          flash[:notice] = 'Person was successfully created.' 
-          redirect_to people_url 
-        else 
+      format.html {
+        if @person.save
+          flash[:notice] = 'Person was successfully created.'
+          redirect_to people_url
+        else
           render 'new'
         end
       }
@@ -443,17 +443,17 @@ class PeopleController < ApplicationController
 
   def update
     respond_with(@person) do |format|
-      format.html { 
+      format.html {
         if @person.update(person_params)
           previous_url = URI(request.referer).path rescue nil
-          if (previous_url.present? and previous_url.include? 'profile') 
+          if (previous_url.present? and previous_url.include? 'profile')
             flash[:notice] = 'Profile was successfully updated.'
             redirect_to previous_url
           else
             flash[:notice] = 'Person was successfully updated.'
             redirect_to people_url
-          end 
-        else 
+          end
+        else
           render 'edit'
         end
       }
@@ -494,14 +494,14 @@ class PeopleController < ApplicationController
     params.require(:person).permit(
       :franchise_id,
       :campus_id,
-      :curp, 
-      :rfc, 
-      :email, 
+      :curp,
+      :rfc,
+      :email,
       :first_name,
-      :fathers_maiden_name, 
-      :mothers_maiden_name, 
-      :country_id, 
-      :state_id, 
+      :fathers_maiden_name,
+      :mothers_maiden_name,
+      :country_id,
+      :state_id,
       :birthday,
       :profile_picture,
       person_living_address_attributes: [:id, :street, :num_ext, :num_int, :colonia, :cp, :municipio, :state_id, :country_id, :phone_emergency],
