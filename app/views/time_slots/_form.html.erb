@@ -97,7 +97,11 @@
           $.each(data,function(index,value){
             html_element+="<option value="+value.id+">"+value.name+"</option>"
           })
+          var current_campus_id = $('#time_slot_campus_id').val();
           $("#time_slot_campus_id").html(html_element);
+          if (current_campus_id) {
+              $('#time_slot_campus_id').val(current_campus_id);
+          }
         }
       }
     })
