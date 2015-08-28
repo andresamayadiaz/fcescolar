@@ -5,7 +5,11 @@ class CampusesController < ApplicationController
   respond_to :html
 
   def index
-    @campuses = Campus.all
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present?
+      @campuses = Campus.where(:franchise_id=>session[:active_franchise].to_i)
+    else
+      @campuses = Campus.where(:franchise_id=>current_user.person.franchise_id)
+    end
     respond_with(@campuses)
   end
 
@@ -47,11 +51,11 @@ class CampusesController < ApplicationController
   end
 
   private
-    def set_campus
-      @campus = Campus.find(params[:id])
-    end
+  def set_campus
+    @campus = Campus.find(params[:id])
+  end
 
-    def campus_params
-      params.require(:campus).permit(:name, :address, :number_of_classrooms, :franchise_id)
-    end
+  def campus_params
+    params.require(:campus).permit(:name, :address, :number_of_classrooms, :franchise_id)
+  end
 end
