@@ -32,10 +32,10 @@ class PeriodsController < ApplicationController
   end
 
   def remove_period_detail
-    @period = PeriodDetail.find(params[:id]).period
+    @period = PeriodDetail.find(params[:period_detail_id]).period
     respond_to do |format|
       format.html { 
-        if PeriodDetail.destroy(params[:id])
+        if PeriodDetail.destroy(params[:period_detail_id])
           flash[:notice] = 'Done'
         else
           flash[:error] = 'Failed to delete.'
