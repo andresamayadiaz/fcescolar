@@ -56,7 +56,11 @@ class PeriodsController < ApplicationController
   end
 
   def new
-    @period = Period.new
+    if current_user.active_role=='super_administrator' and session[:active_franchise].present? 
+      @period = Period.new(:franchise_id=>session[:active_franchise].to_i)
+    else 
+      @period = Period.new(:franchise_id=>current_user.person.franchise_id)
+    end
     respond_with(@period)
   end
 
