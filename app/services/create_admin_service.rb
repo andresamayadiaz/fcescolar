@@ -1,5 +1,6 @@
 class CreateAdminService
   def call
+    franchise = Franchise.create!(:name=>'Matriz')
     country = Country.create!(:name=>'Mexico')
     state = State.create!(:name=>'Mexico',:country_id=>country.id)
     person = Person.new(

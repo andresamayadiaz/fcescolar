@@ -43,7 +43,7 @@ class ClassroomsController < ApplicationController
     respond_with(@classroom) do |format|
       format.html { 
         if @classroom.save 
-          flash[:notice] = 'Classroom was successfully created.' 
+          flash[:notice] = 'Aula creada con exito.' 
           redirect_to classrooms_url 
         else 
           render 'new'
@@ -56,7 +56,7 @@ class ClassroomsController < ApplicationController
     respond_with(@classroom) do |format|
       format.html { 
         if @classroom.update(classroom_params)
-          flash[:notice] = 'Classroom was successfully updated.' 
+          flash[:notice] = 'Aula actualizada con exito.' 
           redirect_to classrooms_url 
         else 
           render 'edit'

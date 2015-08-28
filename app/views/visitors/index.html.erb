@@ -7,7 +7,7 @@
     <%= f.input :active_franchise, collection: Franchise.all.map { |franchise| [franchise.name.humanize, franchise.id] }, prompt: "Seleccionar franquicia", label:'Seleccionar Franquicia' %>
 		<div class="form-actions">
 			<%= button_tag( :class => "btn btn-primary btn-lg") do %>
-			<i class="icon-save"></i>Rol de Usuario
+			<i class="icon-save"></i>Entrar
 			<% end %>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 				<table class='table table-bordered table-striped' style='margin-bottom:0;'>
 					<thead>
 						<tr>
-							<th>Desde</th>
+							<th>De</th>
 							<th>Titulo</th>
 							<th>Mensaje</th>
               <th colspan="2"></th>

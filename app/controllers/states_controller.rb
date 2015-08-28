@@ -26,7 +26,7 @@ class StatesController < ApplicationController
     respond_with(@state) do |format|
       format.html { 
         if @state.save 
-          flash[:notice] = 'State was successfully created.' 
+          flash[:notice] = 'Estado creado con éxito.' 
           redirect_to states_url 
         else 
           render 'new'
@@ -39,7 +39,7 @@ class StatesController < ApplicationController
     respond_with(@state) do |format|
       format.html { 
         if @state.update(state_params)
-          flash[:notice] = 'State was successfully updated.' 
+          flash[:notice] = 'Estado actualizado con éxito.' 
           redirect_to states_url 
         else 
           render 'edit'

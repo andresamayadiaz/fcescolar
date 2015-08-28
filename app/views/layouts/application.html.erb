@@ -215,7 +215,7 @@
                 <% if can?(:manage, Officer) or can?(:read, Officer) %>
 								<li class=''>
 									<a href='/officers'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-male'></i>
 										<span><%= t('officer.plural') %></span>
 									</a>
                 </li>
@@ -223,7 +223,7 @@
                 <% if can?(:manage, Person) or can?(:read, Person) %>
 								<li class=''>
 									<a href='/people'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-group'></i>
 										<span><%= t('people.menu') %></span>
 									</a>
                 </li>
@@ -231,7 +231,7 @@
                 <% if can?(:new, Person) %>
 								<li class=''>
 									<a href='/people/new'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-user'></i>
 										<span><%= t('people.new') %></span>
 									</a>
                 </li>
@@ -239,7 +239,7 @@
                 <% if can?(:assign_roles, Person) %>
 								<li class=''>
 									<a href='/people/assign_roles'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-bolt'></i>
 										<span><%= t('people.assign_roles') %></span>
 									</a>
                 </li>
@@ -247,7 +247,7 @@
                 <% if can?(:manage_personal_record_file, Person) %>
 								<li class=''>
 									<a href='/people/manage_personal_record_file'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-suitcase'></i>
 										<span><%= t('people.manage_record_file') %></span>
 									</a>
                 </li>
@@ -255,7 +255,7 @@
                 <% if can?(:new_teacher_dictamination, Person) %>
                 <li class=''>
 									<a href='/people/new_teacher_dictamination'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-certificate'></i>
 										<span><%= t('people.create_teacher_dictamination') %></span>
 									</a>
                 </li>
@@ -263,7 +263,7 @@
                 <% if can?(:accept_reject_dictamination, Person) %>
 								<li class=''>
 									<a href='/people/accept_reject_dictamination'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-tint'></i>
 										<span><%= t('people.accept_reject_dictamination') %></span>
 									</a>
                 </li>
@@ -271,7 +271,7 @@
                 <% if can?(:new_contract, Person) %>
 								<li class=''>
 									<a href='/people/new_contract'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-legal'></i>
 										<span><%= t('people.create_contract') %></span>
 									</a>
                 </li>
@@ -279,7 +279,7 @@
                 <% if can?(:new_enroll_student, Group) %>
 								<li class=''>
 									<a href='/groups/new_enroll_student'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-pushpin'></i>
 										<span><%= t('people.student_group_enrollment') %></span>
 									</a>
                 </li>
@@ -287,7 +287,7 @@
                 <% if can?(:export_to_csv, Person) %>
                 <li class=''>
 									<a href='/people/export_to_csv'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-reply-all'></i>
 										<span><%= t('people.export_to_csv') %></span>
 									</a>
                 </li>
@@ -312,7 +312,7 @@
                 <% if can?(:new, StudyPlan) %>
 								<li class=''>
 									<a href='/study_plans/new'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-film'></i>
 										<span><%= t('study_plan.new') %></span>
 									</a>
                 </li>
@@ -320,7 +320,7 @@
                 <% if can?(:enable, StudyPlan) %>
 								<li class=''>
 									<a href='/study_plans/enable'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-thumbs-up-alt'></i>
 										<span><%= t('study_plan.enable') %></span>
 									</a>
                 </li>
@@ -328,7 +328,7 @@
                 <% if can?(:new_group, Person) %>
 								<li class=''>
 									<a href='/people/new_group'>
-										<i class='icon-caret-right'></i>
+										<i class='icon-plus'></i>
 										<span><%= t('people.create_groups') %></span>
 									</a>
                 </li>

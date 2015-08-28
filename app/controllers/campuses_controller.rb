@@ -23,14 +23,14 @@ class CampusesController < ApplicationController
 
   def create
     @campus = Campus.new(campus_params)
-    flash[:notice] = 'Campus was successfully created.' if @campus.save
+    flash[:notice] = 'Campus creado con éxito.' if @campus.save
     respond_with(@campus) do |format|
       format.html { redirect_to campuses_url }
     end
   end
 
   def update
-    flash[:notice] = 'Campus was successfully updated.' if @campus.update(campus_params)
+    flash[:notice] = 'Campus actualizado con éxito.' if @campus.update(campus_params)
     respond_with(@campus) do |format|
       format.html { redirect_to campuses_url }
     end

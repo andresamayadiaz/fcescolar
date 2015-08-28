@@ -23,14 +23,14 @@ class CountriesController < ApplicationController
 
   def create
     @country = Country.new(country_params)
-    flash[:notice] = 'Country was successfully created.' if @country.save
+    flash[:notice] = 'Pais creado con éxito.' if @country.save
     respond_with(@country) do |format|
       format.html { redirect_to countries_url }
     end
   end
 
   def update
-    flash[:notice] = 'Country was successfully updated.' if @country.update(country_params)
+    flash[:notice] = 'Pais actualizado con éxito.' if @country.update(country_params)
     respond_with(@country) do |format|
       format.html { redirect_to countries_url }
     end

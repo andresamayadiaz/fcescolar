@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
       enrolled = EnrolledStudent.add(params[:enrolled_student])
       enrolled ? flash[:notice]='All students are enrolled' : flash[:alert]='Failed to enroll student'
     else
-      flash[:alert]='No student to enroll'
+      flash[:alert]='No hay alumnos para inscribir'
     end
     redirect_to :back
   end
@@ -76,14 +76,14 @@ class GroupsController < ApplicationController
   def block_it
     group_detail = GroupDetail.find(params[:group_detail_id])
     group_detail.update(:status=>'Blocked')
-    flash[:alert]='This group is blocked now'
+    flash[:alert]='El grupo se encuentra bloqueado.'
     redirect_to :back
   end
 
   def unblock_it
     group_detail = GroupDetail.find(params[:group_detail_id])
     group_detail.update(:status=>'Open')
-    flash[:notice]='This group status is set to open now'
+    flash[:notice]='El grupo ha cambiado a abierto.'
     redirect_to :back
   end
 

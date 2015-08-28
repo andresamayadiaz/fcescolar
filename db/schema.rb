@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(version: 20150808135441) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
+  f
   create_table "group_details", force: true do |t|
     t.integer  "group_id"
     t.string   "year"

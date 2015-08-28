@@ -25,7 +25,7 @@ class OfficersController < ApplicationController
     respond_with(@officer) do |format|
       format.html { 
         if @officer.save 
-          flash[:notice] = 'Officer was successfully created.' 
+          flash[:notice] = 'Funcionario creado con éxito.' 
           redirect_to officers_path 
         else 
           render 'new'
@@ -38,7 +38,7 @@ class OfficersController < ApplicationController
     respond_with(@officer) do |format|
       format.html { 
         if @officer.update(officer_params)
-            flash[:notice] = 'Officer was successfully updated.'
+            flash[:notice] = 'Funcionario actualizado con éxito.'
             redirect_to officers_path
         else 
           render 'edit'

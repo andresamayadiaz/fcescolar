@@ -26,7 +26,7 @@ class SubjectsController < ApplicationController
     respond_with(@subject) do |format|
       format.html { 
         if @subject.save
-          flash[:notice] = 'Subject was successfully created.' 
+          flash[:notice] = 'Materia creada con exito.' 
           redirect_to subjects_path 
         else 
           render 'new'
@@ -39,7 +39,7 @@ class SubjectsController < ApplicationController
     respond_with(@subject) do |format|
       format.html { 
         if @subject.update(subject_params)
-          flash[:notice] = 'Subject was successfully updated.' 
+          flash[:notice] = 'Materia actualizada con exito.' 
           redirect_to subjects_path 
         else 
           render 'edit'
