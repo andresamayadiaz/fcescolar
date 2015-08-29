@@ -1,4 +1,6 @@
 class VisitorsController < ApplicationController
+	#authorize_resource :class => false
+
 	def index
 		if current_user.users_roles.active.present? and current_user.person.status
 			current_user.update_attribute(:active_role, current_user.users_roles.active.first.role.name) if current_user.users_roles.active.present? and current_user.users_roles.active.length==1
