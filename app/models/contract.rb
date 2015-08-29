@@ -52,11 +52,11 @@ class Contract < ActiveRecord::Base
     content.gsub! '@@person_work_company_name@@', person.person_work_place.try(:empresa) rescue ""
     content.gsub! '@@person_work_company_puesto@@', person.person_work_place.try(:puesto) rescue ""
     content.gsub! '@@person_roles@@', person.user.users_roles.map{|ur| ur.role.name}.join(", ") rescue ""
-    content.gsub! '@@Year@@', due_date.strftime('%Y')
-    content.gsub! '@@Month@@', due_date.strftime('%m')
-    content.gsub! '@@Day@@', due_date.strftime('%d')
-    content.gsub! '@@Date@@', due_date.strftime('%Y-%m-%d')
-    content.gsub! '@@Time@@', due_date.strftime("%H:%M:%S")
+    content.gsub! '@@Year@@', due_date.strftime('%Y') rescue ""
+    content.gsub! '@@Month@@', due_date.strftime('%m') rescue ""
+    content.gsub! '@@Day@@', due_date.strftime('%d') rescue ""
+    content.gsub! '@@Date@@', due_date.strftime('%Y-%m-%d') rescue ""
+    content.gsub! '@@Time@@', due_date.strftime("%H:%M:%S") rescue ""
     return content
   end
 
