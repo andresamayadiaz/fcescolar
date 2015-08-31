@@ -15,6 +15,14 @@
       <div class="col-md-12"></div>
     </div>
     <hr class="hr-normal">
+    <div id="officers_teacher_dictaminations_wrapper" class="form-group">
+        <%= f.simple_fields_for :officers_teacher_dictaminations do |officers_teacher_dictamination| %>
+          <%= render 'officers_teacher_dictamination_fields', :f => officers_study_plan %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association 'Add Officer', f, :officers_teacher_dictaminations, class: 'btn btn-sm btn-info', style: 'margin-top:10px;' %>
+        </div>
+    </div>
     <div class="form-group">
       <button class="btn btn-primary">Save and Print PDF</button>
     </div>
@@ -41,11 +49,57 @@
     })
   }
 
+  function check_to_hide_or_show_add_link() {
+    var max_officers = $('#max_officers').val();
+    if ($('#officers_teacher_dictaminations_wrapper .nested-fields').length == max_officers) {
+      if($('#officers_teacher_dictaminations_wrapper .nested-fields:hidden').length>0) {
+        $('#officers_teacher_dictaminations_wrapper .links a').show();
+      } else {
+        $('#officers_teacher_dictaminations_wrapper .links a').hide();
+      }
+    } else {
+      $('#officers_teacher_dictaminations_wrapper .links a').show();
+    }
+}
+
+function validate_selected_officers(current_select){
+      current_select.parents('fieldset').prev().find('select').attr('disabled',true);
+      var selected_officers = $('#officers_teacher_dictaminations_wrapper select').map(function(){ return $(this).val() });
+      current_select.find('option').map(function(){
+          var is_selected_officer = $.inArray($(this).val(),selected_officers);
+          if (is_selected_officer!=-1 && $(this).text()!='Select an officer'){
+            $(this).remove();
+          }
+      })
+}
+
   $(document).ready(function(){
     $('#teacher_dictamination_study_plan_id').change(function(){
       var val = $(this).val();
       get_active_subjects_by_study_plan_id(val);
     });
+
+    $('#officers_teacher_dictaminations_wrapper select').attr('disabled',true)
+    $('form#new_study_plan').bind('submit', function() {
+      $(this).find('select').removeAttr('disabled');
+    });
+    $('#officers_teacher_dictaminations_wrapper select').live('change',function(){
+      $('#officers_teacher_dictaminations_wrapper .links a').removeAttr('disabled');
+    })
+    $('#officers_teacher_dictaminations_wrapper').bind('cocoon:after-insert', function(e,item) {
+      check_to_hide_or_show_add_link();
+      var rank = $('#officers_teacher_dictaminations_wrapper .nested-fields').length;
+      item.find('input.form-control').val(rank); 
+      validate_selected_officers(item.find('select'));
+      $('#officers_teacher_dictaminations_wrapper .links a').attr('disabled',true);
+    });
+
+    $('#officers_teacher_dictaminations_wrapper').bind('cocoon:after-remove', function(e,item) {
+      check_to_hide_or_show_add_link();
+    });
+
+   check_to_hide_or_show_add_link();
+ 
   
   })
 </script>

@@ -6,8 +6,12 @@ class TeacherDictamination < ActiveRecord::Base
   before_destroy { subjects.clear }
   
   has_many :approved_subjects, dependent: :destroy
+  has_many :officers_teacher_dictaminations
+  has_many :officers, through: :officers_teacher_dictaminations
 
   accepts_nested_attributes_for :approved_subjects, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :officers_teacher_dictaminations, :reject_if => :all_blank, :allow_destroy => true
+
   has_attached_file :evidence
   validates :evidence, :attachment_presence => true, :on => :update, if: :accept_dictamination
   validates_attachment_content_type :evidence, content_type: ['application/pdf']
