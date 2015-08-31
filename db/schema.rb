@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808135441) do
+ActiveRecord::Schema.define(version: 20150831075217) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(version: 20150808135441) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  f
+
   create_table "group_details", force: true do |t|
     t.integer  "group_id"
     t.string   "year"
@@ -318,6 +318,17 @@ ActiveRecord::Schema.define(version: 20150808135441) do
 
   add_index "officers_study_plans", ["officer_id"], name: "index_officers_study_plans_on_officer_id", using: :btree
   add_index "officers_study_plans", ["study_plan_id"], name: "index_officers_study_plans_on_study_plan_id", using: :btree
+
+  create_table "officers_teacher_dictaminations", force: true do |t|
+    t.integer  "officer_id"
+    t.integer  "teacher_dictamination_id"
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "officers_teacher_dictaminations", ["officer_id"], name: "index_officers_teacher_dictaminations_on_officer_id", using: :btree
+  add_index "officers_teacher_dictaminations", ["teacher_dictamination_id"], name: "teacher_dict_id", using: :btree
 
   create_table "official_domains", force: true do |t|
     t.integer  "franchise_id"
