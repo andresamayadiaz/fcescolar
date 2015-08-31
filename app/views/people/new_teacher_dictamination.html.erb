@@ -1,3 +1,4 @@
+<input type='hidden' value='<%= Officer.all.length %>' id='max_officers'/>
 <style>#active_subjects_wrapper{display:none;}</style>
 <%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post', :html=>{:target=>'_blank'}  do |f| %>
     <div class="form-group">
@@ -15,14 +16,15 @@
       <div class="col-md-12"></div>
     </div>
     <hr class="hr-normal">
-    <div id="officers_teacher_dictaminations_wrapper" class="form-group">
+    <div id="officers_teacher_dictaminations_wrapper" class="form-inline">
         <%= f.simple_fields_for :officers_teacher_dictaminations do |officers_teacher_dictamination| %>
-          <%= render 'officers_teacher_dictamination_fields', :f => officers_study_plan %>
+          <%= render 'officers_teacher_dictamination_fields', :f => officers_teacher_dictamination %>
         <% end %>
         <div class='links'>
           <%= link_to_add_association 'Add Officer', f, :officers_teacher_dictaminations, class: 'btn btn-sm btn-info', style: 'margin-top:10px;' %>
         </div>
     </div>
+    <hr class="hr-normal">
     <div class="form-group">
       <button class="btn btn-primary">Save and Print PDF</button>
     </div>
@@ -51,6 +53,7 @@
 
   function check_to_hide_or_show_add_link() {
     var max_officers = $('#max_officers').val();
+    console.log(max_officers);
     if ($('#officers_teacher_dictaminations_wrapper .nested-fields').length == max_officers) {
       if($('#officers_teacher_dictaminations_wrapper .nested-fields:hidden').length>0) {
         $('#officers_teacher_dictaminations_wrapper .links a').show();
@@ -58,6 +61,7 @@
         $('#officers_teacher_dictaminations_wrapper .links a').hide();
       }
     } else {
+      $('#officers_teacher_dictaminations_wrapper .links a').removeAttr('disabled')
       $('#officers_teacher_dictaminations_wrapper .links a').show();
     }
 }
