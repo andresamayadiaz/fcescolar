@@ -84,7 +84,7 @@ function validate_selected_officers(current_select){
     });
 
     $('#officers_teacher_dictaminations_wrapper select').attr('disabled',true)
-    $('form#new_study_plan').bind('submit', function() {
+    $('form#new_teacher_dictamination').bind('submit', function() {
       $(this).find('select').removeAttr('disabled');
     });
     $('#officers_teacher_dictaminations_wrapper select').live('change',function(){
