@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       post 'create_csv'
       get 'import'
       post 'create_from_import'
+      delete 'delete_personal_record_file'
     end
   end
 

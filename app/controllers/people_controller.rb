@@ -335,6 +335,11 @@ class PeopleController < ApplicationController
     end
   end
 
+  def delete_personal_record_file
+    PersonalRecordFile.destroy(params[:personal_record_file_id])
+    redirect_to :back, notice: "Personal Record File is deleted successfully"
+  end
+
   def block_or_unblock
     if @person.status
       @person.update_attribute(:status, false)

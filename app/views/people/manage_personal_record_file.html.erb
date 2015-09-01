@@ -80,6 +80,9 @@
                     <th>Fecha de Verificación</th>
                     <th>Usuario que verificó</th>
                     <th>Estado</th>
+                    <% if current_user.active_role=='super_administrator' %>
+                    <th>Delete Files</th>
+                    <% end %>
                   </tr>
                 </thead>
                 <tbody>
@@ -102,6 +105,13 @@
                       <% else %>
                         <td><span class="alert-danger">Incorrecto</span></td>
                       <% end %>
+                    <% end %>
+                     <% if current_user.active_role=='super_administrator' %>
+                    	<td>
+                    		<%= link_to "/people/delete_personal_record_file?personal_record_file_id=#{d.id}", class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
+                 				<i class='icon-remove'></i>
+                 			<% end %>
+                    	</td>
                     <% end %>
                   </tr>
                   <% end %>
