@@ -64,7 +64,7 @@
           <%= f.input :number_of_blocks, :label=>'Número de bloques', :class=>'form-control' %>
         </div>
         <div class="form-group">
-        <%= f.input :start_year, :label=>'Año de inicio', :class=>'form-control', as: :date, order: [:year] %>
+        <%= f.input :start_year, :label=>'Año de inicio', :class=>'form-control', as: :date, start_year: Date.today.year - 10,  end_year: Date.today.year + 10, order: [:year] %>
         </div>
         <div class="form-group">
           <%= f.input :name, :label=>t('general.name'), :class=>'form-control' %>
