@@ -3,6 +3,15 @@ class PeriodDetail < ActiveRecord::Base
   belongs_to :period
 
   validates :period, :initial_month, :end_month, :year, :presence => true
+
+  def self.update_params(p)
+    permitted_params = p.except(:controller,:action).permit!
+    updated_params = permitted_params.dup
+    updated_params[:initial_month] = Date.parse("#{permitted_params[:year]}-#{permitted_params [:initial_month]}-1")
+    updated_params[:end_month] = Date.parse("#{permitted_params[:year]}-#{permitted_params [:end_month]}-1")
+    updated_params[:year] = Date.parse("#{permitted_params[:year]}-#{permitted_params [:initial_month]}-1")
+    return updated_params
+  end
 	
   def self.multiple_add(start_year,start_month,num_to_add,period)
     num = num_to_add.to_i

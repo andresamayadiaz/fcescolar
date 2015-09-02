@@ -22,7 +22,8 @@ class PeriodsController < ApplicationController
 
   def add_period_detail
     @period = Period.find(params[:period_id])
-    @new_period_detail = PeriodDetail.new(params.except(:controller,:action).permit!)
+    updated_params = PeriodDetail.update_params(params)
+    @new_period_detail = PeriodDetail.new(updated_params)
     if @new_period_detail.save
       flash[:notice] = 'New period detail has been added'
     else

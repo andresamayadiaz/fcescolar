@@ -134,15 +134,13 @@ $(document).ready(function(){
     });
 
     $("#date_year").change(function(){
-      var new_year = new Date($(this).val());
-      var new_initial_month = new Date($("#date_month").val());
-      var new_end_month = new Date($('#end_month_number').val());
+      var new_year = $(this).val();
+      var new_initial_month = $("#date_month").val();
+      var new_end_month = $('#end_month_number').val();
       var period_id =$("#period_id").val();
       var add_period_url = '';
       var this_parent = $(this).parents('tr');
 			
-			//console.log("New Year: " + new_year + " New Initial Month: " + new_initial_month + " New End Month: " + new_end_month );
-
       if (new_year && new_initial_month && new_end_month){
       add_period_url = '/periods/add_period_detail?year='+new_year+'&initial_month='+new_initial_month+'&end_month='+new_end_month+'&period_id='+period_id;
       window.location.href = add_period_url;
