@@ -48,7 +48,7 @@
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"/>
       <input name="period_id" value="<%= @period.id %>" type="hidden"/>
       <div class='col-sm-3'>
-        <%= select_year(14, {start_year: @additional_year.year, end_year: (@additional_year+10.years).year, prompt: 'Elija Años'}, {:class=>'form-control', :name=>'start_year', :id=>'start_year'})%>
+        <%= select_year(14, {start_year: @additional_year.year, end_year: @additional_end_year, prompt: 'Elija Años'}, {:class=>'form-control', :name=>'start_year', :id=>'start_year'})%>
       </div>
       <div class='col-sm-3'>
         <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control', :name=>'start_month', :id=>'start_month'}) %>
@@ -96,7 +96,7 @@
               </td>
               <td></td>
               <td>
-                <%= select_year(14, {start_year: @additional_year.year, end_year: (@additional_year+20.years).year, prompt: 'Elija Años'}, {:class=>'form-control'})%>
+                <%= select_year(14, {start_year: @additional_year.year, end_year: @additional_end_year, prompt: 'Elija Años'}, {:class=>'form-control'})%>
               </td>
             </tr>
           </tbody>
