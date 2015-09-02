@@ -202,11 +202,12 @@
                 <thead>
                   <tr>
                     <th>Role Name</th>
+                    <th>ID</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% @person.user.users_roles.each do |r|%>
-                    <tr><td><%= r.role.name.humanize %></td></tr>
+                    <tr><td><%= r.role.name.humanize %></td><td><%= r.user_id if r.role.name=='student' %></td></tr>
                   <% end %>
                 </tbody>
               </table>
