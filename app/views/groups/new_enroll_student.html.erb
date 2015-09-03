@@ -1,6 +1,7 @@
 <style>
   #groups_wrap, #start_period_wrap, #start_period_month, #weekday_wrap, #latest_added_students {display: none;}
   .clickable-student {cursor: pointer;}
+  tr.student_rows td { border-bottom:1pt solid black; }
 </style>
 <div class='row'>
   <div class='col-sm-2'>Study Plan:</div>
@@ -198,14 +199,20 @@
         url: url,
         data: data,
         success: function(dt){
-          var html_element = '';
           if(dt){
+            var html_element='';
             $.each(dt,function(i,d){
+              html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+'</td></tr>';
               if (d.color != 'green'){
-                html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';
+                $.each(d.group_details,function(j,e){
+                    html_element += '<tr><td>'+e.group_id+'</td><td>'+e.year+'</td><td>'+e.month+'</td><td>'+e.subject+'</td><td>'+e.weekday+'</td><td>'+e.classroom+'</td><td>'+e.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';
+                })    
               } else {
-              html_element += '<tr><td>'+d.group_id+'</td><td>'+d.year+'</td><td>'+d.month+'</td><td>'+d.subject+'</td><td>'+d.weekday+'</td><td>'+d.classroom+'</td><td>'+d.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span><input type="hidden" name="enrolled_student['+i+'][person_id]" value="'+d.person_id+'"/><input type="hidden" name="enrolled_student['+i+'][group_detail_id]" value="'+d.id+'"/></td></tr>';
+                $.each(d.group_details,function(j,e){
+                    html_element += '<tr><td>'+e.group_id+'</td><td>'+e.year+'</td><td>'+e.month+'</td><td>'+e.subject+'</td><td>'+e.weekday+'</td><td>'+e.classroom+'</td><td>'+e.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span><input type="hidden" name="enrolled_student['+i+'][person_id]" value="'+e.person_id+'"/><input type="hidden" name="enrolled_student['+i+'][group_detail_id]" value="'+e.id+'"/></td></tr>';              
+                })   
               }
+              html_element +='<tr><td>&nbsp;</td></tr>';
             })
             $('#groups_wrap tbody').html(html_element);
             $('#groups_wrap #action_buttons_2').html('<button disabled>Determinar Plan de Pagos (Pendiente)</button><br/><br/><button>Inscribir en Grupos Seleccionado`</button>');

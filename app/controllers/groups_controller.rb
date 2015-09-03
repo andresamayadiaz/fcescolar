@@ -66,7 +66,7 @@ class GroupsController < ApplicationController
   def create_enroll_student
     if params[:enrolled_student].present?
       enrolled = EnrolledStudent.add(params[:enrolled_student])
-      enrolled ? flash[:notice]='All students are enrolled' : flash[:alert]='Failed to enroll student'
+      enrolled ? flash[:notice]='Students with complete docs are enrolled' : flash[:alert]='Failed to enroll student'
     else
       flash[:alert]='No hay alumnos para inscribir'
     end
