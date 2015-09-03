@@ -31,7 +31,9 @@ class GroupDetail < ActiveRecord::Base
     required_docs = Schedule.find_by_study_plan_id(study_plan_id).background_official_docs.map(&:id)
     groups = Group.where(:study_plan_id=>study_plan_id)
     student_ids.each do |id|
-      group_details_hash = {}
+      group_details_hash = {:group_details=>[] }
+      group_details_hash[:student_id]=id
+      group_detail_hash = {}
       person = Person.find(id)
       loaded_files = person.personal_record_files
       if (required_docs-loaded_files.map{|f|f.background_official_doc.id}).empty?
@@ -47,15 +49,16 @@ class GroupDetail < ActiveRecord::Base
       groups.each do |group|
         group_details =  group.group_details.select{|group_detail| group_detail.status=='Open' and group_detail.year==year and group_detail.month==month and group_detail.weekday==weekday}
         group_details.each do |group_detail|
-          group_details_hash[:id]=group_detail.id
-          group_details_hash[:group_id]=group_detail.custom_group_id
-          group_details_hash[:year]=group_detail.year
-          group_details_hash[:month]=group_detail.month
-          group_details_hash[:subject]=group_detail.subject.try(:name)
-          group_details_hash[:weekday]=group_detail.weekday
-          group_details_hash[:classroom]=group_detail.classroom.name
-          group_details_hash[:time_slot]=group_detail.time_slot.name
-          group_details_hash[:person_id]=person.id
+          group_detail_hash[:id]=group_detail.id
+          group_detail_hash[:group_id]=group_detail.custom_group_id
+          group_detail_hash[:year]=group_detail.year
+          group_detail_hash[:month]=group_detail.month
+          group_detail_hash[:subject]=group_detail.subject.try(:name)
+          group_detail_hash[:weekday]=group_detail.weekday
+          group_detail_hash[:classroom]=group_detail.classroom.name
+          group_detail_hash[:time_slot]=group_detail.time_slot.name
+          group_detail_hash[:person_id]=person.id
+          group_details_hash[:group_details] << group_detail_hash
         end if group_details.present?
       end
       selected_group_details << group_details_hash
