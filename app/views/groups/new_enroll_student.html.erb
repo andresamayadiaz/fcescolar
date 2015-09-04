@@ -202,7 +202,7 @@
           if(dt){
             var html_element='';
             $.each(dt,function(i,d){
-              html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+'</td></tr>';
+              html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+': '+d.full_name+'</td></tr>';
               if (d.color != 'green'){
                 $.each(d.group_details,function(j,e){
                     html_element += '<tr><td>'+e.group_id+'</td><td>'+e.year+'</td><td>'+e.month+'</td><td>'+e.subject+'</td><td>'+e.weekday+'</td><td>'+e.classroom+'</td><td>'+e.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';

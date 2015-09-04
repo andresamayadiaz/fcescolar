@@ -33,6 +33,7 @@ class GroupDetail < ActiveRecord::Base
     student_ids.each do |id|
       group_details_hash = {:group_details=>[] }
       group_details_hash[:student_id]=id
+      group_details_hash[:full_name]=Person.find(id).name
       group_detail_hash = {}
       person = Person.find(id)
       loaded_files = person.personal_record_files
