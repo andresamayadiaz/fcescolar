@@ -69,7 +69,6 @@
               <th>Name</th>
               <th>Initial Month</th>
               <th>End Month</th>
-              <th>Year</th>
               <th></th>
             </tr>
           </thead>
@@ -79,7 +78,6 @@
               <td><%= p.period.name %></td>
               <td><%= p.initial_month.strftime('%B') %></td>
               <td><%= p.end_month.strftime('%B') %></td>
-              <td><%= p.year.strftime('%Y') %></td>
               <td>
                 <div class='text-right'>
                   <%= link_to remove_period_detail_periods_path(:period_detail_id=>p.id), class: 'btn btn-danger btn-xs remove_period_detail', data: { confirm: 'Are you sure?' } do %>
@@ -94,9 +92,11 @@
               <td>
                 <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control additional_initial_month'}) %>
               </td>
-              <td></td>
               <td>
-                <%= select_year(14, {start_year: Date.today.year - 10, end_year: Date.today.year + 10, prompt: 'Elija Años'}, {:class=>'form-control'})%>
+                  <%= select_month(14, {prompt: 'Elegir Meses'}, {:class=>'form-control additional_end_month'}) %>
+              </td>
+              <td>
+                  <%= link_to 'Add', 'javascript:void(0);', :class=>'btn btn-success', :id=>'add_period_detail' %>
               </td>
             </tr>
           </tbody>
@@ -128,20 +128,20 @@
         success:function(data){
           var end_month_name = getMonthName(parseInt(data)-1);
           var end_month_number = data;
-          _this.parents('td').next().html(end_month_name+'<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
+          _this.parents('td').next().find('select').val(end_month_number)
+          _this.parents('td').next().append('<input type="hidden" value="'+end_month_number+'" id="end_month_number"/>');
         }
       });     
     });
 
-    $("#date_year").change(function(){
-      var new_year = $(this).val();
+    $("a#add_period_detail").click(function(){
       var new_initial_month = $("#date_month").val();
       var new_end_month = $('#end_month_number').val();
       var period_id =$("#period_id").val();
       var add_period_url = '';
       var this_parent = $(this).parents('tr');
 
-      if (new_year && new_initial_month && new_end_month){
+      if (new_initial_month && new_end_month){
         add_period_url = '/periods/add_period_detail?year='+new_year+'&initial_month='+new_initial_month+'&end_month='+new_end_month+'&period_id='+period_id;
         window.location.href = add_period_url;
       }
