@@ -202,12 +202,18 @@
           if(dt){
             var html_element='';
             $.each(dt,function(i,d){
-              html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+': '+d.full_name+'</td></tr>';
               if (d.color != 'green'){
+                if (d.color=='red'){
+                  var message = 'Unable to enroll student: one or more required docs are missing';
+                } else if (d.color=='orange') {
+                  var message = 'Unable to enroll student: one or more required docs is responsive letter';
+                }
+                html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+': '+d.full_name+' <span style="color:'+d.color+'" >('+message+')</span></strong></td></tr>';
                 $.each(d.group_details,function(j,e){
                     html_element += '<tr><td>'+e.group_id+'</td><td>'+e.year+'</td><td>'+e.month+'</td><td>'+e.subject+'</td><td>'+e.weekday+'</td><td>'+e.classroom+'</td><td>'+e.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span></td></tr>';
                 })    
               } else {
+                html_element +='<tr><td>&nbsp;</td></tr><tr class="student_rows"><td colspan="8"><strong>STUDENT #'+d.student_id+': '+d.full_name+'</strong></td></tr>';
                 $.each(d.group_details,function(j,e){
                     html_element += '<tr><td>'+e.group_id+'</td><td>'+e.year+'</td><td>'+e.month+'</td><td>'+e.subject+'</td><td>'+e.weekday+'</td><td>'+e.classroom+'</td><td>'+e.time_slot+'</td><td><span class="glyphicon glyphicon-record" style="color:'+d.color+'"></span><input type="hidden" name="enrolled_student['+i+'][person_id]" value="'+e.person_id+'"/><input type="hidden" name="enrolled_student['+i+'][group_detail_id]" value="'+e.id+'"/></td></tr>';              
                 })   
