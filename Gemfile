@@ -11,7 +11,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.20'
 gem 'simple_form'
 gem 'thin'
 gem 'paperclip', '~> 4.2'
