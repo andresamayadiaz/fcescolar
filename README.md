@@ -1,10 +1,23 @@
+DEV and PROD Instance
+================
+You can list the instance using:
+
+ps -ef | grep rails
+and kill production/dev instance you want.
+-p 3000 is thin development instance
+-p 5000 is thin production instance.
+
+for DEV:
+bundle exec rails s -p 3000 -d (on ~/fcescolar_dev directory)
+for PROD:
+RAILS_ENV=production bundle exec rails s -p 5000 -d (on ~/fcescolar directory)
 
 Background Jobs
 ================
-Need to update .rvmrc file on VPS with: 
-rvm_trust_rvmrcs_flag=1 
+Need to update .rvmrc file on VPS with:
+rvm_trust_rvmrcs_flag=1
 
-run this command: whenever -i 
+run this command: whenever -i
 On server and it will automatically create the cron job.
 
 Fcescolar

@@ -15,6 +15,7 @@
 /.bundle
 /vendor/bundle/
 /vendor/ruby/
+.ruby-gemset*
 
 # minimal Rails specific artifacts
 db/*.sqlite3
