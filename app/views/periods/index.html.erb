@@ -56,8 +56,8 @@
            <tr>
             <td><%= period.franchise.try(:name) %></td>
             <td><%= period.name %></td>
-            <td><%= "#{period.period_details.first.initial_month.strftime('%B')}, #{period.period_details.first.end_month.strftime('%B')} #{period.period_details.first.year.strftime('%Y')}"%></td>
-            <td><%= "#{period.period_details.last.initial_month.strftime('%B')}, #{period.period_details.last.end_month.strftime('%B')} #{period.period_details.last.year.strftime('%Y')}"%></td>
+            <td><%= "#{period.period_details.first.initial_month.strftime('%B %Y')}"%></td>
+            <td><%= "#{period.period_details.last.end_month.strftime('%B %Y')}"%></td>
             <td>
               <div class='text-right'>
                 <%= link_to edit_period_url(period), class: 'btn btn-success btn-xs' do %>

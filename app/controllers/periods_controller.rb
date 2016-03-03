@@ -52,8 +52,6 @@ class PeriodsController < ApplicationController
   end
 
   def show
-    @additional_year = @period.get_additional_years
-    @additional_end_year = Date.today.year + 10
     respond_with(@period)
   end
 
@@ -67,8 +65,6 @@ class PeriodsController < ApplicationController
   end
 
   def edit
-    @additional_year = @period.get_additional_years
-    @additional_end_year = Date.today.year + 10
   end
 
   def create
