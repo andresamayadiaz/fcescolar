@@ -88,7 +88,7 @@ class Person < ActiveRecord::Base
       case File.extname(file.original_filename)
       when ".csv" then Roo::CSV.new(file.path)
       when ".xls" then Roo::Excel.open(file.path)
-      when ".xlsx" then Roo::Excelx.new(file.path)
+      when ".xlsx" then Roo::Excelx.new(file.path, packed: nil, file_warning: :ignore)
       else raise "Unknown file type: #{file.original_filename}"
       end
     end
