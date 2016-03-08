@@ -1,16 +1,15 @@
 class Subject < ActiveRecord::Base
   resourcify
-  belongs_to :study_level
-  belongs_to :curricular_line
+  has_and_belongs_to_many :study_levels
+  has_and_belongs_to_many :curricular_lines
   
   has_and_belongs_to_many :careers
   before_destroy { careers.clear }
-  
-  scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
 
-  validates :study_level, :presence=>true
-  validates :curricular_line, :presence=>true
+  #scope :by_study_level_id, ->(id) { where(:study_level_id => id)}
+
   validates :clave, uniqueness: true
+  validates_presence_of :study_levels, :clave
 
   def self.get_teacher
   end
@@ -25,7 +24,7 @@ class Subject < ActiveRecord::Base
   end
 
   def self.get_by_career(career_id,curricular_line_id)
-    where(:curricular_line_id=>curricular_line_id).select{|s|s.careers.map(&:id).include? career_id.to_i}
+    where('curricular_lines.id'=>curricular_line_id).select{|s|s.careers.map(&:id).include? career_id.to_i}
   end
 
   def self.get_by_study_plan(study_plan_id,teacher_id)
@@ -42,4 +41,5 @@ class Subject < ActiveRecord::Base
     end
     filtered_selected_subjects 
   end
+
 end
