@@ -45,16 +45,10 @@
           <thead>
             <tr>
               <th>
-                Nivel
-              </th>
-              <th>
-                Línea Curricular
+                Clave
               </th>
               <th>
                 <%= t('general.name') %>
-              </th>
-              <th>
-                Clave
               </th>
               <th></th>
             </tr>
@@ -62,10 +56,8 @@
           <tbody>
             <% @subjects.each do |subject| %>
             <tr>
-              <td><%= subject.study_level.try(:name) %></td>
-              <td><%= subject.curricular_line.try(:name) %></td>
-              <td><%= subject.name %></td>
               <td><%= subject.clave %></td>
+              <td><%= subject.name %></td>
               <td>
                <div class="text-right">
                <%= link_to edit_subject_url(subject), class: 'btn btn-success btn-xs' do %>

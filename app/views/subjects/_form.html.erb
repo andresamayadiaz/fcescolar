@@ -52,10 +52,48 @@
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.association :study_level, :label=>'Nivel', :class=>'select2 form-control' %>
+          <label>*<%= t('study_level.singular') %></label>
+            <%= collection_select :subject, :study_level_ids, @study_levels, :id, :name, { :selected => @subject.study_level_ids }, { :multiple => true, :name => 'subject[study_level_ids][]', :class=>'select2 form-control' } -%>
+          </div>
+        <div class="form-group">
+            <% if @study_levels %>
+            <table class="table table-striped table-hover table-bordered" id="selected_study_levels">
+              <thead>
+                <tr>
+                  <th><%= t('study_level.plural') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @subject.study_levels.each do |sl| %>
+                <tr>
+                  <td><%= sl.name %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
         </div>
         <div class="form-group">
-          <%= f.association :curricular_line, :label=>'Linea Curricular', :class=>'select2 form-control' %>
+          <label><%= t('study_plan.curr_line') %></label>
+            <%= collection_select :subject, :curricular_line_ids, @curricular_lines, :id, :name, { :selected => @subject.curricular_line_ids }, { :multiple => true, :name => 'subject[curricular_line_ids][]', :class=>'select2 form-control' } -%>
+          </div>
+        <div class="form-group">
+            <% if @curricular_lines %>
+            <table class="table table-striped table-hover table-bordered" id="selected_curricular_lines">
+              <thead>
+                <tr>
+                  <th><%= t('curricular_line.plural') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @subject.curricular_lines.each do |cl| %>
+                <tr>
+                  <td><%= cl.name %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
         </div>
         <div class="form-group">
           <%= f.input :clave, :label=>'Clave', :class=>'form-control' %>
@@ -79,4 +117,92 @@
     <% end %>
   </div>
 </div>
-<!-- .// TABLE -->
+
+<% content_for :specific_js do %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#subject_curricular_line_ids').live('change',function() {
+      var vals = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/curricular_lines/get_cl_selected?ids='+vals,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<tr><td>"+value.name+"</td></tr>";
+            })
+            $("#selected_curricular_lines tbody").html(html_element);
+          }
+        }
+      })
+    });
+
+    $('#s2id_subject_curricular_line_ids ul').live('click',function() {
+      var arr_values = [];
+      $('#subject_curricular_line_ids option').each(function(){
+        arr_values.push($(this).text());
+      })
+      $.ajax({
+        type: 'GET',
+        url: '/curricular_lines/get_curricular_lines',
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              if ($.inArray(value.name,arr_values)==-1)
+              {
+                html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
+              }
+            });
+            if(html_element!='')
+            {$('#subject_curricular_line_ids').append(html_element).select2();}
+          }
+        }
+      })
+    });
+
+
+    $('#subject_study_level_ids').live('change',function() {
+      var vals = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/study_levels/get_sl_selected?ids='+vals,
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              html_element+="<tr><td>"+value.name+"</td></tr>";
+            })
+            $("#selected_study_levels tbody").html(html_element);
+          }
+        }
+      })
+    });
+
+    $('#s2id_subject_study_level_ids ul').live('click',function() {
+      var arr_values = [];
+      $('#subject_study_level_ids option').each(function(){
+        arr_values.push($(this).text());
+      })
+      $.ajax({
+        type: 'GET',
+        url: '/study_levels/get_study_levels',
+        success: function(data){
+          if(data){
+            var html_element='';
+            $.each(data,function(index,value){
+              if ($.inArray(value.name,arr_values)==-1)
+              {
+                html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
+              }
+            });
+            if(html_element!='')
+            {$('#subject_study_level_ids').append(html_element).select2();}
+          }
+        }
+      })
+    });
+  })
+</script>
+<% end %>
