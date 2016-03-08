@@ -15,10 +15,15 @@ class SubjectsController < ApplicationController
 
   def new
     @subject = Subject.new
+
+    @curricular_lines = []
+    @study_levels = []
     respond_with(@subject)
   end
 
   def edit
+    @curricular_lines = CurricularLine.all
+    @study_levels = StudyLevel.all
   end
 
   def create
@@ -41,7 +46,9 @@ class SubjectsController < ApplicationController
         if @subject.update(subject_params)
           flash[:notice] = 'Materia actualizada con exito.' 
           redirect_to subjects_path 
-        else 
+        else
+           @curricular_lines = CurricularLine.all
+            @study_levels = StudyLevel.all
           render 'edit'
         end
       }
@@ -54,7 +61,8 @@ class SubjectsController < ApplicationController
   end
 
   def get_subjects_by_study_level
-    @subjects = Subject.by_study_level_id(params[:study_level_id])
+    #@subjects = Subject.by_study_level_id(params[:study_level_id])
+    @subjects = Subject.includes(:study_levels).where('study_levels.id' => (params[:study_level_id]))
     render :json => @subjects
   end
 
@@ -69,6 +77,6 @@ class SubjectsController < ApplicationController
     end
 
     def subject_params
-      params.require(:subject).permit(:name, :study_level_id, :curricular_line_id, :clave, :status)
+      params.require(:subject).permit(:name, :clave, :status, :curricular_line_ids => [], :study_level_ids => [])
     end
 end
