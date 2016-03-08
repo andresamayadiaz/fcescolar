@@ -4,7 +4,7 @@
 		<div class="page-header">
 			<h1 class="pull-left">
 				<i class="icon-edit"></i>
-				<span>People</span>
+				<span><%= t('people.plural')%></span>
 			</h1>
 			<div class="pull-right">
 				<ul class="breadcrumb">
@@ -17,12 +17,12 @@
 						<i class="icon-angle-right"></i>
 					</li>
 					<li>
-						Catalogues
+						Catálogos
 					</li>
 					<li class="separator">
 						<i class="icon-angle-right"></i>
 					</li>
-					<li class="active">Person</li>
+					<li class="active"><%= t('people.singular')%></li>
 				</ul>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 <!-- // TABLE -->
 <div class="box bordered-box blue-border">
 	<div class="box-header blue-background">
-		<div class="title">Person</div>
+		<div class="title"><%= t('people.singular')%></div>
 	</div>
 	<div class="box-content box-double-padding">
     <%= simple_form_for(@person,:html => { :class => 'form', :multipart=>true }) do |f| %>
@@ -77,14 +77,14 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Contact Information
+						<%= t('people.contact_info')%>
 					</div>
-					<small class="text-muted">Contact Information (Living Addresses)</small>
+					<small class="text-muted">Información de contacto (Direcciones Vivienda)</small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
         <%= f.simple_fields_for :person_living_address do |p| %> 
-          <%= p.input :street, :class=>'form-control', :label=>'Street'%>
+          <%= p.input :street, :class=>'form-control', :label=>'general.street'%>
           <%= p.input :num_ext, :class=>'form-control', :label=>'Num Ext'%>
           <%= p.input :num_int, :class=>'form-control', :label=>'Num Int'%>
           <%= p.input :colonia, :class=>'form-control', :label=>'Colonia'%>
@@ -101,7 +101,7 @@
 		<fieldset>
 			<div class="col-sm-4">
 				<div class="box">
-					<small class="text-muted">Add E-mail Contact</small>
+					<small class="text-muted">Agregar Email de Contacto</small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -109,7 +109,7 @@
             <%= render 'person_email_fields', :f => person_email %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Add Email', f, :person_emails, class:'btn btn-sm btn-info' %>
+            <%= link_to_add_association 'Agregar Email', f, :person_emails, class:'btn btn-sm btn-info' %>
           </div>
 			</div>
     </fieldset>
@@ -117,7 +117,7 @@
 		<fieldset>
 			<div class="col-sm-4">
 				<div class="box">
-					<small class="text-muted">Add Contact Telephone</small>
+					<small class="text-muted">Agregar Teléfono de Contacto</small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -125,7 +125,7 @@
             <%= render 'contact_telephone_fields', :f => contact_telephone %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Add Telephone', f, :contact_telephones, class: 'btn btn-sm btn-info' %>
+            <%= link_to_add_association 'Agregar Teléfono', f, :contact_telephones, class: 'btn btn-sm btn-info' %>
           </div>
 			</div>
 		</fieldset>
@@ -135,9 +135,9 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Related People
+						Personas relacionadas
 					</div>
-					<small class="text-muted">Add Related People (Relationships)</small>
+					<small class="text-muted">Agregar personas relacionadas (Parentesco)</small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -145,7 +145,7 @@
             <%= render 'related_person_fields', :f => related_person %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Add Relationships', f, :related_people, class: 'btn btn-sm btn-info' %>
+            <%= link_to_add_association 'Agregar parentesco', f, :related_people, class: 'btn btn-sm btn-info' %>
           </div>
 			</div>
 		</fieldset>
@@ -155,9 +155,9 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Work Place Information
+						Información Lugar de Trabajo
 					</div>
-					<small class="text-muted">Add Work Place Information</small>
+					<small class="text-muted">Agregar Información de lugar de trabajo</small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">

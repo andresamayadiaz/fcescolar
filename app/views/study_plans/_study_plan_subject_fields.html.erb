@@ -1,8 +1,8 @@
 <div class='study_plan_subject_fields nested-fields'>
-<%= f.association :curricular_line, input_html: { class: 'study_plan_subject_cl input-sm'} %>
-<%= f.association :subject, input_html: { class: 'input-sm study_plan_subject_id'} %>
-<%= f.input :weekly_frequency  , input_html: { class: 'input-sm study_plan_subject_weekly_freq'} %>
-<%= f.input :credits  , input_html: { class: 'input-sm study_plan_subject_credits'} %>
+<%= f.association :curricular_line, :label=>t('study_plan.curr_line'), input_html: { class: 'study_plan_subject_cl input-sm'} %>
+<%= f.association :subject, :label=>t('subject.singular'), input_html: { class: 'input-sm study_plan_subject_id'} %>
+<%= f.input :weekly_frequency, :label=>t('study_plan.week_frec'), input_html: { class: 'input-sm study_plan_subject_weekly_freq'} %>
+<%= f.input :credits, :label=>t('study_plan.credits'), input_html: { class: 'input-sm study_plan_subject_credits'} %>
 <span class="links">
   <%= link_to_remove_association "x", f, class: 'btn btn-sm btn-danger', style: 'margin-top:23px;' %>
 </span>

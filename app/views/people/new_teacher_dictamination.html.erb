@@ -2,12 +2,12 @@
 <style>#active_subjects_wrapper{display:none;}</style>
 <%= simple_form_for @teacher_dictamination, :url => '/people/create_teacher_dictamination', :method=>'post', :html=>{:target=>'_blank'}  do |f| %>
     <div class="form-group">
-      <label class="col-md-5 control-label">Teacher</label>
+      <label class="col-md-5 control-label"><%= t('people.teacher') %></label>
       <div class="col-md-7"><%= f.association :person, :collection=>@active_teachers, :label=>false%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <label class="col-md-5 control-label">Study Plan</label>
+      <label class="col-md-5 control-label"><%= t('study_plan.singular') %></label>
       <div class="col-md-7"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false%></div>
     </div>
     <hr class="hr-normal">
@@ -21,12 +21,12 @@
           <%= render 'officers_teacher_dictamination_fields', :f => officers_teacher_dictamination %>
         <% end %>
         <div class='links'>
-          <%= link_to_add_association 'Add Officer', f, :officers_teacher_dictaminations, class: 'btn btn-sm btn-info', style: 'margin-top:10px;' %>
+          <%= link_to_add_association 'Agregar funcionario', f, :officers_teacher_dictaminations, class: 'btn btn-sm btn-info', style: 'margin-top:10px;' %>
         </div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <button class="btn btn-primary">Save and Print PDF</button>
+      <button class="btn btn-primary">Guardar e Imprimir PDF</button>
     </div>
 <% end %>
 <% content_for :specific_js do %>
@@ -43,7 +43,7 @@
             html_element+="<span class='checkbox'><label for='teacher_dictamination_subject_ids_"+value.id+"'><input class='check_boxes optional' id='teacher_dictamination_subject_ids_"+value.id+"' name='teacher_dictamination[subject_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
           })
           html_element+='<input name="teacher_dictamination[subject_ids][]" type="hidden" value=""/>'
-          $("#active_subjects_wrapper").find('label').text("Active subjects in "+$('#teacher_dictamination_study_plan_id option:selected').text())
+          $("#active_subjects_wrapper").find('label').text("Materias activas en "+$('#teacher_dictamination_study_plan_id option:selected').text())
           $("#active_subjects_wrapper").find('div').html(html_element)
           $("#active_subjects_wrapper").slideDown();
         }

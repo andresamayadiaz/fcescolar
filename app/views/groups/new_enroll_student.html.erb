@@ -4,14 +4,14 @@
   tr.student_rows td { border-bottom:1pt solid black; }
 </style>
 <div class='row'>
-  <div class='col-sm-2'>Study Plan:</div>
+  <div class='col-sm-2'>Plan de Estudio:</div>
   <div class='col-sm-4'>
-    <%= collection_select(:study_plan, :id, @available_study_plans, :id, :name, {prompt: 'Available Study Plans'}, {class: 'form-control'}) %>
+    <%= collection_select(:study_plan, :id, @available_study_plans, :id, :name, {prompt: 'Planes de Estudio Dsiponibles'}, {class: 'form-control'}) %>
   </div>
 </div>
 <hr class='normal'/>
 <div class='row' id='start_period_wrap'>
-  <div class='col-sm-2'>Choose Start Period:</div>
+  <div class='col-sm-2'>Seleccionar Inicio Periodo:</div>
   <div class='col-sm-2'>
     <select id='start_period_year' class='form-control'></select>
   </div>
@@ -21,7 +21,7 @@
 </div>
 <hr class='normal'/>
 <div class='row' id='weekday_wrap'>
-  <div class='col-sm-2'>Week Day:</div>
+  <div class='col-sm-2'>Día Semana:</div>
   <div class='col-sm-4'>
     <select id='weekday' class='form-control'></select>
   </div>
@@ -51,14 +51,14 @@
       <table class='table-striped' width='100%'>
         <thead>
           <tr>
-            <th>Group</th>
-            <th>Year</th>
-            <th>Month</th>
-            <th>Subject</th>
-            <th>Week Day</th>
-            <th>Classroom</th>
-            <th>Time Slot</th>
-            <th>Enroll</th>
+            <th>Grupo</th>
+            <th>Año</th>
+            <th>Mes</th>
+            <th>Materia</th>
+            <th>Día semana</th>
+            <th>Aula</th>
+            <th>Franja horaria</th>
+            <th>Inscribir</th>
           </tr>
         </thead>
         <tbody></tbody>
