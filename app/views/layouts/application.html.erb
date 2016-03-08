@@ -236,6 +236,14 @@
 									</a>
                 </li>
                 <% end %>
+                <% if can?(:import, Person) %>
+								<li class=''>
+									<a href='/people/import'>
+										<i class='icon-file-text'></i>
+										<span><%= t('people.import') %></span>
+									</a>
+                </li>
+                <% end %>
                 <% if can?(:assign_roles, Person) %>
 								<li class=''>
 									<a href='/people/assign_roles'>
