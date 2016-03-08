@@ -30,7 +30,7 @@ class CareersController < ApplicationController
   end
 
   def edit
-    @subjects = Subject.by_study_level_id(@career.study_level_id)
+    @subjects = Subject.all()
   end
 
   def create
