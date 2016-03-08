@@ -41,6 +41,16 @@ class CurricularLinesController < ApplicationController
     respond_with(@curricular_line)
   end
 
+  def get_curricular_lines
+    @curricular_lines = CurricularLine.all
+    render :json => @curricular_lines
+  end
+
+  def get_cl_selected
+    @selected = CurricularLine.get_cl_selected(params[:ids])
+    render :json => @selected 
+  end
+
   private
     def set_curricular_line
       @curricular_line = CurricularLine.find(params[:id])
