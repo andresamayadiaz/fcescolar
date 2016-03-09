@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.2.3'
 gem 'rails', '4.1.8'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -56,3 +56,4 @@ group :test do
 end
 # aad
 gem "compass-rails", "~> 2.0.alpha.0"
+gem "eventmachine", "~>1.0.9"

@@ -104,7 +104,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    eventmachine (1.0.3)
+    eventmachine (1.0.9.1)
     execjs (2.2.2)
     extlib (0.9.16)
     factory_girl (4.5.0)
@@ -315,6 +315,7 @@ DEPENDENCIES
   compass-rails (~> 2.0.alpha.0)
   database_cleaner
   devise
+  eventmachine (~> 1.0.9)
   factory_girl_rails
   faker
   jbuilder (~> 2.0)
@@ -344,3 +345,6 @@ DEPENDENCIES
   whenever
   wicked_pdf
   wkhtmltopdf-binary
+
+BUNDLED WITH
+   1.10.6
