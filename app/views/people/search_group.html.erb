@@ -8,7 +8,7 @@ table{font-size:12px;}
 		<div class="page-header">
 			<h1 class="pull-left">
 				<i class="icon-edit"></i>
-				<span>Group</span>
+				<span>Grupo</span>
 			</h1>
 			<div class="pull-right">
 				<ul class="breadcrumb">
@@ -26,7 +26,7 @@ table{font-size:12px;}
 					<li class="separator">
 						<i class="icon-angle-right"></i>
 					</li>
-					<li class="active">Groups</li>
+					<li class="active">Grupos</li>
 				</ul>
 			</div>
 		</div>
@@ -37,22 +37,22 @@ table{font-size:12px;}
 <!-- // TABLE -->
 <div class="box bordered-box blue-border">
 	<div class="box-header blue-background">
-		<div class="title">Search Group</div>
+		<div class="title">Buscar grupo</div>
 	</div>
 	<div class="box-content box-double-padding">
       <div class='tabbable'>
         <!-- Nav tabs -->
         <ul class="nav nav-responsive nav-tabs">
-          <li role="presentation" class="active"><a href="#search_by_year" aria-controls="home" role="tab" data-toggle="tab">Search By Year</a></li>
-          <li role="presentation"><a href="#search_by_group_id" aria-controls="profile" role="tab" data-toggle="tab">Search By Group ID</a></li>
+          <li role="presentation" class="active"><a href="#search_by_year" aria-controls="home" role="tab" data-toggle="tab"><%= t('groups.search_by_year') %></a></li>
+          <li role="presentation"><a href="#search_by_group_id" aria-controls="profile" role="tab" data-toggle="tab"><%= t('groups.search_by_id') %></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="search_by_year">
             <div class="row">
-              <div class="col-sm-1">Year</div>
+              <div class="col-sm-1">Año</div>
               <div class="col-sm-3">
-                <%= select("group","year", @years, { include_blank: 'Select Years'}, {class: 'form-control', id:'year'}) %>
+                <%= select("group","year", @years, { include_blank: 'Seleccionar año'}, {class: 'form-control', id:'year'}) %>
               </div>
               <div class="col-sm-8">
                <div class="col-sm-12"><label><%= radio_button_tag "status", "Open", true %>&nbsp; Open</label></div>
@@ -63,25 +63,25 @@ table{font-size:12px;}
               </div>
             </div>
             <div class="row" id='period_wrap'>
-              <div class="col-sm-1">Period</div>
+              <div class="col-sm-1">Periodo</div>
               <div class="col-sm-4">
                 <select id='period' class='form-control'></select>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <br/><button id="search_by_year_button">Search</button>
+                <br/><button id="search_by_year_button">Buscar</button>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <br/><button id="search_by_year_print_button">Print All Results</button>
+                <br/><button id="search_by_year_print_button">Imprimir todos los resultados</button>
               </div>
             </div>
           </div>
           <div role="tabpanel" class="tab-pane" id="search_by_group_id">
             <div class="row">
-              <div class="col-sm-4">Group ID</div>
+              <div class="col-sm-4">Grupo ID</div>
               <div class="col-sm-3">
                 <%= select("group", "id_year", @id_years, { include_blank: 'Select Years'}, {class: 'form-control', id:'id_year' } ) %>
               </div>
@@ -92,7 +92,7 @@ table{font-size:12px;}
             </div>
             <div class="row">
               <div class="col-sm-12 search_button_wrapper">
-                <br/><button class="pull-right" id="search_by_group_id_button">Search</button>
+                <br/><button class="pull-right" id="search_by_group_id_button">Buscar</button>
               </div>
             </div>
           </div>

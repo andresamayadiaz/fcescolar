@@ -41,6 +41,16 @@ class StudyLevelsController < ApplicationController
     respond_with(@study_level)
   end
 
+  def get_study_levels
+    @study_levels = StudyLevel.all
+    render :json => @study_levels
+  end
+
+  def get_sl_selected
+    @selected = StudyLevel.get_sl_selected(params[:ids])
+    render :json => @selected 
+  end
+
   private
     def set_study_level
       @study_level = StudyLevel.find(params[:id])

@@ -1,14 +1,14 @@
 <div class="row">
-  <label class="col-md-2 control-label">Teacher First Name:</label>
+  <label class="col-md-2 control-label">Nombre maestro:</label>
   <div class="col-md-2"><%= text_field_tag 'teacher_first_name',params[:teacher_first_name], class:'form-control' %></div>
-  <label class="col-md-2 control-label">Teacher Last Name:</label>
+  <label class="col-md-2 control-label">Apellido Maestro:</label>
   <div class="col-md-2"><%= text_field_tag 'teacher_last_name',params[:teacher_last_name], class:'form-control' %></div>
-  <label class="col-md-1 control-label">Status:</label>
+  <label class="col-md-1 control-label">Estatus:</label>
   <div class="col-md-2"><%= select_tag 'status', options_for_select(["Pending", "Accepted", "Rejected" ], params[:status]), class:'form-control' %></div>
 </div>
 <br/>
 <div class="row">
-  <div class="col-md-11"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Search</button></div>
+  <div class="col-md-11"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Buscar</button></div>
 </div>
 <hr class="hr-normal">
 <% if @dictaminations.present? %>
@@ -19,11 +19,11 @@
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Teacher Name</th>
-              <th>Status</th>
-              <th>Created Date</th>
-              <th>Subjects</th>
-              <th>Actions</th>
+              <th>Nombre Maestro</th>
+              <th>Estatus</th>
+              <th>Fecha cración</th>
+              <th>Materias</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>

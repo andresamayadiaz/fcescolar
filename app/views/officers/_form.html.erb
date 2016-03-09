@@ -51,15 +51,15 @@
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
-        <%= f.input :title %>
-        <%= f.input :name %>
-        <%= f.input :last_name %>
-        <%= f.input :position %>
-        <%= f.input :dependency_level_1 %>
-        <%= f.input :dependency_level_2 %>
-        <%= f.input :dependency_level_3 %>
-        <%= f.input :dependency_level_4 %>
-        <%= f.input :dependency_level_5 %>
+        <%= f.input :title, :label=>t('officer.title') %>
+        <%= f.input :name, :label=>t('general.name') %>
+        <%= f.input :last_name, :label=>t('general.lastname') %>
+        <%= f.input :position, :label=>t('officer.position') %>
+        <%= f.input :dependency_level_1, :label=>t('officer.dep_level1') %>
+        <%= f.input :dependency_level_2, :label=>t('officer.dep_level2') %>
+        <%= f.input :dependency_level_3, :label=>t('officer.dep_level3') %>
+        <%= f.input :dependency_level_4, :label=>t('officer.dep_level4') %>
+        <%= f.input :dependency_level_5, :label=>t('officer.dep_level5') %>
       </div>
     </fieldset>
     <hr class="hr-normal">

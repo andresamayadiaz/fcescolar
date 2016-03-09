@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4>Search Student</h4>
+        <h4>Buscar estudiante</h4>
       </div>
 			<div class="modal-body">
 				<%= form_tag(search_student_groups_url, :method => "post", id: "search-student-form") do %>
@@ -18,7 +18,7 @@
 					    </div>
 					</div>
           <div class="form-group row">
-						<label for="name" class="col-xs-3 control-label">Name(s)</label>
+						<label for="name" class="col-xs-3 control-label">Nombres(s)</label>
 						<div class="col-xs-9">
 					        <div class="form-inline">
 					            <div class="form-group">
@@ -28,7 +28,7 @@
 					    </div>
 					</div>
 					<div class="form-group row">
-						<label for="fathers_maiden_name" class="col-xs-3 control-label">First Lastname</label>
+						<label for="fathers_maiden_name" class="col-xs-3 control-label">Primer Apellido</label>
 						<div class="col-xs-9">
 					        <div class="form-inline">
 					            <div class="form-group">
@@ -38,7 +38,7 @@
 					    </div>
 					</div>
 					<div class="form-group row">
-						<label for="mothers_maiden_name" class="col-xs-3 control-label">Second Lastname</label>
+						<label for="mothers_maiden_name" class="col-xs-3 control-label">Segundo Apellido</label>
 						<div class="col-xs-9">
 					        <div class="form-inline">
 					            <div class="form-group">
@@ -55,9 +55,9 @@
 					<thead>
             <tr>
               <th>ID</th>
-							<th>First Lastname</th>
-							<th>Second Lastname</th>
-							<th>Name(s)</th>
+							<th>Primer Apellido</th>
+							<th>Segundo Apellido</th>
+							<th>Nombres(s)</th>
 						</tr>
 					</thead>
 					<tbody>

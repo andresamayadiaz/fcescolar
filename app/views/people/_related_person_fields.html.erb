@@ -1,9 +1,9 @@
 <div class="row nested-fields">
-  <label class="col-md-1 control-label">Name</label>
+  <label class="col-md-1 control-label"><%= t('general.name')%></label>
   <div class="col-md-4">
     <%= f.input :full_name, :label=>false , input_html: {class: 'input-sm'}%>        
   </div>
-  <label class="col-md-2 control-label">Relationship</label>
+  <label class="col-md-2 control-label"><%= t('relationship.parentesco')%></label>
   <div class="col-md-4">
     <%= f.input :relation_name, :label=>false, input_html: {class: 'input-sm'} %>
   </div>

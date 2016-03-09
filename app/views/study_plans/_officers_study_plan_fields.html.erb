@@ -1,7 +1,7 @@
 <fieldset>
   <div class='officers_study_plan_fields nested-fields'>
-    <%= f.input :rank, input_html: {readonly: true } %>
-    <%= f.association :officer, label_method: :full_name, include_blank: 'Select an officer' %>
+    <%= f.input :rank, :label=>t('officer.rank'), input_html: {readonly: true } %>
+    <%= f.association :officer, :label=>t('officer.singular'), label_method: :full_name, include_blank: 'Seleccionar un funcionario' %>
     <%= link_to_remove_association 'x', f, class: 'btn btn-sm btn-danger', style: 'margin-top:23px;'  %>
   </div>
 </fieldset>
