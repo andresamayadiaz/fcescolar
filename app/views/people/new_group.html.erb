@@ -44,12 +44,12 @@
 			<div class="col-sm-12">
         <div class="row form-group">
           <label class="col-md-3 control-label"><%= t('study_plan.singular') %></label>
-          <div class="col-md-9"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Active Study Plans'%></div>
+          <div class="col-md-9"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false, :include_blank=>'Planes de estudio activos'%></div>
         </div>
         <hr class="hr-normal">
         <div class="row form-group">
-          <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Start Year'%></div>
-          <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Start Month'%></div>
+          <div class="col-md-6"><%= f.input :start_year, as: :select, :label=>'Año inicia'%></div>
+          <div class="col-md-6"><%= f.input :start_month, as: :select, :label=>'Mes inicia'%></div>
         </div>
         <hr class="hr-normal">
         <div class="row form-group" id='group_preferences'>
@@ -93,7 +93,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Select the Subject for the Group</h4>
+        <h4 class="modal-title">Seleccionar la materia para el grupo</h4>
       </div>
       <div class="modal-body">
         <div class="col-md-6"><%= t('subject.plural') %></div>
@@ -102,7 +102,7 @@
         </div>
         <br/><br/>
         <div class="col-md-12">
-          <button id="show_single_group">Show Group</button>
+          <button id="show_single_group">Mostrar grupo</button>
         </div>
       </div>
     </div><!-- /.modal-content -->
@@ -132,7 +132,7 @@
       url: '/study_plans/get_period_years_by_study_plan_id?study_plan_id='+val,
       success: function(data){
         if(data){
-          var html_element='<option>Select Year</option>';
+          var html_element='<option>Seleccionar año</option>';
           $.each(data,function(index,value){
             var year = value.year.split("-")[0];
             var id = value.id;
@@ -151,7 +151,7 @@
       url: '/study_plans/get_period_months_by_period_detail_id?period_detail_id='+val,
       success: function(data){
         if(data){
-          var html_element='<option>Select Month</option>';
+          var html_element='<option>Seleccionar mes</option>';
           $.each(data,function(index,value){
             html_element+="<option value='"+value.month+"' id='"+value.id+"'>"+value.month+"</option>"
           })
@@ -267,7 +267,7 @@
           $("#full_groups_table div").html('');
           if(data){
             $.each(data,function(index,value){
-              var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th>Year</th><th>Months</th><th>Subject</th><th>Teacher</th><th>WeekDay</th><th>Classroom</th><th>Time Slot</th></tr></thead><tbody></tbody></table></div>");
+              var html_element = $("<div class='col-md-12'><h5>"+value.period_name+"</h5><table width='100%'><thead><tr><th style='width:50px'>Año</th><th style='width:80px'>Meses</th><th>Materia</th><th>Maestro</th><th>Días</th><th>Aula</th><th>Franja horaria</th></tr></thead><tbody></tbody></table></div>");
               var parent_index = index.toString();
               $.each(value.rows,function(index,val){
                 var child_index = parent_index.concat(index.toString());
