@@ -52,7 +52,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
         <%= f.error_notification %>
         <%= f.error :base %>
         <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>false, :include_blank=>'Seleccionar Carrera' %>
-        <button class='btn btn-info' id='validate_study_plan_btn'>Seleccionar</button>
+        <button class='btn btn-info' id='validate_study_plan_btn'><%= t('general.select')%></button>
         <br/><br/>
         <div id='detail_study_plan'>
           <%= f.input :number_of_periods, :label=>t('study_plan.num_periods') %>

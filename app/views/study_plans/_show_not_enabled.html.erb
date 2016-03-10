@@ -2,8 +2,8 @@
   <!-- Nav tabs -->
   <% if !@is_pdf %>
   <ul class="nav nav-responsive nav-tabs">
-    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">Información General</a></li>
-    <li role="presentation"><a href="#study_plan_periods" aria-controls="study_plan_periods" role="tab" data-toggle="tab">Periodos del Plan de Estudio</a></li>
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab"><%= t('general.general_info') %></a></li>
+    <li role="presentation"><a href="#study_plan_periods" aria-controls="study_plan_periods" role="tab" data-toggle="tab"><%= t('study_plan.periods_plan') %></a></li>
   </ul>
   <% end %>
 
@@ -11,32 +11,32 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="general_info">
       <fieldset>
-        <legend>Información General</legend>
+        <legend><%= t('general.general_info') %></legend>
         <div class="col-sm-8">
           <table class="table table-condensed">
-            <tr><td>Carrera</td><td><%= @study_plan.career.try(:name) %></td></tr>          
-            <tr><td>Número de Periodos</td><td><%= @study_plan.number_of_periods %></td></tr>          
-            <tr><td>Periodo</td><td><%= @study_plan.period.try(:name) %></td></tr>          
-            <tr><td>Attendance rate</td><td><%= @study_plan.attendance_rate %></td></tr>
-            <tr><td>Oportunidades Extra</td><td><%= @study_plan.extra_opportunities %></td></tr>
-            <tr><td>Name</td><td><%= @study_plan.name %></td></tr>
+            <tr><td><%= t('career.singular') %></td><td><%= @study_plan.career.try(:name) %></td></tr>          
+            <tr><td><%= t('period.num_periods') %></td><td><%= @study_plan.number_of_periods %></td></tr>          
+            <tr><td><%= t('period.singular') %></td><td><%= @study_plan.period.try(:name) %></td></tr>          
+            <tr><td><%= t('study_plan.attendance_rate') %></td><td><%= @study_plan.attendance_rate %></td></tr>
+            <tr><td><%= t('study_plan.extra_oport') %></td><td><%= @study_plan.extra_opportunities %></td></tr>
+            <tr><td><%= t('general.name') %></td><td><%= @study_plan.name %></td></tr>
           </table>
         </div>
       </fieldset>
     </div>
     <div role="tabpanel" class="tab-pane" id="study_plan_periods">
       <fieldset>
-        <legend>Periodos del Plan de Estudio</legend>
+        <legend><%= t('study_plan.periods_plan') %></legend>
         <div class="col-sm-8">
           <% @study_plan.study_plan_periods.each do |study_plan_period| %>
-            <h5>Nombre Periodo:&nbsp;<%= study_plan_period.period_name %></h5>
+            <h5><%= t('period.name') %>:&nbsp;<%= study_plan_period.period_name %></h5>
             <table class="table table-condensed">
               <thead>
                 <tr>
-                  <th>Linea Curricular</th>
-                  <th>Materia</th>
-                  <th>Frecuencia Semanal</th>
-                  <th>Creditos</th>
+                  <th><%= t('curricular_line.singular') %></th>
+                  <th><%= t('subject.singular') %></th>
+                  <th><%= t('study_plan.week_frec') %></th>
+                  <th><%= t('study_plan.credits') %></th>
                 </tr>
               </thead>
               <tbody>

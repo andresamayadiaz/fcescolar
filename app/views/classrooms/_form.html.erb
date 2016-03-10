@@ -46,9 +46,9 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Datos Generales
+            <%= t('general.general_data') %>
           </div>
-          <small class="text-muted">Ingrese los datos generales. El campo aulas debe ser número haciendo referencia a la cantidad de aulas disponibles para grupos en el Campus.</small>
+          <small class="text-muted"><%= t('classroom.message_new_classroom') %></small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
@@ -66,7 +66,7 @@
           <%= f.input :name, :label=>t('general.name'),:class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :max_capacity, :label=>'Capacidad Max', :class=>'form-control' %>
+          <%= f.input :max_capacity, :label=>t('classroom.max_capacity'), :class=>'form-control' %>
         </div>
       </div>
     </fieldset>

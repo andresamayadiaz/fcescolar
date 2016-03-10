@@ -1,13 +1,13 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title">Manage Person Contacts</h4>
+  <h4 class="modal-title">Gestionar Contactos Persona</h4>
 </div>
 <div class="modal-body">
   <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href='#<%= "contact_history_#{i}" %>' aria-controls='<%= "contact_history_#{i}" %>' role="tab" data-toggle="tab">Contact History</a></li>
-      <li role="presentation"><a href='#<%= "new_contact_#{i}" %>' aria-controls="<%= "new_contact_#{i}" %>" role="tab" data-toggle="tab">Add New Contact</a></li>
+      <li role="presentation" class="active"><a href='#<%= "contact_history_#{i}" %>' aria-controls='<%= "contact_history_#{i}" %>' role="tab" data-toggle="tab"><%= t('general.contact_history')%></a></li>
+      <li role="presentation"><a href='#<%= "new_contact_#{i}" %>' aria-controls="<%= "new_contact_#{i}" %>" role="tab" data-toggle="tab"><%= t('general.add_contact')%></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -16,15 +16,15 @@
         <table width='100%'>
           <thead>
             <tr>
-              <th>Street</th>
-              <th>Num Ext</th>
-              <th>Num Int</th>
-              <th>Colonia</th>
-              <th>CP</th>
-              <th>Municipio</th>
-              <th>Estados</th>
-              <th>Pais</th>
-              <th>Teléfono de emergencia</th>
+              <th><%= t('general.street')%></th>
+              <th><%= t('general.num_ext')%></th>
+              <th><%= t('general.num_int')%></th>
+              <th><%= t('general.colonia')%></th>
+              <th><%= t('general.cp')%></th>
+              <th><%= t('general.municipio')%></th>
+              <th><%= t('general.state')%></th>
+              <th><%= t('general.country')%></th>
+              <th><%= t('general.phone_emergency')%></th>
             </tr>
           </thead>
           <tbody>
@@ -48,29 +48,29 @@
       <div role="tabpanel" class="tab-pane" id='<%= "new_contact_#{i}" %>'>
         <%= simple_form_for(p,:html => {:class => 'new_contact_form' }) do |f| %>
         <fieldset>
-          <legend>Contact Information (Living Addresses)</legend>
+          <legend><%= t('general.addresses')%></legend>
           <%= f.simple_fields_for :person_living_address do |c| %>
-          <%= c.input :street, input_html: {value: ''} %>
+          <%= c.input :street, :label=> t('general.street'), input_html: {value: ''} %>
           <%= c.input :num_ext, input_html: {value: ''} %>
           <%= c.input :num_int, input_html: {value: ''} %>
           <%= c.input :colonia, input_html: {value: ''} %>
           <%= c.input :cp, input_html: {value: ''} %>
           <%= c.input :municipio, input_html: {value: ''} %>
-          <%= c.association :country, input_html: {value: '', class:'country_living'} %>
-          <%= c.association :state, input_html: {value: ''} %>
-          <%= c.input :phone_emergency, input_html: {value: ''} %>
+          <%= c.association :country, :label=> t('general.country'), input_html: {value: '', class:'country_living'} %>
+          <%= c.association :state,:label=> t('general.state'), input_html: {value: ''} %>
+          <%= c.input :phone_emergency,:label=> t('general.phone_emergency'),input_html: {value: ''} %>
           <% end %>
           <%= f.simple_fields_for :person_emails do |person_email| %>
           <%= render 'person_email_fields', :f => person_email %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Add Email', f, :person_emails %>
+            <%= link_to_add_association t('general.add_email'), f, :person_emails %>
           </div>
           <%= f.simple_fields_for :contact_telephones do |contact_telephone| %>
           <%= render 'contact_telephone_fields', :f => contact_telephone %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Add Telephone', f, :contact_telephones %>
+            <%= link_to_add_association t('general.add_phone'), f, :contact_telephones %>
           </div>
         </fieldset>
         <div class="form-actions">

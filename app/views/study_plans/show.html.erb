@@ -3,9 +3,9 @@
 <% end %>
 <h1><%= @study_plan.name %></h1>
 <% if @enabled %>
-  <p>Enabled</p>
+  <p><%= t('general.enabled') %></p>
   <%= render 'show_enabled' %>
 <% else %>
-  <p>Not Enabled</p>
+  <p><%= t('general.not_enabled') %></p>
   <%= render 'show_not_enabled' %>
 <% end %>

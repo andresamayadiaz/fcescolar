@@ -34,18 +34,15 @@
 <div class="box bordered-box blue-border" style="margin-bottom:0;">
   <div class="box-header blue-background">
     <div class="title"><%= t('country.plural') %></div>
+    <div class='actions'>
+      <%= link_to t('country.new'), new_country_url, :class=>'btn btn-large btn-success' %>
+    </div>
   </div>
   <div class="box-content box-no-padding">
     <div class="responsive-table">
       <div class="scrollable-area">
-        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid">
           <div class="row datatables-top">
             <div class="col-sm-6">
-              <div id="DataTables_Table_0_length" class="dataTables_length">
-                <label>
-                  <%= link_to t('country.new'), new_country_url, :class=>'btn btn-large btn-success', :style=>'margin-bottom:5px;' %>
-                </label>
-              </div>
             </div>
           </div>
           <table class="data-table table table-bordered table-striped dataTable" style="margin-bottom:0;" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
@@ -73,7 +70,6 @@
             <% end %>
           </tbody>
         </table>
-    </div>
   </div>
 </div>
 </div>

@@ -8,8 +8,8 @@
       <%= image_tag @profile.profile_picture.url(:thumb), :id=>'upload_avatar', :class=>'pull-left', :style=>'margin-right:10px;' %>
       <div class="content-heading">
         <h3><%= current_user.person.try(:name) %></h3>
-        <p><%= "Ultimo Grado Academico: #{@profile.last_academic_degree}" %></p>
-        <p><%= "Ubicación Actual: #{@profile.country.try(:name)}, #{@profile.state.try(:name)}"%></p>
+        <p><%= t('profile.last_academic_degree') %> <%= ": #{@profile.last_academic_degree}" %></p>
+        <p><%= t('profile.current_ubic') %> <%= ": #{@profile.country.try(:name)}, #{@profile.state.try(:name)}"%></p>
       </div>
     </div>
   </div>
@@ -21,9 +21,9 @@
 <div class='tabbable'>
   <!-- Nav tabs -->
   <ul class="nav nav-responsive nav-tabs">
-    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">Información General</a></li>
-    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab">Roles Asignados</a></li>
-    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab">Archivo Personal</a></li>
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab"><%= t('general.general_info') %></a></li>
+    <li role="presentation"><a href="#assigned_roles" aria-controls="assigned_roles" role="tab" data-toggle="tab"> <%= t('general.assigned_roles') %> </a></li>
+    <li role="presentation"><a href="#rec_file" aria-controls="rec_file" role="tab" data-toggle="tab"><%= t('profile.personal_file') %> </a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -32,7 +32,7 @@
       <!-- // TABLE -->
       <div class="box bordered-box blue-border">
         <div class="box-header blue-background">
-          <div class="title">Cambiar E-mail y Password</div>
+          <div class="title"> <%= t('profile.change_pass_email') %> </div>
         </div>
         <div class="box-content box-double-padding">
           <%= simple_form_for(current_user, :url =>update_password_users_path,:class=>'form',:style=>'margin-bottom:0;' ) do |f| %>
@@ -45,13 +45,13 @@
                   <i class="icon-edit text-contrast"></i>
                   <%= t('general.general_info') %>
                 </div>
-                <small class="text-muted"><%= t('general.insert_general_info') %></small>
+                <small class="text-muted"> <%= t('general.insert_general_info') %> </small>
               </div>
             </div>
             <div class="col-sm-7 col-sm-offset-1">
-              <%= f.input :password, :autocomplete => "off", :label=>'Password', :class=>'form-control'  %>
-              <%= f.input :password_confirmation, :label=>'Password confirmation', :class=>'form-control' %>
-              <%= f.input :email, :label=>'Change email', :class=>'form-control' %>
+              <%= f.input :password, :autocomplete => "off", :label=>t('profile.password'), :class=>'form-control'  %>
+              <%= f.input :password_confirmation, :label=>t('profile.pass_confirmation'), :class=>'form-control' %>
+              <%= f.input :email, :label=>t('general.email'), :class=>'form-control' %>
             </div>
           </fieldset>
           <hr class="hr-normal">
@@ -72,7 +72,7 @@
       <!-- // TABLE -->
       <div class="box bordered-box blue-border">
         <div class="box-header blue-background">
-          <div class="title">Información de Contacto</div>
+          <div class="title"> <%= t('people.contact_info') %> </div>
         </div>
         <div class="box-content box-double-padding">
           <%= render 'profile_form' %>
@@ -84,7 +84,7 @@
       <!-- .// TABLE -->
       <div class='box bordered-box blue-border' style='margin-bottom:0;'>
         <div class='box-header blue-background'>
-          <div class='title'>Mis Roles de Usuario</div>
+          <div class='title'> <%= t('profile.mis_roles') %> </div>
         </div>
         <div class='box-content box-no-padding'>
           <div class='responsive-table'>
@@ -112,7 +112,7 @@
         <!-- .// TABLE -->
         <div class='box bordered-box blue-border' style='margin-bottom:0;'>
           <div class='box-header blue-background'>
-            <div class='title'>Archivos Adjuntos</div>
+            <div class='title'> <%= t('profile.mis_archivos') %> </div>
           </div>
           <div class='box-content box-no-padding'>
             <div class='responsive-table'>
@@ -120,12 +120,12 @@
                 <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
                         <thead>
                           <tr>
-                            <th>Nombre</th>
-                            <th>Fecha de Vigencia</th>
-                            <th>Fecha de Carga</th>
-                            <th>Usuario que Cargó</th>
-                            <th>Matching Date</th>
-                            <th>Matching User</th>
+                            <th><%= t('general.name') %> </th>
+                            <th><%= t('background_docs.fecha_vig') %> </th>
+                            <th><%= t('background_docs.fecha_carga') %> </th>
+                            <th><%= t('background_docs.user_cargo') %> </th>
+                            <th><%= t('background_docs.match_date') %></th>
+                            <th><%= t('background_docs.match_user') %></th>
                           </tr>
                         </thead>
                         <tbody>

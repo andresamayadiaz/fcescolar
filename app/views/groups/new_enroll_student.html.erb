@@ -4,14 +4,14 @@
   tr.student_rows td { border-bottom:1pt solid black; }
 </style>
 <div class='row'>
-  <div class='col-sm-2'>Plan de Estudio:</div>
+  <div class='col-sm-2'> <%= t('study_plan.singular') %> </div>
   <div class='col-sm-4'>
     <%= collection_select(:study_plan, :id, @available_study_plans, :id, :name, {prompt: 'Planes de Estudio Dsiponibles'}, {class: 'form-control'}) %>
   </div>
 </div>
 <hr class='normal'/>
 <div class='row' id='start_period_wrap'>
-  <div class='col-sm-2'>Seleccionar Inicio Periodo:</div>
+  <div class='col-sm-2'><%= t('groups.select_ini_period') %></div>
   <div class='col-sm-2'>
     <select id='start_period_year' class='form-control'></select>
   </div>
@@ -21,7 +21,7 @@
 </div>
 <hr class='normal'/>
 <div class='row' id='weekday_wrap'>
-  <div class='col-sm-2'>Día Semana:</div>
+  <div class='col-sm-2'><%= t('general.dia_semana')%>:</div>
   <div class='col-sm-4'>
     <select id='weekday' class='form-control'></select>
   </div>
@@ -32,10 +32,10 @@
     <table class='table-striped' width='100%'>
       <thead>
         <tr>
-          <th>Matricula</th>
-          <th>Apellido Paterno</th>
-          <th>Apellido Materno</th>
-          <th>Nombre</th>
+          <th><%= t('groups.matricula') %></th>
+          <th><%= t('general.fathers_maiden') %></th>
+          <th><%= t('general.mothers_maiden') %></th>
+          <th><%= t('general.name')%></th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -51,14 +51,14 @@
       <table class='table-striped' width='100%'>
         <thead>
           <tr>
-            <th>Grupo</th>
-            <th>Año</th>
-            <th>Mes</th>
-            <th>Materia</th>
-            <th>Día semana</th>
-            <th>Aula</th>
-            <th>Franja horaria</th>
-            <th>Inscribir</th>
+            <th><%= t('groups.singular')%></th>
+            <th><%= t('general.year')%></th>
+            <th><%= t('general.month')%></th>
+            <th><%= t('subject.singular')%></th>
+            <th><%= t('general.dia_de_la_semana')%></th>
+            <th><%= t('classroom.singular')%></th>
+            <th><%= t('time_slot.singular')%></th>
+            <th><%= t('groups.enroll')%></th>
           </tr>
         </thead>
         <tbody></tbody>

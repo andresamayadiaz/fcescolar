@@ -7,10 +7,10 @@ div.users_role_study_levels span{display: block!important;}
 		<div class="col-sm-12">
 			<div class='form-group'>
 				<label class="col-md-1"><%= t('people.singular') %></label>
-        <div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
-			  <div class='col-md-8'>
+        		<div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
+			  	<div class='col-md-8'>
 				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal"><%= t('general.search') %></button>
-			  </div>
+			  	</div>
 			</div>
 		</div>
   </div>
@@ -19,20 +19,19 @@ div.users_role_study_levels span{display: block!important;}
 		<div class="col-sm-12">
 			<br/>
 			<fieldset>
-				<legend>Agregar Rol</legend>
+				<legend> <%= t('people.add_role') %> </legend>
 				<%= simple_form_for(@new_user_role, {:url=>add_new_role_people_url, :html=>{:method=>'POST',:class=>'form-inline'} } )  do |f| %>
 				  <%= f.input :user_id, :as => :hidden %>
 				  <%= f.input :role_id, collection: @unassigned_roles.map { |r| [r.name.humanize, r.id] }, label:'Roles', class: 'form-control' %>
-				  <%= f.input :contract, :label => "Contrato" %>
-				  <%= f.input :contract_sign_date, :label => "Fecha Firma Contrato", as: :string, input_html: { class: "datepicker" }  %>
-				  <%= f.input :date_of_receipt, :label => "Fecha de Recepción", as: :string, input_html: { class: "datepicker" }  %>
-          <%= f.association :study_levels, as: :check_boxes%>
-          <div class='form-group'>
-			      <br/>
-      	    <%= button_tag( :class => "btn btn-primary btn-sm") do %>
-				      <i class="icon-save"></i><%= t('general.save') %>
-				    <% end %>
-          </div>
+				  <%= f.input :contract, :label => t('general.contrato') %>
+				  <%= f.input :contract_sign_date, :label => t('general.fecha_firma_contrato'), as: :string, input_html: { class: "datepicker" }  %>
+				  <%= f.input :date_of_receipt, :label => t('general.fecha_recepcion'), as: :string, input_html: { class: "datepicker" }  %>
+          		  <%= f.association :study_levels,:label => t('study_level.plural'), as: :check_boxes%>
+		          <div class='form-group'><br/>
+		      	    <%= button_tag( :class => "btn btn-primary btn-sm") do %>
+					<i class="icon-save"></i><%= t('general.save') %>
+					<% end %>
+		          </div>
 				<% end %>
 			</fieldset>
 		</div>
@@ -45,9 +44,9 @@ div.users_role_study_levels span{display: block!important;}
 			<table class='table'>
 				<thead>
 					<tr>
-						<th>Role</th>
-            <th>Status</th>
-            <th>Permitted Study Level (for teacher)</th>
+						<th><%= t('general.role') %></th>
+            			<th><%= t('general.status') %></th>
+            			<th><%= t('general.permit_sl_for_teacher') %></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -60,10 +59,8 @@ div.users_role_study_levels span{display: block!important;}
 							<%= f.input :role_id, :as => :hidden %>
 							<%= f.collection_radio_buttons :status, [[true, 'Active'] ,[false, 'Inactive']], :first, :last %>
 							<% end %>
-            </td>
-            <td>
-              <%= user_role.study_levels.map(&:name).join(", ") %>
-            </td>
+            			</td>
+            			<td><%= user_role.study_levels.map(&:name).join(", ") %></td>
 					</tr>
 					<% end %>
 				</tbody>

@@ -66,9 +66,9 @@
               <%=b.check_box + b.text.titleize%>
           <% end %>
         </div>
-        <%= f.input :first_name, label: 'Nombre(s)' %>
-        <%= f.input :fathers_maiden_name, label: 'Apellido Paterno' %>
-        <%= f.input :mothers_maiden_name, label: 'Apellido Materno' %>
+        <%= f.input :first_name, :label=> t('general.names') %>
+        <%= f.input :fathers_maiden_name, :label=> t('general.fathers_maiden')%>
+        <%= f.input :mothers_maiden_name, :label=> t('general.mothers_maiden') %>
 			</div>
 		</fieldset>
 		<hr class="hr-normal">

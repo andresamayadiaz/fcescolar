@@ -3,10 +3,10 @@
 		<div class="col-sm-12">
 			<div class='form-group'>
 				<label class="col-md-1"><%= t('people.singular') %></label>
-        <div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
-			  <div class='col-md-8'>
+        		<div class="col-md-3"><%= text_field_tag 'search_person_name', @person.try(:name), {:class=>'form-control'} %></div>
+			  	<div class='col-md-8'>
 				  <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#searchModal"><%= t('general.search') %></button>
-			  </div>
+			  	</div>
 			</div>
 		</div>
   </div>
@@ -14,7 +14,7 @@
 		<% if @person.present? %>
 		<div class="col-sm-12">
 			<br/><br/>
-			<div class="col-sm-6">Ubicación de ultimos estudios:</div>
+			<div class="col-sm-6"> <%= t('general.ubic_last_study')%> </div>
 			<%= simple_form_for(@person, {:url=>update_country_and_state_people_url, :html=>{:class=>'form-inline'} } )  do |f| %>
 			<%= f.input :id, as: :hidden %>
 			<div class="col-sm-3">
@@ -29,28 +29,28 @@
 			<br/><br/>
 			<div class="col-sm-6">
 				<fieldset>
-					<legend>Adjuntar Documento Nuevo</legend>
+					<legend><%= t('people.new_file')%></legend>
 					<%= simple_form_for(@new_personal_record_file, { :url=>upload_document_people_url, :html=>{:multipart=>true} } ) do |f| %>
-					<%= f.association :background_official_doc,:label => "Type" ,:include_blank => 'Document Category' %>
-					<%= f.input :document, :label=>'Documento' %>
-					<%= f.input :is_responsive_letter, :label=>'¿Es Carta Responsiva?' %>
+					<%= f.association :background_official_doc,:label => t('general.tipo'),:include_blank => 'Categoría Documento' %>
+					<%= f.input :document, :label=>t('general.document') %>
+					<%= f.input :is_responsive_letter, :label=>t('general.responsive_letter') %>
 					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 					<%= f.input :attach_user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
-          <button class='btn btn-sm btn-primary button right'>Adjuntar</button>
+          <button class='btn btn-sm btn-primary button right'><%= t('general.adjuntar')%></button>
 					<% end %>
 				</fieldset>
 			</div>
 			<div class="col-sm-6">
 				<fieldset>
-					<legend>Generar Carta Responsiva</legend>
+					<legend> <%= t('background_docs.gen_carta_resp') %> </legend>
 					<%= simple_form_for(@new_personal_record_file, { :url=>generate_responsive_letter_people_url} ) do |f| %>
-					<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => "Carta Responsiva" %>
-					<%= f.input :motive, :label => "Comentarios" %>
+					<%= f.association :background_official_doc, :as => :collection_select, :input_html => {:id=>'responsive_letter_template_menu'}, collection: BackgroundOfficialDoc.where('responsive_due_days >?', 0), :label => t('background_doc.carta_resp') %>
+					<%= f.input :motive, :label => t('general.comentarios') %>
 					<%= f.input :person_id, :as => :hidden, :input_html => { :value => @person.id } %>
 					<%= f.input :is_responsive_letter, :as => :hidden, :input_html => { :value => true } %>
 					<div class='form-action'>
-            <button class='btn btn-sm btn-info'><%= t('general.preview') %></button>
-						<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton' class='btn btn-sm btn-success'>Firmar Carta Responsiva</button>
+            			<button class='btn btn-sm btn-info'><%= t('general.preview') %></button>
+						<button data-toggle="modal" data-target="#signLetterModal" id='signLetterButton' class='btn btn-sm btn-success'> <%= t('background_docs.firmar_carta') %></button>
 					</div>
 					<% end %>
 				</fieldset>
@@ -60,28 +60,28 @@
       <div class='tabbable'>
         <!-- Nav tabs -->
         <ul class="nav nav-responsive nav-tabs">
-          <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
-          <li role="presentation"><a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab">Contracts</a></li>
+          <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab"> <%= t('general.general_info') %> </a></li>
+          <li role="presentation"><a href="#contracts" aria-controls="contracts" role="tab" data-toggle="tab"><%= t('contract_template.contracts') %></a></li>
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
           <div role="tabpanel" class="tab-pane active" id="general_info">
             <fieldset>
-              <legend>Documentos Adjuntos</legend>
+              <legend><th> <%= t('background_docs.docs_adjunt') %> </th></legend>
 		          <% if @attached_docs.present? %>
               <table class='table table-striped'>
                 <thead>
                   <tr>
                     <th><%= t('general.name') %></th>
-                    <th>Fecha Vencimiento</th>
-                    <th>Fecha de adjunto</th>
-                    <th>Usuario que adjunto</th>
-                    <th>Fecha de Verificación</th>
-                    <th>Usuario que verificó</th>
-                    <th>Estado</th>
+                    <th><%= t('background_docs.fecha_vig') %> </th>
+                    <th><%= t('background_docs.fecha_carga') %> </th>
+                    <th><%= t('background_docs.user_cargo') %> </th>
+                    <th><%= t('background_docs.match_date') %></th>
+                    <th><%= t('background_docs.match_user') %></th>
+                    <th><%= t('general.state') %> </th>
                     <% if current_user.active_role=='super_administrator' %>
-                    <th>Delete Files</th>
+                    <th><%= t('background_docs.delete_file') %></th>
                     <% end %>
                   </tr>
                 </thead>
@@ -96,14 +96,14 @@
                     <td><%= (d.match_user.person.name || d.match_user.email) if d.match_user.present? %></td>
                     <% if d.match_user.blank? and d.match_date.blank? and d.has_been_matched.nil? %>
                       <td>
-                        <a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>true) %>' class='btn-sm btn-success match_date'>Match OK</a>&nbsp;
-                        <a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>false) %>' class='btn-sm btn-danger match_user'>Match Not OK</a>
+                        <a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>true) %>' class='btn-sm btn-success match_date'> <%= t('general.ok') %> </a>&nbsp;
+                        <a href='<%= matching_date_and_user_people_path(:rec_file_id=>d.id,:match=>false) %>' class='btn-sm btn-danger match_user'> <%= t('general.not_ok') %> </a>
                         </td>
                     <% else %>
                       <% if d.has_been_matched %>
-                        <td><span class="alert-success">Correcto</span></td>
+                        <td><span class="alert-success"><%= t('general.ok') %> </span></td>
                       <% else %>
-                        <td><span class="alert-danger">Incorrecto</span></td>
+                        <td><span class="alert-danger"><%= t('general.not_ok') %> </span></td>
                       <% end %>
                     <% end %>
                      <% if current_user.active_role=='super_administrator' %>
@@ -118,19 +118,19 @@
                 </tbody>
               </table>
               <% else %>
-                <strong>No docs for this person</strong>
+                <strong> <%= t('background_docs.no_docs') %> </strong>
 		          <% end %>
             </fieldset>
           </div>
           <div role="tabpanel" class="tab-pane" id="contracts">
             <fieldset>
-              <legend>Contracts</legend>
+              <legend> <%= t('contract_template.contracts') %> </legend>
               <% if @contracts.present? %>
               <table class='table table-striped'>
                 <thead>
                   <tr>
-                    <th>Contract ID</th>
-                    <th>Date Created</th>
+                    <th><%= t('contract_template.id') %></th>
+                    <th><%= t('general.fecha_creacion') %></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -143,7 +143,7 @@
                         <%= simple_form_for(@new_contract,:url=>'/people/download_contract',:html => {:method=>'POST', :target=>'_blank'}) do |f| %>
                           <%= f.input :person_id, :as=>:hidden %>
                           <%= f.input :contracts_template_id, :as=>:hidden, input_html: {value: contract.contracts_template_id}  %>
-                          <button class="btn-sm btn-info">Download PDF</button>
+                          <button class="btn-sm btn-info"><%= t('general.download_pdf') %></button>
                         <% end %>
                       </td>
                     </tr>
@@ -151,7 +151,7 @@
                 </tbody>
               </table>
               <% else %>
-                <strong>No contracts for this person</strong>
+                <strong><%= t('contract_template.no_contracts') %></strong>
               <% end %>
             </fieldset>
           </div>

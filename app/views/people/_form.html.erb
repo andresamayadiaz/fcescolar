@@ -17,7 +17,7 @@
 						<i class="icon-angle-right"></i>
 					</li>
 					<li>
-						Catálogos
+						<%= t('general.catalogues')%>
 					</li>
 					<li class="separator">
 						<i class="icon-angle-right"></i>
@@ -54,19 +54,19 @@
           <% else %>
             <%= f.association :franchise, as: :hidden, input_html: {value: current_user.person.franchise_id} %>
           <% end %>
-          <%= f.input :campus_id, :collection=>@campus, :class=>'form-control', :label=>'Campus' %>
-          <%= f.input :curp, :class=>'form-control', :label=>'CURP'%>
-          <%= f.input :rfc, :class=>'form-control', :label=>'RFC'%>
-          <%= f.input :email, :class=>'form-control', :label=>'E-mail'%>
-          <%= f.input :first_name, :class=>'form-control', :label=>'Nombre'%>
-          <%= f.input :fathers_maiden_name, :class=>'form-control', :label=>'Apellido Paterno'%>
-          <%= f.input :mothers_maiden_name, :class=>'form-control', :label=>'Apellido Materno' %>
-          <%= f.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= f.association :state, :class=>'form-control', :label=>'Estados'%>
-          <%= f.input :birthday, :class=>'form-control', :label=>'Birthday', as: :string %>
-          <%= f.input :profile_picture, :label=>'Añadir imagen de perfil' %>
+          <%= f.input :campus_id, :collection=>@campus, :class=>'form-control', :label=> t('campus.singular') %>
+          <%= f.input :curp, :class=>'form-control', :label=>t('general.curp')%>
+          <%= f.input :rfc, :class=>'form-control', :label=>t('general.rfc')%>
+          <%= f.input :email, :class=>'form-control', :label=>t('general.email')%>
+          <%= f.input :first_name, :class=>'form-control', :label=>t('general.name')%>
+          <%= f.input :fathers_maiden_name, :class=>'form-control', :label=>t('general.fathers_maiden')%>
+          <%= f.input :mothers_maiden_name, :class=>'form-control', :label=>t('general.mothers_maiden') %>
+          <%= f.association :country, :class=>'form-control', :label=>t('general.country')%>
+          <%= f.association :state, :class=>'form-control', :label=>t('general.state')%>
+          <%= f.input :birthday, :class=>'form-control', :label=>t('general.birthday'), as: :string %>
+          <%= f.input :profile_picture, :label=>t('general.profile_picture') %>
           <% if @person.profile_picture.exists? %>
-            <label class="col-md-7 control-label">Existing Picture</label>
+            <label class="col-md-7 control-label"><%= t('general.existing_picture')%></label>
             <div class="col-md-5"><%= image_tag @person.profile_picture.url(:thumb) %></div>
           <% end %>
 			</div>
@@ -79,20 +79,20 @@
 						<i class="icon-edit text-contrast"></i>
 						<%= t('people.contact_info')%>
 					</div>
-					<small class="text-muted">Información de contacto (Direcciones Vivienda)</small>
+					<small class="text-muted"><%= t('general.addresses')%></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
         <%= f.simple_fields_for :person_living_address do |p| %> 
-          <%= p.input :street, :class=>'form-control', :label=>'general.street'%>
-          <%= p.input :num_ext, :class=>'form-control', :label=>'Num Ext'%>
-          <%= p.input :num_int, :class=>'form-control', :label=>'Num Int'%>
-          <%= p.input :colonia, :class=>'form-control', :label=>'Colonia'%>
-          <%= p.input :cp, :class=>'form-control', :label=>'CP'%>
-          <%= p.input :municipio, :class=>'form-control', :label=>'Municipio'%>
-          <%= p.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= p.association :state, :class=>'form-control', :label=>'Estados'%>
-          <%= p.input :phone_emergency, :class=>'form-control', :label=>'Teléfono de emergencia'%>
+          <%= p.input :street, :class=>'form-control', :label=>t('general.street')%>
+          <%= p.input :num_ext, :class=>'form-control', :label=>t('general.num_ext')%>
+          <%= p.input :num_int, :class=>'form-control', :label=>t('general.num_int')%>
+          <%= p.input :colonia, :class=>'form-control', :label=>t('general.colonia')%>
+          <%= p.input :cp, :class=>'form-control', :label=>t('general.cp')%>
+          <%= p.input :municipio, :class=>'form-control', :label=>t('general.municipio')%>
+          <%= p.association :country, :class=>'form-control', :label=>t('general.country')%>
+          <%= p.association :state, :class=>'form-control', :label=>t('general.state')%>
+          <%= p.input :phone_emergency, :class=>'form-control', :label=>t('general.phone_emergency')%>
         <% end %>
         <div class="col-md-12">
         </div>
@@ -101,7 +101,7 @@
 		<fieldset>
 			<div class="col-sm-4">
 				<div class="box">
-					<small class="text-muted">Agregar Email de Contacto</small>
+					<small class="text-muted"><%= t('general.add_email_contact')%></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -109,7 +109,7 @@
             <%= render 'person_email_fields', :f => person_email %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Agregar Email', f, :person_emails, class:'btn btn-sm btn-info' %>
+            <%= link_to_add_association t('general.add_email'), f, :person_emails, class:'btn btn-sm btn-info' %>
           </div>
 			</div>
     </fieldset>
@@ -117,7 +117,7 @@
 		<fieldset>
 			<div class="col-sm-4">
 				<div class="box">
-					<small class="text-muted">Agregar Teléfono de Contacto</small>
+					<small class="text-muted"><%= t('general.add_phone_contact')%></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -125,7 +125,7 @@
             <%= render 'contact_telephone_fields', :f => contact_telephone %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Agregar Teléfono', f, :contact_telephones, class: 'btn btn-sm btn-info' %>
+            <%= link_to_add_association t('general.add_phone'), f, :contact_telephones, class: 'btn btn-sm btn-info' %>
           </div>
 			</div>
 		</fieldset>
@@ -135,9 +135,9 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Personas relacionadas
+						<%= t('relationship.plural')%>
 					</div>
-					<small class="text-muted">Agregar personas relacionadas (Parentesco)</small>
+					<small class="text-muted"><%= t('relationship.mssg1')%></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
@@ -145,7 +145,7 @@
             <%= render 'related_person_fields', :f => related_person %>
           <% end %>
           <div class='links'>
-            <%= link_to_add_association 'Agregar parentesco', f, :related_people, class: 'btn btn-sm btn-info' %>
+            <%= link_to_add_association t('relationship.add_relationship'), f, :related_people, class: 'btn btn-sm btn-info' %>
           </div>
 			</div>
 		</fieldset>
@@ -155,23 +155,23 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Información Lugar de Trabajo
+						<%= t('general.work_place_info')%>
 					</div>
-					<small class="text-muted">Agregar Información de lugar de trabajo</small>
+					<small class="text-muted"><%= t('general.add_work_place_info')%></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
         <%= f.simple_fields_for :person_work_place do |w| %> 
-          <%= w.input :empresa, :class=>'form-control', :label=>'Empresa'%>
-          <%= w.input :puesto, :class=>'form-control', :label=>'Puesto'%>
-          <%= w.input :calle, :class=>'form-control', :label=>'Calle'%>
-          <%= w.input :municipio, :class=>'form-control', :label=>'Municipio'%>
-          <%= w.input :num_ext, :class=>'form-control', :label=>'Num Ext'%>
-          <%= w.input :num_int, :class=>'form-control', :label=>'Num Int'%>
-          <%= w.association :country, :class=>'form-control', :label=>'Pais'%>
-          <%= w.association :state, :class=>'form-control', :label=>'Estados'%>
-          <%= w.input :colonia, :class=>'form-control', :label=>'Colonia'%>
-          <%= w.input :cp, :class=>'form-control', :label=>'CP'%>
+          <%= w.input :empresa, :class=>'form-control', :label=>t('general.empresa')%>
+          <%= w.input :puesto, :class=>'form-control', :label=>t('general.puesto')%>
+          <%= w.input :calle, :class=>'form-control', :label=>t('general.calle')%>
+          <%= w.input :municipio, :class=>'form-control', :label=>t('general.municipio')%>
+          <%= w.input :num_ext, :class=>'form-control', :label=>t('general.num_ext')%>
+          <%= w.input :num_int, :class=>'form-control', :label=>t('general.num_int')%>
+          <%= w.association :country, :class=>'form-control', :label=>t('general.country')%>
+          <%= w.association :state, :class=>'form-control', :label=>t('general.state')%>
+          <%= w.input :colonia, :class=>'form-control', :label=>t('general.colonia')%>
+          <%= w.input :cp, :class=>'form-control', :label=>t('general.cp')%>
         <% end %>
 			</div>
 		</fieldset>

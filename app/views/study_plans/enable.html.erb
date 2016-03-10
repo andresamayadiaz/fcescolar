@@ -4,17 +4,17 @@
 
 <%= simple_form_for @schedule, :url => '/study_plans/create_schedule', :method=>'post'  do |f| %>
     <div class="form-group">
-      <label class="col-md-5 control-label">Study Plan</label>
+      <label class="col-md-5 control-label"><%= t('study_plan.singular') %></label>
       <div class="col-md-7"><%= f.association :study_plan, :collection=>@active_study_plans, :label=>false%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <label class="col-md-5 control-label">Campus</label>
+      <label class="col-md-5 control-label"><%= t('campus.singular') %></label>
       <div class="col-md-7"><%= f.association :campus, :collection=>@campuses, :label=>false%></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group">
-      <label class="col-md-12 control-label">Official Required Background Documents:</label>
+      <label class="col-md-12 control-label"><%= t('background_docs.plural_req') %></label>
       <div class="col-md-12"><%= f.association :background_official_docs, collection: @active_docs, as: :check_boxes, label: false %></div>
     </div>
     <hr class="hr-normal">
@@ -24,18 +24,18 @@
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="active_timeslot_wrapper">
-      <label class="col-md-12 control-label">Active Time Slots</label>
+      <label class="col-md-12 control-label"><%= t('time_slot.ts_activ') %></label>
       <div class="col-md-12"></div>
     </div>
     <hr class="hr-normal">
     <div class="form-group" id="degree_achievements_category_wrapper">
-      <label class="col-md-12 control-label">Degree Achievements Categories</label>
+      <label class="col-md-12 control-label"><%= t('degree_achivements.plural') %></label>
       <div class="col-md-12">
         <%= f.association :degree_achievements_categories, collection: @active_deg_categories, as: :check_boxes, label: false %>
       </div>
     </div>
     <div class="form-group">
-      <button class="btn btn-primary">Enable Study Plan</button>
+      <button class="btn btn-primary"><%= t('study_plan.enable') %></button>
     </div>
 <% end %>
 <% content_for :specific_js do %>
@@ -52,7 +52,7 @@
             html_element+="<span class='checkbox'><label for='schedule_classroom_ids_"+value.id+"'><input class='check_boxes optional' id='schedule_classroom_ids_"+value.id+"' name='schedule[classroom_ids][]' type='checkbox' value='"+value.id+"'>"+value.name+"</label></span>"
           })
           html_element+='<input name="schedule[classroom_ids][]" type="hidden" value=""/>'
-          $("#active_classroom_wrapper").find('label').text($('#schedule_campus_id option:selected').text()+" Active Classrooms")
+          $("#active_classroom_wrapper").find('label').text($('#schedule_campus_id option:selected').text()+" Aulas activas")
           $("#active_classroom_wrapper").find('div').html(html_element)
           $("#active_classroom_wrapper").slideDown();
         }

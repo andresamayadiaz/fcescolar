@@ -46,9 +46,9 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Datos Generales
+            <%= t('general.general_data') %>
           </div>
-          <small class="text-muted">Ingrese los datos generales.</small>
+          <small class="text-muted"><%= t('general.insert_general_info') %></small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
@@ -56,7 +56,7 @@
           <%= f.input :name, :label=> t('general.name'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :consecutive_init, :class=>'form-control' %>
+          <%= f.input :consecutive_init,:label=> t('contract_template.consecutive_init'), :class=>'form-control' %>
         </div>
       </div>
     </fieldset>
@@ -69,22 +69,22 @@
             <%= t('contract_template.singular') %>
           </div>
           <small class="text-muted">
-            Ingrese la serie y el texto del formato del contrato.<br /><br />
-            Puedes utilizar los siguientes datos dinámicos:
+            <%= t('contract_template.mssg1') %><br /><br />
+            <%= t('contract_template.mssg2') %>
             <ul>
-              <li><span class="badge badge-default">@@persona.id@@</span> - ID de la Persona</li>
-              <li><span class="badge badge-default">@@persona.nombre_completo@@</span> - Nombre Completo de la Persona</li>
-              <li><span class="badge badge-default">@@persona.xyz@@</span> - Datos XYZ</li>
+              <li><span class="badge badge-default">@@persona.id@@</span> - <%= t('people.id_person') %></li>
+              <li><span class="badge badge-default">@@persona.nombre_completo@@</span> - <%= t('people.nombre_compl') %></li>
+              <li><span class="badge badge-default">@@persona.xyz@@</span> - <%= t('people.datosxyz') %></li>
             </ul>
           </small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.input :serie, :label=>'Serie', :class=>'form-control' %>
+          <%= f.input :serie, :label=>t('general.serie'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.cktext_area :content, :label=>'Formato de Contrato', :class=>'form-control ckeditor' %>   
+          <%= f.cktext_area :content, :label=>t('contract_template.format'), :class=>'form-control ckeditor' %>   
         </div>
       </div>
     </fieldset>

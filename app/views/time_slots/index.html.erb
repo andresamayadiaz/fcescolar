@@ -42,8 +42,8 @@
     <div class='col-sm-12'>
       <br/>
       <div class='form-inline'>
-        <label>Filter By Campus</label>
-        <div class='form-group'><%= select_tag "filter_campus", options_from_collection_for_select(@campus, "id", "name", params[:campus_id]), include_blank: 'All Campus', class:'form-control' %></div>
+        <label><%= t('general.filter_campus') %></label>
+        <div class='form-group'><%= select_tag "filter_campus", options_from_collection_for_select(@campus, "id", "name", params[:campus_id]), include_blank: 'Todos los Campus', class:'form-control' %></div>
       </div>
     </div>
     <div class='responsive-table'>
@@ -54,8 +54,8 @@
               <th><%= t('franchise.singular') %></th>
               <th><%= t('campus.singular') %></th> 
               <th><%= t('general.name') %></th>
-              <th>Hora de inicio</th>
-              <th>Hora de finalización</th>
+              <th><%= t('time_slot.hora_ini') %></th>
+              <th><%= t('time_slot.hora_fin') %></th>
               <th></th>
             </tr>
           </thead>
