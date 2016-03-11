@@ -120,28 +120,35 @@
 
 <% content_for :specific_js do %>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#subject_curricular_line_ids').live('change',function() {
-      var vals = $(this).val();
+window.onload = loadStudyLevelsAndCurricularLines;
+
+  function loadStudyLevelsAndCurricularLines() {
+
+      var arr_subjects = [];
+      $('#subject_study_level_ids option').each(function(){
+        arr_subjects.push($(this).text());
+      })
       $.ajax({
         type: 'GET',
-        url: '/curricular_lines/get_cl_selected?ids='+vals,
+        url: '/study_levels/get_study_levels',
         success: function(data){
           if(data){
             var html_element='';
             $.each(data,function(index,value){
-              html_element+="<tr><td>"+value.name+"</td></tr>";
-            })
-            $("#selected_curricular_lines tbody").html(html_element);
+              if ($.inArray(value.name,arr_subjects)==-1)
+              {
+                html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
+              }
+            });
+            if(html_element!='')
+            {$('#subject_study_level_ids').append(html_element).select2();}
           }
         }
       })
-    });
-
-    $('#s2id_subject_curricular_line_ids ul').live('click',function() {
-      var arr_values = [];
+       
+      var arr_lines = [];
       $('#subject_curricular_line_ids option').each(function(){
-        arr_values.push($(this).text());
+        arr_lines.push($(this).text());
       })
       $.ajax({
         type: 'GET',
@@ -150,7 +157,7 @@
           if(data){
             var html_element='';
             $.each(data,function(index,value){
-              if ($.inArray(value.name,arr_values)==-1)
+              if ($.inArray(value.name,arr_lines)==-1)
               {
                 html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
               }
@@ -160,10 +167,9 @@
           }
         }
       })
-    });
+  }
 
-
-    $('#subject_study_level_ids').live('change',function() {
+  $('#subject_study_level_ids').live('change',function() {
       var vals = $(this).val();
       $.ajax({
         type: 'GET',
@@ -180,29 +186,23 @@
       })
     });
 
-    $('#s2id_subject_study_level_ids ul').live('click',function() {
-      var arr_values = [];
-      $('#subject_study_level_ids option').each(function(){
-        arr_values.push($(this).text());
-      })
+  $(document).ready(function(){
+    $('#subject_curricular_line_ids').live('change',function() {
+      var vals = $(this).val();
       $.ajax({
         type: 'GET',
-        url: '/study_levels/get_study_levels',
+        url: '/curricular_lines/get_cl_selected?ids='+vals,
         success: function(data){
           if(data){
             var html_element='';
             $.each(data,function(index,value){
-              if ($.inArray(value.name,arr_values)==-1)
-              {
-                html_element = html_element.concat("<option value="+value.id+">"+value.name+"</option>") 
-              }
-            });
-            if(html_element!='')
-            {$('#subject_study_level_ids').append(html_element).select2();}
+              html_element+="<tr><td>"+value.name+"</td></tr>";
+            })
+            $("#selected_curricular_lines tbody").html(html_element);
           }
         }
       })
-    });
+    });  
   })
 </script>
 <% end %>
