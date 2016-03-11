@@ -34,6 +34,8 @@ class SubjectsController < ApplicationController
           flash[:notice] = 'Materia creada con exito.' 
           redirect_to subjects_path 
         else 
+          @curricular_lines = []
+          @study_levels = []
           render 'new'
         end
       }
