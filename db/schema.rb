@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831075217) do
+ActiveRecord::Schema.define(version: 20160307223700) do
 
   create_table "approved_subjects", force: true do |t|
     t.integer  "teacher_dictamination_id"
@@ -193,6 +193,14 @@ ActiveRecord::Schema.define(version: 20150831075217) do
   end
 
   add_index "curricular_lines", ["franchise_id"], name: "index_curricular_lines_on_franchise_id", using: :btree
+
+  create_table "curricular_lines_subjects", id: false, force: true do |t|
+    t.integer "curricular_line_id"
+    t.integer "subject_id"
+  end
+
+  add_index "curricular_lines_subjects", ["curricular_line_id"], name: "index_curricular_lines_subjects_on_curricular_line_id", using: :btree
+  add_index "curricular_lines_subjects", ["subject_id"], name: "index_curricular_lines_subjects_on_subject_id", using: :btree
 
   create_table "degree_achievements_categories", force: true do |t|
     t.string   "name"
@@ -527,6 +535,14 @@ ActiveRecord::Schema.define(version: 20150831075217) do
 
   add_index "study_levels", ["franchise_id"], name: "index_study_levels_on_franchise_id", using: :btree
 
+  create_table "study_levels_subjects", id: false, force: true do |t|
+    t.integer "study_level_id"
+    t.integer "subject_id"
+  end
+
+  add_index "study_levels_subjects", ["study_level_id"], name: "index_study_levels_subjects_on_study_level_id", using: :btree
+  add_index "study_levels_subjects", ["subject_id"], name: "index_study_levels_subjects_on_subject_id", using: :btree
+
   create_table "study_levels_users_roles", force: true do |t|
     t.integer "study_level_id"
     t.integer "users_role_id"
@@ -578,17 +594,13 @@ ActiveRecord::Schema.define(version: 20150831075217) do
 
   create_table "subjects", force: true do |t|
     t.string   "name"
-    t.integer  "study_level_id"
-    t.integer  "curricular_line_id"
     t.string   "clave"
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "subjects", ["curricular_line_id"], name: "index_subjects_on_curricular_line_id", using: :btree
   add_index "subjects", ["name"], name: "index_subjects_on_name", using: :btree
-  add_index "subjects", ["study_level_id"], name: "index_subjects_on_study_level_id", using: :btree
 
   create_table "subjects_teacher_dictaminations", force: true do |t|
     t.integer "subject_id"
