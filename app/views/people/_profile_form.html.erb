@@ -12,15 +12,15 @@
   </div>
   <div class="col-sm-7 col-sm-offset-1">
     <%= f.simple_fields_for :person_living_address do |p| %>
-        <%= p.input :street %>
-        <%= p.input :num_ext %>
-        <%= p.input :num_int %>
-        <%= p.input :colonia %>
-        <%= p.input :cp %>
-        <%= p.input :municipio %>
-        <%= p.association :country %>
-        <%= p.association :state %>
-        <%= p.input :phone_emergency %>
+        <%= p.input :street, :label=> t('general.street') %>
+        <%= p.input :num_ext, :label=> t('general.num_ext') %>
+        <%= p.input :num_int, :label=> t('general.num_int') %>
+        <%= p.input :colonia, :label=> t('general.colonia') %>
+        <%= p.input :cp, :label=> t('general.cp') %>
+        <%= p.input :municipio, :label=> t('general.municipio') %>
+        <%= p.association :country, :label=> t('general.country') %>
+        <%= p.association :state, :label=> t('general.state') %>
+        <%= p.input :phone_emergency, :label=> t('general.phone_emergency') %>
     <% end %>
   </div>
 </fieldset>
@@ -30,9 +30,9 @@
     <div class="box">
       <div class="lead">
         <i class="icon-edit text-contrast"></i>
-        Agregar Teléfonos
+        <%= t('general.add')%> <%= t('general.telefonos')%>
       </div>
-      <small class="text-muted">Insertar nuevo teléfono</small>
+      <small class="text-muted"><%= t('profile.new_phone')%></small>
     </div>
   </div>
   <div class="col-sm-7 col-sm-offset-1">
@@ -40,7 +40,7 @@
     <%= render 'contact_telephone_fields', :f => contact_telephone %>
     <% end %>
     <div class='links'>
-      <%= link_to_add_association 'Agregar', f, :contact_telephones, :class=>'btn btn-info btn-xs' %>
+      <%= link_to_add_association t('general.add'), f, :contact_telephones, :class=>'btn btn-info btn-xs' %>
     </div>
   </div>
 </fieldset>
@@ -50,9 +50,9 @@
     <div class="box">
       <div class="lead">
         <i class="icon-edit text-contrast"></i>
-        Agregar Emails
+        <%= t('general.add')%> <%= t('general.emails')%>
       </div>
-      <small class="text-muted">Insertar nuevo email de contacto</small>
+      <small class="text-muted"><%= t('general.add_email_contact')%></small>
     </div>
   </div>
   <div class="col-sm-7 col-sm-offset-1">
@@ -60,7 +60,7 @@
     <%= render 'person_email_fields', :f => person_email %>
     <% end %>
     <div class='links'>
-      <%= link_to_add_association 'Agregar', f, :person_emails, :class=>'btn btn-info btn-xs' %>
+      <%= link_to_add_association t('general.add'), f, :person_emails, :class=>'btn btn-info btn-xs' %>
     </div>
   </div>
 </fieldset>

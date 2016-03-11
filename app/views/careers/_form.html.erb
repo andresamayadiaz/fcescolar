@@ -44,7 +44,7 @@
       <ul class='nav nav-responsive nav-tabs'>
         <li class='active'>
           <a data-toggle='tab' href='#retab1'>
-            Información
+            <%= t('general.info') %>
           </a>
         </li>
         <li class=''>
@@ -62,9 +62,9 @@
               <div class="box">
                 <div class="lead">
                   <i class="icon-edit text-contrast"></i>
-                  Datos Generales
+                  <%= t('general.general_data') %>
                 </div>
-                <small class="text-muted">Ingrese los datos generales.</small>
+                <small class="text-muted"><%= t('general.insert_general_info') %></small>
               </div>
             </div>
             <div class="col-sm-7 col-sm-offset-1">
@@ -82,17 +82,17 @@
               <div class="box">
                 <div class="lead">
                   <i class="icon-star text-contrast"></i>
-                  Datos Especiales
+                  <%= t('general.special_info') %>
                 </div>
-                <small class="text-muted">Ingrese los datos especiales.</small>
+                <small class="text-muted"><%= t('general.insert_special_info') %></small>
               </div>
             </div>
             <div class="col-sm-7 col-sm-offset-1">
               <div class="form-group">
-                <%= f.input :rvoe, :label=>"RVOE", :class=>'form-control' %>
+                <%= f.input :rvoe, :label=>t('career.rvoe'), :class=>'form-control' %>
               </div>
               <div class="form-group">
-                <%= f.input :auth_file, :label=>'PDF RVOE', :class=>'form-control' %>
+                <%= f.input :auth_file, :label=>t('career.pdfrvoe'), :class=>'form-control' %>
               </div>
               <% if @career.auth_file.exists? %>
                 <div class="form-group">
@@ -100,13 +100,13 @@
                 </div>
               <% end %>
               <div class="form-group">
-               <%= f.input :serie, :label=>'Serie', :class=>'form-control' %>
+               <%= f.input :serie, :label=>t('career.serie'), :class=>'form-control' %>
              </div>
              <div class="form-group">
-              <%= f.input :clave_estadistica, :label=>'Clave Carrera Estadistica', :class=>'form-control' %>
+              <%= f.input :clave_estadistica, :label=>t('career.clave_carrer_estad'), :class=>'form-control' %>
             </div>
             <div class="form-group">
-              <%= f.input :clave_dgp, :label=> 'Clave Carrera DGP', :class=>'form-control' %>
+              <%= f.input :clave_dgp, :label=>t('career.clave_carrer_dgp'), :class=>'form-control' %>
             </div>
           </div>
         </fieldset>
@@ -118,9 +118,9 @@
             <div class="box">
               <div class="lead">
                 <i class="icon-edit text-contrast"></i>
-                <%= t('subject.plural') %> Habilitadas
+                <%= t('subject.enabled_subjects') %>
               </div>
-              <small class="text-muted">Seleccione las Materias Habilitadas para la presente Carrera.</small>
+              <small class="text-muted"><%= t('subject.message_subject') %></small>
             </div>
           </div>
           <div class="col-sm-7 col-sm-offset-1">
@@ -129,12 +129,12 @@
               <%= collection_select :career, :subject_ids, @subjects, :id, :name, { :selected => @career.subject_ids }, { :multiple => true, :name => 'career[subject_ids][]', :class=>'select2 form-control' } -%>
             </div>
             <div class="form-group">
-              <label>Materias Habilitadas</label>
+              <label><%= t('subject.enabled_subjects') %></label>
               <% if @subjects %>
               <table class="table table-striped table-hover table-bordered" id="selected_subjects">
                 <thead>
                   <tr>
-                    <th>Clave</th>
+                    <th><%= t('general.clave') %></th>
                     <th><%= t('subject.singular') %></th>
                   </tr>
                 </thead>
@@ -161,11 +161,11 @@
       <% if @career.id.blank? %> 
         <%= button_tag(:name => "commit", :value => "save_and_select_subjects", :class => "btn btn-primary btn-lg") do %>
           <i class="icon-save"></i>
-          Guardar y Cargar Materias
+          <%= t('career.btn_save_label1') %>
         <% end %>
         <%= button_tag(:name => "commit", :value => "save", :class => "btn btn-primary btn-lg") do %>
           <i class="icon-save"></i>
-          Guardar y Volver
+           <%= t('career.btn_save_label2') %>
         <% end %>
       <% else %>
         <%= button_tag(:class=> 'btn btn-primary btn-lg') do %>

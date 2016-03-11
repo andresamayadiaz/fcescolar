@@ -46,9 +46,9 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Datos Generales
+            <%= t('general.general_data') %>
           </div>
-          <small class="text-muted">Ingrese los datos generales. El campo aulas debe ser número haciendo referencia a la cantidad de aulas disponibles para grupos en el Campus.</small>
+          <small class="text-muted"><%= t('general.insert_general_info') %></small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
@@ -63,10 +63,10 @@
           <%= f.association :campus, :label=>t('campus.singular'), :class=>'select2 form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :start_time, :label=>'Hora de inicio', :class=>'form-control' %>
+          <%= f.input :start_time, :label=>t('time_slot.hora_ini'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :end_time, :label=>'Hora de finalización', :class=>'form-control' %>
+          <%= f.input :end_time, :label=>t('time_slot.hora_fin'), :class=>'form-control' %>
         </div>
       </div>
     </fieldset>

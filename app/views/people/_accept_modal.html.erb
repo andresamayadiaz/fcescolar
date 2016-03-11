@@ -7,9 +7,9 @@
           <div id="subjects_wrapper"></div>
           <input type="hidden" name="teacher_dictamination[id]" id="teacher_dictamination_id"/>
           <input type="hidden" name="teacher_dictamination[status]" value="Accepted"/>
-          <label for="file">Evidence PDF File:</label>&nbsp;<input type="file" name="teacher_dictamination[evidence]" id="file"/>
+          <label for="file"><%= t('people.evidence_pdf') %></label>&nbsp;<input type="file" name="teacher_dictamination[evidence]" id="file"/>
           <hr class="normal">
-          <button class='btn btn-success'>Accept</button>
+          <button class='btn btn-success'><%= t('general.accept') %></button>
 			  <% end %>
       </div>
 		</div><!-- /.modal-content -->

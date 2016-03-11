@@ -45,9 +45,9 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Datos Generales
+            <%= t('general.general_data') %>
           </div>
-          <small class="text-muted">Ingrese los datos generales.</small>
+          <small class="text-muted"><%= t('general.insert_general_info') %></small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
@@ -55,16 +55,16 @@
           <%= f.association :franchise, :label=>t('franchise.singular'), :class=>'select2 form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :initial_month, :label=>'Mes Inicial', :class=>'form-control', as: :date, order: [:month] %>
+          <%= f.input :initial_month, :label=>t('period.initial_month'), :class=>'form-control', as: :date, order: [:month] %>
         </div>
         <div class="form-group">
-          <%= f.input :month_length, :label=>'Longitud Mes', :class=>'form-control' %>
+          <%= f.input :month_length, :label=>t('period.month_length'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :number_of_blocks, :label=>'Número de bloques', :class=>'form-control' %>
+          <%= f.input :number_of_blocks, :label=>t('period.number_of_blocks'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-        <%= f.input :start_year, :label=>'Año de inicio', :class=>'form-control', as: :date, start_year: Date.today.year - 10,  end_year: Date.today.year + 10, order: [:year] %>
+        <%= f.input :start_year, :label=>t('period.start_year'), :class=>'form-control', as: :date, start_year: Date.today.year - 10,  end_year: Date.today.year + 10, order: [:year] %>
         </div>
         <div class="form-group">
           <%= f.input :name, :label=>t('general.name'), :class=>'form-control' %>

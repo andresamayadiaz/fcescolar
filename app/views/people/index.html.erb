@@ -8,7 +8,7 @@
     <div class="page-header">
       <h1 class="pull-left">
         <i class="icon-list"></i>
-        <span>Catálogo</span>
+        <span><%= t('general.catalogue')%></span>
       </h1>
       <div class="pull-right">
         <ul class="breadcrumb">
@@ -21,12 +21,12 @@
             <i class="icon-angle-right"></i>
           </li>
           <li>
-            Catálogos
+            <%= t('general.catalogues')%>
           </li>
           <li class="separator">
             <i class="icon-angle-right"></i>
           </li>
-          <li class="active">Listado de personas</li>
+          <li class="active"> <%= t('people.menu')%> </li>
         </ul>
       </div>
     </div>
@@ -37,9 +37,9 @@
 <!-- // TABLE -->
 <div class='box bordered-box blue-border' style='margin-bottom:0;'>
   <div class='box-header blue-background'>
-    <div class='title'>Listado de personass</div>
+    <div class='title'> <%= t('people.menu')%> </div>
     <div class='actions'>
-      <%= link_to 'Nuevo', new_person_path, :class=>'btn btn-large btn-success' %>
+      <%= link_to t('general.new'), new_person_path, :class=>'btn btn-large btn-success' %>
       <button type="button" class="btn btn-large btn-default" data-toggle="modal" data-target="#searchModal">
         <%= t('general.search') %> <%= t('people.singular') %>
       </button>
@@ -84,7 +84,7 @@
                 <%= link_to edit_person_url(person), class: 'btn btn-success btn-xs' do %>
                 <i class='icon-edit'></i>
                 <% end %>
-                <%= link_to person, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <%= link_to person, class: 'btn btn-danger btn-xs', method: :delete, data: { confirm: t('general.are_you_sure') } do %>
                 <i class='icon-remove'></i>
                 <% end %>
               </div>

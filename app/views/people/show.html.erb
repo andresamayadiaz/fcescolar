@@ -1,35 +1,35 @@
 <br/>
 <% if @person.status %>
-  <%= link_to 'Block', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-danger btn-xs', method: :put, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Bloquear', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-danger btn-xs', method: :put, data: { confirm: t('general.are_you_sure') } %>
 <% else %>
-  <%= link_to 'UnBlock', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-primary btn-xs', method: :put, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Desbloquear', block_or_unblock_people_path(:id=>@person.id), class: 'btn btn-primary btn-xs', method: :put, data: { confirm: t('general.are_you_sure') } %>
 <% end %>
 <br/><br/>
 <div class='tabbable'>
   <!-- Nav tabs -->
   <ul class="nav nav-responsive nav-tabs">
-    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab">General Information</a></li>
-    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Contacts</a></li>
-    <li role="presentation"><a href="#relationship" aria-controls="relationship" role="tab" data-toggle="tab">Relationship</a></li>
-    <li role="presentation"><a href="#work_info" aria-controls="work_info" role="tab" data-toggle="tab">Work Info</a></li>
-    <li role="presentation"><a href="#assigned_role" aria-controls="assigned_role" role="tab" data-toggle="tab">Roles</a></li>
+    <li role="presentation" class="active"><a href="#general_info" aria-controls="general_info" role="tab" data-toggle="tab"><%= t('general.general_info')%></a></li>
+    <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab"><%= t('general.contacto')%></a></li>
+    <li role="presentation"><a href="#relationship" aria-controls="relationship" role="tab" data-toggle="tab"><%= t('relationship.plural')%></a></li>
+    <li role="presentation"><a href="#work_info" aria-controls="work_info" role="tab" data-toggle="tab"><%= t('general.work_info')%></a></li>
+    <li role="presentation"><a href="#assigned_role" aria-controls="assigned_role" role="tab" data-toggle="tab"><%= t('general.role')%></a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="general_info">
       <fieldset>
-        <legend>General Information</legend>
+        <legend><%= t('general.general_info')%></legend>
         <div class="col-sm-8">
           <table class="table table-condensed">
-            <tr><td>CURP</td><td><%= @person.curp %></td></tr>
-            <tr><td>RFC</td><td><%= @person.rfc %></td></tr>
-            <tr><td>E-mail</td><td><%= @person.email %></td></tr>
-            <tr><td>Name</td><td><%= @person.name %></td></tr>
-            <tr><td>Father's Maiden Name</td><td><%= @person.fathers_maiden_name %></td></tr>
-            <tr><td>Mother's Maiden Name</td><td><%= @person.mothers_maiden_name %></td></tr>
-            <tr><td>Birth Country</td><td><%= @person.country.try(:name) %></td></tr>
-            <tr><td>Birth State</td><td><%= @person.state.try(:name) %></td></tr>
+            <tr><td><%= t('general.curp')%></td><td><%= @person.curp %></td></tr>
+            <tr><td><%= t('general.rfc')%></td><td><%= @person.rfc %></td></tr>
+            <tr><td><%= t('general.email')%></td><td><%= @person.email %></td></tr>
+            <tr><td><%= t('general.name')%></td><td><%= @person.name %></td></tr>
+            <tr><td><%= t('general.fathers_maiden')%></td><td><%= @person.fathers_maiden_name %></td></tr>
+            <tr><td><%= t('general.mothers_maiden')%></td><td><%= @person.mothers_maiden_name %></td></tr>
+            <tr><td><%= t('general.country')%></td><td><%= @person.country.try(:name) %></td></tr>
+            <tr><td><%= t('general.state')%></td><td><%= @person.state.try(:name) %></td></tr>
           </table>
         </div>
         <div class="col-sm-4">
@@ -41,56 +41,56 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="contact">
       <fieldset>
-        <legend>Contact Information:</legend>
+        <legend> <%= t('people.contact_info')%> </legend>
         <div class="col-sm-6">
           <%  p = @person.person_living_address %>
           <table class='table table-condensed'>
             <tr>
-              <td>Street</td>
+              <td><%= t('general.street')%></td>
               <td><%= p.street %></td>
             </tr>
             <tr>
-              <td>Num Ext</td>
+              <td><%= t('general.num_ext')%></td>
               <td><%= p.num_ext %></td>
             </tr>
             <tr>
-              <td>Num Int</td>
+              <td><%= t('general.num_int')%></td>
               <td><%= p.num_int %></td>
             </tr>
             <tr>
-              <td>Colonia</td>
+              <td><%= t('general.colonia')%></td>
               <td><%= p.colonia %></td>
             </tr>
             <tr>
-              <td>CP</td>
+              <td><%= t('general.cp')%></td>
               <td><%= p.cp %></td>
             </tr>
             <tr>
-              <td>Municipio</td>
+              <td><%= t('general.municipio')%></td>
               <td><%= p.municipio %></td>
             </tr>
             <tr>
-              <td>Pais</td>
+              <td><%= t('general.country')%></td>
               <td><%= p.country.try(:name) %></td>
             </tr>
             <tr>
-              <td>Estado</td>
+              <td><%= t('general.state')%></td>
               <td><%= p.state.try(:name) %></td>
             </tr>
             <tr>
-              <td>Phone Emergency</td>
+              <td><%= t('general.phone_emergency')%></td>
               <td><%= p.phone_emergency %></td>
             </tr>
           </table>
         </div>
         <div class="col-sm-3">
-          <h5>Contact Telephones</h5>
+          <h5><%= t('general.contact_phones')%></h5>
           <% @person.contact_telephones.each do |contact_telephone| %>
           <table class='table table-condensed'>
             <thead>
               <tr>
-                <th>Phone Number</th>
-                <th>Type</th>
+                <th><%= t('general.telephone')%></th>
+                <th><%= t('general.tipo')%></th>
               </tr>
             </thead>
             <tbody>
@@ -103,12 +103,12 @@
           <% end if @person.contact_telephones.present? %>
         </div>
         <div class="col-sm-3">
-          <h5>Person Emails</h5>
+          <h5><%= t('general.emails')%></h5>
           <% @person.person_emails.each do |person_email| %>
           <table class='table table-condensed'>
             <thead>
               <tr>
-                <th>Email Address</th>
+                <th><%= t('general.email')%></th>
               </tr>
             </thead>
             <tbody>
@@ -121,13 +121,13 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="relationship">
       <fieldset>
-        <legend>Relationship</legend>
+        <legend><%= t('relationship.plural')%></legend>
           <% if @person.related_people.present? %>
           <table class='table table-condensed'>
             <thead>
               <tr>
-                <th>Relationship</th>
-                <th>Name</th>
+                <th><%= t('relationship.singular')%></th>
+                <th><%= t('general.name')%></th>
               </tr>
             </thead>
           <tbody>
@@ -144,48 +144,48 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="work_info">
       <fieldset>
-        <legend>Work Place Information</legend>
+        <legend> <%= t('general.work_info')%> </legend>
         <% w = @person.person_work_place %>
         <% if w.present? %>
         <table class='table table-condensed'>
           <tr>
-            <td>Empresa</td>
+            <td><%= t('general.empresa')%></td>
             <td><%= w.empresa %></td>
           </tr>
           <tr>
-            <td>Puesto</td>
+            <td><%= t('general.puesto')%></td>
             <td><%= w.puesto %></td>
           </tr>
           <tr>
-            <td>Calle</td>
+            <td><%= t('general.street')%></td>
             <td><%= w.calle %></td>
           </tr>
           <tr>
-            <td>Municipio</td>
+            <td><%= t('general.municipio')%></td>
             <td><%= w.municipio %></td>
           </tr>
           <tr>
-            <td>Num Ext</td>
+            <td><%= t('general.num_ext')%></td>
             <td><%= w.num_ext %></td>
           </tr>
           <tr>
-            <td>Num Int</td>
+            <td><%= t('general.num_int')%></td>
             <td><%= w.num_int %></td>
           </tr>
           <tr>
-            <td>Pais</td>
+            <td><%= t('general.country')%></td>
             <td><%= w.country.try(:name) %></td>
           </tr>
           <tr>
-            <td>Colonia</td>
+            <td><%= t('general.colonia')%></td>
             <td><%= w.colonia %></td>
           </tr>
           <tr>
-            <td>CP</td>
+            <td><%= t('general.cp')%></td>
             <td><%= w.cp %></td>
           </tr>
           <tr>
-            <td>Estado</td>
+            <td><%= t('general.state')%></td>
             <td><%= w.state.try(:name) %></td>
           </tr>
         </table>
@@ -194,15 +194,15 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="assigned_role">
       <fieldset>
-        <legend>Assigned Roles</legend>
+        <legend> <%= t('general.assigned_roles')%> </legend>
         <div class="col-sm-12">
           <div class='responsive-table'>
             <div class='scrollable-area'>
               <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
                 <thead>
                   <tr>
-                    <th>Role Name</th>
-                    <th>ID</th>
+                    <th><%= t('general.role')%></th>
+                    <th><%= t('general.id')%></th>
                   </tr>
                 </thead>
                 <tbody>

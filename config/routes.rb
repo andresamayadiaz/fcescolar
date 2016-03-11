@@ -125,13 +125,11 @@ Rails.application.routes.draw do
   end
 
   resources :curricular_lines do
-    collection do
-      get 'get_curricular_lines'
-      get 'get_cl_selected'
-    end
-  end
-
-  
+	collection do
+		get 'get_curricular_lines'
+		get 'get_cl_selected'
+	end
+	end
 
   resources :relationship_types
 
@@ -153,8 +151,8 @@ Rails.application.routes.draw do
 
   resources :study_levels do
     collection do
-      get 'get_study_levels'
       get 'get_sl_selected'
+      get 'get_study_levels'
     end
   end
 

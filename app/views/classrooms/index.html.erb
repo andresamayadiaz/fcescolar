@@ -42,7 +42,7 @@
     <div class='col-sm-12'>
       <br/>
       <div class='form-inline'>
-        <label>Filter By Campus</label>
+        <label><%= t('general.filter_campus') %></label>
         <div class='form-group'><%= select_tag "filter_campus", options_from_collection_for_select(@campus, "id", "name", params[:campus_id]), include_blank: 'All Campus', class:'form-control' %></div>
       </div>
     </div>
@@ -54,8 +54,8 @@
               <th><%= t('franchise.singular') %></th>
               <th><%= t('campus.singular') %></th> 
               <th><%= t('general.name') %></th>
-              <th>Capacidad Max</th>
-              <th>Consecutivo</th>
+              <th><%= t('classroom.max_capacity') %></th>
+              <th><%= t('classroom.consecutive') %></th>
               <th></th>
             </tr>
           </thead>

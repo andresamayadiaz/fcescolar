@@ -45,9 +45,9 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Datos Generales
+            <%= t('general.general_data') %>
           </div>
-          <small class="text-muted">Ingrese los datos generales.</small>
+          <small class="text-muted"><%= t('general.insert_general_info') %></small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
@@ -63,25 +63,25 @@
         <div class="box">
           <div class="lead">
             <i class="icon-edit text-contrast"></i>
-            Carta Responsiva
+            <%= t('background_docs.carta_resp') %>
           </div>
           <small class="text-muted">
-            Ingrese los dias de vigencia y el texto de la carta responsiva.<br /><br />
-            Puedes utilizar los siguientes datos dinámicos:
+            <%= t('background_docs.mssg1') %> <br /><br />
+            <%= t('background_docs.mssg2') %>
             <ul>
-              <li><span class="badge badge-default">@@persona.id@@</span> - ID de la Persona</li>
-              <li><span class="badge badge-default">@@persona.nombre_completo@@</span> - Nombre Completo de la Persona</li>
-              <li><span class="badge badge-default">@@persona.xyz@@</span> - Datos XYZ</li>
+              <li><span class="badge badge-default">@@persona.id@@</span> - <%= t('people.id_person') %></li>
+              <li><span class="badge badge-default">@@persona.nombre_completo@@</span> - <%= t('people.nombre_compl') %></li>
+              <li><span class="badge badge-default">@@persona.xyz@@</span> - <%= t('people.datosxyz') %> </li>
             </ul>
           </small>
         </div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
         <div class="form-group">
-          <%= f.input :responsive_due_days, :label=>'Días de Vigencia', :class=>'form-control' %>
+          <%= f.input :responsive_due_days, :label=>t('background_docs.dias_vigencia'), :class=>'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.cktext_area :responsive_letter, :label=>'Carta', :class=>'form-control ckeditor' %>
+          <%= f.cktext_area :responsive_letter, :label=>t('background_docs.carta'), :class=>'form-control ckeditor' %>
           </div>
         </div>
       </fieldset>

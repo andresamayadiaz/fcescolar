@@ -1,14 +1,14 @@
 <div class="row">
-  <label class="col-md-2 control-label">Nombre maestro:</label>
+  <label class="col-md-2 control-label"> <%= t('general.name')%> <%= t('people.teacher')%>:</label>
   <div class="col-md-2"><%= text_field_tag 'teacher_first_name',params[:teacher_first_name], class:'form-control' %></div>
-  <label class="col-md-2 control-label">Apellido Maestro:</label>
+  <label class="col-md-2 control-label"><%= t('general.fathers_maiden')%> <%= t('people.teacher')%>:</label>
   <div class="col-md-2"><%= text_field_tag 'teacher_last_name',params[:teacher_last_name], class:'form-control' %></div>
-  <label class="col-md-1 control-label">Estatus:</label>
+  <label class="col-md-1 control-label"><%= t('general.status')%>:</label>
   <div class="col-md-2"><%= select_tag 'status', options_for_select(["Pending", "Accepted", "Rejected" ], params[:status]), class:'form-control' %></div>
 </div>
 <br/>
 <div class="row">
-  <div class="col-md-11"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination">Buscar</button></div>
+  <div class="col-md-11"><button type="button" class="btn btn-sm btn-info pull-right" data-toggle="modal" id="search_dictamination"><%= t('general.search')%></button></div>
 </div>
 <hr class="hr-normal">
 <% if @dictaminations.present? %>
@@ -19,11 +19,11 @@
         <table class='data-table table table-bordered table-striped' style='margin-bottom:0;'>
           <thead>
             <tr>
-              <th>Nombre Maestro</th>
-              <th>Estatus</th>
-              <th>Fecha cración</th>
-              <th>Materias</th>
-              <th>Acciones</th>
+              <th><%= t('general.name')%> <%= t('people.teacher')%></th>
+              <th><%= t('general.status')%></th>
+              <th><%= t('general.fecha_creacion')%></th>
+              <th><%= t('subject.singular')%></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>

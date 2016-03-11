@@ -33,14 +33,14 @@
 				<div class="box">
 					<div class="lead">
 						<i class="icon-edit text-contrast"></i>
-						Datos Generales
+						<%= t('general.general_data') %>
 					</div>
-					<small class="text-muted">Ingrese los datos generales.</small>
+					<small class="text-muted"><%= t('general.insert_general_info') %></small>
 				</div>
 			</div>
 			<div class="col-sm-7 col-sm-offset-1">
 				<div class="form-group">
-					<%= f.input :name, :class=>'form-control',:label=>t('general.save') %>
+					<%= f.input :name, :class=>'form-control',:label=>t('general.name') %>
 				</div>
 			</div>
 		</fieldset>

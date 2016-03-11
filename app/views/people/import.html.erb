@@ -4,7 +4,7 @@
 		<div class="page-header">
 			<h1 class="pull-left">
 				<i class="icon-edit"></i>
-				<span>Importar Personas</span>
+				<span><%= t('people.import')%></span>
 			</h1>
 			<div class="pull-right">
 				<ul class="breadcrumb">
@@ -17,12 +17,12 @@
 						<i class="icon-angle-right"></i>
 					</li>
 					<li>
-						Catálogos
+						<%= t('general.catalogues')%>
 					</li>
 					<li class="separator">
 						<i class="icon-angle-right"></i>
 					</li>
-					<li class="active">Importar personas</li>
+					<li class="active">I<%= t('people.import')%></li>
 				</ul>
 			</div>
 		</div>
@@ -33,7 +33,7 @@
 <!-- // TABLE -->
 <div class="box bordered-box blue-border">
 	<div class="box-header blue-background">
-		<div class="title">Importar personas</div>
+		<div class="title"><%= t('people.import')%></div>
 	</div>
 	<div class="box-content box-double-padding">
     <%= form_tag create_from_import_people_path, multipart: true do %>
@@ -48,7 +48,7 @@
 				</div>
       </div>
       <div class="col-sm-7 col-sm-offset-1">
-        <label>Buscar archivo CSV</label>
+        <label> <%= t('people.import_file')%> </label>
         <%= file_field_tag :file %>
 			</div>
     </fieldset>
@@ -56,7 +56,7 @@
     <div class="form-actions">
       <div class="row">
         <div class="col-sm-7 col-sm-offset-5">
-          <%= button_tag 'Importar', :class => "btn btn-primary btn-lg" %>
+          <%= button_tag t('people.btn_import'), :class => "btn btn-primary btn-lg" %>
         </div>
       </div>
     </div>
