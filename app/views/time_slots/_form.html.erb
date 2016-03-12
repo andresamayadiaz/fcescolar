@@ -63,10 +63,20 @@
           <%= f.association :campus, :label=>t('campus.singular'), :class=>'select2 form-control' %>
         </div>
         <div class="form-group">
-          <%= f.input :start_time, :label=>t('time_slot.hora_ini'), :class=>'form-control' %>
+          <%= f.label t('time_slot.hora_ini') %>
         </div>
         <div class="form-group">
-          <%= f.input :end_time, :label=>t('time_slot.hora_fin'), :class=>'form-control' %>
+          <%= time_select("time_slot", "start_time",:default => {:hour => '00', :minute => '00'})%>
+        </div>
+        <div class="form-group">
+           <%= f.label t('time_slot.hora_fin')%>
+        </div>
+        <div class="form-group">
+          <%= time_select("time_slot", "end_time",:default => {:hour => '00', :minute => '00'})%>
+        </div>
+        <div class="form-group">
+          <%= f.label t('general.tot_minutes') %>
+          <input class="string form-control" id="sumaminutos" name="sumaminutos" type="text" style="width:100px" disabled>
         </div>
       </div>
     </fieldset>
@@ -87,6 +97,25 @@
 <!-- .// TABLE -->
 <% content_for :specific_js do %>
 <script type="text/javascript">
+
+  function calculate_minutes(){
+    hora_ini=$('#time_slot_start_time_4i').val();
+    min_ini=$('#time_slot_start_time_5i').val();
+    hora_fin=$('#time_slot_end_time_4i').val();
+    min_fin=$('#time_slot_end_time_5i').val();
+
+    var start_time= hora_ini+':'+min_ini;
+    var end_time=hora_fin+':'+min_fin;
+         
+    var timeStart = new Date("01/01/2007 " + start_time);
+    var timeEnd = new Date("01/01/2007 " + end_time);
+    var difference = timeEnd - timeStart;             
+
+    minutes = difference / 1000 / 60;
+
+    $('#sumaminutos').val(minutes);
+  }
+
   function get_by_franchise_id(val){
     $.ajax({
       type: 'GET',
@@ -110,6 +139,11 @@
   $(document).ready(function(){
 
     get_by_franchise_id($('#time_slot_franchise_id').val());
+    calculate_minutes();
+
+    $("#time_slot_start_time_5i, #time_slot_end_time_5i, #time_slot_start_time_4i, #time_slot_end_time_4i").change(function() {
+        calculate_minutes();
+    });
   
   })
 </script>
