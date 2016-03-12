@@ -9,6 +9,11 @@ class CareersController < ApplicationController
     send_file file
   end
 
+  def download_periodico_ofi
+    file = open("#{Rails.root}/public#{@career.po_file.url(:original, timestamp: false)}")
+    send_file file
+  end
+
   def check_for_study_plan
     @existing_study_plan = @career.study_plans.active
     render :json => @existing_study_plan.to_json(:include=> [:study_plan_periods => {:include=>[:study_plan_subjects]}])
@@ -77,6 +82,6 @@ class CareersController < ApplicationController
   end
 
   def career_params
-    params.require(:career).permit(:name, :status, :rvoe, :study_level_id, :serie, :clave_estadistica, :clave_dgp, :auth_file, :subject_ids => [])
+    params.require(:career).permit(:name, :status, :rvoe, :study_level_id, :serie, :clave_estadistica, :clave_dgp, :auth_file, :po_file ,:subject_ids => [])
   end
 end

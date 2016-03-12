@@ -9,8 +9,9 @@ class Career < ActiveRecord::Base
   before_destroy { subjects.clear }
   
   has_attached_file :auth_file
+  has_attached_file :po_file
   
-  validates_attachment_content_type :auth_file, content_type: ['application/pdf']
+  validates_attachment_content_type :auth_file, :po_file, content_type: ['application/pdf']
   validates :auth_file, :attachment_presence => true
   validates :study_level,  presence: true
 end

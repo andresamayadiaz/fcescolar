@@ -97,6 +97,15 @@
               <% if @career.auth_file.exists? %>
                 <div class="form-group">
                   <u><%= link_to t('general.download_link'), download_career_url(@career) %></u>
+                </div>              
+              <% end %>
+
+              <div class="form-group">
+                <%= f.input :po_file, :label=>t('career.periodico_oficial'), :class=>'form-control' %>
+              </div>
+              <% if @career.po_file.exists? %>
+                <div class="form-group">
+                    <u><%= link_to t('general.download_link'), download_periodico_ofi_career_url(@career), :target => "_blank" %></u>
                 </div>
               <% end %>
               <div class="form-group">
