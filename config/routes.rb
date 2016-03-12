@@ -143,7 +143,8 @@ Rails.application.routes.draw do
   resources :degree_achievements_categories
 
   resources :careers do
-    member { get :download }
+    member { get :download 
+      get :download_periodico_ofi}
     collection do
       get 'check_for_study_plan'
     end
