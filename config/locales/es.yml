@@ -58,6 +58,7 @@ es:
   general:
     month: "Mes"
     year: "Año"
+    tot_minutes: "Total Minutos"
     ok: "Correcto"
     not_ok: "Incorrecto"
     contacto: "Contacto"
