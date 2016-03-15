@@ -29,13 +29,17 @@ class Subject < ActiveRecord::Base
 
   def self.get_by_study_plan(study_plan_id,teacher_id)
     study_plan = StudyPlan.find(study_plan_id)
-    selected_subjects = study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject} }.flatten.uniq
+    selected_subjects = study_plan.study_plan_periods.map{|period| period.study_plan_subjects.map{|sp_subject| sp_subject.subject}}.flatten.uniq        
+
     if teacher_id.present?
       teacher_user_id = Person.find(teacher_id).user.id
       role = Role.find_by_name('teacher')
       teacher_role = UsersRole.find_by_user_id_and_role_id(teacher_user_id,role.id)
       permitted_study_levels = teacher_role.study_levels.map(&:id)
-      filtered_selected_subjects = selected_subjects.select{|subject| permitted_study_levels.include? subject.study_level_id}
+      selected_subjects=selected_subjects.map(&:id)      
+
+      filtered_selected_subjects = Subject.includes(:study_levels).where('study_levels.id'=> permitted_study_levels).where('subjects.id' => selected_subjects)
+      #filtered_selected_subjects = selected_subjects.select{|subject| permitted_study_levels.include? subject.study_level_id}
     else
       filtered_selected_subjects = selected_subjects
     end
