@@ -54,7 +54,7 @@ class StudyPlansController < ApplicationController
   # GET /study_plans
   # GET /study_plans.json
   def get_subject_by_curricular_line
-    @subjects = Subject.get_by_career(params[:career_id],params[:cl_id])
+    @subjects = Subject.includes(:curricular_lines).get_by_career(params[:career_id],params[:cl_id])
     render :json => @subjects
   end
 
