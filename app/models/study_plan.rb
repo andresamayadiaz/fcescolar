@@ -11,7 +11,10 @@ class StudyPlan < ActiveRecord::Base
   accepts_nested_attributes_for :officers_study_plans, :reject_if => :all_blank, :allow_destroy => true
 
   validates :period, :presence => true
+  validates :fecha_caducidad, :presence => true
   validate :unique_subject
+  validates :acuerdo, length: {maximum: 15, message: "Acuerdo debe contener máximo de 15 digitos"}
+  validates :beca, :inclusion => { :in => 10..50, message: "El valor debe ser entre 10% y 50 %" }
 
   def unique_subject
     arr_subjects = self.study_plan_periods.map{|x| x.study_plan_subjects}.flatten.map(&:subject_id)
