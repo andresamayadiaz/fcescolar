@@ -167,6 +167,7 @@ Rails.application.routes.draw do
       get 'get_active_time_slots_by_campus_id'
       get 'get_period_years_by_study_plan_id'
       get 'get_period_months_by_period_detail_id'
+      get 'get_anio'
     end
   end
 
