@@ -1,3 +1,4 @@
+
 <style>
 div.study_plan_name{width:60%;}
 .remove_sp_period_link{display:none}
@@ -54,12 +55,35 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
         <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>false, :include_blank=>'Seleccionar Carrera' %>
         <button class='btn btn-info' id='validate_study_plan_btn'><%= t('general.select')%></button>
         <br/><br/>
+        <input type='hidden' value='<%= @study_plan.id %>' id='sp_id'/>
+
         <div id='detail_study_plan'>
+
+             <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker" }  %>
+          <div class="form-group string optional study_plan_anio">
+            <label class="select required control-label" for="study_plan_fecha_caducidad"><%= t('study_plan.anio')%></label>
+            <select id="study_plan_anio" class="select required form-control" name="study_plan[anio]">
+           </select>
+          </div>
+          <%= f.input :acuerdo, :label=>t('study_plan.acuerdo') %>
+          <div class="form-group select required study_plan_modalidad">
+            <label class="string optional control-label" for="study_plan_modalidad"> <%= t('study_plan.modalidad') %> </label>
+            <%= select_tag(:modalidad, options_for_select(@modalidad, @study_plan.modalidad), :class=>"select required form-control", :id=>"study_plan_modalidad", :name=>"study_plan[modalidad]") %>
+
+          </div>         
           <%= f.input :number_of_periods, :label=>t('study_plan.num_periods') %>
-          <%= f.association :period, :label=>t('period.singular') %>
-          <%= f.input :attendance_rate, :label=>t('study_plan.attendance_rate') %>
+          <%= f.association :period, :label=>t('period.singular') %>          
+          <%= f.input :beca, :label=>t('study_plan.beca') %>
+          
+          <div id="div_attendance_rate" class="form-group integer optional study_plan_attendance_rate">
+            
+            <%= f.input :attendance_rate, :label=>t('study_plan.attendance_rate') %>
+
+          </div>
+
           <%= f.input :extra_opportunities, :label=>t('study_plan.extra_oport') %>
           <%= f.input :name, readonly: true, :label=>t('study_plan.name_study_plan') %>
+
           <div id="officers_study_plans_wrapper">
             <%= f.simple_fields_for :officers_study_plans do |officers_study_plan| %>
               <%= render 'officers_study_plan_fields', :f => officers_study_plan %>
@@ -95,9 +119,51 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
 <% content_for :specific_js do %>
 
 <script type="text/javascript">
-function fill_study_plan_name(career, period) {
+
+function get_anio(){
+  var sp_id = $('#sp_id').val();
+
+  $.ajax({
+      type: 'GET',
+      url: '/study_plans/get_anio?sp_id=' + sp_id,
+      success: function(data) {
+                if (data) {
+                    $("#study_plan_anio").val(data.anio);
+                }
+            }
+        })
+  
+}
+
+function check_value_modalidad (){
+
+ if ($('#study_plan_modalidad').val() =='Presencial' || $('#study_plan_modalidad').val()=='Mixto'){
+   $('#div_attendance_rate').show();
+ }else{
+   $('#div_attendance_rate').hide();
+ }  
+
+}
+
+function fill_years(){
+  var year = (new Date()).getFullYear(), select = document.getElementById("study_plan_anio");
+  var lyears = year - 12;
+
+    for(var i = 0; i <= 24; i++) {
+        option = document.createElement("option");        
+        option.value = lyears + i;
+        option.innerHTML = lyears + i;
+        select.appendChild(option);
+    }
+}
+
+function fill_modalidades(){
+
+}
+
+function fill_study_plan_name(career, anio, modalidad, period) {
     var _this_year = new Date().getFullYear();
-    $('#study_plan_name').val(career + ' ' + period + ' ' + _this_year);
+    $('#study_plan_name').val(career + ' ' + anio + ' ' + modalidad + ' ' + period);
 }
 
 function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
@@ -130,6 +196,7 @@ function check_to_hide_or_show_add_link() {
       }
     } else {
       $('#officers_study_plans_wrapper .links a').show();
+      $('#officers_study_plans_wrapper .links a').attr('disabled',false);
     }
 }
 
@@ -139,26 +206,67 @@ function validate_selected_officers(current_select){
       current_select.find('option').map(function(){
           var is_selected_officer = $.inArray($(this).val(),selected_officers);
           if (is_selected_officer!=-1 && $(this).text()!='Select an officer'){
-            $(this).remove();
+                       $(this).remove();
           }
       })
 }
 
 
 $(document).ready(function() {
+    
+    fill_years();
+    
+    if($('#sp_id').val()>0){
+      get_anio();
+    }
+    
+    check_value_modalidad();
+ 
+   var date = new Date('2016-03-17');
+   date.setMonth(date.getMonth() + 48);
+   var fecha= ("0"+date.getDay())+'/'+("0"+date.getMonth())+'/'+date.getFullYear();
+   $('.datepicker').val(fecha);
+
+
+   var nowTemp = new Date();
+   var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+  
+   $('.datepicker').datepicker({
+     onRender: function(date) {
+     return date.valueOf() < now.valueOf() ? 'disabled' : '';
+      $('.datepicker').val(date);
+    }}).on('changeDate', function(ev){
+          $('.datepicker').datepicker('hide');
+        }
+    );
+
+  // datepicker -->
+
+
+    $('#study_plan_modalidad').live('change',function(){
+        if($('#study_plan_modalidad').val()=='Presencial' || $('#study_plan_modalidad').val()=='Mixto'){
+          $('#div_attendance_rate').show();
+        }
+        else{
+            $('#div_attendance_rate').hide();
+        }
+    })
+
     $('#officers_study_plans_wrapper select').attr('disabled',true)
     $('form#new_study_plan').bind('submit', function() {
       $(this).find('select').removeAttr('disabled');
     });
+
     $('#officers_study_plans_wrapper select').live('change',function(){
       $('#officers_study_plans_wrapper .links a').removeAttr('disabled');
     })
+
+
     $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
       check_to_hide_or_show_add_link();
       var rank = $('#officers_study_plans_wrapper .nested-fields').length;
       item.find('input.form-control').val(rank); 
-      validate_selected_officers(item.find('select'));
-      $('#officers_study_plans_wrapper .links a').attr('disabled',true);
+      validate_selected_officers(item.find('select'));    
     });
 
     $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function(e,item) {
@@ -172,9 +280,9 @@ $(document).ready(function() {
     })
     
     $("#study_plan_period_id").change(function() {
-        fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_period_id option:selected').text());
+        fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_anio').val(), $('#study_plan_modalidad').val(), $('#study_plan_period_id option:selected').text());
     })
-
+    
     $('#study_plan_number_of_periods').change(function() {
         $(".remove_sp_period_link").trigger('click');
         var i = $(this).val();
@@ -216,7 +324,7 @@ $(document).ready(function() {
                         add_subject_btn.trigger('click');
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(item.curricular_line_id) 
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_id').val(item.subject_id) 
-                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_weekly_freq').val(item.weekly_frequency) 
+                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_hrs_semanales').val(item.weekly_frequency) 
                         add_subject_btn.parent().prev().prev().find('.study_plan_subject_credits').val(item.credits) 
                         get_subjects_by_curricular_line(add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(),add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl'),item.subject_id);
                       })
@@ -227,7 +335,7 @@ $(document).ready(function() {
             }
         })
     });
-
+    
 });
 </script>
 

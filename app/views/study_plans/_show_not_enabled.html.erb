@@ -14,12 +14,17 @@
         <legend><%= t('general.general_info') %></legend>
         <div class="col-sm-8">
           <table class="table table-condensed">
+            <tr><td><%= t('general.name') %></td><td><%= @study_plan.name %></td></tr>
             <tr><td><%= t('career.singular') %></td><td><%= @study_plan.career.try(:name) %></td></tr>          
             <tr><td><%= t('period.num_periods') %></td><td><%= @study_plan.number_of_periods %></td></tr>          
             <tr><td><%= t('period.singular') %></td><td><%= @study_plan.period.try(:name) %></td></tr>          
             <tr><td><%= t('study_plan.attendance_rate') %></td><td><%= @study_plan.attendance_rate %></td></tr>
+            <tr><td><%= t('study_plan.beca') %></td><td><%= @study_plan.beca %></td></tr>   
             <tr><td><%= t('study_plan.extra_oport') %></td><td><%= @study_plan.extra_opportunities %></td></tr>
-            <tr><td><%= t('general.name') %></td><td><%= @study_plan.name %></td></tr>
+            <tr><td><%= t('study_plan.modalidad') %></td><td><%= @study_plan.modalidad %></td></tr>
+            <tr><td><%= t('study_plan.anio') %></td><td><%= @study_plan.anio %></td></tr>          
+            <tr><td><%= t('study_plan.fecha_caducidad') %></td><td><%= @study_plan.fecha_caducidad.strftime("%d/%m/%Y") %></td></tr>
+            <tr><td><%= t('study_plan.acuerdo') %></td><td><%= @study_plan.acuerdo %></td></tr>
           </table>
         </div>
       </fieldset>
@@ -35,7 +40,7 @@
                 <tr>
                   <th><%= t('curricular_line.singular') %></th>
                   <th><%= t('subject.singular') %></th>
-                  <th><%= t('study_plan.week_frec') %></th>
+                  <th><%= t('study_plan.horas_semanales') %></th>
                   <th><%= t('study_plan.credits') %></th>
                 </tr>
               </thead>
@@ -44,7 +49,7 @@
                   <tr>
                     <td><%= study_plan_subject.curricular_line.try(:name) %></td>
                     <td><%= study_plan_subject.subject.try(:name) %></td>         
-                    <td><%= study_plan_subject.weekly_frequency %></td>          
+                    <td><%= study_plan_subject.horas_semanales %></td>          
                     <td><%= study_plan_subject.credits %></td>
                   </tr>          
                 <% end %>
