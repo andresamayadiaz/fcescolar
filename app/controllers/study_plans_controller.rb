@@ -58,6 +58,11 @@ class StudyPlansController < ApplicationController
     render :json => @subjects
   end
 
+  def get_anio
+    @modalidad = StudyPlan.find(params[:sp_id])
+    render :json => @modalidad
+  end
+
   def get_subject_by_study_plan_id
     @subjects = StudyPlanSubject
   end
@@ -71,6 +76,7 @@ class StudyPlansController < ApplicationController
   # GET /study_plans/1
   # GET /study_plans/1.json
   def show
+    @modalidad=$MODALIDADES
     @enabled = @study_plan.schedules.present? ? true : false
     @schedule = @study_plan.schedules.last if @enabled #to get latest schedule
     if params[:pdf].present? and params[:pdf]=='1'
@@ -82,21 +88,26 @@ class StudyPlansController < ApplicationController
   # GET /study_plans/new
   def new
     @study_plan = StudyPlan.new
+    @modalidad=$MODALIDADES
   end
 
   # GET /study_plans/1/edit
   def edit
+     @modalidad=$MODALIDADES
   end
 
   # POST /study_plans
   # POST /study_plans.json
-  def create
+  def create  
+    @modalidad=$MODALIDADES 
     @study_plan = StudyPlan.new(study_plan_params)
+    @mod=@study_plan.modalidad
     respond_to do |format|
       if @study_plan.save
         format.html { redirect_to study_plans_url, notice: 'Study plan was successfully created.' }
         format.json { render :show, status: :created, location: @study_plan }
       else
+
         format.html { render :new }
         format.json { render json: @study_plan.errors, status: :unprocessable_entity }
       end
@@ -106,6 +117,7 @@ class StudyPlansController < ApplicationController
   # PATCH/PUT /study_plans/1
   # PATCH/PUT /study_plans/1.json
   def update
+    @modalidad=$MODALIDADES
     respond_to do |format|
       if @study_plan.update(study_plan_params)
         format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully updated.' }
@@ -143,6 +155,11 @@ class StudyPlansController < ApplicationController
       :name,
       :attendance_rate,
       :extra_opportunities,
+      :anio,
+      :acuerdo,
+      :modalidad,
+      :beca,
+      :fecha_caducidad,
       officers_study_plans_attributes: [
         :id, 
         :study_plan_id, 
@@ -162,7 +179,7 @@ class StudyPlansController < ApplicationController
           :curricular_line_id, 
           :subject_id, 
           :name, 
-          :weekly_frequency, 
+          :horas_semanales, 
           :credits,
           :_destroy
         ]
