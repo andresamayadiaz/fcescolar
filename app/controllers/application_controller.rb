@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+ $MODALIDADES = %w{Presencial NoPresencial Mixto}
   private
 
   def current_ability
