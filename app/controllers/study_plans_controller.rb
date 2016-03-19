@@ -118,6 +118,8 @@ class StudyPlansController < ApplicationController
   # PATCH/PUT /study_plans/1.json
   def update
     @modalidad=$MODALIDADES
+    logger.debug "-----"
+    logger.debug @study_plan.fecha_caducidad
     respond_to do |format|
       if @study_plan.update(study_plan_params)
         format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully updated.' }
