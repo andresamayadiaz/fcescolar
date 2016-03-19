@@ -58,8 +58,11 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
         <input type='hidden' value='<%= @study_plan.id %>' id='sp_id'/>
 
         <div id='detail_study_plan'>
-
-             <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker" }  %>
+          <% if @study_plan.id.present? %>
+            <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker", value: @study_plan.fecha_caducidad.strftime("%Y-%m-%d") }  %>
+          <% else %>
+           <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker",  value: (Date.today + 4.year).strftime("%Y-%m-%d")}  %>
+          <% end %>        
           <div class="form-group string optional study_plan_anio">
             <label class="select required control-label" for="study_plan_fecha_caducidad"><%= t('study_plan.anio')%></label>
             <select id="study_plan_anio" class="select required form-control" name="study_plan[anio]">
@@ -215,23 +218,17 @@ function validate_selected_officers(current_select){
 $(document).ready(function() {
     
     fill_years();
-    
+    check_value_modalidad();
+
     if($('#sp_id').val()>0){
       get_anio();
     }
     
-    check_value_modalidad();
- 
-   var date = new Date('2016-03-17');
-   date.setMonth(date.getMonth() + 48);
-   var fecha= ("0"+date.getDay())+'/'+("0"+date.getMonth())+'/'+date.getFullYear();
-   $('.datepicker').val(fecha);
-
-
    var nowTemp = new Date();
    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
   
    $('.datepicker').datepicker({
+    format: "yyyy-mm-dd",
      onRender: function(date) {
      return date.valueOf() < now.valueOf() ? 'disabled' : '';
       $('.datepicker').val(date);
