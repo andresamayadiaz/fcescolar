@@ -24,7 +24,14 @@
             <tr><td><%= t('study_plan.extra_oport') %></td><td><%= @study_plan.extra_opportunities %></td></tr>
             <tr><td><%= t('study_plan.modalidad') %></td><td><%= @study_plan.modalidad %></td></tr>
             <tr><td><%= t('study_plan.anio') %></td><td><%= @study_plan.anio %></td></tr>          
-            <tr><td><%= t('study_plan.fecha_caducidad') %></td><td><%= @study_plan.fecha_caducidad.strftime("%d/%m/%Y") %></td></tr>
+            <tr><td><%= t('study_plan.fecha_caducidad') %></td>  
+                <td><% if @study_plan.fecha_caducidad.present? %>
+                    <%= @study_plan.fecha_caducidad.strftime("%d/%m/%Y") %>
+                    <% else %>
+                    <%= Date.today.strftime("%d/%m/%Y") %>
+                    <% end %>
+                </td>
+            </tr>
             <tr><td><%= t('study_plan.acuerdo') %></td><td><%= @study_plan.acuerdo %></td></tr>
           </table>
         </div>

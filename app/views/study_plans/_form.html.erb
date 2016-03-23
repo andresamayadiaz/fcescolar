@@ -59,7 +59,11 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
 
         <div id='detail_study_plan'>
           <% if @study_plan.id.present? %>
-            <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker", value: @study_plan.fecha_caducidad.strftime("%Y-%m-%d") }  %>
+            <% if @study_plan.fecha_caducidad.present? %>
+              <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker", value: @study_plan.fecha_caducidad.strftime("%Y-%m-%d") }  %>
+             <% else %>
+               <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker", value: Date.today.strftime("%Y-%m-%d") }  %>
+              <% end %>
           <% else %>
            <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker",  value: (Date.today + 4.year).strftime("%Y-%m-%d")}  %>
           <% end %>        
@@ -289,53 +293,11 @@ $(document).ready(function() {
         $('#study_plan_periods_wrapper').slideDown();
     })
     $('#validate_study_plan_btn').click(function(e) {
-      e.preventDefault();
+      e.preventDefault();      
+       document.getElementById("study_plan_career_id").disabled=true;
       $('#detail_study_plan').slideDown();
     });
-     /**   
-    $('#validate_study_plan_btn').click(function(e) {
-        e.preventDefault();
-        $('#study_plan_number_of_periods').val('').change();
-        $.ajax({
-            url: '/careers/check_for_study_plan?id=' + $('#study_plan_career_id').val(),
-            success: function(data) {
-                if (data && data.length > 0) {
-                    var d = data.slice(-1)[0]
-                    $('#study_plan_number_of_periods').val(d.number_of_periods).change();
-                    $('#study_plan_period_id').val(d.period_id);
-                    $('#study_plan_attendance_rate').val(d.attendance_rate);
-                    $('#study_plan_extra_opportunities').val(d.extra_opportunities);
-                    $('#study_plan_name').val(d.name);
-                } else {
-                    $('#study_plan_number_of_periods').val('');
-                    $('#study_plan_period_id').val('');
-                    $('#study_plan_attendance_rate').val('');
-                    $('#study_plan_extra_opportunities').val('');
-                    $('#study_plan_name').val('');
-                }                 
-                
-                $('.sp_period_name').each(function(i){
-                    if (d && d.study_plan_periods[i]) {
-                      var study_plan_period = d.study_plan_periods[i];
-                      var _this = $(this);
-                      var add_subject_btn = _this.parents('.study_plan_period_fields').find('a.add_subject_btn');
-                      _this.val(study_plan_period.period_name);
-                      study_plan_period.study_plan_subjects.forEach(function(item){
-                        add_subject_btn.trigger('click');
-                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(item.curricular_line_id) 
-                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_id').val(item.subject_id) 
-                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_hrs_semanales').val(item.weekly_frequency) 
-                        add_subject_btn.parent().prev().prev().find('.study_plan_subject_credits').val(item.credits) 
-                        get_subjects_by_curricular_line(add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl').val(),add_subject_btn.parent().prev().prev().find('.study_plan_subject_cl'),item.subject_id);
-                      })
-                    }
-                });
-                
-                $('#detail_study_plan').slideDown();
-            }
-        })
-    });
- */   
+  
 });
 </script>
 
