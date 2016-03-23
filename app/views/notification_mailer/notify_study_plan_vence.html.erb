@@ -3,7 +3,7 @@
   <head>
         <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
         <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-        <title>Your Message Subject or Title</title>
+        <title>Plan de Estudios Por Vencer</title>
         <style>
                 /*<![CDATA[*/
             #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
@@ -68,8 +68,10 @@
                                           <tr>
                                               <td align='center' style='border-top: 1px solid #dce1e5;border-bottom: 1px solid #dce1e5;' valign='top'>
                                                   <p style='margin: 1em 0;'>
-                                                      <strong>Plan de estudio:</strong>
-                                                      <%= "#{@studyplan.name}"%>
+                                                      <strong>Plan de estudio:</strong> 
+                                                      <%= "#{@studyplan.name}"%> </br>
+                                                      <strong>Fecha de vencimiento:</strong>
+                                                      <%= "#{@studyplan.fecha_caducidad.strftime("%d-%m-%Y")}"%>
                                                   </p>
                                               </td>
                                           </tr>
