@@ -29,11 +29,10 @@ class NotificationMailer < ActionMailer::Base
     mail(to: @user.email, subject: @subject)
   end
 
-  def notify_study_plan_vence(user, studyplan)
-    @user = user
+  def notify_study_plan_vence(user_emails, studyplan)
     @studyplan = studyplan
     @subject = "El Plan de estudio se vence en un año: #{@studyplan.name}"
-    mail(to: @user.email, subject: @subject)
+    mail(to: user_emails, subject: @subject)
   end
 
 end
