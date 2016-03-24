@@ -194,6 +194,7 @@ function get_subjects_by_curricular_line(cl_id, _this, old_selected_subject) {
 }
 
 function check_to_hide_or_show_add_link() {
+
     var max_officers = $('#max_officers').val();
     if ($('#officers_study_plans_wrapper .nested-fields').length == max_officers) {
       if($('#officers_study_plans_wrapper .nested-fields:hidden').length>0) {
@@ -260,17 +261,21 @@ $(document).ready(function() {
       $('#officers_study_plans_wrapper .links a').removeAttr('disabled');
     })
 
-
     $('#officers_study_plans_wrapper').bind('cocoon:after-insert', function(e,item) {
       check_to_hide_or_show_add_link();
       var rank = $('#officers_study_plans_wrapper .nested-fields').length;
-      item.find('input.form-control').val(rank); 
+      item.find('input.rank').val(rank); 
       validate_selected_officers(item.find('select'));    
     });
 
-    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function(e,item) {
+    $('#officers_study_plans_wrapper').bind('cocoon:after-remove', function(e,item) {      
       check_to_hide_or_show_add_link();
+      var rank = $('#officers_study_plans_wrapper .nested-fields').length;
+      
+      $(this).parent().find("input.rank").val(rank);
+      $('#officers_study_plans_wrapper select').attr('disabled',false)
     });
+
 
    check_to_hide_or_show_add_link();
     $('.study_plan_subject_cl').each(function() {
