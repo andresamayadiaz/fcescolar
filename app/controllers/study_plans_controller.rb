@@ -93,7 +93,11 @@ class StudyPlansController < ApplicationController
 
   # GET /study_plans/1/edit
   def edit
+    if @study_plan.enabled 
      @modalidad=$MODALIDADES
+    else
+      redirect_to study_plans_url
+    end
   end
 
   # POST /study_plans
