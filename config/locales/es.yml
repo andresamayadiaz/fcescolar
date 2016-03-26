@@ -368,6 +368,8 @@ es:
     modalidad: "Modalidad"
     beca: "% Beca"
     fecha_caducidad: "Fecha de Caducidad"
+    no_ciclos: "# Ciclos"
+    no_ciclo: "# Ciclo"
   state:
     singular: "Estado"
     plural: "Estados"
