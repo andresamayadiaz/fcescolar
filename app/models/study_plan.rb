@@ -5,12 +5,15 @@ class StudyPlan < ActiveRecord::Base
   has_many :schedules
   has_many :officers_study_plans
   has_many :officers, through: :officers_study_plans
+  has_many :espacio_fisicos
   scope :active, -> { where(status: true) } 
 
   accepts_nested_attributes_for :study_plan_periods, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :officers_study_plans, :reject_if => :all_blank, :allow_destroy => true
 
   validates :period, :presence => true
+  validates :no_ciclos, :presence =>true
+  validates :no_ciclos, :inclusion => { :in => 1..3, message: "El valor debe ser entre 1 y 3" }
   validates :fecha_caducidad, :presence => true
   validate :unique_subject
   validates :acuerdo, length: {maximum: 15, message: "Acuerdo debe contener máximo de 15 digitos"}
