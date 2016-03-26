@@ -94,9 +94,9 @@ class StudyPlansController < ApplicationController
   # GET /study_plans/1/edit
   def edit
     if @study_plan.enabled 
-     @modalidad=$MODALIDADES
-    else
-      redirect_to study_plans_url
+     redirect_to study_plans_url
+    else    
+      @modalidad=$MODALIDADES
     end
   end
 
@@ -166,6 +166,7 @@ class StudyPlansController < ApplicationController
       :modalidad,
       :beca,
       :fecha_caducidad,
+      :no_ciclos,
       officers_study_plans_attributes: [
         :id, 
         :study_plan_id, 
@@ -178,6 +179,7 @@ class StudyPlansController < ApplicationController
         :period_name, 
         :curricular_line_id, 
         :study_plan_id,
+        :no_ciclo,
         :_destroy,
         study_plan_subjects_attributes: [
           :id, 
