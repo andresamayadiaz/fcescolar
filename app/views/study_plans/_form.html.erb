@@ -54,6 +54,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
         <%= f.error :base %>
         <%= f.association :career, :as => :collection_select, collection: Career.where('status =?', true), :label=>false, :include_blank=>'Seleccionar Carrera' %>
         <button class='btn btn-info' id='validate_study_plan_btn'><%= t('general.select')%></button>
+
         <br/><br/>
         <input type='hidden' value='<%= @study_plan.id %>' id='sp_id'/>
 
@@ -68,7 +69,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
            <%= f.input :fecha_caducidad, :label => t('study_plan.fecha_caducidad'), as: :string, input_html: { class: "datepicker",  value: (Date.today + 4.year).strftime("%Y-%m-%d")}  %>
           <% end %>        
           <div class="form-group string optional study_plan_anio">
-            <label class="select required control-label" for="study_plan_fecha_caducidad"><%= t('study_plan.anio')%></label>
+            <label class="select required control-label" for="study_plan_fecha_anio"><%= t('study_plan.anio')%></label>
             <select id="study_plan_anio" class="select required form-control" name="study_plan[anio]">
            </select>
           </div>
@@ -79,6 +80,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
 
           </div>         
           <%= f.input :number_of_periods, :label=>t('study_plan.num_periods') %>
+          <%= f.input :no_ciclos, :label => t('study_plan.no_ciclos'), input_html:{value: 1}%>
           <%= f.association :period, :label=>t('period.singular') %>          
           <%= f.input :beca, :label=>t('study_plan.beca') %>
           
@@ -103,6 +105,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
           <br/>
           <div id="study_plan_periods_wrapper">
             <% @period_counter = 1 %>
+            
             <%= f.simple_fields_for :study_plan_periods do |study_plan_period| %>
               <%= render 'study_plan_period_fields', :f => study_plan_period %>
             <% @period_counter = @period_counter + 1 %>
@@ -110,6 +113,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
             <div class='links' id="link_to_add_study_plan_periods" style="display:none;">
               <%= link_to_add_association 'Agregar Periodo Plan de Estudio', f, :study_plan_periods %>
             </div>
+
           </div>
           <br/><br/>
           <div class="form-action"><button type="submit" class="btn btn-lg btn-primary"><%= t('general.save') %></button></div>
@@ -164,9 +168,23 @@ function fill_years(){
     }
 }
 
-function fill_modalidades(){
+function fill_ciclos(id){
+  
+  var ciclo = $('#study_plan_no_ciclos').val();
+  var arr = [];
 
+  for (var i = 1; i <= ciclo; i++) {
+       arr.push(i);
+  }
+  var select = document.getElementById("study_plan_no_ciclo_"+id);
+  select.innerHTML = "";
+
+  for(var j = 0; j < arr.length; j++) {
+    var opt = arr[j];
+    select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+  }
 }
+
 
 function fill_study_plan_name(career, anio, modalidad, period) {
     var _this_year = new Date().getFullYear();
@@ -221,13 +239,15 @@ function validate_selected_officers(current_select){
 
 
 $(document).ready(function() {
-    
+   
+
     fill_years();
     check_value_modalidad();
 
     if($('#sp_id').val()>0){
       get_anio();
     }
+
 
   // datepicker --> 
    var nowTemp = new Date();
@@ -285,6 +305,13 @@ $(document).ready(function() {
     
     $("#study_plan_period_id, #study_plan_anio").change(function() {
         fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_anio').val(), $('#study_plan_modalidad').val(), $('#study_plan_period_id option:selected').text());
+
+
+      var numPeriods= $('#study_plan_number_of_periods').val(); 
+      for (var id=1; id<=numPeriods; id++){          
+          fill_ciclos(id);
+      }
+
     })
     
     $('#study_plan_number_of_periods').change(function() {
@@ -296,11 +323,31 @@ $(document).ready(function() {
         }
         $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
         $('#study_plan_periods_wrapper').slideDown();
+        
+        var numPeriods= $('#study_plan_number_of_periods').val(); 
+
+        for (var id=1; id<=numPeriods; id++){          
+            $('#study_plan_no_ciclo_').attr("id", "study_plan_no_ciclo_"+id);          
+        }
+        
     })
+
+    $('#study_plan_no_ciclos').change(function(){
+
+      var numPeriods= $('#study_plan_number_of_periods').val(); 
+
+      for (var id=1; id<=numPeriods; id++){          
+          fill_ciclos(id);
+      }
+      
+    })
+
+
     $('#validate_study_plan_btn').click(function(e) {
       e.preventDefault();      
        document.getElementById("study_plan_career_id").disabled=true;
       $('#detail_study_plan').slideDown();
+
     });
   
 });
