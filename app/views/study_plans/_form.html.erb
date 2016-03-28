@@ -80,7 +80,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
 
           </div>         
           <%= f.input :number_of_periods, :label=>t('study_plan.num_periods') %>
-          <%= f.input :no_ciclos, :label => t('study_plan.no_ciclos'), input_html:{value: 1}%>
+          <%= f.input :no_ciclos, :label => t('study_plan.no_ciclos') %>
           <%= f.association :period, :label=>t('period.singular') %>          
           <%= f.input :beca, :label=>t('study_plan.beca') %>
           
@@ -305,12 +305,6 @@ $(document).ready(function() {
     
     $("#study_plan_period_id, #study_plan_anio").change(function() {
         fill_study_plan_name($('#study_plan_career_id option:selected').text(), $('#study_plan_anio').val(), $('#study_plan_modalidad').val(), $('#study_plan_period_id option:selected').text());
-
-
-      var numPeriods= $('#study_plan_number_of_periods').val(); 
-      for (var id=1; id<=numPeriods; id++){          
-          fill_ciclos(id);
-      }
 
     })
     
