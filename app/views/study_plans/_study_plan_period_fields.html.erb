@@ -1,12 +1,21 @@
 <fieldset>
   <div class='study_plan_period_fields nested-fields'>
     <legend><%= t('period.singular') %> #<span class='period_counter'><%= @period_counter %></span></legend>
-    <%= f.input :period_name, :label=>t('period.name'), :input_html=>{:class=>'sp_period_name'} %>
-    <div class="form-group string optional study_plan_study_plan_periods_no_ciclo">
-            <label class="select required control-label" for="study_plan_no_ciclo"><%= t('study_plan.no_ciclo')%></label>
-            <select id="study_plan_no_ciclo_" class="select required form-control" name="study_plan[no_ciclo]">
-           </select>
-   </div>
+
+    
+      <%= f.input :period_name, :label=>t('period.name'), :input_html=>{:class=>'sp_period_name'} %>
+      <div class="form-group string optional study_plan_study_plan_periods_no_ciclo">
+        <label class="select required control-label" for="study_plan_no_ciclo"><%= t('study_plan.no_ciclo')%></label>
+
+        <% if @study_plan.study_plan_periods.present? %>
+          <%= select_tag(:no_ciclo, options_for_select(@no_ciclo,  @ciclo), :class=>'select required study_plan_periods_no_ciclo form-control',:id=>'study_plan_periods_no_ciclo')  %>        
+        <% else %>
+          <%= select_tag(:no_ciclo, options_for_select(@no_ciclo), :class=>'select required study_plan_periods_no_ciclo form-control',:id=>'study_plan_periods_no_ciclo')  %>
+        <% end %>
+      
+      </div>
+    
+
     <%= f.simple_fields_for :study_plan_subjects do |study_plan_subject| %>
       <%= render 'study_plan_subject_fields', :f => study_plan_subject %>
     <% end %>

@@ -95,6 +95,7 @@ span.help-block{background-color: #f2dede;border-color: #eed3d7;color: #b94a48; 
 
           <div id="officers_study_plans_wrapper">
             <%= f.simple_fields_for :officers_study_plans do |officers_study_plan| %>
+
               <%= render 'officers_study_plan_fields', :f => officers_study_plan %>
             <% end %>
 
@@ -176,7 +177,7 @@ function fill_ciclos(id){
   for (var i = 1; i <= ciclo; i++) {
        arr.push(i);
   }
-  var select = document.getElementById("study_plan_no_ciclo_"+id);
+  var select = document.getElementById("study_plan_study_plan_periods_no_ciclo_"+id);
   select.innerHTML = "";
 
   for(var j = 0; j < arr.length; j++) {
@@ -184,7 +185,6 @@ function fill_ciclos(id){
     select.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
   }
 }
-
 
 function fill_study_plan_name(career, anio, modalidad, period) {
     var _this_year = new Date().getFullYear();
@@ -239,13 +239,12 @@ function validate_selected_officers(current_select){
 
 
 $(document).ready(function() {
-   
 
     fill_years();
     check_value_modalidad();
 
     if($('#sp_id').val()>0){
-      get_anio();
+      get_anio();  
     }
 
 
@@ -318,14 +317,14 @@ $(document).ready(function() {
         $('#link_to_add_study_plan_periods').prev().find('.period_counter').html($(this).val());
         $('#study_plan_periods_wrapper').slideDown();
         
-        var numPeriods= $('#study_plan_number_of_periods').val(); 
+       // var numPeriods= $('#study_plan_number_of_periods').val(); 
 
-        for (var id=1; id<=numPeriods; id++){          
-            $('#study_plan_no_ciclo_').attr("id", "study_plan_no_ciclo_"+id);          
-        }
+      //  for (var id=1; id<=numPeriods; id++){          
+       //     $('#study_plan_periods_no_ciclo').attr("id", "study_plan_study_plan_periods_no_ciclo_"+id);          
+      // }
         
     })
-
+/*
     $('#study_plan_no_ciclos').change(function(){
 
       var numPeriods= $('#study_plan_number_of_periods').val(); 
@@ -335,7 +334,7 @@ $(document).ready(function() {
       }
       
     })
-
+*/
 
     $('#validate_study_plan_btn').click(function(e) {
       e.preventDefault();      
