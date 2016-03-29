@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   end
 
  $MODALIDADES = %w{Presencial NoPresencial Mixto}
+
+ $CICLOS_PERIODOS = %w{1 2 3 4}
   private
 
   def current_ability
