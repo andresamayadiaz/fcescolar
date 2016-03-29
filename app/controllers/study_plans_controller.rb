@@ -89,6 +89,7 @@ class StudyPlansController < ApplicationController
   def new
     @study_plan = StudyPlan.new
     @modalidad=$MODALIDADES
+    @no_ciclo=$CICLOS_PERIODOS
   end
 
   # GET /study_plans/1/edit
@@ -97,14 +98,25 @@ class StudyPlansController < ApplicationController
      redirect_to study_plans_url
     else    
       @modalidad=$MODALIDADES
+      @no_ciclo=$CICLOS_PERIODOS
+      @spp=@study_plan.study_plan_periods
+
+      @spp.each do |spp|
+
+        @ciclo=spp.no_ciclo
+
+      end
+     
     end
   end
 
   # POST /study_plans
   # POST /study_plans.json
   def create  
-    @modalidad=$MODALIDADES 
+    @modalidad=$MODALIDADES
+    @no_ciclo=$CICLOS_PERIODOS 
     @study_plan = StudyPlan.new(study_plan_params)
+
     @mod=@study_plan.modalidad
     respond_to do |format|
       if @study_plan.save
@@ -122,8 +134,7 @@ class StudyPlansController < ApplicationController
   # PATCH/PUT /study_plans/1.json
   def update
     @modalidad=$MODALIDADES
-    logger.debug "-----"
-    logger.debug @study_plan.fecha_caducidad
+    @no_ciclo=$CICLOS_PERIODOS 
     respond_to do |format|
       if @study_plan.update(study_plan_params)
         format.html { redirect_to edit_study_plan_url(@study_plan), notice: 'Study plan was successfully updated.' }
